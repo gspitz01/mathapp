@@ -1,0 +1,22 @@
+<div class="quiz-view">
+  <div class="question-view" *ngIf="round.getCurrentQuestion()">
+    <table>
+      <tr>
+        <td></td>
+        <td><span>{{round.getCurrentQuestion().operand1.display}}</span></td>
+      </tr>
+      <tr>
+        <td><span>{{round.getCurrentQuestion().operator.display}}</span></td>
+        <td><span>{{round.getCurrentQuestion().operand2.display}}</span></td>
+      </tr>
+    </table>
+    <input #answer (disabled)="answerDisabled"
+        (keyup.enter)="onEnter(answer.value); answer.value=''"
+        type="text" name="answer" id="answer" />
+  </div>
+  <button (click)="start()" id="start">{{buttonText}}</button>
+  <div class="time-remaining">{{timeLeft}}</div>
+  <div class="questions-seen">Questions: {{questionsSeen}}</div>
+  <div class="correct-answers">Correct: {{correctAnswers}}</div>
+  <div class="messages">{{messages}}</div>
+</div>

@@ -28,7 +28,7 @@ describe('TimeLimitedRound', () => {
   });
 
   it('before start, getNumberOfQuestionsSeen returns 0', () => {
-    expect(unstartedRound.getNumberOfQuestionsSeen()).toBe(0);
+    expect(unstartedRound.getNumberOfQuestionsAnswered()).toBe(0);
   });
 
   it('before start, getNumberOfCorrectAnswers returns 0', () => {

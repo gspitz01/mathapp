@@ -116,3 +116,8 @@ let level50 = new RoundLevel(50, "Expert Division", justDivision,
     onlyPositiveWholeNumberResult);
 export const LEVEL_50 = level50;
 export const EXPERT_DIVISION = level50;
+
+export const LEVEL_ORDER = [
+  LEVEL_1, LEVEL_2, LEVEL_3, LEVEL_4, LEVEL_5, LEVEL_16, LEVEL_17, LEVEL_18, LEVEL_19, LEVEL_20,
+  LEVEL_31, LEVEL_32, LEVEL_33, LEVEL_34, LEVEL_35, LEVEL_46, LEVEL_47, LEVEL_48, LEVEL_49, LEVEL_50
+]
