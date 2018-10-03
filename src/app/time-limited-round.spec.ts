@@ -2,6 +2,7 @@ import { TimeLimitedRound } from './time-limited-round';
 import { Seconds } from './seconds';
 import { LEVEL_1 } from './round-levels';
 import { ADDITION } from './basic-operators';
+import { BasicOperatorQuestion } from './basic-operator-question';
 
 describe('TimeLimitedRound', () => {
   let initialTime = new Seconds(60);
@@ -33,6 +34,13 @@ describe('TimeLimitedRound', () => {
 
   it('before start, getNumberOfCorrectAnswers returns 0', () => {
     expect(unstartedRound.getNumberOfCorrectAnswers()).toBe(0);
+  });
+
+  it('before calling start creates first question', () => {
+    let round = new TimeLimitedRound(initialTime, LEVEL_1);
+    spyOn(LEVEL_1, 'createQuestion');
+    round.start();
+    expect(LEVEL_1.createQuestion).toHaveBeenCalled();
   });
 
   it('after start, tick should decrease time remaining', () => {

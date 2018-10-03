@@ -2,10 +2,6 @@ import { Seconds } from './seconds';
 import { RoundLevel } from './round-level';
 import { BasicOperatorQuestion } from './basic-operator-question';
 import { AnswerEvaluation } from './answer-evaluation';
-import { Operand } from './operand';
-import { OperandLimitations } from './operand-limitations';
-import { Result } from './result';
-import { Operator } from './operator';
 
 export class TimeLimitedRound {
 
@@ -25,7 +21,7 @@ export class TimeLimitedRound {
    */
   start() {
     this.started = true;
-    this.currentQuestion = this.createQuestion();
+    this.currentQuestion = this.level.createQuestion();
   }
 
   /**
@@ -56,7 +52,7 @@ export class TimeLimitedRound {
       if (correct) {
         this.correctAnswers++;
       }
-      this.currentQuestion = this.createQuestion();
+      this.currentQuestion = this.level.createQuestion();
       this.questionsAnswered++;
       return new AnswerEvaluation(correct, this.currentQuestion.getResult());
     } else {
@@ -80,69 +76,6 @@ export class TimeLimitedRound {
 
   getNumberOfCorrectAnswers(): number {
     return this.correctAnswers;
-  }
-
-  /**
-   * Creates a BasicOperatorQuestion using the OperandLimitations from the level
-   * Also checks that the result satisfies the ResultLimitations
-   */
-  private createQuestion(): BasicOperatorQuestion {
-    var question: BasicOperatorQuestion = null;
-    var result: Result = null;
-    do {
-      let op1 = this.createOperand(this.level.operand1Limitations);
-      let op2 = this.createOperand(this.level.operand2Limitations);
-      let operator = this.chooseOperator();
-      question = new BasicOperatorQuestion(op1, op2, operator);
-      result = question.getResult();
-    } while (!this.resultSatisfiesLimitations(result));
-    return question;
-  }
-
-  /**
-   * Creates an operand for the question to be asked
-   * @param limitations The limitations for the Operand to be created
-   */
-  private createOperand(limitations: OperandLimitations): Operand {
-    var value = Math.random() * 10**limitations.numberOfDigits;
-    if (limitations.wholeNumber) {
-      value = Math.floor(value);
-    }
-    if (limitations.possiblyNegative) {
-      var multNeg = Math.random();
-      if (multNeg > 0.5) {
-        value = value * -1;
-      }
-    }
-    return new Operand(""+value, value);
-  }
-
-  /**
-   * Checks a question result to make sure it satisfies ResultLimitations
-   * @param result The Result to be checked against
-   */
-  private resultSatisfiesLimitations(result: Result): boolean {
-    if (result === null) {
-      return false;
-    } else {
-      if (this.level.resultLimitations === null) {
-        return true;
-      }
-      if ((!this.level.resultLimitations.possiblyNegative && result.value < 0) ||
-          (this.level.resultLimitations.wholeNumber && !Number.isInteger(result.value))) {
-        return false;
-      } else {
-        return true;
-      }
-    }
-  }
-
-  /**
-   * Chooses an Operator from the options in the level
-   */
-  private chooseOperator(): Operator {
-    let choice = Math.floor(Math.random() * this.level.operators.length);
-    return this.level.operators[choice];
   }
 
   /**
