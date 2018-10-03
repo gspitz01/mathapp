@@ -6,7 +6,7 @@ import { BasicOperatorQuestion } from "./basic-operator-question";
 import { Result } from './result';
 
 export class RoundLevel {
-  constructor(readonly value: number, readonly name: string, readonly operators: Operator[],
+  constructor(readonly name: string, readonly operators: Operator[],
     readonly operand1Limitations: OperandLimitations, readonly operand2Limitations: OperandLimitations,
     readonly resultLimitations: ResultLimitations) {}
 

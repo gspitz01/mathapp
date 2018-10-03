@@ -5,119 +5,100 @@ import { Operator } from './operator';
 import { ResultLimitations } from './result-limitations';
 
 let justAddition: Operator[] = [ADDITION];
-let singleDigitPositiveWholeNumbers = new OperandLimitations(true, 1, false);
-let level1 = new RoundLevel(1, "Easy Addition", justAddition,
+let singleDigitPositiveWholeNumbers = new OperandLimitations(true, 1, false, true);
+export const EASY_ADDITION = new RoundLevel("Easy Addition", justAddition,
     singleDigitPositiveWholeNumbers, singleDigitPositiveWholeNumbers, null);
-export const LEVEL_1 = level1;
-export const EASY_ADDITION = level1;
 
-let doubleDigitPositiveWholeNumbers = new OperandLimitations(true, 2, false);
-let level2 = new RoundLevel(2, "Medium Addition", justAddition,
+let doubleDigitPositiveWholeNumbers = new OperandLimitations(true, 2, false, true);
+export const MEDIUM_ADDITION = new RoundLevel("Medium Addition", justAddition,
     doubleDigitPositiveWholeNumbers, singleDigitPositiveWholeNumbers, null);
-export const LEVEL_2 = level2;
-export const MEDIUM_ADDITION = level2;
 
-let level3 = new RoundLevel(3, "Challenging Addition", justAddition,
+export const CHALLENGING_ADDITION = new RoundLevel("Challenging Addition", justAddition,
     doubleDigitPositiveWholeNumbers, doubleDigitPositiveWholeNumbers, null);
-export const LEVEL_3 = level3;
-export const CHALLENGING_ADDITION = level3;
 
-let tripleDigitPositiveWholeNumbers = new OperandLimitations(true, 3, false);
-let level4 = new RoundLevel(4, "Hard Addition", justAddition,
+let tripleDigitPositiveWholeNumbers = new OperandLimitations(true, 3, false, true);
+export const HARD_ADDITION = new RoundLevel("Hard Addition", justAddition,
     tripleDigitPositiveWholeNumbers, doubleDigitPositiveWholeNumbers, null);
-export const LEVEL_4 = level4;
-export const HARD_ADDITION = level4;
 
-let level5 = new RoundLevel(5, "Expert Addition", justAddition,
+export const EXPERT_ADDITION = new RoundLevel("Expert Addition", justAddition,
     tripleDigitPositiveWholeNumbers, tripleDigitPositiveWholeNumbers, null);
-export const LEVEL_5 = level5;
-export const EXPERT_ADDITION = level5;
 
 let justSubtraction: Operator[] = [SUBTRACTION];
-let level16 = new RoundLevel(16, "Easy Subtraction", justSubtraction,
+export const EASY_SUBTRACTION = new RoundLevel("Easy Subtraction", justSubtraction,
     singleDigitPositiveWholeNumbers, singleDigitPositiveWholeNumbers, null);
-export const LEVEL_16 = level16;
-export const EASY_SUBTRACTION = level16;
 
-let level17 = new RoundLevel(17, "Medium Subtraction", justSubtraction,
+export const MEDIUM_SUBTRACTION = new RoundLevel("Medium Subtraction", justSubtraction,
     doubleDigitPositiveWholeNumbers, singleDigitPositiveWholeNumbers, null);
-export const LEVEL_17 = level17;
-export const MEDIUM_SUBTRACTION = level17;
 
-let level18 = new RoundLevel(18, "Challenging Subtraction", justSubtraction,
+export const CHALLENGING_SUBTRACTION = new RoundLevel("Challenging Subtraction", justSubtraction,
     doubleDigitPositiveWholeNumbers, doubleDigitPositiveWholeNumbers, null);
-export const LEVEL_18 = level18;
-export const CHALLENGING_SUBTRACTION = level18;
 
-let level19 = new RoundLevel(19, "Hard Subtraction", justSubtraction,
+export const HARD_SUBTRACTION = new RoundLevel("Hard Subtraction", justSubtraction,
     tripleDigitPositiveWholeNumbers, doubleDigitPositiveWholeNumbers, null);
-export const LEVEL_19 = level19;
-export const HARD_SUBTRACTION = level19;
 
-let level20 = new RoundLevel(20, "Expert Subtraction", justSubtraction,
+export const EXPERT_SUBTRACTION = new RoundLevel("Expert Subtraction", justSubtraction,
     tripleDigitPositiveWholeNumbers, tripleDigitPositiveWholeNumbers, null);
-export const LEVEL_20 = level20;
-export const EXPERT_SUBTRACTION = level20;
 
 let justMultiplication: Operator[] = [MULTIPLICATION];
-let level31 = new RoundLevel(31, "Easy Multiplication", justMultiplication,
+export const EASY_MULTIPLICATION = new RoundLevel("Easy Multiplication", justMultiplication,
     singleDigitPositiveWholeNumbers, singleDigitPositiveWholeNumbers, null);
-export const LEVEL_31 = level31;
-export const EASY_MULTIPLICATION = level31;
 
-let level32 = new RoundLevel(32, "Medium Multiplication", justMultiplication,
+export const MEDIUM_MULTIPLICATION = new RoundLevel("Medium Multiplication", justMultiplication,
     doubleDigitPositiveWholeNumbers, singleDigitPositiveWholeNumbers, null);
-export const LEVEL_32 = level32;
-export const MEDIUM_MULTIPLICATION = level32;
 
-let level33 = new RoundLevel(33, "Challenging Multiplication", justMultiplication,
+export const CHALLENGING_MULTIPLICATION = new RoundLevel("Challenging Multiplication", justMultiplication,
     doubleDigitPositiveWholeNumbers, doubleDigitPositiveWholeNumbers, null);
-export const LEVEL_33 = level33;
-export const CHALLENGING_MULTIPLICATION = level33;
 
-let level34 = new RoundLevel(34, "Hard Multiplication", justMultiplication,
+export const HARD_MULTIPLICATION = new RoundLevel("Hard Multiplication", justMultiplication,
     tripleDigitPositiveWholeNumbers, doubleDigitPositiveWholeNumbers, null);
-export const LEVEL_34 = level34;
-export const HARD_MULTIPLICATION = level34;
 
-let level35 = new RoundLevel(35, "Expert Multiplication", justMultiplication,
+export const EXPERT_MULTIPLICATION = new RoundLevel("Expert Multiplication", justMultiplication,
     tripleDigitPositiveWholeNumbers, tripleDigitPositiveWholeNumbers, null);
-export const LEVEL_35 = level35;
-export const EXPERT_MULTIPLICATION = level35;
 
 let justDivision: Operator[] = [DIVISION];
+let divisorSingleDigitLimitations = new OperandLimitations(true, 1, false, false);
+let divisorDoubleDigitLimitations = new OperandLimitations(true, 2, false, false);
+let divisorTripleDigitLimitations = new OperandLimitations(true, 3, false, false);
 let onlyPositiveWholeNumberResult = new ResultLimitations(true, false);
-let level46 = new RoundLevel(46, "Easy Division", justDivision,
-    singleDigitPositiveWholeNumbers, singleDigitPositiveWholeNumbers,
+export const EASY_DIVISION = new RoundLevel("Easy Division", justDivision,
+    singleDigitPositiveWholeNumbers, divisorSingleDigitLimitations,
     onlyPositiveWholeNumberResult);
-export const LEVEL_46 = level46;
-export const EASY_DIVISION = level46;
 
-let level47 = new RoundLevel(47, "Medium Division", justDivision,
-    doubleDigitPositiveWholeNumbers, singleDigitPositiveWholeNumbers,
+export const MEDIUM_DIVISION = new RoundLevel("Medium Division", justDivision,
+    doubleDigitPositiveWholeNumbers, divisorSingleDigitLimitations,
     onlyPositiveWholeNumberResult);
-export const LEVEL_47 = level47;
-export const MEDIUM_DIVISION = level47;
 
-let level48 = new RoundLevel(48, "Challenging Division", justDivision,
-    doubleDigitPositiveWholeNumbers, doubleDigitPositiveWholeNumbers,
+export const CHALLENGING_DIVISION = new RoundLevel("Challenging Division", justDivision,
+    doubleDigitPositiveWholeNumbers, divisorDoubleDigitLimitations,
     onlyPositiveWholeNumberResult);
-export const LEVEL_48 = level48;
-export const CHALLENGING_DIVISION = level48;
 
-let level49 = new RoundLevel(49, "Hard Division", justDivision,
-    tripleDigitPositiveWholeNumbers, doubleDigitPositiveWholeNumbers,
+export const HARD_DIVISION = new RoundLevel("Hard Division", justDivision,
+    tripleDigitPositiveWholeNumbers, divisorDoubleDigitLimitations,
     onlyPositiveWholeNumberResult);
-export const LEVEL_49 = level49;
-export const HARD_DIVISION = level49;
 
-let level50 = new RoundLevel(50, "Expert Division", justDivision,
-    tripleDigitPositiveWholeNumbers, tripleDigitPositiveWholeNumbers,
+export const EXPERT_DIVISION = new RoundLevel("Expert Division", justDivision,
+    tripleDigitPositiveWholeNumbers, divisorTripleDigitLimitations,
     onlyPositiveWholeNumberResult);
-export const LEVEL_50 = level50;
-export const EXPERT_DIVISION = level50;
 
 export const LEVEL_ORDER = [
-  LEVEL_1, LEVEL_2, LEVEL_3, LEVEL_4, LEVEL_5, LEVEL_16, LEVEL_17, LEVEL_18, LEVEL_19, LEVEL_20,
-  LEVEL_31, LEVEL_32, LEVEL_33, LEVEL_34, LEVEL_35, LEVEL_46, LEVEL_47, LEVEL_48, LEVEL_49, LEVEL_50
+  EASY_ADDITION,
+  MEDIUM_ADDITION,
+  CHALLENGING_ADDITION,
+  HARD_ADDITION,
+  EXPERT_ADDITION,
+  EASY_SUBTRACTION,
+  MEDIUM_SUBTRACTION,
+  CHALLENGING_MULTIPLICATION,
+  HARD_SUBTRACTION,
+  EXPERT_SUBTRACTION,
+  EASY_MULTIPLICATION,
+  MEDIUM_MULTIPLICATION,
+  CHALLENGING_MULTIPLICATION,
+  HARD_MULTIPLICATION,
+  EXPERT_MULTIPLICATION,
+  EASY_DIVISION,
+  MEDIUM_DIVISION,
+  CHALLENGING_DIVISION,
+  HARD_DIVISION,
+  EXPERT_DIVISION
 ]
