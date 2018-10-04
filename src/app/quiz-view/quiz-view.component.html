@@ -10,9 +10,13 @@
         <td><span>{{round.getCurrentQuestion().operand2.display}}</span></td>
       </tr>
     </table>
-    <input #answer (disabled)="answerDisabled"
-        (keyup.enter)="onEnter(answer.value); answer.value=''"
+    <input (disabled)="answerDisabled"
+        (keyup.enter)="onEnter()"
+        [(ngModel)]="answer"
+        #answerInput="ngModel"
+        pattern="[0-9\./]*"
         type="text" name="answer" id="answer" />
+    <div *ngIf="answerInput.errors?.pattern">Answer must be a valid number.</div>
   </div>
   <button (click)="start()" id="start">{{buttonText}}</button>
   <div class="time-remaining">{{timeLeft}}</div>

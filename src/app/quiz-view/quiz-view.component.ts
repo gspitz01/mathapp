@@ -12,6 +12,7 @@ const advanceToNextLevelText = "You can move on to the next level!";
 const notEnoughQuestionsToAdvanceText = "You did not answer enough questions to reach the next level.";
 const notEnoughCorrectAnswersToAdvanceText = "You did not answer enough questions correctly to reach the next level.";
 const startingLevel = 15;
+const validAnswerRegex = /^[0-9\./]*$/;
 
 @Component({
   selector: 'app-quiz-view',
@@ -25,8 +26,9 @@ export class QuizViewComponent implements OnInit {
   // Timer for saving window.setInterval id
   timer: number;
   timeLeft: number;
+  answer: string
   answerDisabled: boolean;
-  questionsSeen: number;
+  questionsAnswered: number;
   correctAnswers: number;
   messages: string;
   currentLevel: number;
@@ -39,6 +41,7 @@ export class QuizViewComponent implements OnInit {
     this.timeLeft = this.round.getTimeRemaining().value;
     this.timer = null;
     this.answerDisabled = true;
+    this.answer = "";
   }
 
   ngOnInit() {
@@ -80,28 +83,34 @@ export class QuizViewComponent implements OnInit {
     }
   }
 
-  onEnter(value: string) {
-    if (!this.answerDisabled) {
-      let answerEval = this.round.answerQuestion(value);
+  onEnter() {
+    if (!this.answerDisabled && this.answerIsValid()) {
+      let answerEval = this.round.answerQuestion(this.answer);
       this.updateStats();
+      this.answer = "";
     }
   }
 
+  answerIsValid(): boolean {
+    return validAnswerRegex.test(this.answer);
+  }
+
   updateStats() {
-    this.questionsSeen = this.round.getNumberOfQuestionsAnswered();
+    this.questionsAnswered = this.round.getNumberOfQuestionsAnswered();
     this.correctAnswers = this.round.getNumberOfCorrectAnswers();
   }
 
   evauluateRound() {
     this.updateStats();
-    let correctRatio = this.correctAnswers / this.questionsSeen;
-    if (this.questionsSeen > questionThresholdForAdvancing &&
-      correctRatio > correctRatioThresholdForAdvancing) {
+    this.answer = "";
+    let correctRatio = this.correctAnswers / this.questionsAnswered;
+    if (this.questionsAnswered >= questionThresholdForAdvancing &&
+      correctRatio >= correctRatioThresholdForAdvancing) {
       this.messages = advanceToNextLevelText;
       if (this.currentLevel < LEVEL_ORDER.length - 1) {
         this.currentLevel++;
       }
-    } else if (this.questionsSeen <= questionThresholdForAdvancing) {
+    } else if (this.questionsAnswered < questionThresholdForAdvancing) {
       this.messages = notEnoughQuestionsToAdvanceText;
     } else {
       this.messages = notEnoughCorrectAnswersToAdvanceText;
