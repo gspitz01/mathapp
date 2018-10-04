@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { QuizViewComponent } from './quiz-view.component';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 describe('QuizViewComponent', () => {
   let component: QuizViewComponent;
@@ -11,7 +12,8 @@ describe('QuizViewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ QuizViewComponent ]
+      declarations: [ QuizViewComponent ],
+      imports: [ FormsModule ]
     })
     .compileComponents();
   }));
