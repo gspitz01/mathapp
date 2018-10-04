@@ -85,10 +85,18 @@ export class QuizViewComponent implements OnInit {
 
   onEnter() {
     if (!this.answerDisabled && this.answerIsValid()) {
-      let answerEval = this.round.answerQuestion(this.answer);
+      if (this.answer.includes("/")) {
+        let fractionAnswer = this.parseFraction(this.answer);
+      } else {
+        let answerEval = this.round.answerQuestion(this.answer);
+      }
       this.updateStats();
       this.answer = "";
     }
+  }
+
+  parseFraction(answer: string): string[] {
+    return answer.split("/");
   }
 
   answerIsValid(): boolean {
