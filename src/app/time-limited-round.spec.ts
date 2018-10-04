@@ -2,6 +2,7 @@ import { TimeLimitedRound } from './time-limited-round';
 import { Seconds } from './seconds';
 import { LEVEL_ORDER } from './round-levels';
 import { ADDITION } from './basic-operators';
+import { AnswerEvaluation } from './answer-evaluation';
 
 describe('TimeLimitedRound', () => {
   let initialTime = new Seconds(60);
@@ -15,7 +16,7 @@ describe('TimeLimitedRound', () => {
   });
 
   it('before start, getTimeRemaining should return initial time', () => {
-    expect(unstartedRound.getTimeRemaining()).toBe(initialTime);
+    expect(unstartedRound.getTimeRemaining().value).toBe(initialTime.value);
   });
 
   it('before start, answerQuestion returns null', () => {
@@ -28,7 +29,7 @@ describe('TimeLimitedRound', () => {
     expect(unstartedRound.getTimeRemaining().value).toBe(initialTime.value);
   });
 
-  it('before start, getNumberOfQuestionsSeen returns 0', () => {
+  it('before start, getNumberOfQuestionsAnswered returns 0', () => {
     expect(unstartedRound.getNumberOfQuestionsAnswered()).toBe(0);
   });
 
@@ -36,7 +37,7 @@ describe('TimeLimitedRound', () => {
     expect(unstartedRound.getNumberOfCorrectAnswers()).toBe(0);
   });
 
-  it('before calling start creates first question', () => {
+  it('calling start creates first question', () => {
     let round = new TimeLimitedRound(initialTime, testLevel);
     spyOn(testLevel, 'createQuestion');
     round.start();
@@ -66,7 +67,7 @@ describe('TimeLimitedRound', () => {
   });
 
   it('after start, answerQuestion returns an AnswerEvaluation', () => {
-    expect(startedRound.answerQuestion("42")).toBeTruthy();
+    expect(startedRound.answerQuestion("42")).toEqual(jasmine.any(AnswerEvaluation));
   });
 
   it('after time runs out, answerQuestion return null', () => {
