@@ -3,11 +3,11 @@
     <table>
       <tr>
         <td></td>
-        <td><span>{{round.getCurrentQuestion().operand1.display}}</span></td>
+        <td><span>{{round.getCurrentQuestion().operand1}}</span></td>
       </tr>
       <tr>
         <td><span>{{round.getCurrentQuestion().operator.display}}</span></td>
-        <td><span>{{round.getCurrentQuestion().operand2.display}}</span></td>
+        <td><span>{{round.getCurrentQuestion().operand2}}</span></td>
       </tr>
     </table>
     <input (disabled)="answerDisabled"
@@ -20,7 +20,7 @@
   </div>
   <button (click)="start()" id="start">{{buttonText}}</button>
   <div class="time-remaining">{{timeLeft}}</div>
-  <div class="questions-seen">Questions: {{questionsSeen}}</div>
+  <div class="questions-answered">Questions: {{questionsAnswered}}</div>
   <div class="correct-answers">Correct: {{correctAnswers}}</div>
   <div class="messages">{{messages}}</div>
 </div>
