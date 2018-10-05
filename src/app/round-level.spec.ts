@@ -14,10 +14,10 @@ describe('RoundLevel', () => {
         op1Limitations, op2Limitations, resultLimitations);
     let question = roundLevel.createQuestion();
     expect(question).toEqual(jasmine.any(BasicOperatorQuestion));
-    expect(question.operand1.value).toBeLessThan(100);
-    expect(question.operand1.value).toBeGreaterThan(-1);
-    expect(question.operand2.value).toBeLessThan(10);
-    expect(question.operand2.value).toBeGreaterThan(-1);
+    expect(question.operand1).toBeLessThan(100);
+    expect(question.operand1).toBeGreaterThan(-1);
+    expect(question.operand2).toBeLessThan(10);
+    expect(question.operand2).toBeGreaterThan(-1);
     expect(question.operator).toBe(MULTIPLICATION);
   });
 });

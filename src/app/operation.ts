@@ -1,4 +1,1 @@
-import { Operand } from './operand';
-import { Result } from './result';
-
-export type Operation = (operand1: Operand, operand2: Operand) => Result
+export type Operation = (operand1: number, operand2: number) => number

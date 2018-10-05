@@ -1,7 +1,6 @@
 import { FractionOperator } from "./fraction-operator";
 import { FractionOperand } from "./fraction-operand";
 import { FractionResult } from "./fraction-result";
-import { Result } from "./result";
 
 function reduceFraction(numerator: number, denominator: number): FractionResult {
   let smaller = Math.min(Math.abs(numerator), Math.abs(denominator));
@@ -13,12 +12,12 @@ function reduceFraction(numerator: number, denominator: number): FractionResult 
       newDen /= i;
     }
   }
-  return new FractionResult(new Result(""+newNum, newNum), new Result(""+newDen, newDen));
+  return new FractionResult(newNum, newDen);
 }
 
 let fractionMult = function(op1: FractionOperand, op2: FractionOperand): FractionResult {
-  let resultNumValue = op1.numerator.value * op2.numerator.value;
-  let resultDenValue = op1.denominator.value * op2.denominator.value;
+  let resultNumValue = op1.numerator * op2.numerator;
+  let resultDenValue = op1.denominator * op2.denominator;
   return reduceFraction(resultNumValue, resultDenValue);
 };
 export const FRACTION_MULTIPLICATION = new FractionOperator("x", fractionMult);
@@ -30,17 +29,17 @@ let fractionDiv = function(op1: FractionOperand, op2: FractionOperand): Fraction
 export const FRACTION_DIVISION = new FractionOperator("÷", fractionDiv);
 
 let fractionAdd = function(op1: FractionOperand, op2: FractionOperand): FractionResult {
-  let commonDen = op1.denominator.value * op2.denominator.value;
-  let num1 = op1.numerator.value * op2.denominator.value;
-  let num2 = op2.numerator.value * op1.denominator.value;
+  let commonDen = op1.denominator * op2.denominator;
+  let num1 = op1.numerator * op2.denominator;
+  let num2 = op2.numerator * op1.denominator;
   return reduceFraction(num1 + num2, commonDen);
 }
 export const FRACTION_ADDITION = new FractionOperator("+", fractionAdd);
 
 let fractionSub = function(op1: FractionOperand, op2: FractionOperand): FractionResult {
-  let commonDen = op1.denominator.value * op2.denominator.value;
-  let num1 = op1.numerator.value * op2.denominator.value;
-  let num2 = op2.numerator.value * op1.denominator.value;
+  let commonDen = op1.denominator * op2.denominator;
+  let num1 = op1.numerator * op2.denominator;
+  let num2 = op2.numerator * op1.denominator;
   return reduceFraction(num1 - num2, commonDen);
 }
 export const FRACTION_SUBTRACTION = new FractionOperator("-", fractionSub);

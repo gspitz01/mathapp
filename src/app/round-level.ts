@@ -1,9 +1,7 @@
 import { Operator } from "./operator";
-import { Operand } from './operand';
 import { OperandLimitations } from "./operand-limitations";
 import { ResultLimitations } from './result-limitations';
 import { BasicOperatorQuestion } from "./basic-operator-question";
-import { Result } from './result';
 
 export class RoundLevel {
   constructor(readonly name: string, readonly operators: Operator[],
@@ -15,8 +13,8 @@ export class RoundLevel {
    * Also checks that the result satisfies the ResultLimitations
    */
   createQuestion(): BasicOperatorQuestion {
-    var question: BasicOperatorQuestion = null;
-    var result: Result = null;
+    let question: BasicOperatorQuestion = null;
+    let result: number
     do {
       let op1 = this.createOperand(this.operand1Limitations);
       let op2 = this.createOperand(this.operand2Limitations);
@@ -31,8 +29,8 @@ export class RoundLevel {
    * Creates an operand for the question to be asked
    * @param limitations The limitations for the Operand to be created
    */
-  private createOperand(limitations: OperandLimitations): Operand {
-    var value = Math.random() * 10**limitations.numberOfDigits;
+  private createOperand(limitations: OperandLimitations): number {
+    let value = Math.random() * 10**limitations.numberOfDigits;
     if (limitations.wholeNumber) {
       value = Math.floor(value);
     }
@@ -42,22 +40,22 @@ export class RoundLevel {
         value = value * -1;
       }
     }
-    return new Operand(""+value, value);
+    return value;
   }
 
   /**
    * Checks a question result to make sure it satisfies ResultLimitations
    * @param result The Result to be checked against
    */
-  private resultSatisfiesLimitations(result: Result): boolean {
+  private resultSatisfiesLimitations(result: number): boolean {
     if (result === null) {
       return false;
     } else {
       if (this.resultLimitations === null) {
         return true;
       }
-      if ((!this.resultLimitations.possiblyNegative && result.value < 0) ||
-          (this.resultLimitations.wholeNumber && !Number.isInteger(result.value))) {
+      if ((!this.resultLimitations.possiblyNegative && result < 0) ||
+          (this.resultLimitations.wholeNumber && !Number.isInteger(result))) {
         return false;
       } else {
         return true;

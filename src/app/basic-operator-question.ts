@@ -1,11 +1,9 @@
-import { Operand } from './operand';
 import { Operator } from './operator';
-import { Result } from './result';
 
 export class BasicOperatorQuestion {
-  constructor(readonly operand1: Operand, readonly operand2: Operand, readonly operator: Operator) {}
+  constructor(readonly operand1: number, readonly operand2: number, readonly operator: Operator) {}
 
-  getResult(): Result {
+  getResult(): number {
     return this.operator.operation(this.operand1, this.operand2);
   }
 }

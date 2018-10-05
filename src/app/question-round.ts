@@ -61,6 +61,6 @@ export class QuestionRound {
    * @param answer The answer provided
    */
   private isAnswerCorrect(answer: string): boolean {
-    return answer === this.currentQuestion.getResult().display;
+    return parseInt(answer, 10) === this.currentQuestion.getResult();
   }
 }
