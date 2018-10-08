@@ -11,18 +11,18 @@
       <table>
         <tr>
           <td></td>
-          <td><span>{{round.getCurrentQuestion().operand1}}</span></td>
+          <td><span>{{round.getCurrentQuestion().operand1.value}}</span></td>
         </tr>
         <tr>
           <td><span>{{round.getCurrentQuestion().operator.display}}</span></td>
-          <td><span>{{round.getCurrentQuestion().operand2}}</span></td>
+          <td><span>{{round.getCurrentQuestion().operand2.value}}</span></td>
         </tr>
       </table>
       <input (disabled)="answerDisabled"
           (keyup.enter)="onEnter()"
           autofocus
           [formControl]="answer"
-          pattern="[0-9\./]*"
+          pattern="[0-9\-\./]*"
           type="text" name="answer" id="answer" />
       <div *ngIf="answer.errors?.pattern">Answer must be a valid number.</div>
     </div>

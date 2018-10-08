@@ -11,7 +11,7 @@ const correctRatioThresholdForAdvancing = 0.8;
 const advanceToNextLevelText = "You can move on to the next level!";
 const notEnoughQuestionsToAdvanceText = "You did not answer enough questions to reach the next level.";
 const notEnoughCorrectAnswersToAdvanceText = "You did not answer enough questions correctly to reach the next level.";
-const validAnswerRegex = /^[0-9\./]*$/;
+const validAnswerRegex = /^[0-9\-\./]*$/;
 
 @Component({
   selector: 'app-quiz-view',
@@ -61,6 +61,7 @@ export class QuizViewComponent implements OnInit {
       this.newRound();
       this.timeLeft = this.round.getTimeRemaining().value;
       this.round.start();
+      this.clearAnswerInput();
       this.buttonText = stopButtonText;
       this.answerDisabled = false;
       let that = this;
@@ -90,8 +91,12 @@ export class QuizViewComponent implements OnInit {
     return validAnswerRegex.test(this.answer.value);
   }
 
-  evauluateRound() {
+  clearAnswerInput() {
     this.answer.setValue("");
+  }
+
+  evauluateRound() {
+    this.clearAnswerInput();
     let correctAnswers = this.round.getNumberOfCorrectAnswers();
     let questionsAnswered = this.round.getNumberOfQuestionsAnswered()
     let correctRatio = correctAnswers / questionsAnswered;
