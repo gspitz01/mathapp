@@ -1,14 +1,14 @@
-import { QuestionLimitedRound } from './question-limited-round';
+import { BasicQuestionLimitedRound } from './basic-question-limited-round';
 import { LEVEL_ORDER } from './round-levels';
 import { BasicOperatorQuestion } from './basic-operator-question';
 import { ADDITION } from './basic-operators';
 import { AnswerEvaluation } from './answer-evaluation';
 
-describe('QuestionLimitedRound', () => {
-  let testLevel = LEVEL_ORDER[0];
+describe('BasicQuestionLimitedRound', () => {
+  let testLevel = LEVEL_ORDER[1];
   let testNumberOfQuestions = 20;
-  let unstartedRound = new QuestionLimitedRound(testNumberOfQuestions, testLevel);
-  let startedRound = new QuestionLimitedRound(testNumberOfQuestions, testLevel);
+  let unstartedRound = new BasicQuestionLimitedRound(testNumberOfQuestions, testLevel);
+  let startedRound = new BasicQuestionLimitedRound(testNumberOfQuestions, testLevel);
   startedRound.start();
 
   it('before start, getCurrentQuestion should return null', () => {
@@ -28,7 +28,7 @@ describe('QuestionLimitedRound', () => {
   })
 
   it('calling start creates first question', () => {
-    let round = new QuestionLimitedRound(testNumberOfQuestions, testLevel);
+    let round = new BasicQuestionLimitedRound(testNumberOfQuestions, testLevel);
     spyOn(testLevel, "createQuestion");
     round.start();
     expect(testLevel.createQuestion).toHaveBeenCalled();

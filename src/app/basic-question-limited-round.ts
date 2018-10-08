@@ -1,11 +1,11 @@
-import { RoundLevel } from "./round-level";
-import { QuestionRound } from "./question-round";
+import { BasicRoundLevel } from "./basic-round-level";
+import { BasicQuestionRound } from "./basic-question-round";
 
-export class QuestionLimitedRound extends QuestionRound {
+export class BasicQuestionLimitedRound extends BasicQuestionRound {
 
   private roundFinished: boolean;
 
-  constructor(readonly numberOfQuestions: number, level: RoundLevel) {
+  constructor(readonly numberOfQuestions: number, level: BasicRoundLevel) {
     super(level);
     this.roundFinished = false;
   }

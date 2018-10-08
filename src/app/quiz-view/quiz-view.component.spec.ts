@@ -3,7 +3,10 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { QuizViewComponent } from './quiz-view.component';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Seconds } from '../seconds';
+
+const defaultStartingTime = new Seconds(60);
 
 describe('QuizViewComponent', () => {
   let component: QuizViewComponent;
@@ -13,7 +16,10 @@ describe('QuizViewComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ QuizViewComponent ],
-      imports: [ FormsModule ]
+      imports: [
+        FormsModule,
+        ReactiveFormsModule
+      ]
     })
     .compileComponents();
   }));
@@ -21,6 +27,8 @@ describe('QuizViewComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(QuizViewComponent);
     component = fixture.componentInstance;
+    component.startingTime = defaultStartingTime;
+    component.startingLevel = 1;
     startButton = fixture.debugElement.query(By.css("#start"));
     fixture.detectChanges();
   });

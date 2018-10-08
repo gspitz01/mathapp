@@ -1,10 +1,10 @@
 import { RoundLevel } from "./round-level";
-import { BasicOperatorQuestion } from "./basic-operator-question";
+import { OperatorQuestion } from "./operator-question";
 import { AnswerEvaluation } from "./answer-evaluation";
 
-export class QuestionRound {
+export abstract class QuestionRound {
 
-  protected currentQuestion: BasicOperatorQuestion;
+  protected currentQuestion: OperatorQuestion;
   private questionsAnswered: number;
   private correctAnswers: number;
 
@@ -21,7 +21,7 @@ export class QuestionRound {
   /**
    * Returns the current question
    */
-  getCurrentQuestion(): BasicOperatorQuestion {
+  getCurrentQuestion(): OperatorQuestion {
     return this.currentQuestion;
   }
 
@@ -61,6 +61,6 @@ export class QuestionRound {
    * @param answer The answer provided
    */
   private isAnswerCorrect(answer: string): boolean {
-    return parseInt(answer, 10) === this.currentQuestion.getResult();
+    return this.currentQuestion.checkAnswer(answer);
   }
 }

@@ -1,5 +1,6 @@
-import { Operation } from './operation';
+export abstract class Operator {
 
-export class Operator {
-  constructor(readonly display: string, readonly operation: Operation) {}
+  readonly operation: Function;
+
+  constructor(readonly display: string) {}
 }

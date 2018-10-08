@@ -1,14 +1,14 @@
-import { TimeLimitedRound } from './time-limited-round';
+import { BasicTimeLimitedRound } from './basic-time-limited-round';
 import { Seconds } from './seconds';
 import { LEVEL_ORDER } from './round-levels';
 import { ADDITION } from './basic-operators';
 import { AnswerEvaluation } from './answer-evaluation';
 
-describe('TimeLimitedRound', () => {
+describe('BasicTimeLimitedRound', () => {
   let initialTime = new Seconds(60);
-  let testLevel = LEVEL_ORDER[0];
-  let unstartedRound = new TimeLimitedRound(initialTime, testLevel);
-  let startedRound = new TimeLimitedRound(initialTime, testLevel);
+  let testLevel = LEVEL_ORDER[1];
+  let unstartedRound = new BasicTimeLimitedRound(initialTime, testLevel);
+  let startedRound = new BasicTimeLimitedRound(initialTime, testLevel);
   startedRound.start();
 
   it('before start, getCurrentQuestion should return null', () => {
@@ -38,7 +38,7 @@ describe('TimeLimitedRound', () => {
   });
 
   it('calling start creates first question', () => {
-    let round = new TimeLimitedRound(initialTime, testLevel);
+    let round = new BasicTimeLimitedRound(initialTime, testLevel);
     spyOn(testLevel, 'createQuestion');
     round.start();
     expect(testLevel.createQuestion).toHaveBeenCalled();

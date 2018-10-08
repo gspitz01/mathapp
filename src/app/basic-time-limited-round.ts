@@ -1,16 +1,16 @@
 import { Seconds } from './seconds';
-import { RoundLevel } from './round-level';
+import { BasicRoundLevel } from './basic-round-level';
 import { AnswerEvaluation } from './answer-evaluation';
-import { QuestionRound } from './question-round';
+import { BasicQuestionRound } from './basic-question-round';
 
 /**
  * Users of this class need to call tick() to decrease the time after calling start()
  */
-export class TimeLimitedRound extends QuestionRound {
+export class BasicTimeLimitedRound extends BasicQuestionRound {
 
   private timeRemaining: Seconds = null;
 
-  constructor(readonly time: Seconds, level: RoundLevel) {
+  constructor(readonly time: Seconds, level: BasicRoundLevel) {
     super(level);
     this.timeRemaining = new Seconds(time.value);
   }

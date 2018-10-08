@@ -1,17 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { TimeLimitedRound } from '../time-limited-round';
+import { Component, OnInit, Input } from '@angular/core';
+import { BasicTimeLimitedRound } from '../basic-time-limited-round';
 import { LEVEL_ORDER } from '../round-levels';
 import { Seconds } from '../seconds';
+import { FormControl } from '@angular/forms';
 
 const startButtonText = "Start";
 const stopButtonText = "Stop";
-const defaultTime = new Seconds(20);
 const questionThresholdForAdvancing = 1;
 const correctRatioThresholdForAdvancing = 0.8;
 const advanceToNextLevelText = "You can move on to the next level!";
 const notEnoughQuestionsToAdvanceText = "You did not answer enough questions to reach the next level.";
 const notEnoughCorrectAnswersToAdvanceText = "You did not answer enough questions correctly to reach the next level.";
-const startingLevel = 15;
 const validAnswerRegex = /^[0-9\./]*$/;
 
 @Component({
@@ -21,39 +20,35 @@ const validAnswerRegex = /^[0-9\./]*$/;
 })
 export class QuizViewComponent implements OnInit {
 
+  startingLevel: number;
+  startingTime: Seconds;
   buttonText: string;
-  round: TimeLimitedRound;
-  // Timer for saving window.setInterval id
-  timer: number;
-  timeLeft: number;
-  answer: string
-  answerDisabled: boolean;
-  questionsAnswered: number;
-  correctAnswers: number;
   messages: string;
-  currentLevel: number;
+  timeLeft: number;
+  private round: BasicTimeLimitedRound;
+  // Timer for saving window.setInterval id
+  private timer: number;
+  private answer = new FormControl("");
+  private answerDisabled: boolean;
+  private currentLevel: number;
 
   constructor() {
-    this.buttonText = startButtonText;
-    this.currentLevel = startingLevel;
-    this.newRound();
-    this.updateStats();
-    this.timeLeft = this.round.getTimeRemaining().value;
-    this.timer = null;
-    this.answerDisabled = true;
-    this.answer = "";
   }
 
   ngOnInit() {
+    this.buttonText = startButtonText;
+    this.currentLevel = this.startingLevel;
+    this.timeLeft = this.startingTime.value;
+    this.timer = null;
+    this.answerDisabled = true;
   }
 
   newRound() {
-    this.round = new TimeLimitedRound(defaultTime, LEVEL_ORDER[this.currentLevel]);
+    this.round = new BasicTimeLimitedRound(this.startingTime, LEVEL_ORDER[this.currentLevel]);
   }
 
   start() {
     this.messages = "";
-    this.timeLeft = this.round.getTimeRemaining().value;
     if (this.timer != null) {
       // If the timer isn't null, it's running, stop it
       window.clearInterval(this.timer);
@@ -63,8 +58,9 @@ export class QuizViewComponent implements OnInit {
       this.evauluateRound();
     } else {
       // timer not yet running, start the round
+      this.newRound();
+      this.timeLeft = this.round.getTimeRemaining().value;
       this.round.start();
-      this.updateStats();
       this.buttonText = stopButtonText;
       this.answerDisabled = false;
       let that = this;
@@ -85,44 +81,30 @@ export class QuizViewComponent implements OnInit {
 
   onEnter() {
     if (!this.answerDisabled && this.answerIsValid()) {
-      if (this.answer.includes("/")) {
-        let fractionAnswer = this.parseFraction(this.answer);
-      } else {
-        let answerEval = this.round.answerQuestion(this.answer);
-      }
-      this.updateStats();
-      this.answer = "";
+      let answerEval = this.round.answerQuestion(this.answer.value);
+      this.answer.setValue("");
     }
   }
 
-  parseFraction(answer: string): string[] {
-    return answer.split("/");
-  }
-
   answerIsValid(): boolean {
-    return validAnswerRegex.test(this.answer);
-  }
-
-  updateStats() {
-    this.questionsAnswered = this.round.getNumberOfQuestionsAnswered();
-    this.correctAnswers = this.round.getNumberOfCorrectAnswers();
+    return validAnswerRegex.test(this.answer.value);
   }
 
   evauluateRound() {
-    this.updateStats();
-    this.answer = "";
-    let correctRatio = this.correctAnswers / this.questionsAnswered;
-    if (this.questionsAnswered >= questionThresholdForAdvancing &&
+    this.answer.setValue("");
+    let correctAnswers = this.round.getNumberOfCorrectAnswers();
+    let questionsAnswered = this.round.getNumberOfQuestionsAnswered()
+    let correctRatio = correctAnswers / questionsAnswered;
+    if (questionsAnswered >= questionThresholdForAdvancing &&
       correctRatio >= correctRatioThresholdForAdvancing) {
       this.messages = advanceToNextLevelText;
       if (this.currentLevel < LEVEL_ORDER.length - 1) {
         this.currentLevel++;
       }
-    } else if (this.questionsAnswered < questionThresholdForAdvancing) {
+    } else if (questionsAnswered < questionThresholdForAdvancing) {
       this.messages = notEnoughQuestionsToAdvanceText;
     } else {
       this.messages = notEnoughCorrectAnswersToAdvanceText;
     }
-    this.newRound();
   }
 }

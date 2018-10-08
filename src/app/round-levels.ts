@@ -1,58 +1,61 @@
-import { RoundLevel } from './round-level';
+import { BasicRoundLevel } from './basic-round-level';
 import { ADDITION, SUBTRACTION, MULTIPLICATION, DIVISION } from './basic-operators';
 import { OperandLimitations } from './operand-limitations';
 import { Operator } from './operator';
 import { ResultLimitations } from './result-limitations';
 
+/**
+ * Basis
+ */
 let justAddition: Operator[] = [ADDITION];
 let singleDigitPositiveWholeNumbers = new OperandLimitations(true, 1, false, true);
-export const EASY_ADDITION = new RoundLevel("Easy Addition", justAddition,
+export const EASY_ADDITION = new BasicRoundLevel("Easy Addition", justAddition,
     singleDigitPositiveWholeNumbers, singleDigitPositiveWholeNumbers, null);
 
 let doubleDigitPositiveWholeNumbers = new OperandLimitations(true, 2, false, true);
-export const MEDIUM_ADDITION = new RoundLevel("Medium Addition", justAddition,
+export const MEDIUM_ADDITION = new BasicRoundLevel("Medium Addition", justAddition,
     doubleDigitPositiveWholeNumbers, singleDigitPositiveWholeNumbers, null);
 
-export const CHALLENGING_ADDITION = new RoundLevel("Challenging Addition", justAddition,
+export const CHALLENGING_ADDITION = new BasicRoundLevel("Challenging Addition", justAddition,
     doubleDigitPositiveWholeNumbers, doubleDigitPositiveWholeNumbers, null);
 
 let tripleDigitPositiveWholeNumbers = new OperandLimitations(true, 3, false, true);
-export const HARD_ADDITION = new RoundLevel("Hard Addition", justAddition,
+export const HARD_ADDITION = new BasicRoundLevel("Hard Addition", justAddition,
     tripleDigitPositiveWholeNumbers, doubleDigitPositiveWholeNumbers, null);
 
-export const EXPERT_ADDITION = new RoundLevel("Expert Addition", justAddition,
+export const EXPERT_ADDITION = new BasicRoundLevel("Expert Addition", justAddition,
     tripleDigitPositiveWholeNumbers, tripleDigitPositiveWholeNumbers, null);
 
 let justSubtraction: Operator[] = [SUBTRACTION];
-export const EASY_SUBTRACTION = new RoundLevel("Easy Subtraction", justSubtraction,
+export const EASY_SUBTRACTION = new BasicRoundLevel("Easy Subtraction", justSubtraction,
     singleDigitPositiveWholeNumbers, singleDigitPositiveWholeNumbers, null);
 
-export const MEDIUM_SUBTRACTION = new RoundLevel("Medium Subtraction", justSubtraction,
+export const MEDIUM_SUBTRACTION = new BasicRoundLevel("Medium Subtraction", justSubtraction,
     doubleDigitPositiveWholeNumbers, singleDigitPositiveWholeNumbers, null);
 
-export const CHALLENGING_SUBTRACTION = new RoundLevel("Challenging Subtraction", justSubtraction,
+export const CHALLENGING_SUBTRACTION = new BasicRoundLevel("Challenging Subtraction", justSubtraction,
     doubleDigitPositiveWholeNumbers, doubleDigitPositiveWholeNumbers, null);
 
-export const HARD_SUBTRACTION = new RoundLevel("Hard Subtraction", justSubtraction,
+export const HARD_SUBTRACTION = new BasicRoundLevel("Hard Subtraction", justSubtraction,
     tripleDigitPositiveWholeNumbers, doubleDigitPositiveWholeNumbers, null);
 
-export const EXPERT_SUBTRACTION = new RoundLevel("Expert Subtraction", justSubtraction,
+export const EXPERT_SUBTRACTION = new BasicRoundLevel("Expert Subtraction", justSubtraction,
     tripleDigitPositiveWholeNumbers, tripleDigitPositiveWholeNumbers, null);
 
 let justMultiplication: Operator[] = [MULTIPLICATION];
-export const EASY_MULTIPLICATION = new RoundLevel("Easy Multiplication", justMultiplication,
+export const EASY_MULTIPLICATION = new BasicRoundLevel("Easy Multiplication", justMultiplication,
     singleDigitPositiveWholeNumbers, singleDigitPositiveWholeNumbers, null);
 
-export const MEDIUM_MULTIPLICATION = new RoundLevel("Medium Multiplication", justMultiplication,
+export const MEDIUM_MULTIPLICATION = new BasicRoundLevel("Medium Multiplication", justMultiplication,
     doubleDigitPositiveWholeNumbers, singleDigitPositiveWholeNumbers, null);
 
-export const CHALLENGING_MULTIPLICATION = new RoundLevel("Challenging Multiplication", justMultiplication,
+export const CHALLENGING_MULTIPLICATION = new BasicRoundLevel("Challenging Multiplication", justMultiplication,
     doubleDigitPositiveWholeNumbers, doubleDigitPositiveWholeNumbers, null);
 
-export const HARD_MULTIPLICATION = new RoundLevel("Hard Multiplication", justMultiplication,
+export const HARD_MULTIPLICATION = new BasicRoundLevel("Hard Multiplication", justMultiplication,
     tripleDigitPositiveWholeNumbers, doubleDigitPositiveWholeNumbers, null);
 
-export const EXPERT_MULTIPLICATION = new RoundLevel("Expert Multiplication", justMultiplication,
+export const EXPERT_MULTIPLICATION = new BasicRoundLevel("Expert Multiplication", justMultiplication,
     tripleDigitPositiveWholeNumbers, tripleDigitPositiveWholeNumbers, null);
 
 let justDivision: Operator[] = [DIVISION];
@@ -60,27 +63,34 @@ let divisorSingleDigitLimitations = new OperandLimitations(true, 1, false, false
 let divisorDoubleDigitLimitations = new OperandLimitations(true, 2, false, false);
 let divisorTripleDigitLimitations = new OperandLimitations(true, 3, false, false);
 let onlyPositiveWholeNumberResult = new ResultLimitations(true, false);
-export const EASY_DIVISION = new RoundLevel("Easy Division", justDivision,
+export const EASY_DIVISION = new BasicRoundLevel("Easy Division", justDivision,
     singleDigitPositiveWholeNumbers, divisorSingleDigitLimitations,
     onlyPositiveWholeNumberResult);
 
-export const MEDIUM_DIVISION = new RoundLevel("Medium Division", justDivision,
+export const MEDIUM_DIVISION = new BasicRoundLevel("Medium Division", justDivision,
     doubleDigitPositiveWholeNumbers, divisorSingleDigitLimitations,
     onlyPositiveWholeNumberResult);
 
-export const CHALLENGING_DIVISION = new RoundLevel("Challenging Division", justDivision,
+export const CHALLENGING_DIVISION = new BasicRoundLevel("Challenging Division", justDivision,
     doubleDigitPositiveWholeNumbers, divisorDoubleDigitLimitations,
     onlyPositiveWholeNumberResult);
 
-export const HARD_DIVISION = new RoundLevel("Hard Division", justDivision,
+export const HARD_DIVISION = new BasicRoundLevel("Hard Division", justDivision,
     tripleDigitPositiveWholeNumbers, divisorDoubleDigitLimitations,
     onlyPositiveWholeNumberResult);
 
-export const EXPERT_DIVISION = new RoundLevel("Expert Division", justDivision,
+export const EXPERT_DIVISION = new BasicRoundLevel("Expert Division", justDivision,
     tripleDigitPositiveWholeNumbers, divisorTripleDigitLimitations,
     onlyPositiveWholeNumberResult);
 
+/**
+ * Fractions
+ */
+
+
+// No level 0
 export const LEVEL_ORDER = [
+  null,
   EASY_ADDITION,
   MEDIUM_ADDITION,
   CHALLENGING_ADDITION,
