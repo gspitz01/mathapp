@@ -1,32 +1,32 @@
 import { BasicRoundLevel } from './basic-round-level';
 import { ADDITION, SUBTRACTION, MULTIPLICATION, DIVISION } from './basic-operators';
-import { OperandLimitations } from './operand-limitations';
-import { Operator } from './operator';
-import { ResultLimitations } from './result-limitations';
+import { BasicOperandLimitations } from './basic-operand-limitations';
+import { BasicOperator } from './basic-operator';
+import { BasicResultLimitations } from './basic-result-limitations';
 
 /**
  * Basis
  */
-let justAddition: Operator[] = [ADDITION];
-let singleDigitPositiveWholeNumbers = new OperandLimitations(true, 1, false, true);
+let justAddition: BasicOperator[] = [ADDITION];
+let singleDigitPositiveWholeNumbers = new BasicOperandLimitations(true, 1, false, true);
 export const EASY_ADDITION = new BasicRoundLevel("Easy Addition", justAddition,
     singleDigitPositiveWholeNumbers, singleDigitPositiveWholeNumbers, null);
 
-let doubleDigitPositiveWholeNumbers = new OperandLimitations(true, 2, false, true);
+let doubleDigitPositiveWholeNumbers = new BasicOperandLimitations(true, 2, false, true);
 export const MEDIUM_ADDITION = new BasicRoundLevel("Medium Addition", justAddition,
     doubleDigitPositiveWholeNumbers, singleDigitPositiveWholeNumbers, null);
 
 export const CHALLENGING_ADDITION = new BasicRoundLevel("Challenging Addition", justAddition,
     doubleDigitPositiveWholeNumbers, doubleDigitPositiveWholeNumbers, null);
 
-let tripleDigitPositiveWholeNumbers = new OperandLimitations(true, 3, false, true);
+let tripleDigitPositiveWholeNumbers = new BasicOperandLimitations(true, 3, false, true);
 export const HARD_ADDITION = new BasicRoundLevel("Hard Addition", justAddition,
     tripleDigitPositiveWholeNumbers, doubleDigitPositiveWholeNumbers, null);
 
 export const EXPERT_ADDITION = new BasicRoundLevel("Expert Addition", justAddition,
     tripleDigitPositiveWholeNumbers, tripleDigitPositiveWholeNumbers, null);
 
-let justSubtraction: Operator[] = [SUBTRACTION];
+let justSubtraction: BasicOperator[] = [SUBTRACTION];
 export const EASY_SUBTRACTION = new BasicRoundLevel("Easy Subtraction", justSubtraction,
     singleDigitPositiveWholeNumbers, singleDigitPositiveWholeNumbers, null);
 
@@ -42,7 +42,7 @@ export const HARD_SUBTRACTION = new BasicRoundLevel("Hard Subtraction", justSubt
 export const EXPERT_SUBTRACTION = new BasicRoundLevel("Expert Subtraction", justSubtraction,
     tripleDigitPositiveWholeNumbers, tripleDigitPositiveWholeNumbers, null);
 
-let justMultiplication: Operator[] = [MULTIPLICATION];
+let justMultiplication: BasicOperator[] = [MULTIPLICATION];
 export const EASY_MULTIPLICATION = new BasicRoundLevel("Easy Multiplication", justMultiplication,
     singleDigitPositiveWholeNumbers, singleDigitPositiveWholeNumbers, null);
 
@@ -58,11 +58,11 @@ export const HARD_MULTIPLICATION = new BasicRoundLevel("Hard Multiplication", ju
 export const EXPERT_MULTIPLICATION = new BasicRoundLevel("Expert Multiplication", justMultiplication,
     tripleDigitPositiveWholeNumbers, tripleDigitPositiveWholeNumbers, null);
 
-let justDivision: Operator[] = [DIVISION];
-let divisorSingleDigitLimitations = new OperandLimitations(true, 1, false, false);
-let divisorDoubleDigitLimitations = new OperandLimitations(true, 2, false, false);
-let divisorTripleDigitLimitations = new OperandLimitations(true, 3, false, false);
-let onlyPositiveWholeNumberResult = new ResultLimitations(true, false);
+let justDivision: BasicOperator[] = [DIVISION];
+let divisorSingleDigitLimitations = new BasicOperandLimitations(true, 1, false, false);
+let divisorDoubleDigitLimitations = new BasicOperandLimitations(true, 2, false, false);
+let divisorTripleDigitLimitations = new BasicOperandLimitations(true, 3, false, false);
+let onlyPositiveWholeNumberResult = new BasicResultLimitations(true, false);
 export const EASY_DIVISION = new BasicRoundLevel("Easy Division", justDivision,
     singleDigitPositiveWholeNumbers, divisorSingleDigitLimitations,
     onlyPositiveWholeNumberResult);

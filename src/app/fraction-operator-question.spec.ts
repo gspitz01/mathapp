@@ -2,12 +2,14 @@ import { FractionOperand } from './fraction-operand';
 import { FractionResult } from "./fraction-result";
 import { FractionOperator } from "./fraction-operator";
 import { FractionOperatorQuestion } from "./fraction-operator-question";
+import { BasicOperand } from './basic-operand';
+import { BasicResult } from './basic-result';
 
 describe('FractionOperatorQuestion', () => {
   it('getResult returns correct result', () => {
-    let op1 = new FractionOperand(4, 5);
-    let op2 = new FractionOperand(3, 4);
-    let expectedResult = new FractionResult(4, 6);
+    let op1 = new FractionOperand(new BasicOperand(4), new BasicOperand(5));
+    let op2 = new FractionOperand(new BasicOperand(3), new BasicOperand(4));
+    let expectedResult = new FractionResult(new BasicResult(4), new BasicResult(6));
     let fakeOp = function(operand1: FractionOperand, operand2: FractionOperand): FractionResult {
       return expectedResult;
     };

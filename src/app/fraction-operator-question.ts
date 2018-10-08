@@ -18,8 +18,8 @@ export class FractionOperatorQuestion implements OperatorQuestion {
       if (answers.length != 2) {
         return false;
       }
-      if (parseInt(answers[0], 10) === this.getResult().numerator &&
-          parseInt(answers[1], 10) === this.getResult().denominator) {
+      if (parseInt(answers[0], 10) === this.getResult().numerator.value &&
+          parseInt(answers[1], 10) === this.getResult().denominator.value) {
         return true;
       }
     } else {

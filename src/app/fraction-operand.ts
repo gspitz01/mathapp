@@ -1,3 +1,6 @@
-export class FractionOperand {
-  constructor(readonly numerator: number, readonly denominator: number) {}
+import { Operand } from "./operand";
+import { BasicOperand } from "./basic-operand";
+
+export class FractionOperand implements Operand {
+  constructor(readonly numerator: BasicOperand, readonly denominator: BasicOperand) {}
 }
