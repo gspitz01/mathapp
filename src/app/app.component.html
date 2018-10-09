@@ -1,18 +1,20 @@
-<h1>{{title}}</h1>
-<nav>
-  <h3>Basics</h3>
-  <ul>
-    <li (click)="linkClick('Addition')">Addition</li>
-    <li (click)="linkClick('Subtraction')">Subtraction</li>
-    <li (click)="linkClick('Multiplication')">Multiplication</li>
-    <li (click)="linkClick('Division')">Division</li>
-  </ul>
-  <h3>Fractions</h3>
+<header class="mat-elevation-z6">
+    <h1>{{title}}</h1>
+  <nav>
     <ul>
-      <li (click)="linkClick('Fraction Addition')">Addition</li>
-      <li (click)="linkClick('Fraction Subtraction')">Subtraction</li>
-      <li (click)="linkClick('Fraction Multiplication')">Multiplication</li>
-      <li (click)="linkClick('Fraction Division')">Division</li>
+      <li>Basics</li>
+      <li>Fractions</li>
     </ul>
-</nav>
-<ng-template appQuiz></ng-template>
+  </nav>
+</header>
+<main>
+  <nav>
+    <ul>
+      <li (click)="linkClick('Addition')">Addition</li>
+      <li (click)="linkClick('Subtraction')">Subtraction</li>
+      <li (click)="linkClick('Multiplication')">Multiplication</li>
+      <li (click)="linkClick('Division')">Division</li>
+    </ul>
+  </nav>
+  <ng-template appQuiz></ng-template>
+</main>

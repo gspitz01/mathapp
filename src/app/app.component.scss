@@ -1,0 +1,48 @@
+@import "../variables.scss";
+
+$header-height: 3.5em;
+$main-margin-top: $header-height + 3em;
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: $header-height;
+  display: flex;
+  align-items: flex-end;
+  background: $silver-chalice;
+  width: 100%;
+  padding: 0em 1em;
+  padding-top: 1em;
+
+  nav ul {
+    list-style: none;
+    display: flex;
+
+    li {
+      margin-right: 1em;
+      cursor: pointer;
+      border-bottom: 2px solid $silver-chalice;
+
+      &:hover {
+        border-bottom: 2px solid $artichoke;
+      }
+    }
+  }
+}
+
+main {
+  margin: 0 auto;
+  margin-top: $main-margin-top;
+  width: 80%;
+
+  nav ul {
+    list-style: none;
+    display: flex;
+
+    li {
+      margin-right: 1em;
+      cursor: pointer;
+    }
+  }
+}
