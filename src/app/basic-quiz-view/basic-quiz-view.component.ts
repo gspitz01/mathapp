@@ -27,11 +27,11 @@ export class BasicQuizViewComponent implements OnInit {
   messages: string;
   timeLeft: number;
   round: BasicTimeLimitedRound;
+  currentLevel: number;
   // Timer for saving window.setInterval id
   private timer: number;
   private answer = new FormControl("");
   private answerDisabled: boolean;
-  private currentLevel: number;
 
   constructor() {
   }

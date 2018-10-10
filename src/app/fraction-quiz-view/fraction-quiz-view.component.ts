@@ -27,12 +27,12 @@ export class FractionQuizViewComponent implements OnInit {
   messages: string;
   timeLeft: number;
   round: FractionTimeLimitedRound;
+  currentLevel: number;
   // Timer for saving window.setInterval id
   private timer: number;
   private answerNum = new FormControl("");
   private answerDen = new FormControl("");
   private answerDisabled: boolean;
-  private currentLevel: number;
 
   constructor() { }
 
