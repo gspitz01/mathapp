@@ -1,24 +1,13 @@
 <header class="mat-elevation-z8">
-    <h1>{{title}}</h1>
+    <h1 routerLink="/">{{title}}</h1>
   <nav>
     <ul>
-      <li>Basics</li>
-      <li>Fractions</li>
+      <li routerLink="/basics">Basics</li>
+      <li routerLink="/fractions">Fractions</li>
     </ul>
   </nav>
 </header>
-<div class="content">
-  <aside>
-    <nav>
-        <ul>
-          <li (click)="linkClick('Addition')">Addition</li>
-          <li (click)="linkClick('Subtraction')">Subtraction</li>
-          <li (click)="linkClick('Multiplication')">Multiplication</li>
-          <li (click)="linkClick('Division')">Division</li>
-        </ul>
-      </nav>
-  </aside>
-  <main>
-    <ng-template appQuiz></ng-template>
-  </main>
+<div class="main-content">
+  <router-outlet></router-outlet>
 </div>
+
