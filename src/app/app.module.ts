@@ -14,6 +14,15 @@ import { FractionsComponent } from './fractions/fractions.component';
 
 import { AppRoutingModule } from './/app-routing.module';
 import { FractionQuizViewComponent } from './fraction-quiz-view/fraction-quiz-view.component';
+import { BasicAdditionComponent } from './basic-addition/basic-addition.component';
+import { BasicSubtractionComponent } from './basic-subtraction/basic-subtraction.component';
+import { BasicMultiplicationComponent } from './basic-multiplication/basic-multiplication.component';
+import { BasicDivisionComponent } from './basic-division/basic-division.component';
+import { FractionAdditionComponent } from './fraction-addition/fraction-addition.component';
+import { FractionSubtractionComponent } from './fraction-subtraction/fraction-subtraction.component';
+import { FractionMultiplicationComponent } from './fraction-multiplication/fraction-multiplication.component';
+import { FractionDivisionComponent } from './fraction-division/fraction-division.component';
+import { FractionLcdComponent } from './fraction-lcd/fraction-lcd.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +32,16 @@ import { FractionQuizViewComponent } from './fraction-quiz-view/fraction-quiz-vi
     HomeComponent,
     BasicsComponent,
     FractionsComponent,
-    FractionQuizViewComponent
+    FractionQuizViewComponent,
+    BasicAdditionComponent,
+    BasicSubtractionComponent,
+    BasicMultiplicationComponent,
+    BasicDivisionComponent,
+    FractionAdditionComponent,
+    FractionSubtractionComponent,
+    FractionMultiplicationComponent,
+    FractionDivisionComponent,
+    FractionLcdComponent
   ],
   entryComponents: [
     BasicQuizViewComponent,
