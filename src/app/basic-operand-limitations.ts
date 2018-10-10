@@ -1,13 +1,17 @@
 import { BasicOperand } from "./basic-operand";
 
 export class BasicOperandLimitations {
-  constructor(readonly wholeNumber: boolean, readonly numberOfDigits: number, readonly possiblyNegative: boolean,
+  constructor(readonly wholeNumber: boolean, readonly absoluteLimit: number, readonly possiblyNegative: boolean,
     readonly possiblyZero: boolean) {}
 
   createOperand(): BasicOperand {
-    let value = Math.random() * 10**this.numberOfDigits;
+    let value: number;
+    value = Math.random() * this.absoluteLimit;
     if (this.wholeNumber) {
       value = Math.floor(value);
+      if (!this.possiblyZero && value === 0) {
+        value = 1;
+      }
     }
     if (this.possiblyNegative) {
       var multNeg = Math.random();

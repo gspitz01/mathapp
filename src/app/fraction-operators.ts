@@ -13,6 +13,9 @@ function reduceFraction(numerator: number, denominator: number): FractionResult 
       newDen /= i;
     }
   }
+  if (newNum === 0) {
+    newDen = 1;
+  }
   return new FractionResult(new BasicResult(newNum), new BasicResult(newDen));
 }
 
