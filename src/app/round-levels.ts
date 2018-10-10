@@ -3,6 +3,11 @@ import { ADDITION, SUBTRACTION, MULTIPLICATION, DIVISION } from './basic-operato
 import { BasicOperandLimitations } from './basic-operand-limitations';
 import { BasicOperator } from './basic-operator';
 import { BasicResultLimitations } from './basic-result-limitations';
+import { FractionRoundLevel } from './fraction-round-level';
+import { FractionOperator } from './fraction-operator';
+import { FRACTION_ADDITION } from './fraction-operators';
+import { FractionOperandLimitations } from './fraction-operand-limitations';
+import { FractionResultLimitations } from './fraction-result-limitations';
 
 /**
  * Basis
@@ -86,6 +91,17 @@ export const EXPERT_DIVISION = new BasicRoundLevel("Expert Division", justDivisi
 /**
  * Fractions
  */
+let justFractionAddition: FractionOperator[] = [FRACTION_ADDITION];
+let fractionNumEasyOperandLimitations = new BasicOperandLimitations(true, 1, false, true);
+let fractionDenEasyOperandLimitations = new BasicOperandLimitations(true, 1, false, false);
+let fractionEasyOperandLimitations = new FractionOperandLimitations(fractionNumEasyOperandLimitations,
+  fractionDenEasyOperandLimitations);
+let fractionNumEasyResultLimitations = new BasicResultLimitations(true, false);
+let fractionDenEasyResultLimitations = new BasicResultLimitations(true, false);
+let fractionEasyResultLimitations = new FractionResultLimitations(fractionNumEasyResultLimitations,
+  fractionDenEasyResultLimitations);
+export const EASY_FRACTION_ADDITION = new FractionRoundLevel("Easy Fraction Addition", justFractionAddition,
+  fractionEasyOperandLimitations, fractionEasyOperandLimitations, fractionEasyResultLimitations);
 
 
 // No level 0
@@ -111,4 +127,10 @@ export const LEVEL_ORDER = [
   CHALLENGING_DIVISION,
   HARD_DIVISION,
   EXPERT_DIVISION
-]
+];
+
+// No level 0
+export const FRACTION_LEVEL_ORDER = [
+  null,
+  EASY_FRACTION_ADDITION
+];

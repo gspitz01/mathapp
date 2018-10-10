@@ -39,10 +39,16 @@
   font-size: 24pt;
 
   table {
-    border-bottom: 2px solid black;
     text-align: right;
+
     td {
       padding: 0.3em;
+    }
+
+    tr:first-child {
+      td:nth-child(1), td:nth-child(3), td:nth-child(5) {
+        border-bottom: 2px solid $rich-black;
+      }
     }
   }
 

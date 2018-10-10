@@ -9,22 +9,30 @@
     <div class="question-view" *ngIf="round.getCurrentQuestion()">
       <table>
         <tr>
-          <td></td>
-          <td><span>{{round.getCurrentQuestion().operand1.value}}</span></td>
+          <td><span>{{round.getCurrentQuestion().operand1.numerator.value}}</span></td>
+          <td rowspan="2"><span>{{round.getCurrentQuestion().operator.display}}</span></td>
+          <td><span>{{round.getCurrentQuestion().operand2.numerator.value}}</span></td>
+          <td rowspan="2"><span>=</span></td>
+          <td><input (disabled)="answerDisabled"
+            (keyup.enter)="onEnter()"
+            autofocus
+            [formControl]="answerNum"
+            pattern="[0-9\-\.]*"
+            type="text" name="answer-num" id="answer-num" /></td>
         </tr>
         <tr>
-          <td><span>{{round.getCurrentQuestion().operator.display}}</span></td>
-          <td><span>{{round.getCurrentQuestion().operand2.value}}</span></td>
+          <td><span>{{round.getCurrentQuestion().operand1.denominator.value}}</span></td>
+          <td><span>{{round.getCurrentQuestion().operand2.denominator.value}}</span></td>
+          <td><input (disabled)="answerDisabled"
+            (keyup.enter)="onEnter()"
+            autofocus
+            [formControl]="answerDen"
+            pattern="[0-9\-\.]*"
+            type="text" name="answer-den" id="answer-den" /></td>
         </tr>
       </table>
-      <input (disabled)="answerDisabled"
-      (keyup.enter)="onEnter()"
-      autofocus
-      [formControl]="answer"
-      pattern="[0-9\-\./]*"
-      type="text" name="answer" id="answer" />
     </div>
-    <div *ngIf="answer.errors?.pattern" class="mat-error">Answer must be a number.</div>
+    <div *ngIf="answerNum.errors?.pattern||answerDen.errors?.pattern" class="mat-error">Answer must be a number.</div>
   </div>
   <div class="messages">{{messages}}</div>
 </div>

@@ -26,7 +26,8 @@ import { FractionQuizViewComponent } from './fraction-quiz-view/fraction-quiz-vi
     FractionQuizViewComponent
   ],
   entryComponents: [
-    BasicQuizViewComponent
+    BasicQuizViewComponent,
+    FractionQuizViewComponent
   ],
   imports: [
     BrowserModule,

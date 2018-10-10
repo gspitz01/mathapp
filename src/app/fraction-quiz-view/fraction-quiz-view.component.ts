@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Seconds } from '../seconds';
 import { FormControl } from '@angular/forms';
-import { LEVEL_ORDER } from '../round-levels';
+import { FRACTION_LEVEL_ORDER } from '../round-levels';
+import { FractionTimeLimitedRound } from '../fraction-time-limited-round';
 
 const startButtonText = "Start";
 const stopButtonText = "Stop";
@@ -10,7 +11,7 @@ const correctRatioThresholdForAdvancing = 0.8;
 const advanceToNextLevelText = "You can move on to the next level!";
 const notEnoughQuestionsToAdvanceText = "You did not answer enough questions to reach the next level.";
 const notEnoughCorrectAnswersToAdvanceText = "You did not answer enough questions correctly to reach the next level.";
-const validAnswerRegex = /^[0-9\-\./]*$/;
+const validAnswerRegex = /^[0-9\-\.]*$/;
 
 @Component({
   selector: 'app-fraction-quiz-view',
@@ -24,10 +25,11 @@ export class FractionQuizViewComponent implements OnInit {
   buttonText: string;
   messages: string;
   timeLeft: number;
-  private round;
+  private round: FractionTimeLimitedRound;
   // Timer for saving window.setInterval id
   private timer: number;
-  private answer = new FormControl("");
+  private answerNum = new FormControl("");
+  private answerDen = new FormControl("");
   private answerDisabled: boolean;
   private currentLevel: number;
 
@@ -42,7 +44,7 @@ export class FractionQuizViewComponent implements OnInit {
   }
 
   newRound() {
-
+    this.round = new FractionTimeLimitedRound(this.startingTime, FRACTION_LEVEL_ORDER[this.currentLevel]);
   }
 
   start() {
@@ -80,17 +82,19 @@ export class FractionQuizViewComponent implements OnInit {
 
   onEnter() {
     if (!this.answerDisabled && this.answerIsValid()) {
-      let answerEval = this.round.answerQuestion(this.answer.value);
-      this.answer.setValue("");
+      let answer = this.answerNum.value + "/" + this.answerDen.value;
+      let answerEval = this.round.answerQuestion(answer);
+      this.clearAnswerInput();
     }
   }
 
   answerIsValid(): boolean {
-    return validAnswerRegex.test(this.answer.value);
+    return validAnswerRegex.test(this.answerNum.value) && validAnswerRegex.test(this.answerDen.value);
   }
 
   clearAnswerInput() {
-    this.answer.setValue("");
+    this.answerNum.setValue("");
+    this.answerDen.setValue("");
   }
 
   evauluateRound() {
@@ -101,7 +105,7 @@ export class FractionQuizViewComponent implements OnInit {
     if (questionsAnswered >= questionThresholdForAdvancing &&
       correctRatio >= correctRatioThresholdForAdvancing) {
       this.messages = advanceToNextLevelText;
-      if (this.currentLevel < LEVEL_ORDER.length - 1) {
+      if (this.currentLevel < FRACTION_LEVEL_ORDER.length - 1) {
         this.currentLevel++;
       }
     } else if (questionsAnswered < questionThresholdForAdvancing) {

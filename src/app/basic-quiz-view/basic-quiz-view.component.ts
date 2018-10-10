@@ -83,7 +83,7 @@ export class BasicQuizViewComponent implements OnInit {
   onEnter() {
     if (!this.answerDisabled && this.answerIsValid()) {
       let answerEval = this.round.answerQuestion(this.answer.value);
-      this.answer.setValue("");
+      this.clearAnswerInput();
     }
   }
 

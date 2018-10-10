@@ -33,19 +33,6 @@ export class BasicsComponent implements OnInit {
       case 'Division':
         this.createQuizComponent(16, defaultTime);
         break;
-      case 'Fraction Addition':
-        this.createQuizComponent(21, defaultTime);
-        break;
-      case 'Fraction Subtraction':
-        this.createQuizComponent(21, defaultTime);
-        break;
-      case 'Fraction Multiplication':
-        this.createQuizComponent(21, defaultTime);
-        break;
-      case 'Fraction Division':
-        this.createQuizComponent(21, defaultTime);
-        break;
-
     }
   }
 
