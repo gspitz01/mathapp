@@ -13,6 +13,7 @@ import { BasicsComponent } from './basics/basics.component';
 import { FractionsComponent } from './fractions/fractions.component';
 
 import { AppRoutingModule } from './/app-routing.module';
+import { FractionQuizViewComponent } from './fraction-quiz-view/fraction-quiz-view.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { AppRoutingModule } from './/app-routing.module';
     QuizDirective,
     HomeComponent,
     BasicsComponent,
-    FractionsComponent
+    FractionsComponent,
+    FractionQuizViewComponent
   ],
   entryComponents: [
     BasicQuizViewComponent

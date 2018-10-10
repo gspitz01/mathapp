@@ -1,0 +1,30 @@
+<div class="quiz-view">
+  <div class="controls">
+    <button (click)="start()" id="start" mat-button>{{buttonText}}</button>
+  </div>
+  <div class="round-view" *ngIf="round">
+    <div class="time-remaining">{{timeLeft}}</div>
+    <div class="questions-answered">Questions: {{round.getNumberOfQuestionsAnswered()}}</div>
+    <div class="correct-answers">Correct: {{round.getNumberOfCorrectAnswers()}}</div>
+    <div class="question-view" *ngIf="round.getCurrentQuestion()">
+      <table>
+        <tr>
+          <td></td>
+          <td><span>{{round.getCurrentQuestion().operand1.value}}</span></td>
+        </tr>
+        <tr>
+          <td><span>{{round.getCurrentQuestion().operator.display}}</span></td>
+          <td><span>{{round.getCurrentQuestion().operand2.value}}</span></td>
+        </tr>
+      </table>
+      <input (disabled)="answerDisabled"
+      (keyup.enter)="onEnter()"
+      autofocus
+      [formControl]="answer"
+      pattern="[0-9\-\./]*"
+      type="text" name="answer" id="answer" />
+    </div>
+    <div *ngIf="answer.errors?.pattern" class="mat-error">Answer must be a number.</div>
+  </div>
+  <div class="messages">{{messages}}</div>
+</div>
