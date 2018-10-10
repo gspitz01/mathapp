@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { BasicTimeLimitedRound } from '../basic-time-limited-round';
-import { LEVEL_ORDER } from '../round-levels';
 import { Seconds } from '../seconds';
 import { FormControl } from '@angular/forms';
+import { BasicRoundLevel } from '../basic-round-level';
 
 const startButtonText = "Start";
 const stopButtonText = "Stop";
@@ -11,7 +11,7 @@ const correctRatioThresholdForAdvancing = 0.8;
 const advanceToNextLevelText = "You can move on to the next level!";
 const notEnoughQuestionsToAdvanceText = "You did not answer enough questions to reach the next level.";
 const notEnoughCorrectAnswersToAdvanceText = "You did not answer enough questions correctly to reach the next level.";
-const validAnswerRegex = /^[0-9\-\./]*$/;
+const validAnswerRegex = /^[0-9\-]*$/;
 
 @Component({
   selector: 'app-basic-quiz-view',
@@ -20,8 +20,9 @@ const validAnswerRegex = /^[0-9\-\./]*$/;
 })
 export class BasicQuizViewComponent implements OnInit {
 
-  startingLevel: number;
-  startingTime: Seconds;
+  @Input() startingLevel: number;
+  @Input() startingTime: Seconds;
+  @Input() levelOrder: BasicRoundLevel[];
   buttonText: string;
   messages: string;
   timeLeft: number;
@@ -44,7 +45,7 @@ export class BasicQuizViewComponent implements OnInit {
   }
 
   newRound() {
-    this.round = new BasicTimeLimitedRound(this.startingTime, LEVEL_ORDER[this.currentLevel]);
+    this.round = new BasicTimeLimitedRound(this.startingTime, this.levelOrder[this.currentLevel]);
   }
 
   start() {
@@ -103,7 +104,7 @@ export class BasicQuizViewComponent implements OnInit {
     if (questionsAnswered >= questionThresholdForAdvancing &&
       correctRatio >= correctRatioThresholdForAdvancing) {
       this.messages = advanceToNextLevelText;
-      if (this.currentLevel < LEVEL_ORDER.length - 1) {
+      if (this.currentLevel < this.levelOrder.length - 1) {
         this.currentLevel++;
       }
     } else if (questionsAnswered < questionThresholdForAdvancing) {

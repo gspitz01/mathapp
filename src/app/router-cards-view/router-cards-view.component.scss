@@ -1,18 +1,15 @@
 @import '../../variables.scss';
 
-h1 {
-  text-align: center;
-}
-
 .cards {
   width: 100%;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+
+  .card-container {
+    padding: 1em;
+  }
 }
 
 mat-card {
-  width: 42%;
-  margin: 1em 2%;
   text-align: center;
   background: $smokier-white;
   font-size: 1.3em;
@@ -21,5 +18,11 @@ mat-card {
     cursor: pointer;
     background: $artichoke;
     color: $white-smoke;
+  }
+}
+
+@media screen and (min-device-width: 768px) {
+  .cards {
+    grid-template-columns: 50% 50%;
   }
 }

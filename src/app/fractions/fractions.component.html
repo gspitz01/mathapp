@@ -1,17 +1,5 @@
 <h1>Fractions</h1>
-<p class="explanation">Make sure to express everything as a fraction. If the answer is a whole number, it should be something over 1. If the answer is 0, it should be 0/1.</p>
-<div class="content">
-    <aside>
-      <nav>
-          <ul>
-            <li (click)="linkClick('Addition')">Addition</li>
-            <li (click)="linkClick('Subtraction')">Subtraction</li>
-            <li (click)="linkClick('Multiplication')">Multiplication</li>
-            <li (click)="linkClick('Division')">Division</li>
-          </ul>
-        </nav>
-    </aside>
-    <main>
-      <ng-template appQuiz></ng-template>
-    </main>
-  </div>
+<app-fraction-explanation-view></app-fraction-explanation-view>
+<app-router-cards-view
+  [cards]="routerCards">
+</app-router-cards-view>

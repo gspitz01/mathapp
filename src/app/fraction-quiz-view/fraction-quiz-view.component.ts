@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Seconds } from '../seconds';
 import { FormControl } from '@angular/forms';
-import { FRACTION_LEVEL_ORDER } from '../round-levels';
 import { FractionTimeLimitedRound } from '../fraction-time-limited-round';
+import { FractionRoundLevel } from '../fraction-round-level';
 
 const startButtonText = "Start";
 const stopButtonText = "Stop";
@@ -11,7 +11,7 @@ const correctRatioThresholdForAdvancing = 0.8;
 const advanceToNextLevelText = "You can move on to the next level!";
 const notEnoughQuestionsToAdvanceText = "You did not answer enough questions to reach the next level.";
 const notEnoughCorrectAnswersToAdvanceText = "You did not answer enough questions correctly to reach the next level.";
-const validAnswerRegex = /^[0-9\-\.]*$/;
+const validAnswerRegex = /^[0-9\-]*$/;
 
 @Component({
   selector: 'app-fraction-quiz-view',
@@ -20,8 +20,9 @@ const validAnswerRegex = /^[0-9\-\.]*$/;
 })
 export class FractionQuizViewComponent implements OnInit {
 
-  startingLevel: number;
-  startingTime: Seconds;
+  @Input() startingLevel: number;
+  @Input() startingTime: Seconds;
+  @Input() levelOrder: FractionRoundLevel[];
   buttonText: string;
   messages: string;
   timeLeft: number;
@@ -44,7 +45,7 @@ export class FractionQuizViewComponent implements OnInit {
   }
 
   newRound() {
-    this.round = new FractionTimeLimitedRound(this.startingTime, FRACTION_LEVEL_ORDER[this.currentLevel]);
+    this.round = new FractionTimeLimitedRound(this.startingTime, this.levelOrder[this.currentLevel]);
   }
 
   start() {
@@ -105,7 +106,7 @@ export class FractionQuizViewComponent implements OnInit {
     if (questionsAnswered >= questionThresholdForAdvancing &&
       correctRatio >= correctRatioThresholdForAdvancing) {
       this.messages = advanceToNextLevelText;
-      if (this.currentLevel < FRACTION_LEVEL_ORDER.length - 1) {
+      if (this.currentLevel < this.levelOrder.length - 1) {
         this.currentLevel++;
       }
     } else if (questionsAnswered < questionThresholdForAdvancing) {

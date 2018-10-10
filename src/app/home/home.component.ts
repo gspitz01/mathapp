@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RouterCard } from '../router-card';
 
 @Component({
   selector: 'app-home',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+
+  routerCards = [new RouterCard("/basics", "Basics"), new RouterCard("/fractions", "Fractions")];
 
   constructor() { }
 

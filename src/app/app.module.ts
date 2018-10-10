@@ -3,7 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { MatButtonModule } from '@angular/material';
+import { MatButtonModule, MatCardModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { BasicQuizViewComponent } from './basic-quiz-view/basic-quiz-view.component';
@@ -23,6 +23,8 @@ import { FractionSubtractionComponent } from './fraction-subtraction/fraction-su
 import { FractionMultiplicationComponent } from './fraction-multiplication/fraction-multiplication.component';
 import { FractionDivisionComponent } from './fraction-division/fraction-division.component';
 import { FractionLcdComponent } from './fraction-lcd/fraction-lcd.component';
+import { RouterCardsViewComponent } from './router-cards-view/router-cards-view.component';
+import { FractionExplanationViewComponent } from './fraction-explanation-view/fraction-explanation-view.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { FractionLcdComponent } from './fraction-lcd/fraction-lcd.component';
     FractionSubtractionComponent,
     FractionMultiplicationComponent,
     FractionDivisionComponent,
-    FractionLcdComponent
+    FractionLcdComponent,
+    RouterCardsViewComponent,
+    FractionExplanationViewComponent
   ],
   entryComponents: [
     BasicQuizViewComponent,
@@ -53,6 +57,7 @@ import { FractionLcdComponent } from './fraction-lcd/fraction-lcd.component';
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
+    MatCardModule,
     AppRoutingModule
   ],
   providers: [],

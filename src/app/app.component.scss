@@ -13,6 +13,13 @@ header {
   padding: 0em 1em;
   padding-top: 1em;
 
+  .brand {
+    cursor: pointer;
+    font-size: 1.5em;
+    margin: 1em 1em;
+    padding: 0;
+  }
+
   nav ul {
     list-style: none;
     display: flex;
