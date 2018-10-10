@@ -26,7 +26,7 @@ export class FractionQuizViewComponent implements OnInit {
   buttonText: string;
   messages: string;
   timeLeft: number;
-  private round: FractionTimeLimitedRound;
+  round: FractionTimeLimitedRound;
   // Timer for saving window.setInterval id
   private timer: number;
   private answerNum = new FormControl("");

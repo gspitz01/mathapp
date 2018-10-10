@@ -26,7 +26,7 @@ export class BasicQuizViewComponent implements OnInit {
   buttonText: string;
   messages: string;
   timeLeft: number;
-  private round: BasicTimeLimitedRound;
+  round: BasicTimeLimitedRound;
   // Timer for saving window.setInterval id
   private timer: number;
   private answer = new FormControl("");
