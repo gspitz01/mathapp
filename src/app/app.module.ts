@@ -6,7 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
-import { QuizViewComponent } from './quiz-view/quiz-view.component';
+import { BasicQuizViewComponent } from './basic-quiz-view/basic-quiz-view.component';
 import { QuizDirective } from './quiz.directive';
 import { HomeComponent } from './home/home.component';
 import { BasicsComponent } from './basics/basics.component';
@@ -17,14 +17,14 @@ import { AppRoutingModule } from './/app-routing.module';
 @NgModule({
   declarations: [
     AppComponent,
-    QuizViewComponent,
+    BasicQuizViewComponent,
     QuizDirective,
     HomeComponent,
     BasicsComponent,
     FractionsComponent
   ],
   entryComponents: [
-    QuizViewComponent
+    BasicQuizViewComponent
   ],
   imports: [
     BrowserModule,

@@ -2,7 +2,7 @@ import { Component, ComponentFactoryResolver, OnInit, ViewChild } from '@angular
 
 import { Seconds } from '../seconds';
 import { QuizDirective } from '../quiz.directive';
-import { QuizViewComponent } from '../quiz-view/quiz-view.component';
+import { BasicQuizViewComponent } from '../basic-quiz-view/basic-quiz-view.component';
 
 const defaultTime = new Seconds(20);
 
@@ -50,7 +50,7 @@ export class BasicsComponent implements OnInit {
   }
 
   createQuizComponent(level, time) {
-    let componentFactory = this.componentFactoryResolver.resolveComponentFactory(QuizViewComponent);
+    let componentFactory = this.componentFactoryResolver.resolveComponentFactory(BasicQuizViewComponent);
     let viewContainerRef = this.quizHost.viewContainerRef;
     viewContainerRef.clear();
     let componentRef = viewContainerRef.createComponent(componentFactory);

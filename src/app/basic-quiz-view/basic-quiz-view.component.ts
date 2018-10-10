@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BasicTimeLimitedRound } from '../basic-time-limited-round';
 import { LEVEL_ORDER } from '../round-levels';
 import { Seconds } from '../seconds';
@@ -14,11 +14,11 @@ const notEnoughCorrectAnswersToAdvanceText = "You did not answer enough question
 const validAnswerRegex = /^[0-9\-\./]*$/;
 
 @Component({
-  selector: 'app-quiz-view',
-  templateUrl: './quiz-view.component.html',
-  styleUrls: ['./quiz-view.component.scss']
+  selector: 'app-basic-quiz-view',
+  templateUrl: './basic-quiz-view.component.html',
+  styleUrls: ['./basic-quiz-view.component.scss']
 })
-export class QuizViewComponent implements OnInit {
+export class BasicQuizViewComponent implements OnInit {
 
   startingLevel: number;
   startingTime: Seconds;
