@@ -3,6 +3,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { MatButtonModule } from '@angular/material';
+
 import { AppComponent } from './app.component';
 import { QuizViewComponent } from './quiz-view/quiz-view.component';
 import { QuizDirective } from './quiz.directive';
@@ -20,7 +22,8 @@ import { QuizDirective } from './quiz.directive';
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

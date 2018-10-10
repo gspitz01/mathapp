@@ -1,12 +1,13 @@
 @import "../variables.scss";
 
 $header-height: 3.5em;
-$main-margin-top: $header-height + 3em;
+$content-margin-top: $header-height + 3em;
 
 header {
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 100;
   height: $header-height;
   display: flex;
   align-items: flex-end;
@@ -22,6 +23,7 @@ header {
     li {
       margin-right: 1em;
       cursor: pointer;
+      font-size: 1.2em;
       border-bottom: 2px solid $silver-chalice;
 
       &:hover {
@@ -31,18 +33,41 @@ header {
   }
 }
 
-main {
+.content {
   margin: 0 auto;
-  margin-top: $main-margin-top;
+  margin-top: $content-margin-top;
   width: 80%;
+  display: flex;
+}
+
+aside {
+  width: 15%;
+  height: 200px;
+  padding: 2em 2em;
+  border-radius: 3px;
+  background: $smokier-white;
+  -moz-box-shadow:    inset 0 0 4px #000000;
+  -webkit-box-shadow: inset 0 0 4px #000000;
+  box-shadow:         inset 0 0 4px #000000;
+  overflow: auto;
 
   nav ul {
     list-style: none;
-    display: flex;
+    margin: 0;
+    padding: 0;
 
     li {
-      margin-right: 1em;
       cursor: pointer;
+      color: $rich-black;
+      font-size: 1.1em;
+
+      &:hover {
+        color: $artichoke;
+      }
     }
   }
+}
+
+main {
+  width: 70%;
 }

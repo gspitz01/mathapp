@@ -1,4 +1,4 @@
-<header class="mat-elevation-z6">
+<header class="mat-elevation-z8">
     <h1>{{title}}</h1>
   <nav>
     <ul>
@@ -7,14 +7,18 @@
     </ul>
   </nav>
 </header>
-<main>
-  <nav>
-    <ul>
-      <li (click)="linkClick('Addition')">Addition</li>
-      <li (click)="linkClick('Subtraction')">Subtraction</li>
-      <li (click)="linkClick('Multiplication')">Multiplication</li>
-      <li (click)="linkClick('Division')">Division</li>
-    </ul>
-  </nav>
-  <ng-template appQuiz></ng-template>
-</main>
+<div class="content">
+  <aside>
+    <nav>
+        <ul>
+          <li (click)="linkClick('Addition')">Addition</li>
+          <li (click)="linkClick('Subtraction')">Subtraction</li>
+          <li (click)="linkClick('Multiplication')">Multiplication</li>
+          <li (click)="linkClick('Division')">Division</li>
+        </ul>
+      </nav>
+  </aside>
+  <main>
+    <ng-template appQuiz></ng-template>
+  </main>
+</div>
