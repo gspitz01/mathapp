@@ -9,6 +9,7 @@ const stopButtonText = "Stop";
 const questionThresholdForAdvancing = 1;
 const correctRatioThresholdForAdvancing = 0.8;
 const advanceToNextLevelText = "You can move on to the next level!";
+const finishedHighestLevelText = "You finished the highest level! Congratulations!";
 const notEnoughQuestionsToAdvanceText = "You did not answer enough questions to reach the next level.";
 const notEnoughCorrectAnswersToAdvanceText = "You did not answer enough questions correctly to reach the next level.";
 const validAnswerRegex = /^[0-9\-]*$/;
@@ -103,10 +104,12 @@ export class BasicQuizViewComponent implements OnInit {
     let correctRatio = correctAnswers / questionsAnswered;
     if (questionsAnswered >= questionThresholdForAdvancing &&
       correctRatio >= correctRatioThresholdForAdvancing) {
-      this.messages = advanceToNextLevelText;
-      if (this.currentLevel < this.levelOrder.length - 1) {
-        this.currentLevel++;
-      }
+        if (this.currentLevel < this.levelOrder.length - 1) {
+          this.currentLevel++;
+          this.messages = advanceToNextLevelText;
+        } else {
+          this.messages = finishedHighestLevelText;
+        }
     } else if (questionsAnswered < questionThresholdForAdvancing) {
       this.messages = notEnoughQuestionsToAdvanceText;
     } else {
