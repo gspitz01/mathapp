@@ -5,6 +5,7 @@ import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Seconds } from '../seconds';
+import { EASY_ADDITION, BASIC_ADDITION_LEVEL_ORDER } from '../round-levels';
 
 const defaultStartingTime = new Seconds(60);
 
@@ -29,6 +30,7 @@ describe('BasicQuizViewComponent', () => {
     component = fixture.componentInstance;
     component.startingTime = defaultStartingTime;
     component.startingLevel = 1;
+    component.levelOrder = BASIC_ADDITION_LEVEL_ORDER;
     startButton = fixture.debugElement.query(By.css("#start"));
     fixture.detectChanges();
   });
