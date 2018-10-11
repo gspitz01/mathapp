@@ -8,9 +8,10 @@ import { FractionOperandLimitations } from "./fraction-operand-limitations";
 
 export class FractionRoundLevel extends RoundLevel {
 
-  constructor(name: string, operators: FractionOperator[], readonly operand1Limitations: FractionOperandLimitations,
+  constructor(name: string, operators: FractionOperator[],  questionThresholdPerSixtySeconds: number,
+      correctRatioThreshold: number, readonly operand1Limitations: FractionOperandLimitations,
       readonly operand2Limitations: FractionOperandLimitations, readonly resultLimitations: FractionResultLimitations) {
-        super(name, operators);
+        super(name, operators, questionThresholdPerSixtySeconds, correctRatioThreshold);
       }
 
   createQuestion(): OperatorQuestion {

@@ -12,55 +12,56 @@ import { FractionResultLimitations } from './fraction-result-limitations';
 /**
  * Basis
  */
+let defaultCorrectRatioThreshold = 0.8;
 let justAddition: BasicOperator[] = [ADDITION];
 let singleDigitPositiveWholeNumbers = new BasicOperandLimitations(true, 9, false, true);
-export const EASY_ADDITION = new BasicRoundLevel("Easy Addition", justAddition,
+export const EASY_ADDITION = new BasicRoundLevel("Easy Addition", justAddition, 25, defaultCorrectRatioThreshold,
     singleDigitPositiveWholeNumbers, singleDigitPositiveWholeNumbers, null);
 
 let doubleDigitPositiveWholeNumbers = new BasicOperandLimitations(true, 99, false, true);
-export const MEDIUM_ADDITION = new BasicRoundLevel("Medium Addition", justAddition,
+export const MEDIUM_ADDITION = new BasicRoundLevel("Medium Addition", justAddition, 20, defaultCorrectRatioThreshold,
     doubleDigitPositiveWholeNumbers, singleDigitPositiveWholeNumbers, null);
 
-export const CHALLENGING_ADDITION = new BasicRoundLevel("Challenging Addition", justAddition,
+export const CHALLENGING_ADDITION = new BasicRoundLevel("Challenging Addition", justAddition, 15, defaultCorrectRatioThreshold,
     doubleDigitPositiveWholeNumbers, doubleDigitPositiveWholeNumbers, null);
 
 let tripleDigitPositiveWholeNumbers = new BasicOperandLimitations(true, 999, false, true);
-export const HARD_ADDITION = new BasicRoundLevel("Hard Addition", justAddition,
+export const HARD_ADDITION = new BasicRoundLevel("Hard Addition", justAddition, 8, defaultCorrectRatioThreshold,
     tripleDigitPositiveWholeNumbers, doubleDigitPositiveWholeNumbers, null);
 
-export const EXPERT_ADDITION = new BasicRoundLevel("Expert Addition", justAddition,
+export const EXPERT_ADDITION = new BasicRoundLevel("Expert Addition", justAddition, 5, defaultCorrectRatioThreshold,
     tripleDigitPositiveWholeNumbers, tripleDigitPositiveWholeNumbers, null);
 
 let justSubtraction: BasicOperator[] = [SUBTRACTION];
-export const EASY_SUBTRACTION = new BasicRoundLevel("Easy Subtraction", justSubtraction,
+export const EASY_SUBTRACTION = new BasicRoundLevel("Easy Subtraction", justSubtraction, 25, defaultCorrectRatioThreshold,
     singleDigitPositiveWholeNumbers, singleDigitPositiveWholeNumbers, null);
 
-export const MEDIUM_SUBTRACTION = new BasicRoundLevel("Medium Subtraction", justSubtraction,
+export const MEDIUM_SUBTRACTION = new BasicRoundLevel("Medium Subtraction", justSubtraction, 20, defaultCorrectRatioThreshold,
     doubleDigitPositiveWholeNumbers, singleDigitPositiveWholeNumbers, null);
 
-export const CHALLENGING_SUBTRACTION = new BasicRoundLevel("Challenging Subtraction", justSubtraction,
+export const CHALLENGING_SUBTRACTION = new BasicRoundLevel("Challenging Subtraction", justSubtraction, 15, defaultCorrectRatioThreshold,
     doubleDigitPositiveWholeNumbers, doubleDigitPositiveWholeNumbers, null);
 
-export const HARD_SUBTRACTION = new BasicRoundLevel("Hard Subtraction", justSubtraction,
+export const HARD_SUBTRACTION = new BasicRoundLevel("Hard Subtraction", justSubtraction, 8, defaultCorrectRatioThreshold,
     tripleDigitPositiveWholeNumbers, doubleDigitPositiveWholeNumbers, null);
 
-export const EXPERT_SUBTRACTION = new BasicRoundLevel("Expert Subtraction", justSubtraction,
+export const EXPERT_SUBTRACTION = new BasicRoundLevel("Expert Subtraction", justSubtraction, 5, defaultCorrectRatioThreshold,
     tripleDigitPositiveWholeNumbers, tripleDigitPositiveWholeNumbers, null);
 
 let justMultiplication: BasicOperator[] = [MULTIPLICATION];
-export const EASY_MULTIPLICATION = new BasicRoundLevel("Easy Multiplication", justMultiplication,
+export const EASY_MULTIPLICATION = new BasicRoundLevel("Easy Multiplication", justMultiplication, 25, defaultCorrectRatioThreshold,
     singleDigitPositiveWholeNumbers, singleDigitPositiveWholeNumbers, null);
 
-export const MEDIUM_MULTIPLICATION = new BasicRoundLevel("Medium Multiplication", justMultiplication,
+export const MEDIUM_MULTIPLICATION = new BasicRoundLevel("Medium Multiplication", justMultiplication, 15, defaultCorrectRatioThreshold,
     doubleDigitPositiveWholeNumbers, singleDigitPositiveWholeNumbers, null);
 
-export const CHALLENGING_MULTIPLICATION = new BasicRoundLevel("Challenging Multiplication", justMultiplication,
+export const CHALLENGING_MULTIPLICATION = new BasicRoundLevel("Challenging Multiplication", justMultiplication, 10, defaultCorrectRatioThreshold,
     doubleDigitPositiveWholeNumbers, doubleDigitPositiveWholeNumbers, null);
 
-export const HARD_MULTIPLICATION = new BasicRoundLevel("Hard Multiplication", justMultiplication,
+export const HARD_MULTIPLICATION = new BasicRoundLevel("Hard Multiplication", justMultiplication, 7, defaultCorrectRatioThreshold,
     tripleDigitPositiveWholeNumbers, doubleDigitPositiveWholeNumbers, null);
 
-export const EXPERT_MULTIPLICATION = new BasicRoundLevel("Expert Multiplication", justMultiplication,
+export const EXPERT_MULTIPLICATION = new BasicRoundLevel("Expert Multiplication", justMultiplication, 5, defaultCorrectRatioThreshold,
     tripleDigitPositiveWholeNumbers, tripleDigitPositiveWholeNumbers, null);
 
 let justDivision: BasicOperator[] = [DIVISION];
@@ -68,23 +69,23 @@ let divisorSingleDigitLimitations = new BasicOperandLimitations(true, 9, false, 
 let divisorDoubleDigitLimitations = new BasicOperandLimitations(true, 99, false, false);
 let divisorTripleDigitLimitations = new BasicOperandLimitations(true, 999, false, false);
 let onlyPositiveWholeNumberResult = new BasicResultLimitations(true, false);
-export const EASY_DIVISION = new BasicRoundLevel("Easy Division", justDivision,
+export const EASY_DIVISION = new BasicRoundLevel("Easy Division", justDivision, 25, defaultCorrectRatioThreshold,
     singleDigitPositiveWholeNumbers, divisorSingleDigitLimitations,
     onlyPositiveWholeNumberResult);
 
-export const MEDIUM_DIVISION = new BasicRoundLevel("Medium Division", justDivision,
+export const MEDIUM_DIVISION = new BasicRoundLevel("Medium Division", justDivision, 15, defaultCorrectRatioThreshold,
     doubleDigitPositiveWholeNumbers, divisorSingleDigitLimitations,
     onlyPositiveWholeNumberResult);
 
-export const CHALLENGING_DIVISION = new BasicRoundLevel("Challenging Division", justDivision,
+export const CHALLENGING_DIVISION = new BasicRoundLevel("Challenging Division", justDivision, 10, defaultCorrectRatioThreshold,
     doubleDigitPositiveWholeNumbers, divisorDoubleDigitLimitations,
     onlyPositiveWholeNumberResult);
 
-export const HARD_DIVISION = new BasicRoundLevel("Hard Division", justDivision,
+export const HARD_DIVISION = new BasicRoundLevel("Hard Division", justDivision, 7, defaultCorrectRatioThreshold,
     tripleDigitPositiveWholeNumbers, divisorDoubleDigitLimitations,
     onlyPositiveWholeNumberResult);
 
-export const EXPERT_DIVISION = new BasicRoundLevel("Expert Division", justDivision,
+export const EXPERT_DIVISION = new BasicRoundLevel("Expert Division", justDivision, 5, defaultCorrectRatioThreshold,
     tripleDigitPositiveWholeNumbers, divisorTripleDigitLimitations,
     onlyPositiveWholeNumberResult);
 
@@ -101,25 +102,30 @@ let fractionDenEasyResultLimitations = new BasicResultLimitations(true, false);
 let fractionEasyResultLimitations = new FractionResultLimitations(fractionNumEasyResultLimitations,
   fractionDenEasyResultLimitations);
 export const EASY_FRACTION_ADDITION = new FractionRoundLevel("Easy Fraction Addition", justFractionAddition,
-  fractionEasyOperandLimitations, fractionEasyOperandLimitations, fractionEasyResultLimitations);
+  10, defaultCorrectRatioThreshold, fractionEasyOperandLimitations, fractionEasyOperandLimitations,
+  fractionEasyResultLimitations);
 
 let fractionDenMediumOperandLimitations = new BasicOperandLimitations(true, 9, false, true);
 let fractionMediumOperandLimitations = new FractionOperandLimitations(fractionNumEasyOperandLimitations,
   fractionDenMediumOperandLimitations);
 export const MEDIUM_FRACTION_ADDITION = new FractionRoundLevel("Medium Fraction Addition", justFractionAddition,
-  fractionMediumOperandLimitations, fractionEasyOperandLimitations, fractionEasyResultLimitations);
+  8, defaultCorrectRatioThreshold, fractionMediumOperandLimitations, fractionEasyOperandLimitations,
+  fractionEasyResultLimitations);
 
 export const CHALLENGING_FRACTION_ADDITION = new FractionRoundLevel("Challenging Fraction Addition", justFractionAddition,
-  fractionMediumOperandLimitations, fractionMediumOperandLimitations, fractionEasyResultLimitations);
+  6, defaultCorrectRatioThreshold, fractionMediumOperandLimitations, fractionMediumOperandLimitations,
+  fractionEasyResultLimitations);
 
 let fractionNumMediumOperandLimitations = new BasicOperandLimitations(true, 19, false, true);
 let fractionChallengingOperandLimitations = new FractionOperandLimitations(fractionNumMediumOperandLimitations,
   fractionDenMediumOperandLimitations);
 export const HARD_FRACTION_ADDITION = new FractionRoundLevel("Hard Fraction Addition", justFractionAddition,
-  fractionChallengingOperandLimitations, fractionMediumOperandLimitations, fractionEasyResultLimitations);
+  4, defaultCorrectRatioThreshold, fractionChallengingOperandLimitations, fractionMediumOperandLimitations,
+  fractionEasyResultLimitations);
 
 export const EXPERT_FRACTION_ADDITION = new FractionRoundLevel("Expert Fraciton Addition", justFractionAddition,
-  fractionChallengingOperandLimitations, fractionChallengingOperandLimitations, fractionEasyResultLimitations);
+  3, defaultCorrectRatioThreshold, fractionChallengingOperandLimitations, fractionChallengingOperandLimitations,
+  fractionEasyResultLimitations);
 
 let justFractionSubtraction: FractionOperator[] = [FRACTION_SUBTRACTION];
 let fractionSubtractionNumResultLimitations = new BasicResultLimitations(true, true);
@@ -127,35 +133,44 @@ let fractionSubtractionDenResultLimitations = new BasicResultLimitations(true, f
 let fractionSubtractionResultLimitations = new FractionResultLimitations(fractionSubtractionNumResultLimitations,
   fractionSubtractionDenResultLimitations);
 export const EASY_FRACTION_SUBTRACTION = new FractionRoundLevel("Easy Fraction Subtraction", justFractionSubtraction,
-  fractionEasyOperandLimitations, fractionEasyOperandLimitations, fractionSubtractionResultLimitations);
+  10, defaultCorrectRatioThreshold, fractionEasyOperandLimitations, fractionEasyOperandLimitations,
+  fractionSubtractionResultLimitations);
 
 export const MEDIUM_FRACTION_SUBTRACTION = new FractionRoundLevel("Medium Fraction Subtraction", justFractionSubtraction,
-  fractionMediumOperandLimitations, fractionEasyOperandLimitations, fractionSubtractionResultLimitations);
+  8, defaultCorrectRatioThreshold, fractionMediumOperandLimitations, fractionEasyOperandLimitations,
+  fractionSubtractionResultLimitations);
 
 export const CHALLENGING_FRACTION_SUBTRACTION = new FractionRoundLevel("Challenging Fraction Subtraction", justFractionSubtraction,
-  fractionMediumOperandLimitations, fractionMediumOperandLimitations, fractionSubtractionResultLimitations);
+  6, defaultCorrectRatioThreshold, fractionMediumOperandLimitations, fractionMediumOperandLimitations,
+  fractionSubtractionResultLimitations);
 
 export const HARD_FRACTION_SUBTRACTION = new FractionRoundLevel("Hard Fraction Subtraction", justFractionSubtraction,
-  fractionChallengingOperandLimitations, fractionMediumOperandLimitations, fractionSubtractionResultLimitations);
+  4, defaultCorrectRatioThreshold, fractionChallengingOperandLimitations, fractionMediumOperandLimitations,
+  fractionSubtractionResultLimitations);
 
 export const EXPERT_FRACTION_SUBTRACTION = new FractionRoundLevel("Expert Fraction Subtraction", justFractionSubtraction,
-  fractionChallengingOperandLimitations, fractionChallengingOperandLimitations, fractionSubtractionResultLimitations);
+  3, defaultCorrectRatioThreshold, fractionChallengingOperandLimitations, fractionChallengingOperandLimitations,
+  fractionSubtractionResultLimitations);
 
 let justFractionMultiplication: FractionOperator[] = [FRACTION_MULTIPLICATION];
 export const EASY_FRACTION_MULTIPLICATION = new FractionRoundLevel("Easy Fraction Multiplication", justFractionMultiplication,
-  fractionEasyOperandLimitations, fractionEasyOperandLimitations, fractionEasyResultLimitations);
+  14, defaultCorrectRatioThreshold, fractionEasyOperandLimitations, fractionEasyOperandLimitations,
+  fractionEasyResultLimitations);
 
 export const MEDIUM_FRACTION_MULTIPLICATION = new FractionRoundLevel("Medium Fraction Multiplication", justFractionMultiplication,
-  fractionMediumOperandLimitations, fractionEasyOperandLimitations, fractionEasyResultLimitations);
+  10, defaultCorrectRatioThreshold, fractionMediumOperandLimitations, fractionEasyOperandLimitations, fractionEasyResultLimitations);
 
 export const CHALLENGING_FRACTION_MULTIPLICATION = new FractionRoundLevel("Challenging Fraciton Multiplication",
-  justFractionMultiplication, fractionMediumOperandLimitations, fractionMediumOperandLimitations, fractionEasyResultLimitations);
+  justFractionMultiplication, 8, defaultCorrectRatioThreshold, fractionMediumOperandLimitations,
+  fractionMediumOperandLimitations, fractionEasyResultLimitations);
 
 export const HARD_FRACTION_MULTIPLICATION = new FractionRoundLevel("Hard Fraction Multiplication", justFractionMultiplication,
-  fractionChallengingOperandLimitations, fractionMediumOperandLimitations, fractionEasyResultLimitations);
+  5, defaultCorrectRatioThreshold, fractionChallengingOperandLimitations, fractionMediumOperandLimitations,
+  fractionEasyResultLimitations);
 
 export const EXPERT_FRACTION_MULTIPLICATION = new FractionRoundLevel("Expert Fraction Multiplication", justFractionMultiplication,
-  fractionChallengingOperandLimitations, fractionChallengingOperandLimitations, fractionEasyResultLimitations);
+  3, defaultCorrectRatioThreshold, fractionChallengingOperandLimitations, fractionChallengingOperandLimitations,
+  fractionEasyResultLimitations);
 
 let fractionEasyDivisionBasicOperandLimitations = new BasicOperandLimitations(true, 4, false, false);
 let fractionEasyDivisionOperandLimitations = new FractionOperandLimitations(fractionEasyDivisionBasicOperandLimitations,
@@ -168,19 +183,24 @@ let fractionChallengingDivisionOperandLimitations = new FractionOperandLimitatio
   fractionChallengingDivisionBasicOperandLimitations);
 let justFractionDivision: FractionOperator[] = [FRACTION_DIVISION];
 export const EASY_FRACTION_DIVISION = new FractionRoundLevel("Easy Fraction Division", justFractionDivision,
-  fractionEasyDivisionOperandLimitations, fractionEasyDivisionOperandLimitations, fractionEasyResultLimitations);
+  10, defaultCorrectRatioThreshold, fractionEasyDivisionOperandLimitations, fractionEasyDivisionOperandLimitations,
+  fractionEasyResultLimitations);
 
 export const MEDIUM_FRACTION_DIVISION = new FractionRoundLevel("Medium Fraction Division", justFractionDivision,
-  fractionMediumDivisionOperandLimitations, fractionEasyDivisionOperandLimitations, fractionEasyResultLimitations);
+  8, defaultCorrectRatioThreshold, fractionMediumDivisionOperandLimitations, fractionEasyDivisionOperandLimitations,
+  fractionEasyResultLimitations);
 
 export const CHALLENGING_FRACTION_DIVISION = new FractionRoundLevel("Challenging Fraction Division", justFractionDivision,
-  fractionMediumDivisionOperandLimitations, fractionMediumDivisionOperandLimitations, fractionEasyResultLimitations);
+  6, defaultCorrectRatioThreshold, fractionMediumDivisionOperandLimitations, fractionMediumDivisionOperandLimitations,
+  fractionEasyResultLimitations);
 
 export const HARD_FRACTION_DIVISION = new FractionRoundLevel("Hard Fraction Division", justFractionDivision,
-  fractionChallengingDivisionOperandLimitations, fractionMediumDivisionOperandLimitations, fractionEasyResultLimitations);
+  4, defaultCorrectRatioThreshold, fractionChallengingDivisionOperandLimitations,
+  fractionMediumDivisionOperandLimitations, fractionEasyResultLimitations);
 
 export const EXPERT_FRACTION_DIVISION = new FractionRoundLevel("Expert Fraction Division", justFractionDivision,
-  fractionChallengingDivisionOperandLimitations, fractionChallengingDivisionOperandLimitations, fractionEasyResultLimitations);
+  3, defaultCorrectRatioThreshold, fractionChallengingDivisionOperandLimitations,
+  fractionChallengingDivisionOperandLimitations, fractionEasyResultLimitations);
 
 // No level 0
 export const LEVEL_ORDER = [

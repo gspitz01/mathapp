@@ -8,9 +8,10 @@ import { BasicResultLimitations } from "./basic-result-limitations";
 
 export class BasicRoundLevel extends RoundLevel {
 
-  constructor(name: string, operators: BasicOperator[], readonly operand1Limitations: BasicOperandLimitations,
+  constructor(name: string, operators: BasicOperator[],  questionThresholdPerSixtySeconds: number,
+      correctRatioThreshold: number, readonly operand1Limitations: BasicOperandLimitations,
       readonly operand2Limitations: BasicOperandLimitations, readonly resultLimitations: BasicResultLimitations) {
-    super(name, operators);
+    super(name, operators, questionThresholdPerSixtySeconds, correctRatioThreshold);
   }
 
   createQuestion(): OperatorQuestion {
