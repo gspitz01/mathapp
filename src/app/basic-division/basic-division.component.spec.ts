@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BasicDivisionComponent } from './basic-division.component';
+import { BasicQuizViewComponent } from '../basic-quiz-view/basic-quiz-view.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('BasicDivisionComponent', () => {
   let component: BasicDivisionComponent;
@@ -8,7 +10,13 @@ describe('BasicDivisionComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BasicDivisionComponent ]
+      declarations: [
+        BasicDivisionComponent,
+        BasicQuizViewComponent
+      ],
+      imports: [
+        ReactiveFormsModule
+      ]
     })
     .compileComponents();
   }));

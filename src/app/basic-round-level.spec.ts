@@ -11,10 +11,13 @@ describe("BasicRoundLevel", () => {
     };
     let operator = new BasicOperator("x", operation);
     let operators = [operator];
+    let questionThreshold = 5;
+    let correctRatio = 0.8;
     let op1Limitations = new BasicOperandLimitations(true, 2, false, false);
     let op2Limitations = new BasicOperandLimitations(true, 2, false, true);
     let resultLimitations = new BasicResultLimitations(true, false);
-    let roundLevel = new BasicRoundLevel("Easy Whatever", operators, op1Limitations, op2Limitations, resultLimitations);
+    let roundLevel = new BasicRoundLevel("Easy Whatever", operators, questionThreshold, correctRatio,
+      op1Limitations, op2Limitations, resultLimitations);
     let question = roundLevel.createQuestion() as BasicOperatorQuestion;
     expect(question).toEqual(jasmine.any(BasicOperatorQuestion));
     expect(question.operand1.value).toBeLessThan(100);

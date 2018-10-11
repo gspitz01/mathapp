@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HomeComponent } from './home.component';
+import { RouterCardsViewComponent } from '../router-cards-view/router-cards-view.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MatCardModule } from '@angular/material';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -8,7 +11,14 @@ describe('HomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HomeComponent ]
+      declarations: [
+        HomeComponent,
+        RouterCardsViewComponent
+      ],
+      imports: [
+        RouterTestingModule,
+        MatCardModule
+      ]
     })
     .compileComponents();
   }));

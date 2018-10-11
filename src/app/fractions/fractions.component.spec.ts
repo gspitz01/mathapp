@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FractionsComponent } from './fractions.component';
+import { FractionExplanationViewComponent } from '../fraction-explanation-view/fraction-explanation-view.component';
+import { RouterCardsViewComponent } from '../router-cards-view/router-cards-view.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MatCardModule } from '@angular/material';
 
 describe('FractionsComponent', () => {
   let component: FractionsComponent;
@@ -8,7 +12,15 @@ describe('FractionsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FractionsComponent ]
+      declarations: [
+        FractionsComponent,
+        FractionExplanationViewComponent,
+        RouterCardsViewComponent
+      ],
+      imports: [
+        RouterTestingModule,
+        MatCardModule
+      ]
     })
     .compileComponents();
   }));

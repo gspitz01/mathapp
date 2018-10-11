@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FractionAdditionComponent } from './fraction-addition.component';
+import { FractionQuizViewComponent } from '../fraction-quiz-view/fraction-quiz-view.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FractionExplanationViewComponent } from '../fraction-explanation-view/fraction-explanation-view.component';
 
 describe('FractionAdditionComponent', () => {
   let component: FractionAdditionComponent;
@@ -8,7 +11,14 @@ describe('FractionAdditionComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FractionAdditionComponent ]
+      declarations: [
+        FractionAdditionComponent,
+        FractionQuizViewComponent,
+        FractionExplanationViewComponent
+      ],
+      imports: [
+        ReactiveFormsModule
+      ]
     })
     .compileComponents();
   }));
