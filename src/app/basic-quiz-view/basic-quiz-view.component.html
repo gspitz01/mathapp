@@ -1,5 +1,5 @@
 <div class="quiz-view">
-  <h3>Level: {{currentLevel}}</h3>
+  <h3 class="level">Level: {{currentLevel}}</h3>
   <div class="controls">
     <button (click)="start()" id="start" mat-button>{{buttonText}}</button>
   </div>
@@ -11,11 +11,11 @@
       <table>
         <tr>
           <td></td>
-          <td><span>{{round.getCurrentQuestion().operand1.value}}</span></td>
+          <td><span class="operand1">{{round.getCurrentQuestion().operand1.value}}</span></td>
         </tr>
         <tr>
-          <td><span>{{round.getCurrentQuestion().operator.display}}</span></td>
-          <td><span>{{round.getCurrentQuestion().operand2.value}}</span></td>
+          <td><span class="operator">{{round.getCurrentQuestion().operator.display}}</span></td>
+          <td><span class="operand2">{{round.getCurrentQuestion().operand2.value}}</span></td>
         </tr>
       </table>
       <input (disabled)="answerDisabled"
@@ -25,7 +25,7 @@
       pattern="[0-9\-]*"
       type="text" name="answer" id="answer" />
     </div>
-    <div *ngIf="answer.errors?.pattern" class="mat-error">Answer must be a number.</div>
+    <div *ngIf="answer.errors?.pattern" class="answer-error mat-error">Answer must be a number.</div>
   </div>
   <div class="messages">{{messages}}</div>
 </div>

@@ -6,10 +6,10 @@ import { BasicRoundLevel } from '../basic-round-level';
 
 const startButtonText = "Start";
 const stopButtonText = "Stop";
-const advanceToNextLevelText = "You can move on to the next level!";
-const finishedHighestLevelText = "You finished the highest level! Congratulations!";
-const notEnoughQuestionsToAdvanceText = "You did not answer enough questions to reach the next level.";
-const notEnoughCorrectAnswersToAdvanceText = "You did not answer enough questions correctly to reach the next level.";
+export const ADVANCE_TO_NEXT_LEVEL_TEXT = "You can move on to the next level!";
+export const FINISHED_HIGHEST_LEVEL_TEXT = "You finished the highest level! Congratulations!";
+export const NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT = "You did not answer enough questions to reach the next level.";
+export const NOT_ENOUGH_CORRECT_ANSWERS_TO_ADVANCE_TEXT = "You did not answer enough questions correctly to reach the next level.";
 const validAnswerRegex = /^[0-9\-]*$/;
 
 @Component({
@@ -106,14 +106,14 @@ export class BasicQuizViewComponent implements OnInit {
       correctRatio >= round.correctRatioThreshold) {
         if (this.currentLevel < this.levelOrder.length - 1) {
           this.currentLevel++;
-          this.messages = advanceToNextLevelText;
+          this.messages = ADVANCE_TO_NEXT_LEVEL_TEXT;
         } else {
-          this.messages = finishedHighestLevelText;
+          this.messages = FINISHED_HIGHEST_LEVEL_TEXT;
         }
     } else if (questionsAnswered < questionThreshold) {
-      this.messages = notEnoughQuestionsToAdvanceText;
+      this.messages = NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT;
     } else {
-      this.messages = notEnoughCorrectAnswersToAdvanceText;
+      this.messages = NOT_ENOUGH_CORRECT_ANSWERS_TO_ADVANCE_TEXT;
     }
   }
 }
