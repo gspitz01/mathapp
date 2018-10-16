@@ -3,13 +3,10 @@ import { Seconds } from '../seconds';
 import { FormControl } from '@angular/forms';
 import { FractionTimeLimitedRound } from '../fraction-time-limited-round';
 import { FractionRoundLevel } from '../fraction-round-level';
+import { ADVANCE_TO_NEXT_LEVEL_TEXT, FINISHED_HIGHEST_LEVEL_TEXT, NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT, NOT_ENOUGH_CORRECT_ANSWERS_TO_ADVANCE_TEXT } from '../constants';
 
 const startButtonText = "Start";
 const stopButtonText = "Stop";
-const advanceToNextLevelText = "You can move on to the next level!";
-const finishedHighestLevelText = "You finished the highest level! Congratulations!";
-const notEnoughQuestionsToAdvanceText = "You did not answer enough questions to reach the next level.";
-const notEnoughCorrectAnswersToAdvanceText = "You did not answer enough questions correctly to reach the next level.";
 const validAnswerRegex = /^[0-9\-]*$/;
 
 @Component({
@@ -108,14 +105,14 @@ export class FractionQuizViewComponent implements OnInit {
       correctRatio >= round.correctRatioThreshold) {
         if (this.currentLevel < this.levelOrder.length - 1) {
           this.currentLevel++;
-          this.messages = advanceToNextLevelText;
+          this.messages = ADVANCE_TO_NEXT_LEVEL_TEXT;
         } else {
-          this.messages = finishedHighestLevelText;
+          this.messages = FINISHED_HIGHEST_LEVEL_TEXT;
         }
     } else if (questionsAnswered < questionThreshold) {
-      this.messages = notEnoughQuestionsToAdvanceText;
+      this.messages = NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT;
     } else {
-      this.messages = notEnoughCorrectAnswersToAdvanceText;
+      this.messages = NOT_ENOUGH_CORRECT_ANSWERS_TO_ADVANCE_TEXT;
     }
   }
 }

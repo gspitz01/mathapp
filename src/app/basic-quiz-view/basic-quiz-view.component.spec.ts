@@ -1,12 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BasicQuizViewComponent, NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT, NOT_ENOUGH_CORRECT_ANSWERS_TO_ADVANCE_TEXT, ADVANCE_TO_NEXT_LEVEL_TEXT, FINISHED_HIGHEST_LEVEL_TEXT } from './basic-quiz-view.component';
+import { BasicQuizViewComponent } from './basic-quiz-view.component';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Seconds } from '../seconds';
 import { BASIC_ADDITION_LEVEL_ORDER } from '../round-levels';
 import { ADDITION } from '../basic-operators';
+import { NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT, NOT_ENOUGH_CORRECT_ANSWERS_TO_ADVANCE_TEXT, ADVANCE_TO_NEXT_LEVEL_TEXT, FINISHED_HIGHEST_LEVEL_TEXT } from '../constants';
 
 const defaultStartingTime = new Seconds(60);
 

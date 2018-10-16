@@ -3,13 +3,10 @@ import { BasicTimeLimitedRound } from '../basic-time-limited-round';
 import { Seconds } from '../seconds';
 import { FormControl } from '@angular/forms';
 import { BasicRoundLevel } from '../basic-round-level';
+import { ADVANCE_TO_NEXT_LEVEL_TEXT, FINISHED_HIGHEST_LEVEL_TEXT, NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT, NOT_ENOUGH_CORRECT_ANSWERS_TO_ADVANCE_TEXT } from '../constants';
 
 const startButtonText = "Start";
 const stopButtonText = "Stop";
-export const ADVANCE_TO_NEXT_LEVEL_TEXT = "You can move on to the next level!";
-export const FINISHED_HIGHEST_LEVEL_TEXT = "You finished the highest level! Congratulations!";
-export const NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT = "You did not answer enough questions to reach the next level.";
-export const NOT_ENOUGH_CORRECT_ANSWERS_TO_ADVANCE_TEXT = "You did not answer enough questions correctly to reach the next level.";
 const validAnswerRegex = /^[0-9\-]*$/;
 
 @Component({
