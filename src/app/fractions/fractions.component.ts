@@ -9,10 +9,10 @@ import { RouterCard } from '../router-card';
 export class FractionsComponent implements OnInit {
 
   routerCards = [
-    new RouterCard("/fraction-addition", "Addition"),
-    new RouterCard("/fraction-subtraction", "Subtraction"),
-    new RouterCard("/fraction-multiplication", "Multiplication"),
-    new RouterCard("/fraction-division", "Division")
+    new RouterCard("fraction-addition", "/fraction-addition", "Addition"),
+    new RouterCard("fraction-subtraction", "/fraction-subtraction", "Subtraction"),
+    new RouterCard("fraction-multiplication", "/fraction-multiplication", "Multiplication"),
+    new RouterCard("fraction-division", "/fraction-division", "Division")
   ];
 
   constructor() { }

@@ -1,3 +1,3 @@
 export class RouterCard {
-  constructor(readonly link: string, readonly text: string) {}
+  constructor(readonly id: string, readonly link: string, readonly text: string) {}
 }

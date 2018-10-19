@@ -1,5 +1,5 @@
 <div class="cards">
   <div *ngFor="let card of cards" class="card-container">
-    <mat-card routerLink="{{card.link}}">{{card.text}}</mat-card>
+    <mat-card routerLink="{{card.link}}" id="{{card.id}}">{{card.text}}</mat-card>
   </div>
 </div>

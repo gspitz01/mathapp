@@ -8,7 +8,10 @@ import { RouterCard } from '../router-card';
 })
 export class HomeComponent implements OnInit {
 
-  routerCards = [new RouterCard("/basics", "Basics"), new RouterCard("/fractions", "Fractions")];
+  routerCards = [
+    new RouterCard("basics", "/basics", "Basics"),
+    new RouterCard("fractions", "/fractions", "Fractions")
+  ];
 
   constructor() { }
 

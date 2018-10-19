@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RouterCard } from './router-card';
 
 @Component({
   selector: 'app-root',
