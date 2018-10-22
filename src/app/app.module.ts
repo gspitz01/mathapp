@@ -5,6 +5,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MatButtonModule, MatCardModule } from '@angular/material';
 
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+
+import { environment } from '../environments/environment';
+
 import { AppComponent } from './app.component';
 import { BasicQuizViewComponent } from './basic-quiz-view/basic-quiz-view.component';
 import { QuizDirective } from './quiz.directive';
@@ -58,7 +64,10 @@ import { FractionExplanationViewComponent } from './fraction-explanation-view/fr
     ReactiveFormsModule,
     MatButtonModule,
     MatCardModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebase, 'math-app'),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]
