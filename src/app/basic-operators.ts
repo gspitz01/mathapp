@@ -3,12 +3,12 @@ import { BasicOperator } from "./basic-operator";
 let mult = function(op1: number, op2: number): number {
   return op1 * op2;
 }
-export const MULTIPLICATION = new BasicOperator("x", mult);
+export const MULTIPLICATION = new BasicOperator("⋅", mult);
 
 let div = function(op1: number, op2: number): number {
   return op1 / op2;
 }
-export const DIVISION = new BasicOperator("÷", div);
+export const DIVISION = new BasicOperator("/", div);
 
 let add = function(op1: number, op2: number): number {
   return op1 + op2;

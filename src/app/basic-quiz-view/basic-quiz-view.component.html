@@ -10,10 +10,7 @@
     <div class="question-view" *ngIf="round.getCurrentQuestion()">
       <table>
         <tr>
-          <td></td>
           <td><span class="operand1">{{round.getCurrentQuestion().operand1.value}}</span></td>
-        </tr>
-        <tr>
           <td><span class="operator">{{round.getCurrentQuestion().operator.display}}</span></td>
           <td><span class="operand2">{{round.getCurrentQuestion().operand2.value}}</span></td>
         </tr>
