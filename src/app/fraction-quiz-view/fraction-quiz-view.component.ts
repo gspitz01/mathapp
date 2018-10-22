@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { Seconds } from '../seconds';
 import { FormControl } from '@angular/forms';
 import { FractionTimeLimitedRound } from '../fraction-time-limited-round';
@@ -29,6 +29,7 @@ export class FractionQuizViewComponent implements OnInit {
   private answerNum = new FormControl("");
   private answerDen = new FormControl("");
   private answerDisabled: boolean;
+  @ViewChild('numeratorInput') numInput: ElementRef;
 
   constructor() { }
 
@@ -82,6 +83,7 @@ export class FractionQuizViewComponent implements OnInit {
       let answer = this.answerNum.value + "/" + this.answerDen.value;
       let answerEval = this.round.answerQuestion(answer);
       this.clearAnswerInput();
+      this.numInput.nativeElement.focus();
     }
   }
 

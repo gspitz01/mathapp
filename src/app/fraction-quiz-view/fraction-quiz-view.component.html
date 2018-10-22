@@ -10,23 +10,26 @@
     <div class="question-view" *ngIf="round.getCurrentQuestion()">
       <table>
         <tr>
-          <td><span class="operand1-numerator">{{round.getCurrentQuestion().operand1.numerator.value}}</span></td>
+          <td class="fraction-num"><span class="operand1-numerator">{{round.getCurrentQuestion().operand1.numerator.value}}</span></td>
           <td rowspan="2"><span class="operator">{{round.getCurrentQuestion().operator.display}}</span></td>
-          <td><span class="operand2-numerator">{{round.getCurrentQuestion().operand2.numerator.value}}</span></td>
-          <td rowspan="2"><span>=</span></td>
-          <td><input (disabled)="answerDisabled"
+          <td class="fraction-num"><span class="operand2-numerator">{{round.getCurrentQuestion().operand2.numerator.value}}</span></td>
+        </tr>
+        <tr>
+          <td><span class="operand1-denominator">{{round.getCurrentQuestion().operand1.denominator.value}}</span></td>
+          <td><span class="operand2-denominator">{{round.getCurrentQuestion().operand2.denominator.value}}</span></td>
+        </tr>
+        <tr>
+          <td class="fraction-num" colspan="3"><input (disabled)="answerDisabled"
             (keyup.enter)="onEnter()"
             autofocus
+            #numeratorInput
             [formControl]="answerNum"
             pattern="[0-9\-]*"
             type="text" name="answer-num" id="answer-num" /></td>
         </tr>
         <tr>
-          <td><span class="operand1-denominator">{{round.getCurrentQuestion().operand1.denominator.value}}</span></td>
-          <td><span class="operand2-denominator">{{round.getCurrentQuestion().operand2.denominator.value}}</span></td>
-          <td><input (disabled)="answerDisabled"
+          <td colspan="3"><input (disabled)="answerDisabled"
             (keyup.enter)="onEnter()"
-            autofocus
             [formControl]="answerDen"
             pattern="[0-9\-]*"
             type="text" name="answer-den" id="answer-den" /></td>
