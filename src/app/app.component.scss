@@ -7,34 +7,49 @@ header {
   z-index: 100;
   height: $header-height;
   display: flex;
-  align-items: flex-end;
+  justify-content: space-between;
   background: $silver-chalice;
   width: 100%;
   padding: 0em 1em;
   padding-top: 1em;
 
-  .brand {
-    cursor: pointer;
-    font-size: 1.5em;
-    margin: 1em 1em;
-    padding: 0;
+  .header-content-container {
+    display: flex;
   }
 
-  nav ul {
-    list-style: none;
-    display: flex;
-
-    li {
-      margin-right: 1em;
+  .header-left {
+    .brand {
       cursor: pointer;
-      font-size: 1.2em;
-      border-bottom: 2px solid $silver-chalice;
+      font-size: 1.5em;
+      margin-top: 0.5em;
+      padding: 0;
+    }
 
-      &:hover {
-        border-bottom: 2px solid $artichoke;
+    nav ul {
+      list-style: none;
+      display: flex;
+
+      li {
+        margin-right: 1em;
+        cursor: pointer;
+        font-size: 1.2em;
+        border-bottom: 2px solid $silver-chalice;
+
+        &:hover {
+          border-bottom: 2px solid $artichoke;
+        }
       }
     }
   }
+
+  .header-right {
+    padding-right: 3em;
+
+    app-auth {
+      margin: 1em 1em;
+    }
+  }
+
 }
 
 .main-content {

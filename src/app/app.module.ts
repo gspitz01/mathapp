@@ -31,6 +31,8 @@ import { FractionDivisionComponent } from './fraction-division/fraction-division
 import { FractionLcdComponent } from './fraction-lcd/fraction-lcd.component';
 import { RouterCardsViewComponent } from './router-cards-view/router-cards-view.component';
 import { FractionExplanationViewComponent } from './fraction-explanation-view/fraction-explanation-view.component';
+import { LoginComponent } from './login/login.component';
+import { AuthComponent } from './auth/auth.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,9 @@ import { FractionExplanationViewComponent } from './fraction-explanation-view/fr
     FractionDivisionComponent,
     FractionLcdComponent,
     RouterCardsViewComponent,
-    FractionExplanationViewComponent
+    FractionExplanationViewComponent,
+    LoginComponent,
+    AuthComponent
   ],
   entryComponents: [
     BasicQuizViewComponent,

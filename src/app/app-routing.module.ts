@@ -12,21 +12,24 @@ import { FractionSubtractionComponent } from './fraction-subtraction/fraction-su
 import { FractionMultiplicationComponent } from './fraction-multiplication/fraction-multiplication.component';
 import { FractionDivisionComponent } from './fraction-division/fraction-division.component';
 import { FractionLcdComponent } from './fraction-lcd/fraction-lcd.component';
+import { AuthGuardService } from './auth-guard.service';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'basics', component: BasicsComponent },
-  { path: 'fractions', component: FractionsComponent },
-  { path: 'basic-addition', component: BasicAdditionComponent },
-  { path: 'basic-subtraction', component: BasicSubtractionComponent },
-  { path: 'basic-multiplication', component: BasicMultiplicationComponent },
-  { path: 'basic-division', component: BasicDivisionComponent },
-  { path: 'fraction-addition', component: FractionAdditionComponent },
-  { path: 'fraction-subtraction', component: FractionSubtractionComponent },
-  { path: 'fraction-multiplication', component: FractionMultiplicationComponent },
-  { path: 'fraction-division', component: FractionDivisionComponent },
-  { path: 'fraction-lcd', component: FractionLcdComponent }
+  { path: 'basics', component: BasicsComponent, canActivate: [AuthGuardService] },
+  { path: 'fractions', component: FractionsComponent, canActivate: [AuthGuardService] },
+  { path: 'basic-addition', component: BasicAdditionComponent, canActivate: [AuthGuardService] },
+  { path: 'basic-subtraction', component: BasicSubtractionComponent, canActivate: [AuthGuardService] },
+  { path: 'basic-multiplication', component: BasicMultiplicationComponent, canActivate: [AuthGuardService] },
+  { path: 'basic-division', component: BasicDivisionComponent, canActivate: [AuthGuardService] },
+  { path: 'fraction-addition', component: FractionAdditionComponent, canActivate: [AuthGuardService] },
+  { path: 'fraction-subtraction', component: FractionSubtractionComponent, canActivate: [AuthGuardService] },
+  { path: 'fraction-multiplication', component: FractionMultiplicationComponent, canActivate: [AuthGuardService] },
+  { path: 'fraction-division', component: FractionDivisionComponent, canActivate: [AuthGuardService] },
+  { path: 'fraction-lcd', component: FractionLcdComponent, canActivate: [AuthGuardService] }
 ]
 
 @NgModule({

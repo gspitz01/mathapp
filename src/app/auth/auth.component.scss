@@ -1,0 +1,13 @@
+@import "../../variables.scss";
+
+.login-interaction {
+  cursor: pointer;
+
+  &:hover {
+    color: $white-smoke;
+  }
+}
+
+.current-user {
+  margin-right: 1em;
+}
