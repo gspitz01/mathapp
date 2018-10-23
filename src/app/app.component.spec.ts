@@ -7,12 +7,22 @@ import { By } from '@angular/platform-browser';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { AuthComponent } from './auth/auth.component';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Component({
   template: ''
 })
 class DummyComponent {
 
+}
+
+class MockAngularFireAuth {
+  authState = {
+    subscribe: function() {
+
+    }
+  }
 }
 
 describe('AppComponent', () => {
@@ -25,6 +35,7 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
+        AuthComponent,
         BasicQuizViewComponent,
         DummyComponent
       ],
@@ -35,6 +46,9 @@ describe('AppComponent', () => {
           { path: 'basics', component: DummyComponent },
           { path: 'fractions', component: DummyComponent }
         ])
+      ],
+      providers: [
+        { provide: AngularFireAuth, useClass: MockAngularFireAuth }
       ]
     }).compileComponents();
   }));
