@@ -6,7 +6,6 @@
   <div class="round-view" *ngIf="round">
     <div class="time-remaining">{{timeLeft}}</div>
     <div class="questions-answered">Questions: {{round.getNumberOfQuestionsAnswered()}}</div>
-    <div class="correct-answers">Correct: {{round.getNumberOfCorrectAnswers()}}</div>
     <div class="question-view" *ngIf="round.getCurrentQuestion()">
       <table>
         <tr>

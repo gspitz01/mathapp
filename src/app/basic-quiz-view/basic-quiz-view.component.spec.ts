@@ -7,7 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Seconds } from '../seconds';
 import { BASIC_ADDITION_LEVEL_ORDER } from '../round-levels';
 import { ADDITION } from '../basic-operators';
-import { NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT, NOT_ENOUGH_CORRECT_ANSWERS_TO_ADVANCE_TEXT, ADVANCE_TO_NEXT_LEVEL_TEXT, FINISHED_HIGHEST_LEVEL_TEXT } from '../constants';
+import { NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT, ADVANCE_TO_NEXT_LEVEL_TEXT, FINISHED_HIGHEST_LEVEL_TEXT, WRONG_ANSWER_TEXT } from '../constants';
 
 const defaultStartingTime = new Seconds(60);
 
@@ -17,10 +17,6 @@ function getTimeRemainingView(fixture: ComponentFixture<BasicQuizViewComponent>)
 
 function getQuestionsAnsweredView(fixture: ComponentFixture<BasicQuizViewComponent>): DebugElement {
   return fixture.debugElement.query(By.css(".questions-answered"));
-}
-
-function getCorrectAnswersView(fixture: ComponentFixture<BasicQuizViewComponent>): DebugElement {
-  return fixture.debugElement.query(By.css(".correct-answers"));
 }
 
 function getOperand1View(fixture: ComponentFixture<BasicQuizViewComponent>): DebugElement {
@@ -92,9 +88,6 @@ describe('BasicQuizViewComponent', () => {
 
       let questionsAnsweredView = getQuestionsAnsweredView(fixture);
       expect(questionsAnsweredView.nativeElement.textContent).toContain(0);
-
-      let correctAnswersView = getCorrectAnswersView(fixture);
-      expect(correctAnswersView.nativeElement.textContent).toContain(0);
     });
   });
 
@@ -116,9 +109,6 @@ describe('BasicQuizViewComponent', () => {
       fixture.detectChanges();
       let questionsAnsweredView = getQuestionsAnsweredView(fixture)
       expect(questionsAnsweredView.nativeElement.textContent).toContain(1);
-
-      let correctAnswersView = getCorrectAnswersView(fixture)
-      expect(correctAnswersView.nativeElement.textContent).toContain(1);
     });
   });
 
@@ -126,6 +116,8 @@ describe('BasicQuizViewComponent', () => {
     fixture.whenStable().then(() => {
       startButton.nativeElement.click();
       fixture.detectChanges();
+
+      expect(messagesView.nativeElement.textContent).toBe("");
 
       let operand1View = getOperand1View(fixture);
       let operand2View = getOperand2View(fixture);
@@ -141,8 +133,41 @@ describe('BasicQuizViewComponent', () => {
       let questionsAnsweredView = getQuestionsAnsweredView(fixture);
       expect(questionsAnsweredView.nativeElement.textContent).toContain(1);
 
-      let correctAnswersView = getCorrectAnswersView(fixture);
-      expect(correctAnswersView.nativeElement.textContent).toContain(0);
+      expect(messagesView.nativeElement.textContent).toBe(WRONG_ANSWER_TEXT);
+    });
+  });
+
+  it('after answer question incorrectly, then correctly, wrong answer text goes away', () => {
+    fixture.whenStable().then(() => {
+      startButton.nativeElement.click();
+      fixture.detectChanges();
+
+      expect(messagesView.nativeElement.textContent).toBe("");
+
+      let operand1View = getOperand1View(fixture);
+      let operand2View = getOperand2View(fixture);
+      let op1 = parseInt(operand1View.nativeElement.textContent);
+      let op2 = parseInt(operand2View.nativeElement.textContent);
+
+      let answerInput = getAnswerInputView(fixture);
+      answerInput.nativeElement.value = op1 + op2 + 4;
+      answerInput.nativeElement.dispatchEvent(new Event("input"));
+      answerInput.triggerEventHandler("keyup.enter", {});
+
+      fixture.detectChanges();
+      let questionsAnsweredView = getQuestionsAnsweredView(fixture);
+      expect(questionsAnsweredView.nativeElement.textContent).toContain(1);
+
+      expect(messagesView.nativeElement.textContent).toBe(WRONG_ANSWER_TEXT);
+
+      answerInput.nativeElement.value = op1 + op2;
+      answerInput.nativeElement.dispatchEvent(new Event("input"));
+      answerInput.triggerEventHandler("keyup.enter", {});
+
+      fixture.detectChanges();
+      expect(questionsAnsweredView.nativeElement.textContent).toContain(1);
+
+      expect(messagesView.nativeElement.textContent).toBe("");
     });
   });
 
@@ -203,48 +228,6 @@ describe('BasicQuizViewComponent', () => {
     });
   });
 
-  it('let clock tick all the way down and answer enough questions but not correctly, shows not enough corrects message', () => {
-    jasmine.clock().install();
-
-    fixture.whenStable().then(() => {
-      startButton.nativeElement.click();
-      fixture.detectChanges();
-
-      expect(messagesView.nativeElement.textContent).toBe("");
-
-      let operand1View = getOperand1View(fixture);
-      let operand2View = getOperand2View(fixture);
-      let answerInputView = getAnswerInputView(fixture);
-      let questionsNeeded = BASIC_ADDITION_LEVEL_ORDER[1].questionThresholdPerSixtySeconds;
-
-      for (let i = 0; i < questionsNeeded; i++) {
-        let op1 = parseInt(operand1View.nativeElement.textContent);
-        let op2 = parseInt(operand2View.nativeElement.textContent);
-        answerInputView.nativeElement.value = op1 + op2 + 3;
-        answerInputView.nativeElement.dispatchEvent(new Event("input"));
-        answerInputView.triggerEventHandler("keyup.enter", {});
-        fixture.detectChanges();
-      }
-
-      let questionsAnsweredView = getQuestionsAnsweredView(fixture);
-      expect(questionsAnsweredView.nativeElement.textContent).toContain("" + questionsNeeded);
-
-      let correctAnswersView = getCorrectAnswersView(fixture);
-      expect(correctAnswersView.nativeElement.textContent).toContain("0");
-
-      let timeRemainingView = getTimeRemainingView(fixture);
-      expect(timeRemainingView.nativeElement.textContent).toBe("60");
-
-      jasmine.clock().tick(60001);
-      fixture.detectChanges();
-
-      expect(timeRemainingView.nativeElement.textContent).toBe("0");
-      expect(messagesView.nativeElement.textContent).toBe(NOT_ENOUGH_CORRECT_ANSWERS_TO_ADVANCE_TEXT)
-
-      jasmine.clock().uninstall();
-    });
-  });
-
   it('let clock tick all the way down and answer enough questions correctly, shows next level message', () => {
     jasmine.clock().install();
 
@@ -270,9 +253,6 @@ describe('BasicQuizViewComponent', () => {
 
       let questionsAnsweredView = getQuestionsAnsweredView(fixture);
       expect(questionsAnsweredView.nativeElement.textContent).toContain(questionsNeeded);
-
-      let correctAnswersView = getCorrectAnswersView(fixture);
-      expect(correctAnswersView.nativeElement.textContent).toContain(questionsNeeded);
 
       let timeRemainingView = getTimeRemainingView(fixture);
       expect(timeRemainingView.nativeElement.textContent).toBe("60");
@@ -316,9 +296,6 @@ describe('BasicQuizViewComponent', () => {
 
         let questionsAnsweredView = getQuestionsAnsweredView(fixture);
         expect(questionsAnsweredView.nativeElement.textContent).toContain(questionsNeeded);
-
-        let correctAnswersView = getCorrectAnswersView(fixture);
-        expect(correctAnswersView.nativeElement.textContent).toContain(questionsNeeded);
 
         let timeRemainingView = getTimeRemainingView(fixture);
         expect(timeRemainingView.nativeElement.textContent).toBe("60");

@@ -7,7 +7,7 @@ import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { FRACTION_ADDITION_LEVEL_ORDER } from '../round-levels';
 import { FRACTION_ADDITION } from '../fraction-operators';
-import { NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT, NOT_ENOUGH_CORRECT_ANSWERS_TO_ADVANCE_TEXT, ADVANCE_TO_NEXT_LEVEL_TEXT, FINISHED_HIGHEST_LEVEL_TEXT } from '../constants';
+import { NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT, ADVANCE_TO_NEXT_LEVEL_TEXT, FINISHED_HIGHEST_LEVEL_TEXT, WRONG_ANSWER_TEXT } from '../constants';
 import { FractionOperand } from '../fraction-operand';
 import { BasicOperand } from '../basic-operand';
 import { FractionResult } from '../fraction-result';
@@ -18,10 +18,6 @@ function getTimeRemainingView(fixture: ComponentFixture<FractionQuizViewComponen
 
 function getQuestionsAnsweredView(fixture: ComponentFixture<FractionQuizViewComponent>): DebugElement {
   return fixture.debugElement.query(By.css(".questions-answered"));
-}
-
-function getCorrectAnswersView(fixture: ComponentFixture<FractionQuizViewComponent>): DebugElement {
-  return fixture.debugElement.query(By.css(".correct-answers"));
 }
 
 function getOperand1NumeratorView(fixture: ComponentFixture<FractionQuizViewComponent>): DebugElement {
@@ -130,9 +126,6 @@ describe('FractionQuizViewComponent', () => {
 
       let questionsAnsweredView = getQuestionsAnsweredView(fixture);
       expect(questionsAnsweredView.nativeElement.textContent).toContain(0);
-
-      let correctAnswersView = getCorrectAnswersView(fixture);
-      expect(correctAnswersView.nativeElement.textContent).toContain(0);
     });
   });
 
@@ -147,9 +140,6 @@ describe('FractionQuizViewComponent', () => {
       fixture.detectChanges();
       let questionsAnsweredView = getQuestionsAnsweredView(fixture)
       expect(questionsAnsweredView.nativeElement.textContent).toContain(1);
-
-      let correctAnswersView = getCorrectAnswersView(fixture)
-      expect(correctAnswersView.nativeElement.textContent).toContain(1);
     });
   });
 
@@ -158,6 +148,8 @@ describe('FractionQuizViewComponent', () => {
       startButton.nativeElement.click();
       fixture.detectChanges();
 
+      expect(messagesView.nativeElement.textContent).toBe("");
+
       let answer = getAnswer(fixture);
       setAnswer(fixture, answer.numerator.value + 1, answer.denominator.value);
 
@@ -165,8 +157,31 @@ describe('FractionQuizViewComponent', () => {
       let questionsAnsweredView = getQuestionsAnsweredView(fixture);
       expect(questionsAnsweredView.nativeElement.textContent).toContain(1);
 
-      let correctAnswersView = getCorrectAnswersView(fixture);
-      expect(correctAnswersView.nativeElement.textContent).toContain(0);
+      expect(messagesView.nativeElement.textContent).toBe(WRONG_ANSWER_TEXT);
+    });
+  });
+
+  it('after answer question incorrectly, then correctly, wrong answer text goes away', () => {
+    fixture.whenStable().then(() => {
+      startButton.nativeElement.click();
+      fixture.detectChanges();
+
+      expect(messagesView.nativeElement.textContent).toBe("");
+
+      let answer = getAnswer(fixture);
+      setAnswer(fixture, answer.numerator.value + 1, answer.denominator.value);
+
+      fixture.detectChanges();
+      let questionsAnsweredView = getQuestionsAnsweredView(fixture);
+      expect(questionsAnsweredView.nativeElement.textContent).toContain(1);
+
+      expect(messagesView.nativeElement.textContent).toBe(WRONG_ANSWER_TEXT);
+
+      setAnswer(fixture, answer.numerator.value, answer.denominator.value);
+      fixture.detectChanges();
+
+      expect(questionsAnsweredView.nativeElement.textContent).toContain(1);
+      expect(messagesView.nativeElement.textContent).toBe("");
     });
   });
 
@@ -245,42 +260,6 @@ describe('FractionQuizViewComponent', () => {
     });
   });
 
-  it('let clock tick all the way down and answer enough questions but not correctly, shows not enough corrects message', () => {
-    jasmine.clock().install();
-
-    fixture.whenStable().then(() => {
-      startButton.nativeElement.click();
-      fixture.detectChanges();
-
-      expect(messagesView.nativeElement.textContent).toBe("");
-
-      let questionsNeeded = FRACTION_ADDITION_LEVEL_ORDER[1].questionThresholdPerSixtySeconds;
-
-      for (let i = 0; i < questionsNeeded; i++) {
-        let answer = getAnswer(fixture);
-        setAnswer(fixture, answer.numerator.value + 1, answer.denominator.value);
-        fixture.detectChanges();
-      }
-
-      let questionsAnsweredView = getQuestionsAnsweredView(fixture);
-      expect(questionsAnsweredView.nativeElement.textContent).toContain("" + questionsNeeded);
-
-      let correctAnswersView = getCorrectAnswersView(fixture);
-      expect(correctAnswersView.nativeElement.textContent).toContain("0");
-
-      let timeRemainingView = getTimeRemainingView(fixture);
-      expect(timeRemainingView.nativeElement.textContent).toBe("60");
-
-      jasmine.clock().tick(60001);
-      fixture.detectChanges();
-
-      expect(timeRemainingView.nativeElement.textContent).toBe("0");
-      expect(messagesView.nativeElement.textContent).toBe(NOT_ENOUGH_CORRECT_ANSWERS_TO_ADVANCE_TEXT)
-
-      jasmine.clock().uninstall();
-    });
-  });
-
   it('let clock tick all the way down and answer enough questions correctly, shows next level message', () => {
     jasmine.clock().install();
 
@@ -300,9 +279,6 @@ describe('FractionQuizViewComponent', () => {
 
       let questionsAnsweredView = getQuestionsAnsweredView(fixture);
       expect(questionsAnsweredView.nativeElement.textContent).toContain(questionsNeeded);
-
-      let correctAnswersView = getCorrectAnswersView(fixture);
-      expect(correctAnswersView.nativeElement.textContent).toContain(questionsNeeded);
 
       let timeRemainingView = getTimeRemainingView(fixture);
       expect(timeRemainingView.nativeElement.textContent).toBe("60");
@@ -340,9 +316,6 @@ describe('FractionQuizViewComponent', () => {
 
         let questionsAnsweredView = getQuestionsAnsweredView(fixture);
         expect(questionsAnsweredView.nativeElement.textContent).toContain(questionsNeeded);
-
-        let correctAnswersView = getCorrectAnswersView(fixture);
-        expect(correctAnswersView.nativeElement.textContent).toContain(questionsNeeded);
 
         let timeRemainingView = getTimeRemainingView(fixture);
         expect(timeRemainingView.nativeElement.textContent).toBe("60");

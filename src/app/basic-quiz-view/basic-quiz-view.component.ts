@@ -3,7 +3,7 @@ import { BasicTimeLimitedRound } from '../basic-time-limited-round';
 import { Seconds } from '../seconds';
 import { FormControl } from '@angular/forms';
 import { BasicRoundLevel } from '../basic-round-level';
-import { ADVANCE_TO_NEXT_LEVEL_TEXT, FINISHED_HIGHEST_LEVEL_TEXT, NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT, NOT_ENOUGH_CORRECT_ANSWERS_TO_ADVANCE_TEXT } from '../constants';
+import { ADVANCE_TO_NEXT_LEVEL_TEXT, FINISHED_HIGHEST_LEVEL_TEXT, NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT, WRONG_ANSWER_TEXT } from '../constants';
 
 const startButtonText = "Start";
 const stopButtonText = "Stop";
@@ -80,8 +80,21 @@ export class BasicQuizViewComponent implements OnInit {
   onEnter() {
     if (!this.answerDisabled && this.answerIsValid()) {
       let answerEval = this.round.answerQuestion(this.answer.value);
+      if (answerEval.correct) {
+        this.rightAnswer();
+      } else {
+        this.wrongAnswer();
+      }
       this.clearAnswerInput();
     }
+  }
+
+  private rightAnswer() {
+    this.messages = "";
+  }
+
+  private wrongAnswer() {
+    this.messages = WRONG_ANSWER_TEXT;
   }
 
   answerIsValid(): boolean {
@@ -94,23 +107,18 @@ export class BasicQuizViewComponent implements OnInit {
 
   evauluateRound() {
     this.clearAnswerInput();
-    let correctAnswers = this.round.getNumberOfCorrectAnswers();
     let questionsAnswered = this.round.getNumberOfQuestionsAnswered()
-    let correctRatio = correctAnswers / questionsAnswered;
     let round = this.levelOrder[this.currentLevel];
     let questionThreshold = Math.floor(round.questionThresholdPerSixtySeconds * this.startingTime.value/60);
-    if (questionsAnswered >= questionThreshold &&
-      correctRatio >= round.correctRatioThreshold) {
+    if (questionsAnswered >= questionThreshold) {
         if (this.currentLevel < this.levelOrder.length - 1) {
           this.currentLevel++;
           this.messages = ADVANCE_TO_NEXT_LEVEL_TEXT;
         } else {
           this.messages = FINISHED_HIGHEST_LEVEL_TEXT;
         }
-    } else if (questionsAnswered < questionThreshold) {
-      this.messages = NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT;
     } else {
-      this.messages = NOT_ENOUGH_CORRECT_ANSWERS_TO_ADVANCE_TEXT;
+      this.messages = NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT;
     }
   }
 }

@@ -3,13 +3,19 @@ import { FractionTimeLimitedRound } from "./fraction-time-limited-round";
 import { FRACTION_LEVEL_ORDER } from "./round-levels";
 import { AnswerEvaluation } from "./answer-evaluation";
 import { FRACTION_ADDITION } from "./fraction-operators";
+import { FractionResult } from "./fraction-result";
 
 describe("FractionTimeLimitedRound", () => {
   let initialTime = new Seconds(60);
   let testLevel = FRACTION_LEVEL_ORDER[1];
-  let unstartedRound = new FractionTimeLimitedRound(initialTime, testLevel);
-  let startedRound = new FractionTimeLimitedRound(initialTime, testLevel);
-  startedRound.start();
+  let unstartedRound: FractionTimeLimitedRound;
+  let startedRound: FractionTimeLimitedRound;
+
+  beforeEach(() => {
+    unstartedRound = new FractionTimeLimitedRound(initialTime, testLevel);
+    startedRound = new FractionTimeLimitedRound(initialTime, testLevel);
+    startedRound.start();
+  });
 
   it('before start, getCurrentQuestion should return null', () => {
     expect(unstartedRound.getCurrentQuestion()).toBeNull();
@@ -33,8 +39,8 @@ describe("FractionTimeLimitedRound", () => {
     expect(unstartedRound.getNumberOfQuestionsAnswered()).toBe(0);
   });
 
-  it('before start, getNumberOfCorrectAnswers returns 0', () => {
-    expect(unstartedRound.getNumberOfCorrectAnswers()).toBe(0);
+  it('before start, getNumberOfWrongAnswers returns 0', () => {
+    expect(unstartedRound.getNumberOfWrongAnswers()).toBe(0);
   });
 
   it('calling start creates first question', () => {
@@ -60,10 +66,66 @@ describe("FractionTimeLimitedRound", () => {
     expect(startedRound.getCurrentQuestion()).toBe(question);
   });
 
-  it('after start, getting question after answering get new quesstion', () => {
+  it('after start, getting question after correct answer, gets new question', () => {
     let question = startedRound.getCurrentQuestion();
-    startedRound.answerQuestion("45");
+    let result = question.getResult() as FractionResult;
+    startedRound.answerQuestion(result.numerator.value + "/" + result.denominator.value);
     expect(startedRound.getCurrentQuestion()).not.toBe(question);
+  });
+
+  it('after start, getting question after incorrect answer, gets same question', () => {
+    let question = startedRound.getCurrentQuestion();
+    let result = question.getResult() as FractionResult;
+    let answerNum = result.numerator.value + 1;
+    startedRound.answerQuestion(answerNum + "/" + result.denominator);
+    expect(startedRound.getCurrentQuestion()).toBe(question);
+  });
+
+  it('after start, answering correctly increases questionsAnswered', () => {
+    expect(startedRound.getNumberOfQuestionsAnswered()).toBe(0);
+    let question = startedRound.getCurrentQuestion();
+    let result = question.getResult() as FractionResult;
+    startedRound.answerQuestion(result.numerator.value + "/" + result.denominator.value);
+    expect(startedRound.getNumberOfQuestionsAnswered()).toBe(1);
+  });
+
+  it('after start, answering incorrectly increases questionsAnswered first time, but not subsequent times', () => {
+    expect(startedRound.getNumberOfQuestionsAnswered()).toBe(0);
+
+    let question = startedRound.getCurrentQuestion();
+    let result = question.getResult() as FractionResult;
+    startedRound.answerQuestion((result.numerator.value + 1) + "/" + result.denominator.value);
+
+    expect(startedRound.getNumberOfQuestionsAnswered()).toBe(1);
+
+    startedRound.answerQuestion((result.numerator.value + 1) + "/" + result.denominator.value);
+    expect(startedRound.getNumberOfQuestionsAnswered()).toBe(1);
+  });
+
+  it('after start, answering incorrectly increases questionsAnswered, but then answering that question correctly does not', () => {
+    expect(startedRound.getNumberOfQuestionsAnswered()).toBe(0);
+
+    let question = startedRound.getCurrentQuestion();
+    let result = question.getResult() as FractionResult;
+    startedRound.answerQuestion((result.numerator.value + 1) + "/" + result.denominator.value);
+
+    expect(startedRound.getNumberOfQuestionsAnswered()).toBe(1);
+
+    startedRound.answerQuestion(result.numerator.value + "/" + result.denominator.value);
+    expect(startedRound.getNumberOfQuestionsAnswered()).toBe(1);
+  });
+
+  it('after start, answering incorrectly increases wrongAnswers, even for same question', () => {
+    expect(startedRound.getNumberOfWrongAnswers()).toBe(0);
+
+    let question = startedRound.getCurrentQuestion();
+    let result = question.getResult() as FractionResult;
+    startedRound.answerQuestion((result.numerator.value + 1) + "/" + result.denominator.value);
+
+    expect(startedRound.getNumberOfWrongAnswers()).toBe(1);
+
+    startedRound.answerQuestion((result.numerator.value + 1) + "/" + result.denominator.value);
+    expect(startedRound.getNumberOfWrongAnswers()).toBe(2);
   });
 
   it('after start, answerQuestion returns an AnswerEvaluation', () => {

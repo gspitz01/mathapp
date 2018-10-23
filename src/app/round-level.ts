@@ -3,7 +3,7 @@ import { OperatorQuestion } from "./operator-question";
 
 export abstract class RoundLevel {
   constructor(readonly name: string, readonly operators: Operator[],
-    readonly questionThresholdPerSixtySeconds: number, readonly correctRatioThreshold: number) {}
+    readonly questionThresholdPerSixtySeconds: number) {}
 
   /**
    * Creates a BasicOperatorQuestion using the OperandLimitations from the level

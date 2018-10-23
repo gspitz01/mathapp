@@ -6,12 +6,14 @@ export abstract class QuestionRound {
 
   protected currentQuestion: OperatorQuestion;
   private questionsAnswered: number;
-  private correctAnswers: number;
+  private wrongAnswers: number;
+  private sameQuestion: boolean;
 
   constructor(readonly level: RoundLevel) {
     this.currentQuestion = null;
     this.questionsAnswered = 0;
-    this.correctAnswers = 0;
+    this.wrongAnswers = 0;
+    this.sameQuestion = false;
   }
 
   start() {
@@ -29,19 +31,24 @@ export abstract class QuestionRound {
     return this.questionsAnswered;
   }
 
-  getNumberOfCorrectAnswers(): number {
-    return this.correctAnswers;
+  getNumberOfWrongAnswers(): number {
+    return this.wrongAnswers;
   }
 
   answerQuestion(answer: string): AnswerEvaluation {
     if (this.currentQuestion != null) {
+      if (!this.sameQuestion) {
+        this.questionsAnswered++;
+      }
       let correct = this.isAnswerCorrect(answer);
       if (correct) {
-        this.correctAnswers++;
-      }
-      this.questionsAnswered++;
-      if (this.shouldCreateNewQuestion()) {
-        this.currentQuestion = this.level.createQuestion();
+        if (this.shouldCreateNewQuestion()) {
+          this.currentQuestion = this.level.createQuestion();
+          this.sameQuestion = false;
+        }
+      } else {
+        this.wrongAnswers++;
+        this.sameQuestion = true;
       }
       return new AnswerEvaluation(correct, this.currentQuestion.getResult());
     } else {

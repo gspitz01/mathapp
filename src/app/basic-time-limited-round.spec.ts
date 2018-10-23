@@ -3,13 +3,19 @@ import { Seconds } from './seconds';
 import { LEVEL_ORDER } from './round-levels';
 import { ADDITION } from './basic-operators';
 import { AnswerEvaluation } from './answer-evaluation';
+import { BasicResult } from './basic-result';
 
 describe('BasicTimeLimitedRound', () => {
   let initialTime = new Seconds(60);
   let testLevel = LEVEL_ORDER[1];
-  let unstartedRound = new BasicTimeLimitedRound(initialTime, testLevel);
-  let startedRound = new BasicTimeLimitedRound(initialTime, testLevel);
-  startedRound.start();
+  let unstartedRound: BasicTimeLimitedRound;
+  let startedRound: BasicTimeLimitedRound;
+
+  beforeEach(() => {
+    unstartedRound = new BasicTimeLimitedRound(initialTime, testLevel);
+    startedRound = new BasicTimeLimitedRound(initialTime, testLevel);
+    startedRound.start();
+  });
 
   it('before start, getCurrentQuestion should return null', () => {
     expect(unstartedRound.getCurrentQuestion()).toBeNull();
@@ -33,8 +39,8 @@ describe('BasicTimeLimitedRound', () => {
     expect(unstartedRound.getNumberOfQuestionsAnswered()).toBe(0);
   });
 
-  it('before start, getNumberOfCorrectAnswers returns 0', () => {
-    expect(unstartedRound.getNumberOfCorrectAnswers()).toBe(0);
+  it('before start, getNumberOfWrongAnswers returns 0', () => {
+    expect(unstartedRound.getNumberOfWrongAnswers()).toBe(0);
   });
 
   it('calling start creates first question', () => {
@@ -60,12 +66,66 @@ describe('BasicTimeLimitedRound', () => {
     expect(startedRound.getCurrentQuestion()).toBe(question);
   });
 
-  it('after start, getting question after answering get new quesstion', () => {
+  it('after start, getting question after correct answer, gets new question', () => {
     let question = startedRound.getCurrentQuestion();
-    startedRound.answerQuestion("45");
+    let result = question.getResult() as BasicResult;
+    startedRound.answerQuestion(result.value + "");
     expect(startedRound.getCurrentQuestion()).not.toBe(question);
   });
 
+  it('after start, getting question after incorrect answer, gets same question', () => {
+    let question = startedRound.getCurrentQuestion();
+    let result = question.getResult() as BasicResult;
+    startedRound.answerQuestion((result.value + 1) + "");
+    expect(startedRound.getCurrentQuestion()).toBe(question);
+  });
+
+  it('after start, answering correctly increases questionsAnswered', () => {
+    expect(startedRound.getNumberOfQuestionsAnswered()).toBe(0);
+    let question = startedRound.getCurrentQuestion();
+    let result = question.getResult() as BasicResult;
+    startedRound.answerQuestion(result.value + "");
+    expect(startedRound.getNumberOfQuestionsAnswered()).toBe(1);
+  });
+
+  it('after start, answering incorrectly increases questionsAnswered first time, but not subsequent times', () => {
+    expect(startedRound.getNumberOfQuestionsAnswered()).toBe(0);
+
+    let question = startedRound.getCurrentQuestion();
+    let result = question.getResult() as BasicResult;
+    startedRound.answerQuestion((result.value + 1) + "");
+
+    expect(startedRound.getNumberOfQuestionsAnswered()).toBe(1);
+
+    startedRound.answerQuestion((result.value + 1) + "");
+    expect(startedRound.getNumberOfQuestionsAnswered()).toBe(1);
+  });
+
+  it('after start, answering incorrectly increases questionsAnswered, but then answering that question correctly does not', () => {
+    expect(startedRound.getNumberOfQuestionsAnswered()).toBe(0);
+
+    let question = startedRound.getCurrentQuestion();
+    let result = question.getResult() as BasicResult;
+    startedRound.answerQuestion((result.value + 1) + "");
+
+    expect(startedRound.getNumberOfQuestionsAnswered()).toBe(1);
+
+    startedRound.answerQuestion(result.value + "");
+    expect(startedRound.getNumberOfQuestionsAnswered()).toBe(1);
+  });
+
+  it('after start, answering incorrectly increases wrongAnswers, even for same question', () => {
+    expect(startedRound.getNumberOfWrongAnswers()).toBe(0);
+
+    let question = startedRound.getCurrentQuestion();
+    let result = question.getResult() as BasicResult;
+    startedRound.answerQuestion((result.value + 1) + "");
+
+    expect(startedRound.getNumberOfWrongAnswers()).toBe(1);
+
+    startedRound.answerQuestion((result.value + 1) + "");
+    expect(startedRound.getNumberOfWrongAnswers()).toBe(2);
+  });
   it('after start, answerQuestion returns an AnswerEvaluation', () => {
     expect(startedRound.answerQuestion("42")).toEqual(jasmine.any(AnswerEvaluation));
   });

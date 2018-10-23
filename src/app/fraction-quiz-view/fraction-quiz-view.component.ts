@@ -3,7 +3,7 @@ import { Seconds } from '../seconds';
 import { FormControl } from '@angular/forms';
 import { FractionTimeLimitedRound } from '../fraction-time-limited-round';
 import { FractionRoundLevel } from '../fraction-round-level';
-import { ADVANCE_TO_NEXT_LEVEL_TEXT, FINISHED_HIGHEST_LEVEL_TEXT, NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT, NOT_ENOUGH_CORRECT_ANSWERS_TO_ADVANCE_TEXT } from '../constants';
+import { ADVANCE_TO_NEXT_LEVEL_TEXT, FINISHED_HIGHEST_LEVEL_TEXT, NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT, WRONG_ANSWER_TEXT } from '../constants';
 
 const startButtonText = "Start";
 const stopButtonText = "Stop";
@@ -62,6 +62,9 @@ export class FractionQuizViewComponent implements OnInit {
       this.clearAnswerInput();
       this.buttonText = stopButtonText;
       this.answerDisabled = false;
+      if (this.numInput) {
+        this.numInput.nativeElement.focus();
+      }
       let that = this;
       this.timer = window.setInterval(function() {
         that.round.tick();
@@ -82,9 +85,22 @@ export class FractionQuizViewComponent implements OnInit {
     if (!this.answerDisabled && this.answerIsValid()) {
       let answer = this.answerNum.value + "/" + this.answerDen.value;
       let answerEval = this.round.answerQuestion(answer);
+      if (answerEval.correct) {
+        this.rightAnswer();
+      } else {
+        this.wrongAnswer();
+      }
       this.clearAnswerInput();
       this.numInput.nativeElement.focus();
     }
+  }
+
+  private rightAnswer() {
+    this.messages = "";
+  }
+
+  private wrongAnswer() {
+    this.messages = WRONG_ANSWER_TEXT;
   }
 
   answerIsValid(): boolean {
@@ -98,23 +114,18 @@ export class FractionQuizViewComponent implements OnInit {
 
   evauluateRound() {
     this.clearAnswerInput();
-    let correctAnswers = this.round.getNumberOfCorrectAnswers();
     let questionsAnswered = this.round.getNumberOfQuestionsAnswered()
-    let correctRatio = correctAnswers / questionsAnswered;
     let round = this.levelOrder[this.currentLevel];
     let questionThreshold = Math.floor(round.questionThresholdPerSixtySeconds * this.startingTime.value/60);
-    if (questionsAnswered >= questionThreshold &&
-      correctRatio >= round.correctRatioThreshold) {
+    if (questionsAnswered >= questionThreshold) {
         if (this.currentLevel < this.levelOrder.length - 1) {
           this.currentLevel++;
           this.messages = ADVANCE_TO_NEXT_LEVEL_TEXT;
         } else {
           this.messages = FINISHED_HIGHEST_LEVEL_TEXT;
         }
-    } else if (questionsAnswered < questionThreshold) {
-      this.messages = NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT;
     } else {
-      this.messages = NOT_ENOUGH_CORRECT_ANSWERS_TO_ADVANCE_TEXT;
+      this.messages = NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT;
     }
   }
 }

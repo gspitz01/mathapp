@@ -23,8 +23,8 @@ describe('BasicQuestionLimitedRound', () => {
     expect(unstartedRound.getNumberOfQuestionsAnswered()).toBe(0);
   });
 
-  it('before start, getNumberOfCorrectAnswers returns 0', () => {
-    expect(unstartedRound.getNumberOfCorrectAnswers()).toBe(0);
+  it('before start, getNumberOfWrongAnswers returns 0', () => {
+    expect(unstartedRound.getNumberOfWrongAnswers()).toBe(0);
   })
 
   it('calling start creates first question', () => {
