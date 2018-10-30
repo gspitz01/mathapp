@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { BasicTimeLimitedRound } from '../basic-time-limited-round';
 import { Seconds } from '../seconds';
 import { FormControl } from '@angular/forms';
@@ -28,6 +28,7 @@ export class BasicQuizViewComponent implements OnInit {
   private timer: number;
   private answer = new FormControl("");
   private answerDisabled: boolean;
+  @ViewChild('answerInp') answerInput: ElementRef;
 
   constructor() {
   }
@@ -61,6 +62,9 @@ export class BasicQuizViewComponent implements OnInit {
       this.clearAnswerInput();
       this.buttonText = stopButtonText;
       this.answerDisabled = false;
+      if (this.answerInput) {
+        this.answerInput.nativeElement.focus();
+      }
       let that = this;
       this.timer = window.setInterval(function() {
         that.round.tick();
