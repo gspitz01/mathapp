@@ -1,11 +1,5 @@
 import { BasicMultiplicationRoundLevel } from "./basic-multiplication-round-level";
-
-
-let roundLevelNames: string[] = [
-  "Twos", "Threes", "Fours", "Fives", "Sixes", "Sevens", "Eights", "Nines", "Tens",
-  "Elevens", "Twelves", "Thirteens", "Fourteens", "Fifteens", "Sixteens", "Seventeens",
-  "Eighteens", "Nineteens", "Twenties"
-];
+import { PLURAL_NUMBER_NAMES } from "./constants";
 
 // let justMultiplication: BasicOperator[] = [MULTIPLICATION];
 // export const EASY_MULTIPLICATION = new BasicRoundLevel("Easy Multiplication", justMultiplication, 25,
@@ -31,7 +25,7 @@ let levelFocusNumber = 2;
 let threshold = 25;
 let lowerFactorLimit = 0;
 let upperFactorLimit = 12;
-for (let roundLevelName of roundLevelNames) {
+for (let roundLevelName of PLURAL_NUMBER_NAMES) {
   if (levelFocusNumber > 12) {
     threshold = 20;
   }
@@ -45,7 +39,7 @@ levelFocusNumber = 2;
 threshold = 20;
 lowerFactorLimit = 10;
 upperFactorLimit = 25;
-for (let roundLevelName of roundLevelNames) {
+for (let roundLevelName of PLURAL_NUMBER_NAMES) {
   if (levelFocusNumber > 12) {
     threshold = 15;
   }
@@ -59,7 +53,7 @@ levelFocusNumber = 2;
 threshold = 20;
 lowerFactorLimit = 0;
 upperFactorLimit = 25;
-for (let roundLevelName of roundLevelNames) {
+for (let roundLevelName of PLURAL_NUMBER_NAMES) {
   if (levelFocusNumber > 12) {
     threshold = 15;
   }

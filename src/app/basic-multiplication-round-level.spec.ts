@@ -8,7 +8,7 @@ describe("BasicMultiplicationRoundLevel", () => {
     let oneOperandIsTwo = (question.operand1.value === 2 || question.operand2.value === 2);
     expect(oneOperandIsTwo).toBeTruthy();
     expect(question.getResult().value % 2 == 0).toBeTruthy();
-    expect(question.getResult().value < 20).toBeTruthy();
+    expect(question.getResult().value <= 20).toBeTruthy();
   });
 
   it('should create questions with each possible factor', () => {

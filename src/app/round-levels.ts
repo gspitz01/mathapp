@@ -47,31 +47,6 @@ export const HARD_SUBTRACTION = new BasicRoundLevel("Hard Subtraction", justSubt
 export const EXPERT_SUBTRACTION = new BasicRoundLevel("Expert Subtraction", justSubtraction, 5,
     tripleDigitPositiveWholeNumbers, tripleDigitPositiveWholeNumbers, null);
 
-let justDivision: BasicOperator[] = [DIVISION];
-let divisorSingleDigitLimitations = new BasicOperandLimitations(true, 9, false, false);
-let divisorDoubleDigitLimitations = new BasicOperandLimitations(true, 99, false, false);
-let divisorTripleDigitLimitations = new BasicOperandLimitations(true, 999, false, false);
-let onlyPositiveWholeNumberResult = new BasicResultLimitations(true, false);
-export const EASY_DIVISION = new BasicRoundLevel("Easy Division", justDivision, 25,
-    singleDigitPositiveWholeNumbers, divisorSingleDigitLimitations,
-    onlyPositiveWholeNumberResult);
-
-export const MEDIUM_DIVISION = new BasicRoundLevel("Medium Division", justDivision, 15,
-    doubleDigitPositiveWholeNumbers, divisorSingleDigitLimitations,
-    onlyPositiveWholeNumberResult);
-
-export const CHALLENGING_DIVISION = new BasicRoundLevel("Challenging Division", justDivision, 10,
-    doubleDigitPositiveWholeNumbers, divisorDoubleDigitLimitations,
-    onlyPositiveWholeNumberResult);
-
-export const HARD_DIVISION = new BasicRoundLevel("Hard Division", justDivision, 7,
-    tripleDigitPositiveWholeNumbers, divisorDoubleDigitLimitations,
-    onlyPositiveWholeNumberResult);
-
-export const EXPERT_DIVISION = new BasicRoundLevel("Expert Division", justDivision, 5,
-    tripleDigitPositiveWholeNumbers, divisorTripleDigitLimitations,
-    onlyPositiveWholeNumberResult);
-
 /**
  * Fractions
  */
@@ -201,15 +176,6 @@ export const BASIC_SUBTRACTION_LEVEL_ORDER = [
   CHALLENGING_SUBTRACTION,
   HARD_SUBTRACTION,
   EXPERT_SUBTRACTION
-];
-
-export const BASIC_DIVISION_LEVEL_ORDER = [
-  null,
-  EASY_DIVISION,
-  MEDIUM_DIVISION,
-  CHALLENGING_DIVISION,
-  HARD_DIVISION,
-  EXPERT_DIVISION
 ];
 
 // No level 0

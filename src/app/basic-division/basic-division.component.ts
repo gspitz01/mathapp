@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Seconds } from '../seconds';
-import { BASIC_DIVISION_LEVEL_ORDER } from '../round-levels';
+import { BASIC_DIVISION_LEVEL_ORDER } from '../basic-division-round-levels';
 
 @Component({
   selector: 'app-basic-division',
