@@ -1,11 +1,11 @@
 import { BasicQuestionLimitedRound } from './basic-question-limited-round';
-import { LEVEL_ORDER } from './round-levels';
+import { BASIC_ADDITION_LEVEL_ORDER } from './round-levels';
 import { BasicOperatorQuestion } from './basic-operator-question';
 import { ADDITION } from './basic-operators';
 import { AnswerEvaluation } from './answer-evaluation';
 
 describe('BasicQuestionLimitedRound', () => {
-  let testLevel = LEVEL_ORDER[1];
+  let testLevel = BASIC_ADDITION_LEVEL_ORDER[1];
   let testNumberOfQuestions = 20;
   let unstartedRound = new BasicQuestionLimitedRound(testNumberOfQuestions, testLevel);
   let startedRound = new BasicQuestionLimitedRound(testNumberOfQuestions, testLevel);

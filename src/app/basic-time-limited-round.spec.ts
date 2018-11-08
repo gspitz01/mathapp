@@ -1,13 +1,13 @@
 import { BasicTimeLimitedRound } from './basic-time-limited-round';
 import { Seconds } from './seconds';
-import { LEVEL_ORDER } from './round-levels';
+import { BASIC_ADDITION_LEVEL_ORDER } from './round-levels';
 import { ADDITION } from './basic-operators';
 import { AnswerEvaluation } from './answer-evaluation';
 import { BasicResult } from './basic-result';
 
 describe('BasicTimeLimitedRound', () => {
   let initialTime = new Seconds(60);
-  let testLevel = LEVEL_ORDER[1];
+  let testLevel = BASIC_ADDITION_LEVEL_ORDER[1];
   let unstartedRound: BasicTimeLimitedRound;
   let startedRound: BasicTimeLimitedRound;
 

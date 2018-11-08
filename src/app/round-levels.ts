@@ -47,22 +47,6 @@ export const HARD_SUBTRACTION = new BasicRoundLevel("Hard Subtraction", justSubt
 export const EXPERT_SUBTRACTION = new BasicRoundLevel("Expert Subtraction", justSubtraction, 5,
     tripleDigitPositiveWholeNumbers, tripleDigitPositiveWholeNumbers, null);
 
-let justMultiplication: BasicOperator[] = [MULTIPLICATION];
-export const EASY_MULTIPLICATION = new BasicRoundLevel("Easy Multiplication", justMultiplication, 25,
-    singleDigitPositiveWholeNumbers, singleDigitPositiveWholeNumbers, null);
-
-export const MEDIUM_MULTIPLICATION = new BasicRoundLevel("Medium Multiplication", justMultiplication, 15,
-    doubleDigitPositiveWholeNumbers, singleDigitPositiveWholeNumbers, null);
-
-export const CHALLENGING_MULTIPLICATION = new BasicRoundLevel("Challenging Multiplication", justMultiplication, 10,
-    doubleDigitPositiveWholeNumbers, doubleDigitPositiveWholeNumbers, null);
-
-export const HARD_MULTIPLICATION = new BasicRoundLevel("Hard Multiplication", justMultiplication, 7,
-    tripleDigitPositiveWholeNumbers, doubleDigitPositiveWholeNumbers, null);
-
-export const EXPERT_MULTIPLICATION = new BasicRoundLevel("Expert Multiplication", justMultiplication, 5,
-    tripleDigitPositiveWholeNumbers, tripleDigitPositiveWholeNumbers, null);
-
 let justDivision: BasicOperator[] = [DIVISION];
 let divisorSingleDigitLimitations = new BasicOperandLimitations(true, 9, false, false);
 let divisorDoubleDigitLimitations = new BasicOperandLimitations(true, 99, false, false);
@@ -201,31 +185,6 @@ export const EXPERT_FRACTION_DIVISION = new FractionRoundLevel("Expert Fraction 
   3, fractionChallengingDivisionOperandLimitations,
   fractionChallengingDivisionOperandLimitations, fractionEasyResultLimitations);
 
-// No level 0
-export const LEVEL_ORDER = [
-  null,
-  EASY_ADDITION,
-  MEDIUM_ADDITION,
-  CHALLENGING_ADDITION,
-  HARD_ADDITION,
-  EXPERT_ADDITION,
-  EASY_SUBTRACTION,
-  MEDIUM_SUBTRACTION,
-  CHALLENGING_SUBTRACTION,
-  HARD_SUBTRACTION,
-  EXPERT_SUBTRACTION,
-  EASY_MULTIPLICATION,
-  MEDIUM_MULTIPLICATION,
-  CHALLENGING_MULTIPLICATION,
-  HARD_MULTIPLICATION,
-  EXPERT_MULTIPLICATION,
-  EASY_DIVISION,
-  MEDIUM_DIVISION,
-  CHALLENGING_DIVISION,
-  HARD_DIVISION,
-  EXPERT_DIVISION
-];
-
 export const BASIC_ADDITION_LEVEL_ORDER = [
   null,
   EASY_ADDITION,
@@ -242,15 +201,6 @@ export const BASIC_SUBTRACTION_LEVEL_ORDER = [
   CHALLENGING_SUBTRACTION,
   HARD_SUBTRACTION,
   EXPERT_SUBTRACTION
-];
-
-export const BASIC_MULTIPLICATION_LEVEL_ORDER = [
-  null,
-  EASY_MULTIPLICATION,
-  MEDIUM_MULTIPLICATION,
-  CHALLENGING_MULTIPLICATION,
-  HARD_MULTIPLICATION,
-  EXPERT_MULTIPLICATION
 ];
 
 export const BASIC_DIVISION_LEVEL_ORDER = [

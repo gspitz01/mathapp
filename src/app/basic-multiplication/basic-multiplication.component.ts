@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Seconds } from '../seconds';
-import { BASIC_MULTIPLICATION_LEVEL_ORDER } from '../round-levels';
+import { BASIC_MULTIPLICATION_LEVEL_ORDER } from '../basic-multiplication-round-levels';
 
 @Component({
   selector: 'app-basic-multiplication',
