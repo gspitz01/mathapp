@@ -22,12 +22,12 @@ export const BASIC_MULTIPLICATION_LEVEL_ORDER = [null];
 
 // First set of levels
 let levelFocusNumber = 2;
-let threshold = 25;
+let threshold = 20;
 let lowerFactorLimit = 0;
 let upperFactorLimit = 12;
 for (let roundLevelName of PLURAL_NUMBER_NAMES) {
   if (levelFocusNumber > 12) {
-    threshold = 20;
+    threshold = 15;
   }
   BASIC_MULTIPLICATION_LEVEL_ORDER.push(new BasicMultiplicationRoundLevel(roundLevelName, threshold, levelFocusNumber, lowerFactorLimit,
     upperFactorLimit));
@@ -36,12 +36,12 @@ for (let roundLevelName of PLURAL_NUMBER_NAMES) {
 
 // Second set of levels
 levelFocusNumber = 2;
-threshold = 20;
+threshold = 15;
 lowerFactorLimit = 10;
 upperFactorLimit = 25;
 for (let roundLevelName of PLURAL_NUMBER_NAMES) {
   if (levelFocusNumber > 12) {
-    threshold = 15;
+    threshold = 10;
   }
   BASIC_MULTIPLICATION_LEVEL_ORDER.push(new BasicMultiplicationRoundLevel("Medium " + roundLevelName, threshold, levelFocusNumber,
     lowerFactorLimit, upperFactorLimit));
@@ -50,12 +50,12 @@ for (let roundLevelName of PLURAL_NUMBER_NAMES) {
 
 // Third set of levels
 levelFocusNumber = 2;
-threshold = 20;
+threshold = 15;
 lowerFactorLimit = 0;
 upperFactorLimit = 25;
 for (let roundLevelName of PLURAL_NUMBER_NAMES) {
   if (levelFocusNumber > 12) {
-    threshold = 15;
+    threshold = 10;
   }
   BASIC_MULTIPLICATION_LEVEL_ORDER.push(new BasicMultiplicationRoundLevel("Hard " + roundLevelName, threshold, levelFocusNumber,
     lowerFactorLimit, upperFactorLimit));
