@@ -40,9 +40,9 @@ describe('BasicMultiplicationComponent', () => {
     expect(startButton.nativeElement.textContent).toBe("Start");
   });
 
-  it('should display level 1', () => {
+  it('should display "Level: Twos"', () => {
     let levelDisplay = fixture.debugElement.query(By.css(".level"));
-    expect(levelDisplay.nativeElement.textContent).toContain(1);
+    expect(levelDisplay.nativeElement.textContent).toContain("Twos");
   });
 
   it('after start clicked, should display addition operator', () => {
@@ -60,6 +60,15 @@ describe('BasicMultiplicationComponent', () => {
       fixture.detectChanges();
       let timeRemainingView = fixture.debugElement.query(By.css(".time-remaining"));
       expect(timeRemainingView.nativeElement.textContent).toBe('60');
+    });
+  });
+
+  it('jump to level with click on level name', () => {
+    fixture.whenStable().then(() => {
+      let easyFivesLevelButton = fixture.debugElement.query(By.css("#fives"));
+      easyFivesLevelButton.nativeElement.click();
+      fixture.detectChanges();
+
     });
   });
 });

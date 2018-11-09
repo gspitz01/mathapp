@@ -40,9 +40,9 @@ describe('BasicSubtractionComponent', () => {
     expect(startButton.nativeElement.textContent).toBe("Start");
   });
 
-  it('should display level 1', () => {
+  it('should display "Easy Subtraction"', () => {
     let levelDisplay = fixture.debugElement.query(By.css(".level"));
-    expect(levelDisplay.nativeElement.textContent).toContain(1);
+    expect(levelDisplay.nativeElement.textContent).toContain("Easy Subtraction");
   });
 
   it('after start clicked, should display addition operator', () => {
