@@ -298,12 +298,13 @@ describe('FractionQuizViewComponent', () => {
 
     fixture.whenStable().then(() => {
       let levelView = fixture.debugElement.query(By.css(".level"));
+      const levelNamePrefixes = [null, "Easy", "Medium", "Challenging", "Hard", "Expert"];
 
       for (let level = 1; level < FRACTION_ADDITION_LEVEL_ORDER.length; level++) {
         startButton.nativeElement.click();
         fixture.detectChanges();
 
-        expect(levelView.nativeElement.textContent).toContain(level);
+        expect(levelView.nativeElement.textContent).toContain(levelNamePrefixes[level] + " Fraction Addition");
         expect(messagesView.nativeElement.textContent).toBe("");
 
         let questionsNeeded = FRACTION_ADDITION_LEVEL_ORDER[level].questionThresholdPerSixtySeconds;

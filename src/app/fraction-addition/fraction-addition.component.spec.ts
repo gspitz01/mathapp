@@ -42,9 +42,9 @@ describe('FractionAdditionComponent', () => {
     expect(startButton.nativeElement.textContent).toBe("Start");
   });
 
-  it('should display level 1', () => {
+  it('should display "Easy Fraction Addition"', () => {
     let levelDisplay = fixture.debugElement.query(By.css(".level"));
-    expect(levelDisplay.nativeElement.textContent).toContain(1);
+    expect(levelDisplay.nativeElement.textContent).toContain("Easy Fraction Addition");
   });
 
   it('after start clicked, should display addition operator', () => {

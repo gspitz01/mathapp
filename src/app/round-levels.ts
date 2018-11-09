@@ -81,7 +81,7 @@ export const HARD_FRACTION_ADDITION = new FractionRoundLevel("Hard Fraction Addi
   4, fractionChallengingOperandLimitations, fractionMediumOperandLimitations,
   fractionEasyResultLimitations);
 
-export const EXPERT_FRACTION_ADDITION = new FractionRoundLevel("Expert Fraciton Addition", justFractionAddition,
+export const EXPERT_FRACTION_ADDITION = new FractionRoundLevel("Expert Fraction Addition", justFractionAddition,
   3, fractionChallengingOperandLimitations, fractionChallengingOperandLimitations,
   fractionEasyResultLimitations);
 
