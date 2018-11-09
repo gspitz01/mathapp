@@ -274,11 +274,15 @@ describe('BasicQuizViewComponent', () => {
       let levelView = fixture.debugElement.query(By.css(".level"));
       const levelNamePrefixes = [null, "Easy", "Medium", "Challenging", "Hard", "Expert"];
 
+      let targetView = fixture.debugElement.query(By.css(".target"));
+      const targets = [0, 25, 20, 15, 8, 5];
+
       for (let level = 1; level < BASIC_ADDITION_LEVEL_ORDER.length; level++) {
         startButton.nativeElement.click();
         fixture.detectChanges();
 
         expect(levelView.nativeElement.textContent).toContain(levelNamePrefixes[level] + " " + "Addition");
+        expect(targetView.nativeElement.textContent).toContain(targets[level]);
         expect(messagesView.nativeElement.textContent).toBe("");
 
         let operand1View = getOperand1View(fixture);
