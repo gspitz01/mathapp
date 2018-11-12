@@ -11,6 +11,9 @@ import { NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT, ADVANCE_TO_NEXT_LEVEL_TEXT, FINIS
 import { FractionOperand } from '../fraction-operand';
 import { BasicOperand } from '../basic-operand';
 import { FractionResult } from '../fraction-result';
+import { StatsService } from '../stats.service';
+import { Stats } from '../stats';
+import { MockStatsService } from '../test-constants';
 
 function getTimeRemainingView(fixture: ComponentFixture<FractionQuizViewComponent>): DebugElement {
   return fixture.debugElement.query(By.css(".time-remaining"));
@@ -81,6 +84,9 @@ describe('FractionQuizViewComponent', () => {
       declarations: [ FractionQuizViewComponent ],
       imports: [
         ReactiveFormsModule
+      ],
+      providers: [
+        { provide: StatsService, useClass: MockStatsService }
       ]
     })
     .compileComponents();

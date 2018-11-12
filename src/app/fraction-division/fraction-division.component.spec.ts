@@ -7,6 +7,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { FRACTION_DIVISION } from '../fraction-operators';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { MockAngularFireAuth, MockAngularFireDataBase } from '../test-constants';
 
 describe('FractionDivisionComponent', () => {
   let component: FractionDivisionComponent;
@@ -22,6 +25,10 @@ describe('FractionDivisionComponent', () => {
       ],
       imports: [
         ReactiveFormsModule
+      ],
+      providers: [
+        { provide: AngularFireDatabase, useClass: MockAngularFireDataBase },
+        { provide: AngularFireAuth, useClass: MockAngularFireAuth }
       ]
     })
     .compileComponents();

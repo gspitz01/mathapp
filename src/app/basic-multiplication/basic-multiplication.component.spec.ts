@@ -6,6 +6,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { MULTIPLICATION } from '../basic-operators';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { MockAngularFireAuth, MockAngularFireDataBase } from '../test-constants';
 
 describe('BasicMultiplicationComponent', () => {
   let component: BasicMultiplicationComponent;
@@ -20,6 +23,10 @@ describe('BasicMultiplicationComponent', () => {
       ],
       imports: [
         ReactiveFormsModule
+      ],
+      providers: [
+        { provide: AngularFireDatabase, useClass: MockAngularFireDataBase },
+        { provide: AngularFireAuth, useClass: MockAngularFireAuth }
       ]
     })
     .compileComponents();

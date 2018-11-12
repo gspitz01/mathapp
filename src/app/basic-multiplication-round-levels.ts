@@ -29,8 +29,8 @@ for (let roundLevelName of PLURAL_NUMBER_NAMES) {
   if (levelFocusNumber > 12) {
     threshold = 15;
   }
-  BASIC_MULTIPLICATION_LEVEL_ORDER.push(new BasicMultiplicationRoundLevel(roundLevelName, threshold, levelFocusNumber, lowerFactorLimit,
-    upperFactorLimit));
+  BASIC_MULTIPLICATION_LEVEL_ORDER.push(new BasicMultiplicationRoundLevel("Easy Multiplication: " + roundLevelName,
+    threshold, levelFocusNumber, lowerFactorLimit, upperFactorLimit));
   levelFocusNumber++;
 }
 
@@ -43,8 +43,8 @@ for (let roundLevelName of PLURAL_NUMBER_NAMES) {
   if (levelFocusNumber > 12) {
     threshold = 10;
   }
-  BASIC_MULTIPLICATION_LEVEL_ORDER.push(new BasicMultiplicationRoundLevel("Medium " + roundLevelName, threshold, levelFocusNumber,
-    lowerFactorLimit, upperFactorLimit));
+  BASIC_MULTIPLICATION_LEVEL_ORDER.push(new BasicMultiplicationRoundLevel("Medium Multiplication: " + roundLevelName,
+    threshold, levelFocusNumber, lowerFactorLimit, upperFactorLimit));
   levelFocusNumber++;
 }
 
@@ -57,8 +57,8 @@ for (let roundLevelName of PLURAL_NUMBER_NAMES) {
   if (levelFocusNumber > 12) {
     threshold = 10;
   }
-  BASIC_MULTIPLICATION_LEVEL_ORDER.push(new BasicMultiplicationRoundLevel("Hard " + roundLevelName, threshold, levelFocusNumber,
-    lowerFactorLimit, upperFactorLimit));
+  BASIC_MULTIPLICATION_LEVEL_ORDER.push(new BasicMultiplicationRoundLevel("Hard Multiplication: " + roundLevelName,
+    threshold, levelFocusNumber, lowerFactorLimit, upperFactorLimit));
   levelFocusNumber++;
 }
 

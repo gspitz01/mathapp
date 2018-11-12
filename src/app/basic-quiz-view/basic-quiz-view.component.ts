@@ -4,6 +4,9 @@ import { Seconds } from '../seconds';
 import { FormControl } from '@angular/forms';
 import { BasicRoundLevel } from '../basic-round-level';
 import { ADVANCE_TO_NEXT_LEVEL_TEXT, FINISHED_HIGHEST_LEVEL_TEXT, NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT, WRONG_ANSWER_TEXT } from '../constants';
+import { StatsService } from '../stats.service';
+import { Stats } from '../stats';
+import { BasicOperatorQuestion } from '../basic-operator-question';
 
 const startButtonText = "Start";
 const stopButtonText = "Stop";
@@ -29,8 +32,11 @@ export class BasicQuizViewComponent implements OnInit {
   private answer = new FormControl("");
   private answerDisabled: boolean;
   @ViewChild('answerInp') answerInput: ElementRef;
+  // Data for stats service
+  private roundStart: Date;
+  private incorrects: number[][];
 
-  constructor() {
+  constructor(private statsService: StatsService) {
   }
 
   ngOnInit() {
@@ -56,6 +62,8 @@ export class BasicQuizViewComponent implements OnInit {
       this.evauluateRound();
     } else {
       // timer not yet running, start the round
+      this.roundStart = new Date();
+      this.incorrects = [];
       this.newRound();
       this.timeLeft = this.round.getTimeRemaining().value;
       this.round.start();
@@ -98,6 +106,8 @@ export class BasicQuizViewComponent implements OnInit {
   }
 
   private wrongAnswer() {
+    let question = this.round.getCurrentQuestion() as BasicOperatorQuestion;
+    this.incorrects.push([question.operand1.value, question.operand2.value]);
     this.messages = WRONG_ANSWER_TEXT;
   }
 
@@ -111,7 +121,11 @@ export class BasicQuizViewComponent implements OnInit {
 
   evauluateRound() {
     this.clearAnswerInput();
-    let questionsAnswered = this.round.getNumberOfQuestionsAnswered()
+    let questionsAnswered = this.round.getNumberOfQuestionsAnswered();
+
+    // Send stats to StatsService
+    this.sendStats(questionsAnswered);
+
     let round = this.levelOrder[this.currentLevel];
     let questionThreshold = Math.floor(round.questionThresholdPerSixtySeconds * this.startingTime.value/60);
     if (questionsAnswered >= questionThreshold) {
@@ -124,5 +138,11 @@ export class BasicQuizViewComponent implements OnInit {
     } else {
       this.messages = NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT;
     }
+  }
+
+  private sendStats(questionsAnswered: number) {
+    let roundStats = new Stats(this.roundStart, new Date(), this.round.level.name,
+      this.round.level.questionThresholdPerSixtySeconds, questionsAnswered, this.incorrects);
+    this.statsService.addStats(roundStats);
   }
 }

@@ -7,6 +7,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { FRACTION_MULTIPLICATION } from '../fraction-operators';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { MockAngularFireDataBase, MockAngularFireAuth } from '../test-constants';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 describe('FractionMultiplicationComponent', () => {
   let component: FractionMultiplicationComponent;
@@ -22,6 +25,10 @@ describe('FractionMultiplicationComponent', () => {
       ],
       imports: [
         ReactiveFormsModule
+      ],
+      providers: [
+        { provide: AngularFireDatabase, useClass: MockAngularFireDataBase },
+        { provide: AngularFireAuth, useClass: MockAngularFireAuth }
       ]
     })
     .compileComponents();

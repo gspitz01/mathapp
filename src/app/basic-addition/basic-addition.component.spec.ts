@@ -6,6 +6,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { ADDITION } from '../basic-operators';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { MockAngularFireDataBase, MockAngularFireAuth } from '../test-constants';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 describe('BasicAdditionComponent', () => {
   let component: BasicAdditionComponent;
@@ -20,6 +23,10 @@ describe('BasicAdditionComponent', () => {
       ],
       imports: [
         ReactiveFormsModule
+      ],
+      providers: [
+        { provide: AngularFireDatabase, useClass: MockAngularFireDataBase },
+        { provide: AngularFireAuth, useClass: MockAngularFireAuth }
       ]
     })
     .compileComponents();

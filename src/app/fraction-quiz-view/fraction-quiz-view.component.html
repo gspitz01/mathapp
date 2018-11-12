@@ -1,5 +1,6 @@
 <div class="quiz-view">
   <h3 class="level">Level: {{levelOrder[currentLevel].name}}</h3>
+  <h4 class="target">Target: {{levelOrder[currentLevel].questionThresholdPerSixtySeconds}}</h4>
   <div class="controls">
     <button (click)="start()" id="start" mat-button>{{buttonText}}</button>
   </div>

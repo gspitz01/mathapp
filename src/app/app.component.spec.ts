@@ -9,20 +9,13 @@ import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { AuthComponent } from './auth/auth.component';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { MockAngularFireAuth } from './test-constants';
 
 @Component({
   template: ''
 })
 class DummyComponent {
 
-}
-
-class MockAngularFireAuth {
-  authState = {
-    subscribe: function() {
-
-    }
-  }
 }
 
 describe('AppComponent', () => {

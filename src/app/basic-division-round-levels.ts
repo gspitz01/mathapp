@@ -12,7 +12,7 @@ for (let numberName of NUMBER_NAMES) {
   if (levelFocusNumber > 12) {
     threshold = 15;
   }
-  BASIC_DIVISION_LEVEL_ORDER.push(new BasicDivisionRoundLevel("By " + numberName, threshold, levelFocusNumber,
+  BASIC_DIVISION_LEVEL_ORDER.push(new BasicDivisionRoundLevel("Easy Division By " + numberName, threshold, levelFocusNumber,
     lowerResultLimit, upperResultLimit));
   levelFocusNumber++;
 }
@@ -26,7 +26,7 @@ for (let numberName of NUMBER_NAMES) {
   if (levelFocusNumber > 12) {
     threshold = 10;
   }
-  BASIC_DIVISION_LEVEL_ORDER.push(new BasicDivisionRoundLevel("Meidum By " + numberName, threshold, levelFocusNumber,
+  BASIC_DIVISION_LEVEL_ORDER.push(new BasicDivisionRoundLevel("Medium Division By " + numberName, threshold, levelFocusNumber,
     lowerResultLimit, upperResultLimit));
   levelFocusNumber++;
 }
@@ -39,7 +39,7 @@ for (let numberName of NUMBER_NAMES) {
   if (levelFocusNumber > 12) {
     threshold = 10;
   }
-  BASIC_DIVISION_LEVEL_ORDER.push(new BasicDivisionRoundLevel("Hard By " + numberName, threshold, levelFocusNumber,
+  BASIC_DIVISION_LEVEL_ORDER.push(new BasicDivisionRoundLevel("Hard Division By " + numberName, threshold, levelFocusNumber,
     lowerResultLimit, upperResultLimit));
   levelFocusNumber++;
 }

@@ -8,6 +8,9 @@ import { Seconds } from '../seconds';
 import { BASIC_ADDITION_LEVEL_ORDER } from '../round-levels';
 import { ADDITION } from '../basic-operators';
 import { NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT, ADVANCE_TO_NEXT_LEVEL_TEXT, FINISHED_HIGHEST_LEVEL_TEXT, WRONG_ANSWER_TEXT } from '../constants';
+import { StatsService } from '../stats.service';
+import { Stats } from '../stats';
+import { MockStatsService } from '../test-constants';
 
 const defaultStartingTime = new Seconds(60);
 
@@ -43,6 +46,9 @@ describe('BasicQuizViewComponent', () => {
       imports: [
         FormsModule,
         ReactiveFormsModule
+      ],
+      providers: [
+        { provide: StatsService, useClass: MockStatsService }
       ]
     })
     .compileComponents();
