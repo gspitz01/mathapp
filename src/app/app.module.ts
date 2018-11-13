@@ -3,7 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { MatButtonModule, MatCardModule } from '@angular/material';
+import { MatButtonModule, MatCardModule, MatListModule } from '@angular/material';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -68,6 +68,7 @@ import { AuthComponent } from './auth/auth.component';
     ReactiveFormsModule,
     MatButtonModule,
     MatCardModule,
+    MatListModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase, 'math-app'),
     AngularFireDatabaseModule,

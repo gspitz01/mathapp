@@ -1,7 +1,7 @@
 import { NUMBER_NAMES } from "./constants";
 import { BasicDivisionRoundLevel } from "./basic-division-round-level";
 
-export const BASIC_DIVISION_LEVEL_ORDER = [null];
+export const BASIC_DIVISION_LEVEL_ORDER = [];
 
 // First set of levels
 let levelFocusNumber = 2;

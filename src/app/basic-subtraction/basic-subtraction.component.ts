@@ -9,7 +9,7 @@ import { BASIC_SUBTRACTION_LEVEL_ORDER } from '../round-levels';
 })
 export class BasicSubtractionComponent implements OnInit {
 
-  startingLevel = 1;
+  startingLevel = 0;
   startingTime = new Seconds(60);
   levelOrder = BASIC_SUBTRACTION_LEVEL_ORDER;
 

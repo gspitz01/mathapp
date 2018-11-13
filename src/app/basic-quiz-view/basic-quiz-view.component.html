@@ -1,29 +1,42 @@
-<div class="quiz-view">
-  <h3 class="level">Level: {{levelOrder[currentLevel].name}}</h3>
-  <h4 class="target">Target: {{levelOrder[currentLevel].questionThresholdPerSixtySeconds}}</h4>
-  <div class="controls">
-    <button (click)="start()" id="start" mat-button>{{buttonText}}</button>
-  </div>
-  <div class="round-view" *ngIf="round">
-    <div class="time-remaining">{{timeLeft}}</div>
-    <div class="questions-answered">Questions: {{round.getNumberOfQuestionsAnswered()}}</div>
-    <div class="question-view" *ngIf="round.getCurrentQuestion()">
-      <table>
-        <tr>
-          <td><span class="operand1">{{round.getCurrentQuestion().operand1.value}}</span></td>
-          <td><span class="operator">{{round.getCurrentQuestion().operator.display}}</span></td>
-          <td><span class="operand2">{{round.getCurrentQuestion().operand2.value}}</span></td>
-        </tr>
-      </table>
-      <input (disabled)="answerDisabled"
-      (keyup.enter)="onEnter()"
-      autofocus
-      #answerInp
-      [formControl]="answer"
-      pattern="[0-9\-]*"
-      type="text" name="answer" id="answer" />
+<div class="quiz-and-jump">
+  <div class="quiz-view">
+    <h3 class="level">Level: {{levelOrder[currentLevel].name}}</h3>
+    <h4 class="target">Target: {{levelOrder[currentLevel].questionThresholdPerSixtySeconds}}</h4>
+    <div class="controls">
+      <button (click)="start()" id="start" mat-button>{{buttonText}}</button>
     </div>
-    <div *ngIf="answer.errors?.pattern" class="answer-error mat-error">Answer must be a number.</div>
+    <div class="round-view" *ngIf="round">
+      <div class="time-remaining">{{timeLeft}}</div>
+      <div class="questions-answered">Questions: {{round.getNumberOfQuestionsAnswered()}}</div>
+      <div class="question-view" *ngIf="round.getCurrentQuestion()">
+        <table>
+          <tr>
+            <td><span class="operand1">{{round.getCurrentQuestion().operand1.value}}</span></td>
+            <td><span class="operator">{{round.getCurrentQuestion().operator.display}}</span></td>
+            <td><span class="operand2">{{round.getCurrentQuestion().operand2.value}}</span></td>
+          </tr>
+        </table>
+        <input (disabled)="answerDisabled"
+        (keyup.enter)="onEnter()"
+        autofocus
+        #answerInp
+        [formControl]="answer"
+        pattern="[0-9\-]*"
+        type="text" name="answer" id="answer" />
+      </div>
+      <div *ngIf="answer.errors?.pattern" class="answer-error mat-error">Answer must be a number.</div>
+    </div>
+    <div class="messages">{{messages}}</div>
   </div>
-  <div class="messages">{{messages}}</div>
+  <div class="jump-to-level" *ngIf="levelOrder">
+    <h3 (click)="showJumpToLevelLinks=!showJumpToLevelLinks">Jump to Level
+      <i class="arrow up" *ngIf="showJumpToLevelLinks"></i>
+      <i class="arrow down" *ngIf="!showJumpToLevelLinks"></i>
+    </h3>
+    <mat-list dense *ngIf="showJumpToLevelLinks">
+      <mat-list-item *ngFor="let level of levelOrder; let i = index" (click)="currentLevel=i">
+        {{level.name}}
+      </mat-list-item>
+    </mat-list>
+  </div>
 </div>

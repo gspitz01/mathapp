@@ -37,6 +37,9 @@ export class FractionQuizViewComponent implements OnInit {
   private roundStart: Date;
   private incorrects: number[][];
 
+  // Whether or not to show the jump to level links
+  showJumpToLevelLinks = false;
+
   constructor(private statsService: StatsService) { }
 
   ngOnInit() {

@@ -18,7 +18,7 @@ import { PLURAL_NUMBER_NAMES } from "./constants";
 //     tripleDigitPositiveWholeNumbers, tripleDigitPositiveWholeNumbers, null);
 
 
-export const BASIC_MULTIPLICATION_LEVEL_ORDER = [null];
+export const BASIC_MULTIPLICATION_LEVEL_ORDER = [];
 
 // First set of levels
 let levelFocusNumber = 2;

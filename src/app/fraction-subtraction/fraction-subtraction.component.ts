@@ -9,7 +9,7 @@ import { FRACTION_SUBTRACTION_LEVEL_ORDER } from '../round-levels';
 })
 export class FractionSubtractionComponent implements OnInit {
 
-  startingLevel = 1;
+  startingLevel = 0;
   startingTime = new Seconds(60);
   levelOrder = FRACTION_SUBTRACTION_LEVEL_ORDER;
 

@@ -9,7 +9,7 @@ import { FRACTION_ADDITION_LEVEL_ORDER } from '../round-levels';
 })
 export class FractionAdditionComponent implements OnInit {
 
-  startingLevel = 1;
+  startingLevel = 0;
   startingTime = new Seconds(60);
   levelOrder = FRACTION_ADDITION_LEVEL_ORDER;
 

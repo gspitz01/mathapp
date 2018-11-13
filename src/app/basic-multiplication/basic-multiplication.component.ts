@@ -9,7 +9,7 @@ import { BASIC_MULTIPLICATION_LEVEL_ORDER } from '../basic-multiplication-round-
 })
 export class BasicMultiplicationComponent implements OnInit {
 
-  startingLevel = 1;
+  startingLevel = 0;
   startingTime = new Seconds(60);
   levelOrder = BASIC_MULTIPLICATION_LEVEL_ORDER;
 
