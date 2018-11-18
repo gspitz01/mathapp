@@ -30,9 +30,7 @@ export class AuthComponent implements OnInit {
 
   logout() {
     this.security.logout();
-    if (this.router.url !== '/home') {
-      this.router.navigate(['login']);
-    }
+    this.router.navigate(['login']);
   }
 
   loggedIn(): boolean {
