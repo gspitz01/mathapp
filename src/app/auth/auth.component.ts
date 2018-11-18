@@ -20,7 +20,7 @@ export class AuthComponent implements OnInit {
     this.security.getAuthState().subscribe(authState => {
       if (authState) {
         this.statsService.getAdminSnapshot().subscribe(admin => {
-          if (admin.key) {
+          if (admin.key === authState.uid) {
             this.isAdmin = true;
           }
         });
