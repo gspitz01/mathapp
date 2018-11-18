@@ -1,0 +1,37 @@
+<h1>User stats</h1>
+<h2 *ngFor="let selectedUser of selectedUsers | async">Name: {{selectedUser.name}}</h2>
+<table class="stats-table">
+  <thead>
+    <tr>
+      <th>Level Name</th>
+      <th>Start Time</th>
+      <th>End Time</th>
+      <th>Target</th>
+      <th>Correct</th>
+      <th>Incorrects</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let userStat of userStats | async">
+      <td>{{userStat.name}}</td>
+      <td>{{userStat.startDate | date:'medium' }}</td>
+      <td>{{userStat.endDate | date:'medium' }}</td>
+      <td>{{userStat.target}}</td>
+      <td>{{userStat.correct}}</td>
+      <td>
+        <p *ngIf="!userStat.incorrects" class="none-incorrect">None Incorrect</p>
+        <ul>
+          <li *ngFor="let incorrect of userStat.incorrects">
+            <p *ngIf="incorrect.length == 2">{{incorrect[0]}}, {{incorrect[1]}}</p>
+            <p *ngIf="incorrect.length == 4">{{incorrect[0]}}/{{incorrect[1]}}, {{incorrect[2]}}/{{incorrect[3]}}</p>
+          </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 class="user-list-heading">Users</h3>
+<mat-list class="user-list">
+  <mat-list-item *ngFor="let user of users | async" routerLink="/stats/{{user.id}}">{{user.name}}</mat-list-item>
+</mat-list>

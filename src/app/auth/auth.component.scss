@@ -1,6 +1,6 @@
 @import "../../variables.scss";
 
-.login-interaction {
+.login-interaction, .stats {
   cursor: pointer;
 
   &:hover {
@@ -8,6 +8,6 @@
   }
 }
 
-.current-user {
+.current-user, .logout {
   margin-right: 1em;
 }

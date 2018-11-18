@@ -1,0 +1,71 @@
+@import '../../variables.scss';
+
+.stats-table {
+  width: 100%;
+  background: $smokier-white;
+  margin-bottom: 3em;
+
+  thead > tr {
+    background: $smokier-white;
+
+    &:hover {
+      background: $smokier-white;
+    }
+  }
+
+  tr {
+    &:hover {
+      background: $gray;
+    }
+
+    &:nth-child(2n+1) {
+      background: $white-smoke;
+
+      &:hover {
+        background: $gray;
+      }
+    }
+  }
+
+  td {
+    width: 13%;
+    text-align: center;
+
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+
+      li {
+        margin: 0;
+        padding: 0;
+
+        p {
+          margin: 0;
+          padding: 0;
+        }
+      }
+    }
+  }
+}
+
+.user-list-heading {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.user-list {
+  margin: 0;
+  padding: 0;
+
+  mat-list-item {
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    color: $gray;
+
+    &:hover {
+      color: $rich-black;
+    }
+  }
+}

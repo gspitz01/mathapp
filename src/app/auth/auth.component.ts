@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SecurityService } from '../security.service';
 import { Router } from '@angular/router';
+import { StatsService } from '../stats.service';
 
 @Component({
   selector: 'app-auth',
@@ -9,11 +10,22 @@ import { Router } from '@angular/router';
 })
 export class AuthComponent implements OnInit {
   currentUrl: string[] = [];
+  isAdmin = false;
 
   constructor(private security: SecurityService,
-    private router: Router) { }
+    private router: Router,
+    private statsService: StatsService) { }
 
   ngOnInit() {
+    this.security.getAuthState().subscribe(authState => {
+      if (authState) {
+        this.statsService.getAdminSnapshot().subscribe(admin => {
+          if (admin.key) {
+            this.isAdmin = true;
+          }
+        });
+      }
+    });
   }
 
   logout() {
@@ -30,5 +42,4 @@ export class AuthComponent implements OnInit {
   currentUser(): string {
     return this.security.currentUserDisplayName();
   }
-
 }

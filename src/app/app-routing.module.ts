@@ -14,6 +14,7 @@ import { FractionDivisionComponent } from './fraction-division/fraction-division
 import { FractionLcdComponent } from './fraction-lcd/fraction-lcd.component';
 import { AuthGuardService } from './auth-guard.service';
 import { LoginComponent } from './login/login.component';
+import { StatsViewComponent } from './stats-view/stats-view.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -29,7 +30,9 @@ const routes: Routes = [
   { path: 'fraction-subtraction', component: FractionSubtractionComponent, canActivate: [AuthGuardService] },
   { path: 'fraction-multiplication', component: FractionMultiplicationComponent, canActivate: [AuthGuardService] },
   { path: 'fraction-division', component: FractionDivisionComponent, canActivate: [AuthGuardService] },
-  { path: 'fraction-lcd', component: FractionLcdComponent, canActivate: [AuthGuardService] }
+  { path: 'fraction-lcd', component: FractionLcdComponent, canActivate: [AuthGuardService] },
+  { path: 'stats', component: StatsViewComponent, canActivate: [AuthGuardService] },
+  { path: 'stats/:id', component: StatsViewComponent, canActivate: [AuthGuardService] }
 ]
 
 @NgModule({

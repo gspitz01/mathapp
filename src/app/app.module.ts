@@ -33,6 +33,7 @@ import { RouterCardsViewComponent } from './router-cards-view/router-cards-view.
 import { FractionExplanationViewComponent } from './fraction-explanation-view/fraction-explanation-view.component';
 import { LoginComponent } from './login/login.component';
 import { AuthComponent } from './auth/auth.component';
+import { StatsViewComponent } from './stats-view/stats-view.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { AuthComponent } from './auth/auth.component';
     RouterCardsViewComponent,
     FractionExplanationViewComponent,
     LoginComponent,
-    AuthComponent
+    AuthComponent,
+    StatsViewComponent
   ],
   entryComponents: [
     BasicQuizViewComponent,
