@@ -22,6 +22,8 @@ export class AuthComponent implements OnInit {
         this.statsService.getAdminSnapshot().subscribe(admin => {
           if (admin.key === authState.uid) {
             this.isAdmin = true;
+          } else {
+            this.isAdmin = false;
           }
         });
       }
