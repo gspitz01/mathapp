@@ -6,5 +6,12 @@ $white-smoke: #F7F7F2;
 $smokier-white: #EDEDE2;
 $gray: #a0a0a0;
 
+@mixin gradient($color1, $color2) {
+  background: $color1;
+  background: -moz-linear-gradient(-45deg, $color1 0%, $color2 100%);
+  background: -webkit-linear-gradient(-45deg, $color1 0%,$color2 100%);
+  background: linear-gradient(135deg, $color1 0%, $color2 100%);
+}
+
 $header-height: 3.5em;
 $content-margin-top: $header-height + 3em;

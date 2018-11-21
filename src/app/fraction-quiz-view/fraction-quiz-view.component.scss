@@ -2,13 +2,21 @@
 
 .quiz-and-jump {
   display: grid;
-  grid-template-columns: 75% 25%;
+  grid-template-columns: 75% 2% 23%;
+  grid-template-areas: "main . sidebar";
+}
+
+.main {
+  grid-area: main;
 }
 
 .quiz-view {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: white;
+  border-radius: 5px;
+  padding: 2em 0;
 
   button {
     background: $artichoke;
@@ -62,7 +70,15 @@
   }
 }
 
+.sidebar {
+  grid-area: sidebar;
+}
+
 .jump-to-level {
+  border-radius: 5px;
+  background: white;
+  padding: 1em 0.5em;
+
   h3 {
     cursor: pointer;
     margin: 0;
