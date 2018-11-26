@@ -1,14 +1,17 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { BasicAdditionComponent } from './basic-addition.component';
-import { BasicQuizViewComponent } from '../basic-quiz-view/basic-quiz-view.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-import { ADDITION } from '../basic-operators';
+
+import { MatListModule } from '@angular/material';
+
 import { AngularFireDatabase } from 'angularfire2/database';
-import { MockAngularFireDataBase, MockAngularFireAuth } from '../test-constants';
 import { AngularFireAuth } from 'angularfire2/auth';
+
+import { BasicAdditionComponent } from './basic-addition.component';
+import { BasicQuizViewComponent } from '../basic-quiz-view/basic-quiz-view.component';
+import { ADDITION } from '../basic-operators';
+import { MockAngularFireDataBase, MockAngularFireAuth } from '../test-constants';
 
 describe('BasicAdditionComponent', () => {
   let component: BasicAdditionComponent;
@@ -22,7 +25,8 @@ describe('BasicAdditionComponent', () => {
         BasicQuizViewComponent
       ],
       imports: [
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MatListModule
       ],
       providers: [
         { provide: AngularFireDatabase, useClass: MockAngularFireDataBase },

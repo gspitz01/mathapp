@@ -3,6 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { AuthComponent } from './auth.component';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Router } from '@angular/router';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { MockAngularFireDataBase } from '../test-constants';
 
 class MockAngularFireAuth {
   authState = {
@@ -25,6 +27,7 @@ describe('AuthComponent', () => {
       declarations: [ AuthComponent ],
       providers: [
         { provide: AngularFireAuth, useClass: MockAngularFireAuth },
+        { provide: AngularFireDatabase, useClass: MockAngularFireDataBase },
         { provide: Router, useClass: MockRouter }
       ]
     })

@@ -1,15 +1,20 @@
 import { TestBed, async, fakeAsync, ComponentFixture, tick } from '@angular/core/testing';
-import { AppComponent } from './app.component';
-import { BasicQuizViewComponent } from './basic-quiz-view/basic-quiz-view.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { AuthComponent } from './auth/auth.component';
+
+import { MatListModule } from '@angular/material';
+
 import { AngularFireAuth } from 'angularfire2/auth';
-import { MockAngularFireAuth } from './test-constants';
+
+import { AppComponent } from './app.component';
+import { BasicQuizViewComponent } from './basic-quiz-view/basic-quiz-view.component';
+import { AuthComponent } from './auth/auth.component';
+import { MockAngularFireAuth, MockAngularFireDataBase } from './test-constants';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 @Component({
   template: ''
@@ -38,10 +43,12 @@ describe('AppComponent', () => {
         RouterTestingModule.withRoutes([
           { path: 'basics', component: DummyComponent },
           { path: 'fractions', component: DummyComponent }
-        ])
+        ]),
+        MatListModule
       ],
       providers: [
-        { provide: AngularFireAuth, useClass: MockAngularFireAuth }
+        { provide: AngularFireAuth, useClass: MockAngularFireAuth },
+        { provide: AngularFireDatabase, useClass: MockAngularFireDataBase }
       ]
     }).compileComponents();
   }));

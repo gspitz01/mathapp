@@ -1,15 +1,18 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { DebugElement } from '@angular/core';
+import { By } from '@angular/platform-browser';
+
+import { MatListModule } from '@angular/material';
+
+import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 import { FractionMultiplicationComponent } from './fraction-multiplication.component';
 import { FractionQuizViewComponent } from '../fraction-quiz-view/fraction-quiz-view.component';
 import { FractionExplanationViewComponent } from '../fraction-explanation-view/fraction-explanation-view.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { DebugElement } from '@angular/core';
-import { By } from '@angular/platform-browser';
 import { FRACTION_MULTIPLICATION } from '../fraction-operators';
-import { AngularFireDatabase } from 'angularfire2/database';
 import { MockAngularFireDataBase, MockAngularFireAuth } from '../test-constants';
-import { AngularFireAuth } from 'angularfire2/auth';
 
 describe('FractionMultiplicationComponent', () => {
   let component: FractionMultiplicationComponent;
@@ -24,7 +27,8 @@ describe('FractionMultiplicationComponent', () => {
         FractionExplanationViewComponent
       ],
       imports: [
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MatListModule
       ],
       providers: [
         { provide: AngularFireDatabase, useClass: MockAngularFireDataBase },

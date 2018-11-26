@@ -1,13 +1,13 @@
 import { Seconds } from "./seconds";
 import { FractionTimeLimitedRound } from "./fraction-time-limited-round";
-import { FRACTION_LEVEL_ORDER } from "./round-levels";
+import { FRACTION_ADDITION_LEVEL_ORDER } from "./round-levels";
 import { AnswerEvaluation } from "./answer-evaluation";
 import { FRACTION_ADDITION } from "./fraction-operators";
 import { FractionResult } from "./fraction-result";
 
 describe("FractionTimeLimitedRound", () => {
   let initialTime = new Seconds(60);
-  let testLevel = FRACTION_LEVEL_ORDER[1];
+  let testLevel = FRACTION_ADDITION_LEVEL_ORDER[1];
   let unstartedRound: FractionTimeLimitedRound;
   let startedRound: FractionTimeLimitedRound;
 

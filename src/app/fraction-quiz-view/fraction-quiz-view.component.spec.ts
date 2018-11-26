@@ -1,10 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { FractionQuizViewComponent } from './fraction-quiz-view.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { Seconds } from '../seconds';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
+
+import { MatListModule } from '@angular/material';
+
+import { FractionQuizViewComponent } from './fraction-quiz-view.component';
+import { Seconds } from '../seconds';
 import { FRACTION_ADDITION_LEVEL_ORDER } from '../round-levels';
 import { FRACTION_ADDITION } from '../fraction-operators';
 import { NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT, ADVANCE_TO_NEXT_LEVEL_TEXT, FINISHED_HIGHEST_LEVEL_TEXT, WRONG_ANSWER_TEXT } from '../constants';
@@ -12,7 +14,6 @@ import { FractionOperand } from '../fraction-operand';
 import { BasicOperand } from '../basic-operand';
 import { FractionResult } from '../fraction-result';
 import { StatsService } from '../stats.service';
-import { Stats } from '../stats';
 import { MockStatsService } from '../test-constants';
 
 function getTimeRemainingView(fixture: ComponentFixture<FractionQuizViewComponent>): DebugElement {
@@ -83,7 +84,8 @@ describe('FractionQuizViewComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ FractionQuizViewComponent ],
       imports: [
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MatListModule
       ],
       providers: [
         { provide: StatsService, useClass: MockStatsService }
@@ -304,7 +306,7 @@ describe('FractionQuizViewComponent', () => {
 
     fixture.whenStable().then(() => {
       let levelView = fixture.debugElement.query(By.css(".level"));
-      const levelNamePrefixes = [null, "Easy", "Medium", "Challenging", "Hard", "Expert"];
+      const levelNamePrefixes = ["Easy", "Medium", "Challenging", "Hard", "Expert"];
 
       for (let level = 1; level < FRACTION_ADDITION_LEVEL_ORDER.length; level++) {
         startButton.nativeElement.click();

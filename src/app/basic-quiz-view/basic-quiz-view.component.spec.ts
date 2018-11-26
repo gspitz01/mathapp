@@ -1,15 +1,17 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { DebugElement } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+
+import { MatListModule } from '@angular/material';
 
 import { BasicQuizViewComponent } from './basic-quiz-view.component';
-import { DebugElement } from '@angular/core';
-import { By } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Seconds } from '../seconds';
 import { BASIC_ADDITION_LEVEL_ORDER } from '../round-levels';
 import { ADDITION } from '../basic-operators';
-import { NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT, ADVANCE_TO_NEXT_LEVEL_TEXT, FINISHED_HIGHEST_LEVEL_TEXT, WRONG_ANSWER_TEXT } from '../constants';
+import { NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT, ADVANCE_TO_NEXT_LEVEL_TEXT,
+  FINISHED_HIGHEST_LEVEL_TEXT, WRONG_ANSWER_TEXT } from '../constants';
 import { StatsService } from '../stats.service';
-import { Stats } from '../stats';
 import { MockStatsService } from '../test-constants';
 
 const defaultStartingTime = new Seconds(60);
@@ -45,7 +47,8 @@ describe('BasicQuizViewComponent', () => {
       declarations: [ BasicQuizViewComponent ],
       imports: [
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MatListModule
       ],
       providers: [
         { provide: StatsService, useClass: MockStatsService }
@@ -278,10 +281,10 @@ describe('BasicQuizViewComponent', () => {
 
     fixture.whenStable().then(() => {
       let levelView = fixture.debugElement.query(By.css(".level"));
-      const levelNamePrefixes = [null, "Easy", "Medium", "Challenging", "Hard", "Expert"];
+      const levelNamePrefixes = ["Easy", "Medium", "Challenging", "Hard", "Expert"];
 
       let targetView = fixture.debugElement.query(By.css(".target"));
-      const targets = [0, 25, 20, 15, 8, 5];
+      const targets = [25, 20, 15, 8, 5];
 
       for (let level = 1; level < BASIC_ADDITION_LEVEL_ORDER.length; level++) {
         startButton.nativeElement.click();
