@@ -1,33 +1,45 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
+import { Router, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
 
 import { AuthGuardService } from './auth-guard.service';
-import { AngularFireAuth } from 'angularfire2/auth';
-import { Router } from '@angular/router';
+import { SecurityService } from './security.service';
 
-class MockAngularFireAuth {
-  authState = {
-    subscribe: function() {
-
-    }
-  }
-}
-
-class MockRouter {
-
-}
 
 describe('AuthGuardService', () => {
+  const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
+  const ssSpy = jasmine.createSpyObj('SecurityService', ['authenticated']);
+  let authGuardServive: AuthGuardService;
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
         AuthGuardService,
-        { provide: AngularFireAuth, useClass: MockAngularFireAuth },
-        { provide: Router, useClass: MockRouter }
+        { provide: SecurityService, useValue: ssSpy },
+        { provide: Router, useValue: routerSpy }
       ]
     });
+
+    authGuardServive = TestBed.get(AuthGuardService);
   });
 
-  it('should be created', inject([AuthGuardService], (service: AuthGuardService) => {
-    expect(service).toBeTruthy();
-  }));
+  it('should be created', () => {
+    expect(authGuardServive).toBeTruthy();
+  });
+
+  it('should return true from canActivate if security is authenticated', () => {
+    ssSpy.authenticated.and.returnValue(true);
+    expect(authGuardServive.canActivate({} as ActivatedRouteSnapshot, {} as RouterStateSnapshot)).toBeTruthy();
+  });
+
+  it('should return false and call navigate on router if security not authenticated', () => {
+    ssSpy.authenticated.and.returnValue(false);
+    const stateUrl = "twentyTwo";
+    const state = {url: stateUrl }
+
+    expect(authGuardServive.canActivate({} as ActivatedRouteSnapshot, state as RouterStateSnapshot)).toBeFalsy();
+
+    const parameter1 = ['login'];
+    const parameter2 = { queryParams: { return: stateUrl }};
+    expect(routerSpy.navigate).toHaveBeenCalledWith(parameter1, parameter2);
+  });
 });
