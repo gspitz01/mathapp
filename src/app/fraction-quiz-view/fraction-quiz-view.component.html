@@ -45,12 +45,12 @@
   </div>
   <div class="sidebar">
     <div class="jump-to-level" *ngIf="levelOrder">
-      <h3 (click)="showJumpToLevelLinks=!showJumpToLevelLinks">Jump to Level
+      <h3 (click)="showJumpToLevelLinks=!showJumpToLevelLinks" class="jump-to-level-button">Jump to Level
         <i class="arrow up" *ngIf="showJumpToLevelLinks"></i>
         <i class="arrow down" *ngIf="!showJumpToLevelLinks"></i>
       </h3>
       <mat-list dense *ngIf="showJumpToLevelLinks">
-        <mat-list-item *ngFor="let level of levelOrder; let i = index" (click)="currentLevel=i">
+        <mat-list-item *ngFor="let level of levelOrder; let i = index" (click)="currentLevel=i" id="{{level.id}}">
           {{level.name}}
         </mat-list-item>
       </mat-list>

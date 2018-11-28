@@ -76,10 +76,14 @@ describe('BasicMultiplicationComponent', () => {
 
   it('jump to level with click on level name', () => {
     fixture.whenStable().then(() => {
-      let easyFivesLevelButton = fixture.debugElement.query(By.css("#fives"));
+      fixture.debugElement.query(By.css('.jump-to-level-button')).nativeElement.click();
+      fixture.detectChanges();
+      let easyFivesLevelButton = fixture.debugElement.query(By.css("#easy-multiplication-fives"));
       easyFivesLevelButton.nativeElement.click();
       fixture.detectChanges();
 
+      let levelDisplay = fixture.debugElement.query(By.css('.level'));
+      expect(levelDisplay.nativeElement.textContent).toContain('Fives');
     });
   });
 });
