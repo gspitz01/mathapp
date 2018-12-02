@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
+
 import { AngularFireDatabase } from 'angularfire2/database';
-import { SecurityService } from './security.service';
-import { Stats } from './stats';
+
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { SecurityService } from './security.service';
+import { Stats } from './stats';
 
 @Injectable({
   providedIn: 'root'

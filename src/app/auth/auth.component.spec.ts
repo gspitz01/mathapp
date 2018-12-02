@@ -8,7 +8,7 @@ import { AuthComponent } from './auth.component';
 import { SecurityService } from '../security.service';
 import { StatsService } from '../stats.service';
 
-// TODO: add tests for not Admin
+// TODO: add tests for not Admin, change to use jasmine-marbles
 
 describe('AuthComponent', () => {
   const routerSpy = jasmine.createSpyObj('Router', ['navigate']);

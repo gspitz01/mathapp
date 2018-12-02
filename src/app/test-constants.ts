@@ -1,5 +1,9 @@
 import { Stats } from "./stats";
 
+export type Spied<T> = {
+  [Method in keyof T]: jasmine.Spy;
+};
+
 export class MockAngularFireDataBase {
   list(name: string) {
     return {
