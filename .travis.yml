@@ -17,7 +17,7 @@ cache:
      - ./node_modules
 
 install:
-  - npm cache clean --force
+  - npm verify
   - npm install
 
 script:
