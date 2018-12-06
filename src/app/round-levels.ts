@@ -47,25 +47,6 @@ export const HARD_SUBTRACTION = new BasicRoundLevel("Hard Subtraction", justSubt
 export const EXPERT_SUBTRACTION = new BasicRoundLevel("Expert Subtraction", justSubtraction, 5,
     tripleDigitPositiveWholeNumbers, tripleDigitPositiveWholeNumbers, null);
 
-let justGcf: BasicOperator[] = [GCF];
-let lessThan20NoZero = new BasicOperandLimitations(true, 19, true, false);
-let lessThan50NoZero = new BasicOperandLimitations(true, 49, true, false);
-let lessThan100NoZero = new BasicOperandLimitations(true, 99, true, false);
-export const EASY_GCF = new BasicRoundLevel("Easy Greatest Common Factor", justGcf, 25,
-  lessThan20NoZero, lessThan20NoZero, null);
-
-export const MEDIUM_GCF = new BasicRoundLevel("Medium Greatest Common Factor", justGcf, 20,
-  lessThan20NoZero, lessThan50NoZero, null);
-
-export const CHALLENGING_GCF = new BasicRoundLevel("Challenging Greatest Common Factor", justGcf, 15,
-  lessThan50NoZero, lessThan50NoZero, null);
-
-export const HARD_GCF = new BasicRoundLevel("Hard Greatest Common Factor", justGcf, 10,
-  lessThan50NoZero, lessThan100NoZero, null);
-
-export const EXPERT_GCF = new BasicRoundLevel("Expert Greatest Common Factor", justGcf, 7,
-  lessThan100NoZero, lessThan100NoZero, null);
-
 /**
  * Fractions
  */
@@ -193,14 +174,6 @@ export const BASIC_SUBTRACTION_LEVEL_ORDER = [
   CHALLENGING_SUBTRACTION,
   HARD_SUBTRACTION,
   EXPERT_SUBTRACTION
-];
-
-export const GREATEST_COMMON_FACTOR_LEVEL_ORDER = [
-  EASY_GCF,
-  MEDIUM_GCF,
-  CHALLENGING_GCF,
-  HARD_GCF,
-  EXPERT_GCF
 ];
 
 export const FRACTION_ADDITION_LEVEL_ORDER = [

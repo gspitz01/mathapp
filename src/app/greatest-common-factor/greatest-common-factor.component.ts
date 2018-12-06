@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Seconds } from '../seconds';
-import { GREATEST_COMMON_FACTOR_LEVEL_ORDER } from '../round-levels';
+import { GREATEST_COMMON_FACTOR_LEVEL_ORDER } from '../gcf-round-levels';
 
 @Component({
   selector: 'app-greatest-common-factor',
