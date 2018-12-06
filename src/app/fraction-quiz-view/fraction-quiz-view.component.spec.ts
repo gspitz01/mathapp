@@ -14,7 +14,7 @@ import { FractionOperand } from '../fraction-operand';
 import { BasicOperand } from '../basic-operand';
 import { FractionResult } from '../fraction-result';
 import { StatsService } from '../stats.service';
-import { MockStatsService } from '../test-constants';
+import { MockStatsService } from '../test-constants.spec';
 
 function getTimeRemainingView(fixture: ComponentFixture<FractionQuizViewComponent>): DebugElement {
   return fixture.debugElement.query(By.css(".time-remaining"));

@@ -12,7 +12,7 @@ import { ADDITION } from '../basic-operators';
 import { NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT, ADVANCE_TO_NEXT_LEVEL_TEXT,
   FINISHED_HIGHEST_LEVEL_TEXT, WRONG_ANSWER_TEXT } from '../constants';
 import { StatsService } from '../stats.service';
-import { MockStatsService } from '../test-constants';
+import { MockStatsService } from '../test-constants.spec';
 
 const defaultStartingTime = new Seconds(60);
 

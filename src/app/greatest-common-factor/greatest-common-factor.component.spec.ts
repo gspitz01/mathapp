@@ -9,7 +9,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 
 import { GreatestCommonFactorComponent } from './greatest-common-factor.component';
 import { BasicQuizViewComponent } from '../basic-quiz-view/basic-quiz-view.component';
-import { MockAngularFireDataBase, MockAngularFireAuth } from '../test-constants';
+import { MockAngularFireDataBase, MockAngularFireAuth } from '../test-constants.spec';
 import { By } from '@angular/platform-browser';
 
 describe('GreatestCommonFactorComponent', () => {

@@ -13,7 +13,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { AppComponent } from './app.component';
 import { BasicQuizViewComponent } from './basic-quiz-view/basic-quiz-view.component';
 import { AuthComponent } from './auth/auth.component';
-import { MockAngularFireAuth, MockAngularFireDataBase } from './test-constants';
+import { MockAngularFireAuth, MockAngularFireDataBase } from './test-constants.spec';
 import { AngularFireDatabase } from 'angularfire2/database';
 
 @Component({

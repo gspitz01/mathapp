@@ -9,7 +9,7 @@ import { initTestScheduler, resetTestScheduler, cold, getTestScheduler } from 'j
 import { StatsService } from './stats.service';
 import { SecurityService } from './security.service';
 import { Stats } from './stats';
-import { Spied } from './test-constants';
+import { Spied } from './test-constants.spec';
 
 function createFakeFirebaseUser(testUserValue) {
   return {

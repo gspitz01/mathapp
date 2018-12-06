@@ -11,7 +11,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { BasicAdditionComponent } from './basic-addition.component';
 import { BasicQuizViewComponent } from '../basic-quiz-view/basic-quiz-view.component';
 import { ADDITION } from '../basic-operators';
-import { MockAngularFireDataBase, MockAngularFireAuth } from '../test-constants';
+import { MockAngularFireDataBase, MockAngularFireAuth } from '../test-constants.spec';
 
 describe('BasicAdditionComponent', () => {
   let component: BasicAdditionComponent;

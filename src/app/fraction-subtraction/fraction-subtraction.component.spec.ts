@@ -12,7 +12,7 @@ import { FractionSubtractionComponent } from './fraction-subtraction.component';
 import { FractionQuizViewComponent } from '../fraction-quiz-view/fraction-quiz-view.component';
 import { FractionExplanationViewComponent } from '../fraction-explanation-view/fraction-explanation-view.component';
 import { FRACTION_SUBTRACTION } from '../fraction-operators';
-import { MockAngularFireDataBase, MockAngularFireAuth } from '../test-constants';
+import { MockAngularFireDataBase, MockAngularFireAuth } from '../test-constants.spec';
 
 describe('FractionSubtractionComponent', () => {
   let component: FractionSubtractionComponent;

@@ -11,7 +11,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { BasicDivisionComponent } from './basic-division.component';
 import { BasicQuizViewComponent } from '../basic-quiz-view/basic-quiz-view.component';
 import { DIVISION } from '../basic-operators';
-import { MockAngularFireAuth, MockAngularFireDataBase } from '../test-constants';
+import { MockAngularFireAuth, MockAngularFireDataBase } from '../test-constants.spec';
 
 describe('BasicDivisionComponent', () => {
   let component: BasicDivisionComponent;
