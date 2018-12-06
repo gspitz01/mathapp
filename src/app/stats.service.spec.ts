@@ -87,7 +87,6 @@ describe('StatsService', () => {
     });
     angularFireDbSpy.list.and.callFake((refName) => {
       if (refName.includes('userdata')) {
-        console.log(refName);
         return {
           snapshotChanges: function() {
             return statsListMock;
