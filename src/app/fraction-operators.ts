@@ -2,6 +2,8 @@ import { FractionOperator } from "./fraction-operator";
 import { FractionOperand } from "./fraction-operand";
 import { FractionResult } from "./fraction-result";
 import { BasicResult } from "./basic-result";
+import { SimplifyFractionOperator } from "./simplify-fraction/simplify-fraction-operator";
+import { BasicOperand } from "./basic-operand";
 
 function reduceFraction(numerator: number, denominator: number): FractionResult {
   let smaller = Math.min(Math.abs(numerator), Math.abs(denominator));
@@ -18,6 +20,11 @@ function reduceFraction(numerator: number, denominator: number): FractionResult 
   }
   return new FractionResult(new BasicResult(newNum), new BasicResult(newDen));
 }
+
+function simplifyFraction(numerator: BasicOperand, denominator: BasicOperand): FractionResult {
+  return reduceFraction(numerator.value, denominator.value);
+}
+export const SIMPLIFY_FRACTION = new SimplifyFractionOperator("", simplifyFraction);
 
 let fractionMult = function(op1: FractionOperand, op2: FractionOperand): FractionResult {
   let resultNumValue = op1.numerator.value * op2.numerator.value;

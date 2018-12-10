@@ -1,0 +1,57 @@
+<h1>Simplify the Fraction</h1>
+<div class="quiz-and-jump">
+  <div class="main">
+    <div class="quiz-view">
+      <h3 class="level">Level: {{levelOrder[currentLevel].name}}</h3>
+      <h4 class="target">Target: {{levelOrder[currentLevel].questionThresholdPerSixtySeconds}}</h4>
+      <div class="controls">
+        <button (click)="start()" id="start" mat-button>{{buttonText}}</button>
+      </div>
+      <div class="round-view" *ngIf="round">
+        <div class="time-remaining">{{timeLeft}}</div>
+        <div class="questions-answered">Questions: {{round.getNumberOfQuestionsAnswered()}}</div>
+        <div class="question-view" *ngIf="round.getCurrentQuestion()">
+          <table>
+            <tr>
+              <td class="text-center"><span class="operand-numerator fraction-num">{{round.getCurrentQuestion().numerator.value}}</span></td>
+            </tr>
+            <tr>
+              <td class="text-center"><span class="operand-denominator">{{round.getCurrentQuestion().denominator.value}}</span></td>
+            </tr>
+            <tr>
+              <td class="fraction-num" colspan="3"><input (disabled)="answerDisabled"
+                (keyup.enter)="onEnter()"
+                autofocus
+                #numeratorInput
+                [formControl]="answerNum"
+                pattern="[0-9\-]*"
+                type="text" name="answer-num" id="answer-num" /></td>
+            </tr>
+            <tr>
+              <td colspan="3"><input (disabled)="answerDisabled"
+                (keyup.enter)="onEnter()"
+                [formControl]="answerDen"
+                pattern="[0-9\-]*"
+                type="text" name="answer-den" id="answer-den" /></td>
+            </tr>
+          </table>
+        </div>
+        <div *ngIf="answerNum.errors?.pattern||answerDen.errors?.pattern" class="answer-error mat-error">Answer must be a number.</div>
+      </div>
+      <div class="messages">{{messages}}</div>
+    </div>
+  </div>
+  <div class="sidebar">
+    <div class="jump-to-level" *ngIf="levelOrder">
+      <h3 (click)="showJumpToLevelLinks=!showJumpToLevelLinks" class="jump-to-level-button">Jump to Level
+        <i class="arrow up" *ngIf="showJumpToLevelLinks"></i>
+        <i class="arrow down" *ngIf="!showJumpToLevelLinks"></i>
+      </h3>
+      <mat-list dense *ngIf="showJumpToLevelLinks">
+        <mat-list-item *ngFor="let level of levelOrder; let i = index" (click)="currentLevel=i" id="{{level.id}}">
+          {{level.name}}
+        </mat-list-item>
+      </mat-list>
+    </div>
+  </div>
+</div>

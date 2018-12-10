@@ -35,6 +35,7 @@ import { LoginComponent } from './login/login.component';
 import { AuthComponent } from './auth/auth.component';
 import { StatsViewComponent } from './stats-view/stats-view.component';
 import { GreatestCommonFactorComponent } from './greatest-common-factor/greatest-common-factor.component';
+import { SimplifyFractionComponent } from './simplify-fraction/simplify-fraction.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { GreatestCommonFactorComponent } from './greatest-common-factor/greatest
     LoginComponent,
     AuthComponent,
     StatsViewComponent,
-    GreatestCommonFactorComponent
+    GreatestCommonFactorComponent,
+    SimplifyFractionComponent
   ],
   entryComponents: [
     BasicQuizViewComponent,
