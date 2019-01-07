@@ -20,6 +20,7 @@ import { AuthComponent } from './auth/auth.component';
 import { StatsViewComponent } from './stats-view/stats-view.component';
 import { SharedModule } from './shared/shared.module';
 import { ContentLayoutComponent } from './layouts/content-layout/content-layout.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ContentLayoutComponent } from './layouts/content-layout/content-layout.
     LoginComponent,
     AuthComponent,
     StatsViewComponent,
-    ContentLayoutComponent
+    ContentLayoutComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

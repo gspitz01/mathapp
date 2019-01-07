@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { StatsViewComponent } from './stats-view/stats-view.component';
 import { CONTENT_ROUTES } from './shared/routes/content.routes';
 import { ContentLayoutComponent } from './layouts/content-layout/content-layout.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -13,7 +14,8 @@ const routes: Routes = [
   { path: 'stats/:id', component: StatsViewComponent, canActivate: [AuthGuardService] },
   { path: 'stats', component: StatsViewComponent, canActivate: [AuthGuardService] },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: '', component: ContentLayoutComponent, children: CONTENT_ROUTES }
+  { path: '', component: ContentLayoutComponent, children: CONTENT_ROUTES },
+  { path: '**', component: PageNotFoundComponent, pathMatch: 'full' }
 ]
 
 @NgModule({
