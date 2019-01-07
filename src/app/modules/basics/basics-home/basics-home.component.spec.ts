@@ -32,10 +32,10 @@ describe('BasicsHomeComponent', () => {
       imports: [
         MatCardModule,
         RouterTestingModule.withRoutes([
-          { path: 'basic-addition', component: DummyComponent },
-          { path: 'basic-division', component: DummyComponent },
-          { path: 'basic-multiplication', component: DummyComponent },
-          { path: 'basic-subtraction', component: DummyComponent }
+          { path: 'basics/addition', component: DummyComponent },
+          { path: 'basics/division', component: DummyComponent },
+          { path: 'basics/multiplication', component: DummyComponent },
+          { path: 'basics/subtraction', component: DummyComponent }
         ])
       ]
     })
@@ -59,7 +59,7 @@ describe('BasicsHomeComponent', () => {
 
     tick();
 
-    expect(location.path()).toBe('/basic-addition');
+    expect(location.path()).toBe('/basics/addition');
   }));
 
   it('should navigate to basic division on click "Basic Division"', fakeAsync(() => {
@@ -67,7 +67,7 @@ describe('BasicsHomeComponent', () => {
 
     tick();
 
-    expect(location.path()).toBe('/basic-division');
+    expect(location.path()).toBe('/basics/division');
   }));
 
   it('should navigate to basic multiplication on click "Basic Multiplication"', fakeAsync(() => {
@@ -75,7 +75,7 @@ describe('BasicsHomeComponent', () => {
 
     tick();
 
-    expect(location.path()).toBe('/basic-multiplication');
+    expect(location.path()).toBe('/basics/multiplication');
   }));
 
   it('should navigate to basic subtraction on click "Basic Subtraction"', fakeAsync(() => {
@@ -83,6 +83,6 @@ describe('BasicsHomeComponent', () => {
 
     tick();
 
-    expect(location.path()).toBe('/basic-subtraction');
+    expect(location.path()).toBe('/basics/subtraction');
   }));
 });

@@ -32,10 +32,10 @@ describe('FractionsHomeComponent', () => {
       imports: [
         MatCardModule,
         RouterTestingModule.withRoutes([
-          { path: 'fraction-addition', component: DummyComponent },
-          { path: 'fraction-division', component: DummyComponent },
-          { path: 'fraction-multiplication', component: DummyComponent },
-          { path: 'fraction-subtraction', component: DummyComponent }
+          { path: 'fractions/addition', component: DummyComponent },
+          { path: 'fractions/division', component: DummyComponent },
+          { path: 'fractions/multiplication', component: DummyComponent },
+          { path: 'fractions/subtraction', component: DummyComponent }
         ])
       ]
     })
@@ -57,24 +57,24 @@ describe('FractionsHomeComponent', () => {
   it('should navigate to fraction addition on click "Addition"', fakeAsync(() => {
     fixture.debugElement.query(By.css("#fraction-addition")).nativeElement.click();
     tick();
-    expect(location.path()).toBe('/fraction-addition');
+    expect(location.path()).toBe('/fractions/addition');
   }));
 
   it('should navigate to fraction division on click "Division"', fakeAsync(() => {
     fixture.debugElement.query(By.css("#fraction-division")).nativeElement.click();
     tick();
-    expect(location.path()).toBe('/fraction-division');
+    expect(location.path()).toBe('/fractions/division');
   }));
 
   it('should navigate to fraction multiplication on click "Multiplication"', fakeAsync(() => {
     fixture.debugElement.query(By.css("#fraction-multiplication")).nativeElement.click();
     tick();
-    expect(location.path()).toBe('/fraction-multiplication');
+    expect(location.path()).toBe('/fractions/multiplication');
   }));
 
   it('should navigate to fraction subtraction on click "Subtraction"', fakeAsync(() => {
     fixture.debugElement.query(By.css("#fraction-subtraction")).nativeElement.click();
     tick();
-    expect(location.path()).toBe('/fraction-subtraction');
+    expect(location.path()).toBe('/fractions/subtraction');
   }));
 });
