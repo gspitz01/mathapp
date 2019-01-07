@@ -7,7 +7,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
 
 import { StatsViewComponent } from './stats-view.component';
-import { MockAngularFireAuth, MockAngularFireDataBase } from '../test-constants.spec';
+import { MockAngularFireAuth, MockAngularFireDataBase } from '../shared/models/test-constants.spec';
 
 class DummyComponent {}
 

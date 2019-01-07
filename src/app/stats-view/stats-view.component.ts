@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { StatsService } from '../stats.service';
-import { SecurityService } from '../security.service';
-import { User } from '../user';
-import { Observable } from 'rxjs';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Stats } from '../stats';
-import { switchMap, map, filter, takeLast, share } from 'rxjs/operators';
+
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { StatsService } from '../core/services/stats.service';
+import { SecurityService } from '../core/services/security.service';
+import { User } from '../shared/models/user';
+import { Stats } from '../shared/models/stats';
 
 @Component({
   selector: 'app-stats-view',

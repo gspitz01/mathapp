@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterCard } from '../router-card';
+import { RouterCard } from '../shared/models/router-card';
 
 @Component({
   selector: 'app-home',

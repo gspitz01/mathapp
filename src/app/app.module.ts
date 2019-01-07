@@ -1,9 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { MatButtonModule, MatCardModule, MatListModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -12,73 +11,35 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
-import { BasicQuizViewComponent } from './basic-quiz-view/basic-quiz-view.component';
-import { QuizDirective } from './quiz.directive';
+import { QuizDirective } from './shared/models/quiz.directive';
 import { HomeComponent } from './home/home.component';
-import { BasicsComponent } from './basics/basics.component';
-import { FractionsComponent } from './fractions/fractions.component';
 
 import { AppRoutingModule } from './/app-routing.module';
-import { FractionQuizViewComponent } from './fraction-quiz-view/fraction-quiz-view.component';
-import { BasicAdditionComponent } from './basic-addition/basic-addition.component';
-import { BasicSubtractionComponent } from './basic-subtraction/basic-subtraction.component';
-import { BasicMultiplicationComponent } from './basic-multiplication/basic-multiplication.component';
-import { BasicDivisionComponent } from './basic-division/basic-division.component';
-import { FractionAdditionComponent } from './fraction-addition/fraction-addition.component';
-import { FractionSubtractionComponent } from './fraction-subtraction/fraction-subtraction.component';
-import { FractionMultiplicationComponent } from './fraction-multiplication/fraction-multiplication.component';
-import { FractionDivisionComponent } from './fraction-division/fraction-division.component';
-import { FractionLcdComponent } from './fraction-lcd/fraction-lcd.component';
-import { RouterCardsViewComponent } from './router-cards-view/router-cards-view.component';
-import { FractionExplanationViewComponent } from './fraction-explanation-view/fraction-explanation-view.component';
 import { LoginComponent } from './login/login.component';
 import { AuthComponent } from './auth/auth.component';
 import { StatsViewComponent } from './stats-view/stats-view.component';
-import { GreatestCommonFactorComponent } from './greatest-common-factor/greatest-common-factor.component';
-import { SimplifyFractionComponent } from './simplify-fraction/simplify-fraction.component';
+import { SharedModule } from './shared/shared.module';
+import { ContentLayoutComponent } from './layouts/content-layout/content-layout.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BasicQuizViewComponent,
     QuizDirective,
     HomeComponent,
-    BasicsComponent,
-    FractionsComponent,
-    FractionQuizViewComponent,
-    BasicAdditionComponent,
-    BasicSubtractionComponent,
-    BasicMultiplicationComponent,
-    BasicDivisionComponent,
-    FractionAdditionComponent,
-    FractionSubtractionComponent,
-    FractionMultiplicationComponent,
-    FractionDivisionComponent,
-    FractionLcdComponent,
-    RouterCardsViewComponent,
-    FractionExplanationViewComponent,
     LoginComponent,
     AuthComponent,
     StatsViewComponent,
-    GreatestCommonFactorComponent,
-    SimplifyFractionComponent
-  ],
-  entryComponents: [
-    BasicQuizViewComponent,
-    FractionQuizViewComponent
+    ContentLayoutComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    FormsModule,
-    ReactiveFormsModule,
     MatButtonModule,
-    MatCardModule,
-    MatListModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase, 'math-app'),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

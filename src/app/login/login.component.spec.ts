@@ -7,7 +7,7 @@ import { MatButtonModule } from '@angular/material';
 import { AngularFireAuth } from 'angularfire2/auth';
 
 import { LoginComponent } from './login.component';
-import { SecurityService } from '../security.service';
+import { SecurityService } from '../core/services/security.service';
 
 class MockAngularFireAuth {
   authState = {

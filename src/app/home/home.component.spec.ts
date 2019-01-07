@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 
 import { HomeComponent } from './home.component';
-import { RouterCardsViewComponent } from '../router-cards-view/router-cards-view.component';
+import { RouterCardsViewComponent } from '../shared/components/router-cards-view/router-cards-view.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MatCardModule } from '@angular/material';
 import { Router } from '@angular/router';

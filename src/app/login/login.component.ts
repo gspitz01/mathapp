@@ -1,5 +1,5 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-import { SecurityService } from '../security.service';
+import { SecurityService } from '../core/services/security.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({

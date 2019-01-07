@@ -1,0 +1,25 @@
+@import '../../../../variables.scss';
+
+h1 {
+  text-align: center;
+}
+
+.cards {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+mat-card {
+  width: 38%;
+  margin: 1em 2%;
+  text-align: center;
+  background: $smokier-white;
+  font-size: 1.3em;
+
+  &:hover {
+    cursor: pointer;
+    background: $artichoke;
+    color: $white-smoke;
+  }
+}

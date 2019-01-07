@@ -5,8 +5,8 @@ import { By } from '@angular/platform-browser';
 import { of } from 'rxjs';
 
 import { AuthComponent } from './auth.component';
-import { SecurityService } from '../security.service';
-import { StatsService } from '../stats.service';
+import { SecurityService } from '../core/services/security.service';
+import { StatsService } from '../core/services/stats.service';
 
 // TODO: add tests for not Admin, change to use jasmine-marbles
 
