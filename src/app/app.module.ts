@@ -15,10 +15,11 @@ import { QuizDirective } from './shared/models/quiz.directive';
 import { HomeComponent } from './home/home.component';
 
 import { AppRoutingModule } from './/app-routing.module';
+import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module';
 import { LoginComponent } from './login/login.component';
 import { AuthComponent } from './auth/auth.component';
 import { StatsViewComponent } from './stats-view/stats-view.component';
-import { SharedModule } from './shared/shared.module';
 import { ContentLayoutComponent } from './layouts/content-layout/content-layout.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
@@ -41,7 +42,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     AngularFireModule.initializeApp(environment.firebase, 'math-app'),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    SharedModule
+    SharedModule,
+    CoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]
