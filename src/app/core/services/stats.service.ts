@@ -3,10 +3,11 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
 
 import { SecurityService } from './security.service';
 import { Stats } from '../../shared/models/stats';
+import { User } from 'src/app/shared/models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +40,60 @@ export class StatsService {
     }
   }
 
+  addTeacher(teacher: User) {
+    if (this.security.authenticated()) {
+      this.db.object('teachers/' + teacher.id).set({
+        name: teacher.name
+      });
+    }
+  }
+
+  removeTeacher(teacherId: string) {
+    if (this.security.authenticated()) {
+      this.db.list('teachers').remove(teacherId);
+    }
+  }
+
+  addClassToTeacher(teacherId: string, className: string) {
+    if (this.security.authenticated()) {
+      this.db.list('teachers/' + teacherId + '/classes').push({
+        name: className
+      });
+    }
+  }
+
+  removeClassFromTeacher(teacherId: string, classId: string) {
+    if (this.security.authenticated()) {
+      this.db.list('teachers/' + teacherId + '/classes').remove(classId);
+    }
+  }
+
+  addUserToClass(classId: string, userId: string) {
+    if (this.security.authenticated()) {
+      this.db.object('users/' + userId).set({
+        classId: classId
+      });
+    }
+  }
+
+  removeUserFromClass(userId: string) {
+    if (this.security.authenticated()) {
+      this.db.object('users/' + userId + '/classId').remove();
+    }
+  }
+
+  getTeachers(): Observable<any> {
+    return this.db.list('teachers').snapshotChanges().pipe(
+      map(teachers => teachers.map(teacher => ({id: teacher.key, ...teacher.payload.val()})))
+    );
+  }
+
+  getClassesFromTeacher(teacherId: string): Observable<any> {
+    return this.db.list('teachers/' + teacherId + '/classes').snapshotChanges().pipe(
+      map(classes => classes.map(clazz => ({id: clazz.key, ...clazz.payload.val()})))
+    );
+  }
+
   getAdmin(): Observable<any> {
     if (this.security.authenticated()) {
       return this.getAdminSnapshot();
@@ -54,6 +109,12 @@ export class StatsService {
 
   getAllUsers(): Observable<any[]> {
     return this.allUsers;
+  }
+
+  getUsersFromClass(classId: string): Observable<any> {
+    return this.allUsers.pipe(
+      map(users => users.filter(user => user.classId == classId))
+    );
   }
 
   getStats(userId: string): Observable<any[]> {

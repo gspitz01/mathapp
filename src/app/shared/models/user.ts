@@ -1,3 +1,3 @@
 export class User {
-  constructor(readonly name: string, readonly id: string) {}
+  constructor(readonly id: string, readonly name: string, readonly classId: string) {}
 }
