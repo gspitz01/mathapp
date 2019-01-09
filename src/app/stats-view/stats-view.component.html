@@ -4,8 +4,7 @@
   <thead>
     <tr>
       <th>Level Name</th>
-      <th>Start Time</th>
-      <th>End Time</th>
+      <th>Time</th>
       <th>Target</th>
       <th>Correct</th>
       <th>Incorrects</th>
@@ -14,8 +13,7 @@
   <tbody>
     <tr *ngFor="let userStat of userStats | async">
       <td>{{userStat.name}}</td>
-      <td>{{userStat.startDate | date:'medium' }}</td>
-      <td>{{userStat.endDate | date:'medium' }}</td>
+      <td>{{userStat.startDate | date:'short' }} - {{userStat.endDate | date:'shortTime' }}</td>
       <td>{{userStat.target}}</td>
       <td>{{userStat.correct}}</td>
       <td>
