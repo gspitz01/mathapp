@@ -117,7 +117,7 @@ export class BasicQuizViewComponent implements OnInit {
   }
 
   answerIsValid(): boolean {
-    return validAnswerRegex.test(this.answer.value);
+    return this.answer.value && validAnswerRegex.test(this.answer.value);
   }
 
   clearAnswerInput() {

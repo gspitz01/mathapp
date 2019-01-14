@@ -122,7 +122,8 @@ export class SimplifyFractionComponent implements OnInit {
   }
 
   answerIsValid(): boolean {
-    return validAnswerRegex.test(this.answerNum.value) && validAnswerRegex.test(this.answerDen.value);
+    return this.answerNum.value && this.answerDen.value &&
+      validAnswerRegex.test(this.answerNum.value) && validAnswerRegex.test(this.answerDen.value);
   }
 
   clearAnswerInput() {
