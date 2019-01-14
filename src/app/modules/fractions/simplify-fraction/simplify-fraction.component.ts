@@ -114,7 +114,10 @@ export class SimplifyFractionComponent implements OnInit {
 
   private wrongAnswer() {
     let question = this.round.getCurrentQuestion() as SimplifyFractionOperatorQuestion;
-    this.incorrects.push([question.numerator.value, question.denominator.value]);
+    // Zero at end of this array is just an indicator that this is a Simplify Fractions answer,
+    // to differentiate between a Fractions answer without the guess
+    this.incorrects.push([question.numerator.value, question.denominator.value, this.answerNum.value,
+      this.answerDen.value, 0]);
     this.messages = WRONG_ANSWER_TEXT;
   }
 

@@ -112,7 +112,7 @@ export class BasicQuizViewComponent implements OnInit {
 
   private wrongAnswer() {
     let question = this.round.getCurrentQuestion() as BasicOperatorQuestion;
-    this.incorrects.push([question.operand1.value, question.operand2.value]);
+    this.incorrects.push([question.operand1.value, question.operand2.value, this.answer.value]);
     this.messages = WRONG_ANSWER_TEXT;
   }
 

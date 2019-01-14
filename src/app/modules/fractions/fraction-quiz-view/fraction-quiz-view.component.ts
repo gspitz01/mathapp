@@ -115,7 +115,8 @@ export class FractionQuizViewComponent implements OnInit {
   private wrongAnswer() {
     let question = this.round.getCurrentQuestion() as FractionOperatorQuestion;
     this.incorrects.push([question.operand1.numerator.value, question.operand1.denominator.value,
-      question.operand2.numerator.value, question.operand2.denominator.value]);
+      question.operand2.numerator.value, question.operand2.denominator.value, this.answerNum.value,
+      this.answerDen.value]);
     this.messages = WRONG_ANSWER_TEXT;
   }
 
