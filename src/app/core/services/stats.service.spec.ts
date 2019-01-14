@@ -463,7 +463,7 @@ describe('StatsService', () => {
           y: createTeachersObservableData(teachers)
       });
 
-      expect(angularFireDbSpy.list).toHaveBeenCalledWith('teachers');
+      expect(angularFireDbSpy.list).toHaveBeenCalledWith('teachers', jasmine.any(Function));
     })
   });
 

@@ -101,7 +101,7 @@ export class StatsService {
   }
 
   getTeachers(): Observable<any> {
-    return this.db.list('teachers').snapshotChanges().pipe(
+    return this.db.list('teachers', ref => ref.orderByChild('lastName')).snapshotChanges().pipe(
       map(teachers => teachers.map(teacher => ({id: teacher.key, ...teacher.payload.val()})))
     );
   }
