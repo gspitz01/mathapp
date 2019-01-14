@@ -1,4 +1,4 @@
-@import '../../variables.scss';
+@import '../../../../variables.scss';
 
 .stats-table {
   width: 100%;
@@ -45,27 +45,6 @@
           padding: 0;
         }
       }
-    }
-  }
-}
-
-.user-list-heading {
-  margin-bottom: 0;
-  padding-bottom: 0;
-}
-
-.user-list {
-  margin: 0;
-  padding: 0;
-
-  mat-list-item {
-    margin: 0;
-    padding: 0;
-    cursor: pointer;
-    color: $gray;
-
-    &:hover {
-      color: $rich-black;
     }
   }
 }

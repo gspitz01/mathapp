@@ -1,0 +1,56 @@
+@import '../../../../variables.scss';
+
+.stats-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "teachers classes students"
+    "stats stats stats";
+
+  .none-selected {
+    padding: 1em;
+  }
+
+  .stats-list {
+    height: 400px;
+    overflow: auto;
+    border: 2px solid $rich-black;
+    border-right: none;
+    border-radius: 1em;
+  }
+
+  .stats-list:nth-child(3n) {
+    border-right: 2px solid $rich-black;
+  }
+
+  .teachers-list {
+    grid-area: teachers;
+  }
+
+  .classes-list {
+    grid-area: classes;
+  }
+
+  .add-class-form {
+    padding: 1em;
+
+    .inputs {
+      display: flex;
+      justify-content: space-between;
+
+      .small-button {
+        min-width: 2em;
+        background: $smokier-white;
+      }
+    }
+  }
+
+  .students-list {
+    grid-area: students;
+  }
+
+  .stats-area {
+    grid-area: stats;
+  }
+}

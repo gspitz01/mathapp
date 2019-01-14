@@ -1,0 +1,8 @@
+<h3>Classes <button mat-button class="small-button add-class" (click)="addClassClick.emit()">+</button></h3>
+<mat-list>
+  <mat-list-item class="class-list-item" *ngFor="let clazz of classes | async">
+    <a class="clickable" [ngClass]="{selected: clazz.id === selectedClassId}"
+      (click)="classSelected.emit(clazz.id);">{{clazz.name}}</a>
+    <button mat-button class="small-button" (click)="removeClassClick.emit(clazz)">x</button>
+  </mat-list-item>
+</mat-list>

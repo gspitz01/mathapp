@@ -1,5 +1,4 @@
-<h1>User stats</h1>
-<h2 *ngFor="let selectedUser of selectedUsers | async">Name: {{selectedUser.name}}</h2>
+<h2>Name: {{user.name}}</h2>
 <table class="stats-table">
   <thead>
     <tr>
@@ -28,8 +27,3 @@
     </tr>
   </tbody>
 </table>
-
-<h3 class="user-list-heading">Users</h3>
-<mat-list class="user-list">
-  <mat-list-item *ngFor="let user of users | async" routerLink="/stats/{{user.id}}">{{user.name}}</mat-list-item>
-</mat-list>

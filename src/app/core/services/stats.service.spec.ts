@@ -73,7 +73,7 @@ function createFakeFirebaseTeachers(teachers: Teacher[]) {
 function createTeacherObservableData(teacher: Teacher) {
   return {
     displayName: teacher.name,
-    classes: teacher.classes
+    classes: teacher.classIds
   }
 }
 
@@ -82,7 +82,7 @@ function createTeachersObservableData(teachers: Teacher[]) {
     return {
       id: teacher.id,
       displayName: teacher.name,
-      classes: teacher.classes
+      classes: teacher.classIds
     }
   });
 }
@@ -108,9 +108,9 @@ function deconstructClass(clazz: Class) {
 }
 
 const testUserValues: User[] = [
-  new User("key1", "Kyle", "class1Id"),
-  new User("key2", "Kathy", "class1Id"),
-  new User("key3", "Kenneth", "class2Id")
+  new User("key1", "Kyle", "Farnsworth", "class1Id"),
+  new User("key2", "Kathy", "Gillespie", "class1Id"),
+  new User("key3", "Kenneth", "Anchovie", "class2Id")
 ];
 
 const testClassValues: Class[] = [
@@ -223,10 +223,12 @@ describe('StatsService', () => {
     securityServiceSpy.authenticated.and.returnValue(true);
     const userId = "id4324789";
     securityServiceSpy.currentUserId.and.returnValue(userId);
-    const userDisplayName = "Willie";
+    const userDisplayName = "Willie Funyions";
     securityServiceSpy.currentUserDisplayName.and.returnValue(userDisplayName);
+    const userNameSplit = userDisplayName.split(' ');
+    const userLastName = userNameSplit[userNameSplit.length - 1];
 
-    const objectRefSpy = jasmine.createSpyObj('AngularFireObject', ['set']);
+    const objectRefSpy = jasmine.createSpyObj('AngularFireObject', ['update']);
     angularFireDbSpy.object.and.returnValue(objectRefSpy);
     const listRefSpy = jasmine.createSpyObj('AngularFireList', ['push']);
     angularFireDbSpy.list.and.returnValue(listRefSpy);
@@ -238,7 +240,10 @@ describe('StatsService', () => {
     expect(securityServiceSpy.currentUserDisplayName).toHaveBeenCalled();
     expect(angularFireDbSpy.object).toHaveBeenCalledWith('users/' + userId);
     expect(angularFireDbSpy.list).toHaveBeenCalledWith('userdata/' + userId);
-    expect(objectRefSpy.set).toHaveBeenCalledWith({ name: userDisplayName});
+    expect(objectRefSpy.update).toHaveBeenCalledWith({
+      name: userDisplayName,
+      lastName: userLastName
+    });
     expect(listRefSpy.push).toHaveBeenCalledWith({
       startDate: stats.roundStart.getTime(),
       endDate: stats.roundEnd.getTime(),
@@ -264,7 +269,7 @@ describe('StatsService', () => {
   it('should add teacher to db on addTeacher() if authenticated', () => {
     securityServiceSpy.authenticated.and.returnValue(true);
 
-    const teacher = new User("REwqer3343", "A. Teacher", null);
+    const teacher = new User("REwqer3343", "A. Teacher", "Teacher", null);
 
     const objectRefSpy = jasmine.createSpyObj('AngularFireObject', ['set']);
     angularFireDbSpy.object.and.returnValue(objectRefSpy);
@@ -280,7 +285,7 @@ describe('StatsService', () => {
   it('should not add teacher to db on addTeacher() if not authenticated', () => {
     securityServiceSpy.authenticated.and.returnValue(false);
 
-    const teacher = new User("fdsaf", "A. Teacher", null);
+    const teacher = new User("fdsaf", "A. Teacher", "Teacher", null);
 
     service.addTeacher(teacher);
 
@@ -340,7 +345,7 @@ describe('StatsService', () => {
     expect(angularFireDbSpy.list).not.toHaveBeenCalledWith('teachers/' + teacherId + '/classes');
   });
 
-  it('should remove class from teacher on removeClassFromTeacher() if authenticated', () => {
+  it('should remove class from teacher on removeClassFromTeacher() if authenticated', (done) => {
     securityServiceSpy.authenticated.and.returnValue(true);
 
     const teacherId = "teacherId";
@@ -348,11 +353,20 @@ describe('StatsService', () => {
 
     const listRefSpy = jasmine.createSpyObj('AngularFireList', ['remove']);
     angularFireDbSpy.list.and.returnValue(listRefSpy);
+    const removePromise = Promise.resolve();
+    console.log(removePromise);
+    listRefSpy.remove.and.returnValue(removePromise);
+    const serviceSpy = spyOn(service, 'removeUsersFromClass');
 
     service.removeClassFromTeacher(teacherId, classId);
 
-    expect(angularFireDbSpy.list).toHaveBeenCalledWith('teachers/' + teacherId + '/classes');
-    expect(listRefSpy.remove).toHaveBeenCalledWith(classId);
+    listRefSpy.remove.calls.mostRecent().returnValue.then(() => {
+      expect(angularFireDbSpy.list).toHaveBeenCalledWith('teachers/' + teacherId + '/classes');
+      expect(listRefSpy.remove).toHaveBeenCalledWith(classId);
+      expect(service.removeUsersFromClass).toHaveBeenCalledWith(classId);
+      done();
+    });
+
   });
 
   it('should not remove class from teacher on removeClassFromTeacher() if not authenticated', () => {
@@ -372,13 +386,13 @@ describe('StatsService', () => {
     const classId = "classId";
     const userId = "userId";
 
-    const objectRefSpy = jasmine.createSpyObj('AngularFireObject', ['set']);
+    const objectRefSpy = jasmine.createSpyObj('AngularFireObject', ['update']);
     angularFireDbSpy.object.and.returnValue(objectRefSpy);
 
     service.addUserToClass(classId, userId);
 
     expect(angularFireDbSpy.object).toHaveBeenCalledWith('users/' + userId);
-    expect(objectRefSpy.set).toHaveBeenCalledWith({
+    expect(objectRefSpy.update).toHaveBeenCalledWith({
       classId: classId
     });
   });
@@ -417,6 +431,26 @@ describe('StatsService', () => {
 
     expect(angularFireDbSpy.object).not.toHaveBeenCalled();
   });
+
+  // TODO: figure out how to test this correctly
+  // Running into the last two expectations not working and it fudging up the test
+  // for getUsersFromClass() below
+  // it('should remove all users from class on removeUsersFromClass if authenticated', () => {
+  //   getTestScheduler().run(helpers => {
+  //     securityServiceSpy.authenticated.and.returnValue(true);
+
+  //     const classId = "class1Id";
+
+  //     spyOn(service, 'removeUserFromClass');
+  //     spyOn(service, 'getUsersFromClass').and.callThrough();
+
+  //     service.removeUsersFromClass(classId);
+
+  //     expect(service.getUsersFromClass).toHaveBeenCalledWith(classId);
+  //     expect(service.removeUserFromClass).toHaveBeenCalledWith(testUserValues[0].id);
+  //     expect(service.removeUserFromClass).toHaveBeenCalledWith(testUserValues[1].id);
+  //   });
+  // });
 
   it('should return Observable of teachers on getTeachers()', () => {
     getTestScheduler().run(helpers => {
@@ -462,7 +496,7 @@ describe('StatsService', () => {
           z: [deconstructUser(testUserValues[0]), deconstructUser(testUserValues[1])]
       });
 
-      expect(angularFireDbSpy.list).toHaveBeenCalledWith('users');
+      expect(angularFireDbSpy.list).toHaveBeenCalledWith('users', jasmine.any(Function));
     });
   });
 

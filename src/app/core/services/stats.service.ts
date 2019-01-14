@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 
 import { Observable, of } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
+import { map, first } from 'rxjs/operators';
 
 import { SecurityService } from './security.service';
 import { Stats } from '../../shared/models/stats';
@@ -18,7 +18,7 @@ export class StatsService {
 
   constructor(private db: AngularFireDatabase,
     private security: SecurityService) {
-      this.allUsers = this.db.list('users').snapshotChanges().pipe(
+      this.allUsers = this.db.list('users', ref => ref.orderByChild('lastName')).snapshotChanges().pipe(
         map(users => users.map(user => ({ id: user.key, ...user.payload.val() })))
       );
   }
@@ -26,8 +26,11 @@ export class StatsService {
   addStats(stats: Stats) {
     if (this.security.authenticated()) {
       let userId = this.security.currentUserId();
-      this.db.object('users/' + userId).set({
-        name: this.security.currentUserDisplayName()
+      let userName = this.security.currentUserDisplayName();
+      let splitName = userName.split(' ');
+      this.db.object('users/' + userId).update({
+        name: userName,
+        lastName: splitName[splitName.length - 1]
       });
       this.db.list('userdata/' + userId).push({
         startDate: stats.roundStart.getTime(),
@@ -64,13 +67,16 @@ export class StatsService {
 
   removeClassFromTeacher(teacherId: string, classId: string) {
     if (this.security.authenticated()) {
-      this.db.list('teachers/' + teacherId + '/classes').remove(classId);
+      this.db.list('teachers/' + teacherId + '/classes').remove(classId).then(() => {
+        this.removeUsersFromClass(classId);
+      });
+
     }
   }
 
   addUserToClass(classId: string, userId: string) {
     if (this.security.authenticated()) {
-      this.db.object('users/' + userId).set({
+      this.db.object('users/' + userId).update({
         classId: classId
       });
     }
@@ -79,6 +85,18 @@ export class StatsService {
   removeUserFromClass(userId: string) {
     if (this.security.authenticated()) {
       this.db.object('users/' + userId + '/classId').remove();
+    }
+  }
+
+  removeUsersFromClass(classId: string) {
+    if (this.security.authenticated()) {
+      this.getUsersFromClass(classId).pipe(
+        first()
+      ).subscribe(users => {
+        users.forEach(user => {
+          this.removeUserFromClass(user.id);
+        });
+      });
     }
   }
 
@@ -113,7 +131,7 @@ export class StatsService {
 
   getUsersFromClass(classId: string): Observable<any> {
     return this.allUsers.pipe(
-      map(users => users.filter(user => user.classId == classId))
+      map(users => users.filter(user => user.classId === classId))
     );
   }
 

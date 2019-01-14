@@ -1,0 +1,33 @@
+@import '../../../../variables.scss';
+
+.selected {
+  color: $white-smoke;
+  background: $artichoke;
+}
+
+.small-button {
+  min-width: 2em;
+  background: $smokier-white;
+}
+
+.mat-list {
+  .mat-list-item {
+    border-top: 1px solid $rich-black;
+
+    .clickable {
+      width: 100%;
+      padding: 0.8em;
+    }
+
+    .mat-list-item-content {
+      padding: 0;
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  .mat-list-item:last-child {
+    border-bottom: 1px solid $rich-black;
+  }
+}
+

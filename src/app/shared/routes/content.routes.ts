@@ -8,5 +8,9 @@ export const CONTENT_ROUTES: Routes = [
   {
     path: 'fractions',
     loadChildren: './modules/fractions/fractions.module#FractionsModule'
+  },
+  {
+    path: 'stats',
+    loadChildren: './modules/stats/stats.module#StatsModule'
   }
 ];

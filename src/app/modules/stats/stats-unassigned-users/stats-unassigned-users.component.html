@@ -1,0 +1,8 @@
+<h3>Add Students to Class
+  <button mat-button class="small-button" (click)="stopAddingUsersClick.emit();">x</button>
+</h3>
+<mat-list>
+  <mat-list-item *ngFor="let user of users | async">
+    <a class="clickable" (click)="userSelected.emit(user.id);">{{user.name}}</a>
+  </mat-list-item>
+</mat-list>

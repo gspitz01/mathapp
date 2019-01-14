@@ -1,0 +1,65 @@
+<h1>Stats</h1>
+<div class="stats-container">
+  <div class="stats-list teachers-list">
+    <app-stats-teacher
+      [teachers]="teachers"
+      [selectedTeacherId]="selectedTeacherId"
+      (teacherSelected)="onTeacherSelected($event);">
+    </app-stats-teacher>
+  </div>
+  <div class="stats-list classes-list">
+    <div class="none-selected" *ngIf="!selectedTeacherId && !addingClass">
+      <h3>No teacher selected</h3>
+      <p>Please select a teacher to view their classes</p>
+    </div>
+    <app-stats-class
+      *ngIf="selectedTeacherId && !addingClass"
+      [classes]="teacherClasses"
+      [selectedClassId]="selectedClassId"
+      (addClassClick)="onAddClass($event);"
+      (classSelected)="onClassSelected($event);"
+      (removeClassClick)="onRemoveClass($event);">
+    </app-stats-class>
+    <div class="add-class-form" *ngIf="addingClass">
+      <h3>Add a Class</h3>
+      <div class="inputs">
+        <input type="text" name="class-name" #className placeholder="Name" />
+        <button mat-button class="small-button"
+          (click)="onAddClassFormSubmit(className.value);className.value=''">Add class</button>
+        <button mat-button class="small-button" (click)="className.value='';addingClass=false;">x</button>
+      </div>
+    </div>
+  </div>
+  <div class="stats-list students-list">
+    <div class="none-selected" *ngIf="!selectedClassId && !addingStudent">
+      <h3>No class selected</h3>
+      <p>Please select a class to view the students</p>
+    </div>
+    <app-stats-student
+      *ngIf="selectedClassId && !addingStudent"
+      [students]="classStudents"
+      [selectedStudent]="selectedUser"
+      (addStudentClick)="onAddStudent($event);"
+      (studentSelected)="onUserSelected($event);"
+      (removeStudentClick)="onRemoveStudent($event);">
+    </app-stats-student>
+    <app-stats-unassigned-users
+      *ngIf="addingStudent"
+      [users]="unassignedUsers"
+      (userSelected)="onAddStudentToClass($event);"
+      (stopAddingUsersClick)="addingStudent=false;">
+    </app-stats-unassigned-users>
+  </div>
+  <div class="stats-area">
+    <div class="none-selected" *ngIf="!selectedUser">
+      <h3>No student selected</h3>
+      <p>Please select a student to view their stats</p>
+    </div>
+    <app-stats-user
+      *ngIf="selectedUser"
+      [user]="selectedUser"
+      [userStats]="userStats">
+    </app-stats-user>
+  </div>
+</div>
+
