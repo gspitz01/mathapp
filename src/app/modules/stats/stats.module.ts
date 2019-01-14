@@ -10,13 +10,15 @@ import { StatsClassComponent } from './stats-class/stats-class.component';
 import { StatsUserComponent } from './stats-user/stats-user.component';
 import { StatsStudentComponent } from './stats-student/stats-student.component';
 import { StatsUnassignedUsersComponent } from './stats-unassigned-users/stats-unassigned-users.component';
+import { CoreModule } from 'src/app/core/core.module';
 
 @NgModule({
   imports: [
     CommonModule,
     StatsRoutingModule,
     MatListModule,
-    MatButtonModule
+    MatButtonModule,
+    CoreModule
   ],
   declarations: [
     StatsHomeComponent,

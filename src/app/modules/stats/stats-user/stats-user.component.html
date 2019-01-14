@@ -10,7 +10,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let userStat of userStats | async">
+    <tr *ngFor="let userStat of (userStats | async) | reverse">
       <td>{{userStat.name}}</td>
       <td>{{userStat.startDate | date:'short' }} - {{userStat.endDate | date:'shortTime' }}</td>
       <td>{{userStat.target}}</td>
