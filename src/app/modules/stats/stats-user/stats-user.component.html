@@ -17,12 +17,29 @@
       <td>{{userStat.correct}}</td>
       <td>
         <p *ngIf="!userStat.incorrects" class="none-incorrect">None Incorrect</p>
-        <ul>
-          <li *ngFor="let incorrect of userStat.incorrects">
-            <p *ngIf="incorrect.length == 2">{{incorrect[0]}}, {{incorrect[1]}}</p>
-            <p *ngIf="incorrect.length == 4">{{incorrect[0]}}/{{incorrect[1]}}, {{incorrect[2]}}/{{incorrect[3]}}</p>
-          </li>
-        </ul>
+        <div *ngIf="userStat.incorrects" class="incorrects-table-container">
+          <table class="incorrects-table">
+            <thead>
+              <tr>
+                <th>Op1</th>
+                <th>Op2</th>
+                <th>Guess</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let incorrect of userStat.incorrects">
+                <td *ngIf="incorrect.length == 2 || incorrect.length == 3">{{incorrect[0]}}</td>
+                <td *ngIf="incorrect.length == 2 || incorrect.length == 3">{{incorrect[1]}}</td>
+                <td *ngIf="incorrect.length == 2">Unknown</td>
+                <td *ngIf="incorrect.length == 3">{{incorrect[2]}}</td>
+                <td *ngIf="incorrect.length == 4 || incorrect.length == 5">{{incorrect[0]}}/{{incorrect[1]}}</td>
+                <td *ngIf="incorrect.length == 4 || incorrect.length == 5">{{incorrect[2]}}/{{incorrect[3]}}</td>
+                <td *ngIf="incorrect.length == 4">Unknown</td>
+                <td *ngIf="incorrect.length == 5">{{incorrect[4]}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </td>
     </tr>
   </tbody>

@@ -4,8 +4,9 @@
   width: 100%;
   background: $smokier-white;
   margin-bottom: 3em;
+  text-align: center;
 
-  thead > tr {
+  & > thead > tr {
     background: $smokier-white;
 
     &:hover {
@@ -13,7 +14,7 @@
     }
   }
 
-  tr {
+  & > tbody > tr {
     &:hover {
       background: $gray;
     }
@@ -27,9 +28,8 @@
     }
   }
 
-  td {
+  & > tbody > td {
     width: 13%;
-    text-align: center;
 
     ul {
       margin: 0;
@@ -45,6 +45,20 @@
           padding: 0;
         }
       }
+    }
+  }
+
+  .incorrects-table-container {
+    max-height: 100px;
+    overflow: auto;
+  }
+
+  .incorrects-table {
+    width: 100%;
+    background: $smokier-white;
+
+    & > tbody > tr:nth-child(2n+1) {
+      background: $white-smoke;
     }
   }
 }

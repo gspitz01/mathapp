@@ -66,6 +66,9 @@ export class StatsHomeComponent implements OnInit {
       if (this.selectedClassId == clazz.id) {
         this.selectedClassId = null;
       }
+      if (this.selectedUser && this.selectedUser.classId == clazz.id) {
+        this.selectedUser = null;
+      }
     }
   }
 
