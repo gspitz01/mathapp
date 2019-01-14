@@ -15,6 +15,7 @@ import { StatsUnassignedUsersComponent } from '../stats-unassigned-users/stats-u
 import { StatsUserComponent } from '../stats-user/stats-user.component';
 import { StatsService } from 'src/app/core/services/stats.service';
 import { of } from 'rxjs';
+import { CoreModule } from 'src/app/core/core.module';
 
 class DummyComponent {}
 
@@ -39,7 +40,8 @@ describe('StatsHomeComponent', () => {
         MatListModule,
         RouterTestingModule.withRoutes([
           { path: 'stats/1', component: DummyComponent }
-        ])
+        ]),
+        CoreModule
       ],
       providers: [
         { provide: AngularFireDatabase, useClass: MockAngularFireDataBase },
