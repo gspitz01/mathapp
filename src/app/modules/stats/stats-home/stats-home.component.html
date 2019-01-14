@@ -21,12 +21,13 @@
       (removeClassClick)="onRemoveClass($event);">
     </app-stats-class>
     <div class="add-class-form" *ngIf="addingClass">
-      <h3>Add a Class</h3>
+      <h3>Add a Class
+        <button mat-button class="small-button" (click)="className.value='';addingClass=false;">x</button>
+      </h3>
       <div class="inputs">
         <input type="text" name="class-name" #className placeholder="Name" />
         <button mat-button class="small-button"
           (click)="onAddClassFormSubmit(className.value);className.value=''">Add class</button>
-        <button mat-button class="small-button" (click)="className.value='';addingClass=false;">x</button>
       </div>
     </div>
   </div>

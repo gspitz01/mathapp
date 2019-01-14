@@ -37,12 +37,12 @@
 
     .inputs {
       display: flex;
-      justify-content: space-between;
+      justify-content: space-around;
+    }
 
-      .small-button {
-        min-width: 2em;
-        background: $smokier-white;
-      }
+    .small-button {
+      min-width: 2em;
+      background: $smokier-white;
     }
   }
 
