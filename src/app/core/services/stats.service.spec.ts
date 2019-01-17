@@ -118,6 +118,10 @@ const testClassValues: Class[] = [
   new Class("class2Id", "Class Number 2")
 ];
 
+const maxLevelsObject = {
+  'basic-addition': 4
+};
+
 describe('StatsService', () => {
   let securityServiceSpy: Spied<SecurityService>;
   let angularFireDbSpy: Spied<AngularFireDatabase>;
@@ -132,6 +136,7 @@ describe('StatsService', () => {
 
   let statsListMock: Observable<any>;
   let userListMock: Observable<any>;
+  let maxLevelsMock: Observable<any>;
   let teacherListMock: Observable<any>;
   let classListMock: Observable<any>;
   let service: StatsService;
@@ -146,6 +151,10 @@ describe('StatsService', () => {
       { x: [],
         y: [firebaseUser1, firebaseUser2],
         z: [firebaseUser1, firebaseUser2, firebaseUser3] });
+    maxLevelsMock = cold('xy|', {
+      x: maxLevelsObject,
+      y: {}
+    });
     statsListMock = cold('xy|',
       {
         x: [],
@@ -182,6 +191,7 @@ describe('StatsService', () => {
           }
         }
       } else {
+        // object references starting with 'users/'
         return {
           snapshotChanges: function() {
             return userListMock;
@@ -227,23 +237,26 @@ describe('StatsService', () => {
     securityServiceSpy.currentUserDisplayName.and.returnValue(userDisplayName);
     const userNameSplit = userDisplayName.split(' ');
     const userLastName = userNameSplit[userNameSplit.length - 1];
+    const maxLevels = { 'basic-addition': 4 };
 
     const objectRefSpy = jasmine.createSpyObj('AngularFireObject', ['update']);
     angularFireDbSpy.object.and.returnValue(objectRefSpy);
     const listRefSpy = jasmine.createSpyObj('AngularFireList', ['push']);
     angularFireDbSpy.list.and.returnValue(listRefSpy);
 
-    service.addStats(stats);
+    service.addStats(stats, maxLevels);
 
     expect(securityServiceSpy.authenticated).toHaveBeenCalled();
     expect(securityServiceSpy.currentUserId).toHaveBeenCalled();
     expect(securityServiceSpy.currentUserDisplayName).toHaveBeenCalled();
     expect(angularFireDbSpy.object).toHaveBeenCalledWith('users/' + userId);
+    expect(angularFireDbSpy.object).toHaveBeenCalledWith('users/' + userId + '/maxLevels');
     expect(angularFireDbSpy.list).toHaveBeenCalledWith('userdata/' + userId);
     expect(objectRefSpy.update).toHaveBeenCalledWith({
       name: userDisplayName,
       lastName: userLastName
     });
+    expect(objectRefSpy.update).toHaveBeenCalledWith(maxLevels);
     expect(listRefSpy.push).toHaveBeenCalledWith({
       startDate: stats.roundStart.getTime(),
       endDate: stats.roundEnd.getTime(),
@@ -257,7 +270,9 @@ describe('StatsService', () => {
   it('should not set username nor push userdata if not authenticated on addStats()', () => {
     securityServiceSpy.authenticated.and.returnValue(false);
 
-    service.addStats(stats);
+    const maxLevels = { 'basic-addition': 4 };
+
+    service.addStats(stats, maxLevels);
 
     // list() gets called during construction
     expect(angularFireDbSpy.list).toHaveBeenCalled();
@@ -546,6 +561,37 @@ describe('StatsService', () => {
       });
 
       expect(angularFireDbSpy.list).toHaveBeenCalledWith('userdata/' + userId);
+    });
+  });
+
+  it('should get maxLevels from db on getMaxLevels() if authenticated', () => {
+    getTestScheduler().run(helpers => {
+      const { expectObservable } = helpers;
+      const userId = "id1234";
+      securityServiceSpy.currentUserId.and.returnValue(userId);
+      securityServiceSpy.authenticated.and.returnValue(true);
+
+      const objectRefSpy = jasmine.createSpyObj('AngularFireObject', ['valueChanges']);
+      angularFireDbSpy.object.and.returnValue(objectRefSpy);
+      objectRefSpy.valueChanges.and.returnValue(maxLevelsMock);
+
+      const result = service.getMaxLevels();
+      // Should only get the first of the values becuase of .pipe(first())
+      expectObservable(result).toBe('(x|)', {
+        x: maxLevelsObject
+      });
+
+      expect(angularFireDbSpy.object).toHaveBeenCalledWith('users/' + userId + '/maxLevels');
+    });
+  });
+
+  it('should return empty observable on getMaxLevels if not authenticated', () => {
+    getTestScheduler().run(helpers => {
+      const { expectObservable } = helpers;
+      securityServiceSpy.authenticated.and.returnValue(false);
+
+      const result = service.getMaxLevels();
+      expectObservable(result).toBe('|', {});
     });
   });
 });

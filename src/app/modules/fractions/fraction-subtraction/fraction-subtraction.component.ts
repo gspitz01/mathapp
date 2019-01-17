@@ -12,6 +12,7 @@ export class FractionSubtractionComponent implements OnInit {
   startingLevel = 0;
   startingTime = new Seconds(60);
   levelOrder = FRACTION_SUBTRACTION_LEVEL_ORDER;
+  quizName = "fraction-subtraction";
 
   constructor() { }
 

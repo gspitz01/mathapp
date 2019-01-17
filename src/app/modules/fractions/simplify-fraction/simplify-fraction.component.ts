@@ -24,11 +24,13 @@ export class SimplifyFractionComponent implements OnInit {
   startingLevel: number = 0;
   startingTime: Seconds = new Seconds(60);
   levelOrder: SimplifyFractionRoundLevel[] = SIMPLIFY_FRACTION_LEVEL_ORDER;
+  quizName: string = "simplify-fraction";
   buttonText: string;
   messages: string;
   timeLeft: number;
   round: SimplifyFractionTimeLimitedRound;
   currentLevel: number;
+  private maxLevel: number;
   // Timer for saving window.setInterval id
   private timer: number;
   private answerNum = new FormControl("");
@@ -50,6 +52,14 @@ export class SimplifyFractionComponent implements OnInit {
     this.timeLeft = this.startingTime.value;
     this.timer = null;
     this.answerDisabled = true;
+    this.statsService.getMaxLevels().subscribe(maxLevels => {
+      if (maxLevels.hasOwnProperty(this.quizName)) {
+        this.maxLevel = maxLevels[this.quizName];
+        if (this.timer == null) {
+          this.currentLevel = this.maxLevel;
+        }
+      }
+    });
   }
 
   newRound() {
@@ -135,26 +145,32 @@ export class SimplifyFractionComponent implements OnInit {
     this.clearAnswerInput();
     let questionsAnswered = this.round.getNumberOfQuestionsAnswered()
 
-    this.sendStats(questionsAnswered);
-
     let round = this.levelOrder[this.currentLevel];
     let questionThreshold = Math.floor(round.questionThresholdPerSixtySeconds * this.startingTime.value/60);
     if (questionsAnswered >= questionThreshold) {
-        if (this.currentLevel < this.levelOrder.length - 1) {
-          this.currentLevel++;
-          this.messages = ADVANCE_TO_NEXT_LEVEL_TEXT;
-        } else {
-          this.messages = FINISHED_HIGHEST_LEVEL_TEXT;
-        }
+      if (this.currentLevel < this.levelOrder.length - 1) {
+        this.currentLevel++;
+        this.messages = ADVANCE_TO_NEXT_LEVEL_TEXT;
+      } else {
+        this.messages = FINISHED_HIGHEST_LEVEL_TEXT;
+      }
     } else {
       this.messages = NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT;
     }
+
+    this.sendStats(questionsAnswered);
   }
 
   private sendStats(questionsAnswered: number) {
     let roundStats = new Stats(this.roundStart, new Date(), this.round.level.name,
       this.round.level.questionThresholdPerSixtySeconds, questionsAnswered, this.incorrects);
-    this.statsService.addStats(roundStats);
+    // Send the round stats and update for maxLevels
+    // Don't send maxLevel update if we received a maxLevel and it's greater than or equal to currentLevel
+    if (this.maxLevel && this.currentLevel <= this.maxLevel) {
+      this.statsService.addStats(roundStats, null);
+    } else {
+      this.statsService.addStats(roundStats, {[this.quizName]: this.currentLevel});
+    }
   }
 
 }

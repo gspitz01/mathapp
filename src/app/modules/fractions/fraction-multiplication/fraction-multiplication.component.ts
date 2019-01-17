@@ -12,6 +12,7 @@ export class FractionMultiplicationComponent implements OnInit {
   startingLevel = 0;
   startingTime = new Seconds(60);
   levelOrder = FRACTION_MULTIPLICATION_LEVEL_ORDER;
+  quizName = "fraction-multiplication";
 
   constructor() { }
 

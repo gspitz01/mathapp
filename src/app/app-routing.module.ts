@@ -5,12 +5,13 @@ import { LoginComponent } from './login/login.component';
 import { CONTENT_ROUTES } from './shared/routes/content.routes';
 import { ContentLayoutComponent } from './layouts/content-layout/content-layout.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { AuthGuardService } from './core/services/auth-guard.service';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: '', component: ContentLayoutComponent, children: CONTENT_ROUTES },
+  { path: '', component: ContentLayoutComponent, children: CONTENT_ROUTES, canActivate: [AuthGuardService] },
   { path: '**', component: PageNotFoundComponent, pathMatch: 'full' }
 ]
 

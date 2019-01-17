@@ -5,13 +5,11 @@ import { DebugElement } from '@angular/core';
 
 import { MatListModule } from '@angular/material';
 
-import { AngularFireDatabase } from 'angularfire2/database';
-import { AngularFireAuth } from 'angularfire2/auth';
-
 import { BasicAdditionComponent } from './basic-addition.component';
 import { BasicQuizViewComponent } from '../../../shared/components/basic-quiz-view/basic-quiz-view.component';
 import { ADDITION } from '../../../shared/models/basic-operators';
-import { MockAngularFireDataBase, MockAngularFireAuth } from '../../../shared/models/test-constants.spec';
+import { MockStatsService } from '../../../shared/models/test-constants.spec';
+import { StatsService } from 'src/app/core/services/stats.service';
 
 describe('BasicAdditionComponent', () => {
   let component: BasicAdditionComponent;
@@ -29,8 +27,7 @@ describe('BasicAdditionComponent', () => {
         MatListModule
       ],
       providers: [
-        { provide: AngularFireDatabase, useClass: MockAngularFireDataBase },
-        { provide: AngularFireAuth, useClass: MockAngularFireAuth }
+        { provide: StatsService, useClass: MockStatsService }
       ]
     })
     .compileComponents();

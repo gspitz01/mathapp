@@ -12,6 +12,7 @@ export class BasicAdditionComponent implements OnInit {
   startingLevel = 0;
   startingTime = new Seconds(60);
   levelOrder = BASIC_ADDITION_LEVEL_ORDER;
+  quizName = "basic-addition";
 
   constructor() { }
 

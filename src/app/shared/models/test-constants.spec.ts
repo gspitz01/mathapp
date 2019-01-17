@@ -14,11 +14,29 @@ export class MockAngularFireDataBase {
       }
     }
   }
+
+  object(name: string) {
+    return {
+      snapshotChanges: function() {
+        return {
+          pipe: function(func) {}
+        }
+      }
+    }
+  }
 }
 
 export class MockStatsService {
   addStats(stats: Stats) {
 
+  }
+
+  getMaxLevels() {
+    return {
+      subscribe: function() {
+
+      }
+    }
   }
 }
 

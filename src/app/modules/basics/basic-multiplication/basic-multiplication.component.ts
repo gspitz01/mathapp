@@ -12,6 +12,7 @@ export class BasicMultiplicationComponent implements OnInit {
   startingLevel = 0;
   startingTime = new Seconds(60);
   levelOrder = BASIC_MULTIPLICATION_LEVEL_ORDER;
+  quizName = "basic-multiplication";
 
   constructor() { }
 

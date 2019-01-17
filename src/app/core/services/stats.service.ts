@@ -23,7 +23,7 @@ export class StatsService {
       );
   }
 
-  addStats(stats: Stats) {
+  addStats(stats: Stats, maxLevels: Object) {
     if (this.security.authenticated()) {
       let userId = this.security.currentUserId();
       let userName = this.security.currentUserDisplayName();
@@ -32,6 +32,9 @@ export class StatsService {
         name: userName,
         lastName: splitName[splitName.length - 1]
       });
+      if (maxLevels != null) {
+        this.db.object('users/' + userId + '/maxLevels').update(maxLevels);
+      }
       this.db.list('userdata/' + userId).push({
         startDate: stats.roundStart.getTime(),
         endDate: stats.roundEnd.getTime(),
@@ -139,5 +142,14 @@ export class StatsService {
     return this.db.list('userdata/' + userId).snapshotChanges().pipe(
       map(stats => stats.map(stat => ({...stat.payload.val()})))
     );
+  }
+
+  getMaxLevels(): Observable<any> {
+    if (this.security.authenticated()) {
+      let userId = this.security.currentUserId();
+      return this.db.object('users/' + userId + '/maxLevels').valueChanges().pipe(first());
+    } else {
+      return of();
+    }
   }
 }

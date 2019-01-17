@@ -4,13 +4,11 @@ import { DebugElement } from '@angular/core';
 
 import { MatListModule } from '@angular/material';
 
-import { AngularFireDatabase } from 'angularfire2/database';
-import { AngularFireAuth } from 'angularfire2/auth';
-
 import { GreatestCommonFactorComponent } from './greatest-common-factor.component';
 import { BasicQuizViewComponent } from '../../../shared/components/basic-quiz-view/basic-quiz-view.component';
-import { MockAngularFireDataBase, MockAngularFireAuth } from '../../../shared/models/test-constants.spec';
+import { MockStatsService } from '../../../shared/models/test-constants.spec';
 import { By } from '@angular/platform-browser';
+import { StatsService } from 'src/app/core/services/stats.service';
 
 describe('GreatestCommonFactorComponent', () => {
   let component: GreatestCommonFactorComponent;
@@ -28,8 +26,7 @@ describe('GreatestCommonFactorComponent', () => {
         MatListModule
       ],
       providers: [
-        { provide: AngularFireDatabase, useClass: MockAngularFireDataBase },
-        { provide: AngularFireAuth, useClass: MockAngularFireAuth }
+        { provide: StatsService, useClass: MockStatsService }
       ]
     })
     .compileComponents();

@@ -5,13 +5,11 @@ import { By } from '@angular/platform-browser';
 
 import { MatListModule } from '@angular/material';
 
-import { AngularFireDatabase } from 'angularfire2/database';
-import { AngularFireAuth } from 'angularfire2/auth';
-
 import { BasicDivisionComponent } from './basic-division.component';
 import { BasicQuizViewComponent } from '../../../shared/components/basic-quiz-view/basic-quiz-view.component';
 import { DIVISION } from '../../../shared/models/basic-operators';
-import { MockAngularFireAuth, MockAngularFireDataBase } from '../../../shared/models/test-constants.spec';
+import { MockStatsService } from '../../../shared/models/test-constants.spec';
+import { StatsService } from 'src/app/core/services/stats.service';
 
 describe('BasicDivisionComponent', () => {
   let component: BasicDivisionComponent;
@@ -29,8 +27,7 @@ describe('BasicDivisionComponent', () => {
         MatListModule
       ],
       providers: [
-        { provide: AngularFireDatabase, useClass: MockAngularFireDataBase },
-        { provide: AngularFireAuth, useClass: MockAngularFireAuth }
+        { provide: StatsService, useClass: MockStatsService }
       ]
     })
     .compileComponents();

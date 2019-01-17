@@ -12,6 +12,7 @@ export class BasicSubtractionComponent implements OnInit {
   startingLevel = 0;
   startingTime = new Seconds(60);
   levelOrder = BASIC_SUBTRACTION_LEVEL_ORDER;
+  quizName = "basic-subtraction";
 
   constructor() { }
 

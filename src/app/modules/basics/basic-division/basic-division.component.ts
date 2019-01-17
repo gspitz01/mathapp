@@ -12,6 +12,7 @@ export class BasicDivisionComponent implements OnInit {
   startingLevel = 0;
   startingTime = new Seconds(60);
   levelOrder = BASIC_DIVISION_LEVEL_ORDER;
+  quizName = "basic-division";
 
   constructor() { }
 

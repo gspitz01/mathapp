@@ -5,14 +5,12 @@ import { By } from '@angular/platform-browser';
 
 import { MatListModule } from '@angular/material';
 
-import { AngularFireDatabase } from 'angularfire2/database';
-import { AngularFireAuth } from 'angularfire2/auth';
-
 import { FractionMultiplicationComponent } from './fraction-multiplication.component';
 import { FractionQuizViewComponent } from '../fraction-quiz-view/fraction-quiz-view.component';
 import { FractionExplanationViewComponent } from '../fraction-explanation-view/fraction-explanation-view.component';
 import { FRACTION_MULTIPLICATION } from '../models/fraction-operators';
-import { MockAngularFireDataBase, MockAngularFireAuth } from '../../../shared/models/test-constants.spec';
+import { MockStatsService } from '../../../shared/models/test-constants.spec';
+import { StatsService } from 'src/app/core/services/stats.service';
 
 describe('FractionMultiplicationComponent', () => {
   let component: FractionMultiplicationComponent;
@@ -31,8 +29,7 @@ describe('FractionMultiplicationComponent', () => {
         MatListModule
       ],
       providers: [
-        { provide: AngularFireDatabase, useClass: MockAngularFireDataBase },
-        { provide: AngularFireAuth, useClass: MockAngularFireAuth }
+        { provide: StatsService, useClass: MockStatsService }
       ]
     })
     .compileComponents();

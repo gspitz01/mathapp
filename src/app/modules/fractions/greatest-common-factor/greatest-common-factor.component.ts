@@ -12,6 +12,7 @@ export class GreatestCommonFactorComponent implements OnInit {
   startingLevel = 0;
   startingTime = new Seconds(60);
   levelOrder = GREATEST_COMMON_FACTOR_LEVEL_ORDER;
+  quizName = "gcf";
 
   constructor() { }
 
