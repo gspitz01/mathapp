@@ -53,7 +53,7 @@ export class FractionQuizViewComponent implements OnInit {
     this.timer = null;
     this.answerDisabled = true;
     this.statsService.getMaxLevels().subscribe(maxLevels => {
-      if (maxLevels.hasOwnProperty(this.quizName)) {
+      if (maxLevels && maxLevels.hasOwnProperty(this.quizName)) {
         this.maxLevel = maxLevels[this.quizName];
         if (this.timer == null) {
           this.currentLevel = this.maxLevel;
