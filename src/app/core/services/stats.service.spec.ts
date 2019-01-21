@@ -139,12 +139,20 @@ describe('StatsService', () => {
   let maxLevelsMock: Observable<any>;
   let teacherListMock: Observable<any>;
   let classListMock: Observable<any>;
+  let authStateMock: Observable<any>;
   let service: StatsService;
 
   beforeEach(() => {
     initTestScheduler();
     securityServiceSpy = jasmine.createSpyObj('SecurityService',
-      ['authenticated', 'currentUserId', 'currentUserDisplayName']);
+      ['authenticated', 'currentUserId', 'currentUserDisplayName', 'getAuthState']);
+    securityServiceSpy.currentUserId.and.returnValue(testUserValues[0].id);
+
+    authStateMock = cold('x|', {
+      x: {uid: "UserId"}
+    });
+    securityServiceSpy.getAuthState.and.returnValue(authStateMock);
+
     angularFireDbSpy = jasmine.createSpyObj('AngularFireDatabase',
       ['list', 'object']);
     userListMock = cold('xyz|',
@@ -169,6 +177,7 @@ describe('StatsService', () => {
         x: [],
         y: [createFakeFirebaseClass(testClassValues[0]), createFakeFirebaseClass(testClassValues[1])]
     });
+
     angularFireDbSpy.list.and.callFake((refName) => {
       if (refName.includes('userdata')) {
         return {
@@ -199,6 +208,24 @@ describe('StatsService', () => {
         };
       }
     });
+
+    // Return value for db.object('admins/' + userId) which gets called in
+    // getAdminSnapshot, which is now called in the constructor
+    angularFireDbSpy.object.and.callFake((refName) => {
+      if (refName.includes('admins')) {
+        return {
+          snapshotChanges: function() {
+            return of(1, 2, 3);
+          }
+        }
+      } else {
+        return {
+          valueChanges: function() {
+            return maxLevelsMock;
+          }
+        }
+      }
+    });
     TestBed.configureTestingModule({
       providers: [
         StatsService,
@@ -214,8 +241,14 @@ describe('StatsService', () => {
     resetTestScheduler();
   });
 
-  it('should be created', () => {
+  it('should check auth state on creation', () => {
     expect(service).toBeTruthy();
+    expect(securityServiceSpy.getAuthState).toHaveBeenCalled();
+    // Would like to test these but not sure how to because would have to
+    // start the testScheduler from inside the beforeEach to make sure
+    // the observable correctly returns
+    // expect(securityServiceSpy.currentUserId).toHaveBeenCalled();
+    // expect(angularFireDbSpy.object).toHaveBeenCalledWith('admins/' + testUserValues[0].id);
   });
 
   it('should return correct values for getAllUsers()', () => {
@@ -276,8 +309,7 @@ describe('StatsService', () => {
 
     // list() gets called during construction
     expect(angularFireDbSpy.list).toHaveBeenCalled();
-    expect(angularFireDbSpy.object).not.toHaveBeenCalled();
-    expect(securityServiceSpy.currentUserId).not.toHaveBeenCalled();
+    expect(angularFireDbSpy.object).not.toHaveBeenCalledWith('users');
     expect(securityServiceSpy.currentUserDisplayName).not.toHaveBeenCalled();
   });
 
@@ -304,7 +336,7 @@ describe('StatsService', () => {
 
     service.addTeacher(teacher);
 
-    expect(angularFireDbSpy.object).not.toHaveBeenCalled();
+    expect(angularFireDbSpy.object).not.toHaveBeenCalledWith('teachers');
   });
 
   it('should remove teacher from db on removeTeacher() if authenticated', () => {
@@ -369,7 +401,6 @@ describe('StatsService', () => {
     const listRefSpy = jasmine.createSpyObj('AngularFireList', ['remove']);
     angularFireDbSpy.list.and.returnValue(listRefSpy);
     const removePromise = Promise.resolve();
-    console.log(removePromise);
     listRefSpy.remove.and.returnValue(removePromise);
     const serviceSpy = spyOn(service, 'removeUsersFromClass');
 
@@ -570,10 +601,6 @@ describe('StatsService', () => {
       const userId = "id1234";
       securityServiceSpy.currentUserId.and.returnValue(userId);
       securityServiceSpy.authenticated.and.returnValue(true);
-
-      const objectRefSpy = jasmine.createSpyObj('AngularFireObject', ['valueChanges']);
-      angularFireDbSpy.object.and.returnValue(objectRefSpy);
-      objectRefSpy.valueChanges.and.returnValue(maxLevelsMock);
 
       const result = service.getMaxLevels();
       // Should only get the first of the values becuase of .pipe(first())

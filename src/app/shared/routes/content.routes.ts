@@ -1,4 +1,5 @@
 import { Routes } from "@angular/router";
+import { StatsGuardService } from "src/app/core/services/stats-guard.service";
 
 export const CONTENT_ROUTES: Routes = [
   {
@@ -11,6 +12,7 @@ export const CONTENT_ROUTES: Routes = [
   },
   {
     path: 'stats',
-    loadChildren: './modules/stats/stats.module#StatsModule'
+    loadChildren: './modules/stats/stats.module#StatsModule',
+    canActivate: [StatsGuardService]
   }
 ];

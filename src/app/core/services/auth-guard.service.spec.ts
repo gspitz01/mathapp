@@ -8,7 +8,7 @@ import { SecurityService } from './security.service';
 describe('AuthGuardService', () => {
   const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
   const ssSpy = jasmine.createSpyObj('SecurityService', ['authenticated']);
-  let authGuardServive: AuthGuardService;
+  let authGuardService: AuthGuardService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -19,16 +19,16 @@ describe('AuthGuardService', () => {
       ]
     });
 
-    authGuardServive = TestBed.get(AuthGuardService);
+    authGuardService = TestBed.get(AuthGuardService);
   });
 
   it('should be created', () => {
-    expect(authGuardServive).toBeTruthy();
+    expect(authGuardService).toBeTruthy();
   });
 
   it('should return true from canActivate if security is authenticated', () => {
     ssSpy.authenticated.and.returnValue(true);
-    expect(authGuardServive.canActivate({} as ActivatedRouteSnapshot, {} as RouterStateSnapshot)).toBeTruthy();
+    expect(authGuardService.canActivate({} as ActivatedRouteSnapshot, {} as RouterStateSnapshot)).toBeTruthy();
   });
 
   it('should return false and call navigate on router if security not authenticated', () => {
@@ -36,7 +36,7 @@ describe('AuthGuardService', () => {
     const stateUrl = "twentyTwo";
     const state = {url: stateUrl }
 
-    expect(authGuardServive.canActivate({} as ActivatedRouteSnapshot, state as RouterStateSnapshot)).toBeFalsy();
+    expect(authGuardService.canActivate({} as ActivatedRouteSnapshot, state as RouterStateSnapshot)).toBeFalsy();
 
     const parameter1 = ['login'];
     const parameter2 = { queryParams: { return: stateUrl }};

@@ -15,12 +15,28 @@ import { User } from 'src/app/shared/models/user';
 export class StatsService {
 
   private allUsers: Observable<any[]>;
+  private admin: boolean = false;
 
   constructor(private db: AngularFireDatabase,
     private security: SecurityService) {
       this.allUsers = this.db.list('users', ref => ref.orderByChild('lastName')).snapshotChanges().pipe(
         map(users => users.map(user => ({ id: user.key, ...user.payload.val() })))
       );
+      this.security.getAuthState().subscribe(authState => {
+        if (authState) {
+          this.getAdminSnapshot().subscribe(admin => {
+            if (admin) {
+              if (admin.key === authState.uid) {
+                this.admin = true;
+              }
+            }
+          });
+        }
+      });
+  }
+
+  isAdmin(): boolean {
+    return this.admin;
   }
 
   addStats(stats: Stats, maxLevels: Object) {
