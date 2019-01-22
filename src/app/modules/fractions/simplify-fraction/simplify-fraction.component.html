@@ -25,6 +25,7 @@
                 #numeratorInput
                 [formControl]="answerNum"
                 pattern="[0-9\-]*"
+                autocomplete="off"
                 type="text" name="answer-num" id="answer-num" /></td>
             </tr>
             <tr>
@@ -32,6 +33,7 @@
                 (keyup.enter)="onEnter()"
                 [formControl]="answerDen"
                 pattern="[0-9\-]*"
+                autocomplete="off"
                 type="text" name="answer-den" id="answer-den" /></td>
             </tr>
           </table>
