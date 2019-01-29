@@ -1,9 +1,9 @@
-import { BasicResult } from "../../../shared/models/basic-result";
-import { BasicOperand } from "../../../shared/models/basic-operand";
 import { FractionOperator } from "./fraction-operator";
 import { FractionOperand } from "./fraction-operand";
 import { FractionResult } from "./fraction-result";
-import { SimplifyFractionOperator } from "../simplify-fraction/simplify-fraction-operator";
+import { SimplifyFractionOperator } from "./simplify-fraction-operator";
+import { BasicResult } from "../basic-result";
+import { BasicOperand } from "../basic-operand";
 
 function reduceFraction(numerator: number, denominator: number): FractionResult {
   let smaller = Math.min(Math.abs(numerator), Math.abs(denominator));

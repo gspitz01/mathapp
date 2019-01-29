@@ -6,8 +6,8 @@ import { Observable, of } from 'rxjs';
 import { map, first } from 'rxjs/operators';
 
 import { SecurityService } from './security.service';
-import { Stats } from '../../shared/models/stats';
-import { User } from 'src/app/shared/models/user';
+import { Stats } from '../domain/models/stats';
+import { User } from '../domain/models/user';
 
 @Injectable({
   providedIn: 'root'

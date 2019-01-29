@@ -6,13 +6,12 @@ import { By } from '@angular/platform-browser';
 import { MatListModule } from '@angular/material';
 
 import { BasicQuizViewComponent } from './basic-quiz-view.component';
-import { Seconds } from '../../models/seconds';
-import { BASIC_ADDITION_LEVEL_ORDER } from '../../models/round-levels';
-import { ADDITION } from '../../models/basic-operators';
-import { NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT, ADVANCE_TO_NEXT_LEVEL_TEXT,
-  FINISHED_HIGHEST_LEVEL_TEXT, WRONG_ANSWER_TEXT } from '../../models/constants';
 import { StatsService } from '../../../core/services/stats.service';
-import { MockStatsService } from '../../models/test-constants.spec';
+import { Seconds } from 'src/app/core/domain/models/seconds';
+import { MockStatsService } from 'src/app/core/domain/models/test-constants.spec';
+import { BASIC_ADDITION_LEVEL_ORDER } from 'src/app/core/domain/models/round-levels';
+import { ADDITION } from 'src/app/core/domain/models/basic-operators';
+import { WRONG_ANSWER_TEXT, NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT, ADVANCE_TO_NEXT_LEVEL_TEXT, FINISHED_HIGHEST_LEVEL_TEXT } from 'src/app/core/domain/models/constants';
 
 const defaultStartingTime = new Seconds(60);
 

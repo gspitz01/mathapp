@@ -1,10 +1,11 @@
-import { GCF } from "../../../shared/models/basic-operators";
-import { OperatorQuestion } from "../../../shared/models/operator-question";
-import { BasicOperatorQuestion } from "../../../shared/models/basic-operator-question";
-import { BasicOperator } from "../../../shared/models/basic-operator";
-import { RoundLevel } from "src/app/shared/models/round-level";
-import { BasicOperand } from "src/app/shared/models/basic-operand";
-import { BasicOperandLimitations } from "src/app/shared/models/basic-operand-limitations";
+import { RoundLevel } from "../round-level";
+import { BasicOperandLimitations } from "../basic-operand-limitations";
+import { GCF } from "../basic-operators";
+import { OperatorQuestion } from "../operator-question";
+import { BasicOperand } from "../basic-operand";
+import { BasicOperator } from "../basic-operator";
+import { BasicOperatorQuestion } from "../basic-operator-question";
+
 
 export class GcfRoundLevel extends RoundLevel {
 

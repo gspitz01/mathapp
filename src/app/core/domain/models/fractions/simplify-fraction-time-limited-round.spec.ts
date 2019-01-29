@@ -1,9 +1,9 @@
-import { Seconds } from "../../../shared/models/seconds";
-import { AnswerEvaluation } from "../../../shared/models/answer-evaluation";
 import { SIMPLIFY_FRACTION_LEVEL_ORDER } from "./simplify-fraction-round-levels";
 import { SimplifyFractionTimeLimitedRound } from "./simplify-fraction-time-limited-round";
-import { SIMPLIFY_FRACTION } from "../models/fraction-operators";
-import { FractionResult } from "../models/fraction-result";
+import { SIMPLIFY_FRACTION } from "./fraction-operators";
+import { FractionResult } from "./fraction-result";
+import { Seconds } from "../seconds";
+import { AnswerEvaluation } from "../answer-evaluation";
 
 describe('SimplifyFractionTimeLimitedRound', () => {
   let initialTime = new Seconds(60);

@@ -1,9 +1,9 @@
-import { BasicOperand } from "../../../shared/models/basic-operand";
-import { BasicResult } from "../../../shared/models/basic-result";
 import { FractionOperand } from "./fraction-operand";
 import { FractionResult } from "./fraction-result";
 import { FRACTION_MULTIPLICATION, FRACTION_DIVISION, FRACTION_ADDITION,
   FRACTION_SUBTRACTION } from './fraction-operators';
+import { BasicOperand } from "../basic-operand";
+import { BasicResult } from "../basic-result";
 
 let op1 = new FractionOperand(new BasicOperand(3), new BasicOperand(4));
 let op2 = new FractionOperand(new BasicOperand(5), new BasicOperand(6));

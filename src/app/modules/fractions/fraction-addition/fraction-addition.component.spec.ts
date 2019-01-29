@@ -8,9 +8,9 @@ import { MatListModule } from '@angular/material';
 import { FractionAdditionComponent } from './fraction-addition.component';
 import { FractionQuizViewComponent } from '../fraction-quiz-view/fraction-quiz-view.component';
 import { FractionExplanationViewComponent } from '../fraction-explanation-view/fraction-explanation-view.component';
-import { FRACTION_ADDITION } from '../models/fraction-operators';
-import { MockStatsService } from '../../../shared/models/test-constants.spec';
+import { FRACTION_ADDITION } from '../../../core/domain/models/fractions/fraction-operators';
 import { StatsService } from 'src/app/core/services/stats.service';
+import { MockStatsService } from 'src/app/core/domain/models/test-constants.spec';
 
 describe('FractionAdditionComponent', () => {
   let component: FractionAdditionComponent;

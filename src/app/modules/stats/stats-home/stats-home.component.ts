@@ -4,11 +4,10 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { StatsService } from 'src/app/core/services/stats.service';
-import { User } from 'src/app/shared/models/user';
-import { Teacher } from 'src/app/shared/models/teacher';
-import { Class } from 'src/app/shared/models/class';
-import { Stats } from 'src/app/shared/models/stats';
-
+import { User } from 'src/app/core/domain/models/user';
+import { Teacher } from 'src/app/core/domain/models/teacher';
+import { Class } from 'src/app/core/domain/models/class';
+import { Stats } from 'src/app/core/domain/models/stats';
 @Component({
   selector: 'app-stats-home',
   templateUrl: './stats-home.component.html',

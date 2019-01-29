@@ -2,8 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { Stats } from 'src/app/shared/models/stats';
-import { User } from 'src/app/shared/models/user';
+import { User } from 'src/app/core/domain/models/user';
+import { Stats } from 'src/app/core/domain/models/stats';
 
 @Component({
   selector: 'app-stats-user',

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Seconds } from '../../../shared/models/seconds';
-import { BASIC_SUBTRACTION_LEVEL_ORDER } from '../../../shared/models/round-levels';
+import { Seconds } from 'src/app/core/domain/models/seconds';
+import { BASIC_SUBTRACTION_LEVEL_ORDER } from 'src/app/core/domain/models/round-levels';
 
 @Component({
   selector: 'app-basic-subtraction',

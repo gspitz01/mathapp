@@ -1,9 +1,9 @@
-import { Seconds } from "../../../shared/models/seconds";
 import { FractionTimeLimitedRound } from "./fraction-time-limited-round";
 import { FRACTION_ADDITION_LEVEL_ORDER } from "./fraction-round-levels";
-import { AnswerEvaluation } from "../../../shared/models/answer-evaluation";
 import { FRACTION_ADDITION } from "./fraction-operators";
 import { FractionResult } from "./fraction-result";
+import { Seconds } from "../seconds";
+import { AnswerEvaluation } from "../answer-evaluation";
 
 describe("FractionTimeLimitedRound", () => {
   let initialTime = new Seconds(60);

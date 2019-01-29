@@ -1,10 +1,10 @@
 import { FractionOperator } from "./fraction-operator";
 import { FRACTION_ADDITION, FRACTION_SUBTRACTION, FRACTION_MULTIPLICATION, FRACTION_DIVISION } from "./fraction-operators";
-import { BasicOperandLimitations } from "src/app/shared/models/basic-operand-limitations";
 import { FractionOperandLimitations } from "./fraction-operand-limitations";
-import { BasicResultLimitations } from "src/app/shared/models/basic-result-limitations";
 import { FractionResultLimitations } from "./fraction-result-limitations";
 import { FractionRoundLevel } from './fraction-round-level';
+import { BasicOperandLimitations } from "../basic-operand-limitations";
+import { BasicResultLimitations } from "../basic-result-limitations";
 
 /**
  * Fractions

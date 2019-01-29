@@ -1,5 +1,5 @@
-import { QuestionRound } from "../../../shared/models/question-round";
 import { FractionRoundLevel } from "./fraction-round-level";
+import { QuestionRound } from "../question-round";
 
 export class FractionQuestionRound extends QuestionRound {
   constructor(level: FractionRoundLevel) {

@@ -1,6 +1,6 @@
-import { BasicOperatorQuestion } from "../../../shared/models/basic-operator-question";
-import { BasicOperandLimitations } from "../../../shared/models/basic-operand-limitations";
 import { GcfRoundLevel } from "./gcf-round-level";
+import { BasicOperandLimitations } from "../basic-operand-limitations";
+import { BasicOperatorQuestion } from "../basic-operator-question";
 
 describe("GcfRoundLevel", () => {
   const opLimits = new BasicOperandLimitations(true, 10, true, false);

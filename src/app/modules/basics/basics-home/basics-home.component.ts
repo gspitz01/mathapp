@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { RouterCard } from '../../../shared/models/router-card';
+import { RouterCard } from 'src/app/core/domain/models/router-card';
 
 const basicsPath = "/basics";
 

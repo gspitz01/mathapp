@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+
 import { Observable } from 'rxjs';
-import { User } from 'src/app/shared/models/user';
+
+import { User } from 'src/app/core/domain/models/user';
 
 @Component({
   selector: 'app-stats-unassigned-users',

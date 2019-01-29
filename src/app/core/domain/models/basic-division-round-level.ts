@@ -1,9 +1,9 @@
-import { RoundLevel } from "../../shared/models/round-level";
 import { DIVISION } from "./basic-operators";
-import { OperatorQuestion } from "../../shared/models/operator-question";
 import { BasicOperatorQuestion } from "./basic-operator-question";
 import { BasicOperator } from "./basic-operator";
 import { BasicOperand } from "./basic-operand";
+import { RoundLevel } from "./round-level";
+import { OperatorQuestion } from "./operator-question";
 
 export class BasicDivisionRoundLevel extends RoundLevel {
 

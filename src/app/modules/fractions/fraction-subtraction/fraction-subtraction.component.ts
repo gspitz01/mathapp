@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Seconds } from '../../../shared/models/seconds';
-import { FRACTION_SUBTRACTION_LEVEL_ORDER } from '../models/fraction-round-levels';
+import { FRACTION_SUBTRACTION_LEVEL_ORDER } from '../../../core/domain/models/fractions/fraction-round-levels';
+import { Seconds } from 'src/app/core/domain/models/seconds';
 
 @Component({
   selector: 'app-fraction-subtraction',

@@ -1,7 +1,7 @@
-import { OperatorQuestion } from "../../../shared/models/operator-question";
 import { FractionOperand } from "./fraction-operand";
 import { FractionOperator } from "./fraction-operator";
 import { FractionResult } from "./fraction-result";
+import { OperatorQuestion } from "../operator-question";
 
 export class FractionOperatorQuestion implements OperatorQuestion {
   constructor(readonly operand1: FractionOperand, readonly operand2: FractionOperand,

@@ -6,16 +6,16 @@ import { By } from '@angular/platform-browser';
 import { MatListModule } from '@angular/material';
 
 import { FractionQuizViewComponent } from './fraction-quiz-view.component';
-import { Seconds } from '../../../shared/models/seconds';
-import { FRACTION_ADDITION_LEVEL_ORDER } from '../models/fraction-round-levels';
-import { FRACTION_ADDITION } from '../models/fraction-operators';
-import { NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT, ADVANCE_TO_NEXT_LEVEL_TEXT,
-  FINISHED_HIGHEST_LEVEL_TEXT, WRONG_ANSWER_TEXT } from '../../../shared/models/constants';
-import { FractionOperand } from '../models/fraction-operand';
-import { BasicOperand } from '../../../shared/models/basic-operand';
-import { FractionResult } from '../models/fraction-result';
+import { FRACTION_ADDITION_LEVEL_ORDER } from '../../../core/domain/models/fractions/fraction-round-levels';
+import { FRACTION_ADDITION } from '../../../core/domain/models/fractions/fraction-operators';
+import { FractionOperand } from '../../../core/domain/models/fractions/fraction-operand';
+import { FractionResult } from '../../../core/domain/models/fractions/fraction-result';
 import { StatsService } from '../../../core/services/stats.service';
-import { MockStatsService } from '../../../shared/models/test-constants.spec';
+import { BasicOperand } from 'src/app/core/domain/models/basic-operand';
+import { MockStatsService } from 'src/app/core/domain/models/test-constants.spec';
+import { Seconds } from 'src/app/core/domain/models/seconds';
+import { WRONG_ANSWER_TEXT, NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT,
+  ADVANCE_TO_NEXT_LEVEL_TEXT, FINISHED_HIGHEST_LEVEL_TEXT } from 'src/app/core/domain/models/constants';
 
 function getTimeRemainingView(fixture: ComponentFixture<FractionQuizViewComponent>): DebugElement {
   return fixture.debugElement.query(By.css(".time-remaining"));

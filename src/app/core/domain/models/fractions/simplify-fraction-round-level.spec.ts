@@ -1,9 +1,9 @@
-import { BasicOperandLimitations } from "../../../shared/models/basic-operand-limitations";
-import { BasicResultLimitations } from "../../../shared/models/basic-result-limitations";
-import { FractionResultLimitations } from "../models/fraction-result-limitations";
+import { FractionResultLimitations } from "./fraction-result-limitations";
 import { SimplifyFractionRoundLevel } from "./simplify-fraction-round-level";
 import { SimplifyFractionOperatorQuestion } from "./simplify-fraction-operator-question";
-import { SIMPLIFY_FRACTION } from "../models/fraction-operators";
+import { SIMPLIFY_FRACTION } from "./fraction-operators";
+import { BasicOperandLimitations } from "../basic-operand-limitations";
+import { BasicResultLimitations } from "../basic-result-limitations";
 
 describe('SimplifyFractionRoundLevel', () => {
   it('should create SimplifyFractionOperatorQuestion on createQuestion()', () => {

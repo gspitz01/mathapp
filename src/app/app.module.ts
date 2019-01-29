@@ -11,7 +11,6 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
-import { QuizDirective } from './shared/models/quiz.directive';
 import { HomeComponent } from './home/home.component';
 
 import { AppRoutingModule } from './/app-routing.module';
@@ -21,6 +20,7 @@ import { LoginComponent } from './login/login.component';
 import { AuthComponent } from './auth/auth.component';
 import { ContentLayoutComponent } from './layouts/content-layout/content-layout.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { QuizDirective } from './core/directives/quiz.directive';
 
 @NgModule({
   declarations: [

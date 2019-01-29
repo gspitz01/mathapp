@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { Class } from 'src/app/shared/models/class';
+import { Class } from 'src/app/core/domain/models/class';
 
 @Component({
   selector: 'app-stats-class',

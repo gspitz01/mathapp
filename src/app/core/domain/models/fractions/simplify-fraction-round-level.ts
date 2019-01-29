@@ -1,12 +1,12 @@
-import { RoundLevel } from "../../../shared/models/round-level";
-import { OperatorQuestion } from "../../../shared/models/operator-question";
-import { BasicOperandLimitations } from "../../../shared/models/basic-operand-limitations";
-import { BasicOperand } from "../../../shared/models/basic-operand";
 import { SimplifyFractionOperator } from "./simplify-fraction-operator";
-import { FractionResultLimitations } from "../models/fraction-result-limitations";
-import { FractionResult } from "../models/fraction-result";
-import { SIMPLIFY_FRACTION } from "../models/fraction-operators";
+import { FractionResultLimitations } from "./fraction-result-limitations";
+import { FractionResult } from "./fraction-result";
+import { SIMPLIFY_FRACTION } from "./fraction-operators";
 import { SimplifyFractionOperatorQuestion } from "./simplify-fraction-operator-question";
+import { RoundLevel } from "../round-level";
+import { BasicOperandLimitations } from "../basic-operand-limitations";
+import { OperatorQuestion } from "../operator-question";
+import { BasicOperand } from "../basic-operand";
 
 export class SimplifyFractionRoundLevel extends RoundLevel {
 

@@ -1,13 +1,12 @@
-import { Seconds } from "../../../shared/models/seconds";
-import { AnswerEvaluation } from "../../../shared/models/answer-evaluation";
-import { FractionQuestionRound } from "./fraction-question-round";
-import { FractionRoundLevel } from "./fraction-round-level";
+import { SimplifyFractionQuestionRound } from "./simplify-fraction-question-round";
+import { SimplifyFractionRoundLevel } from "./simplify-fraction-round-level";
+import { Seconds } from "../seconds";
+import { AnswerEvaluation } from "../answer-evaluation";
 
-export class FractionTimeLimitedRound extends FractionQuestionRound {
-
+export class SimplifyFractionTimeLimitedRound extends SimplifyFractionQuestionRound {
   private timeRemaining: Seconds;
 
-  constructor(readonly time: Seconds, level: FractionRoundLevel) {
+  constructor(readonly time: Seconds, level: SimplifyFractionRoundLevel) {
     super(level);
     this.timeRemaining = new Seconds(time.value);
   }

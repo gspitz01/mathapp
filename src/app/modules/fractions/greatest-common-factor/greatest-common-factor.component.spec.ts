@@ -6,9 +6,9 @@ import { MatListModule } from '@angular/material';
 
 import { GreatestCommonFactorComponent } from './greatest-common-factor.component';
 import { BasicQuizViewComponent } from '../../../shared/components/basic-quiz-view/basic-quiz-view.component';
-import { MockStatsService } from '../../../shared/models/test-constants.spec';
 import { By } from '@angular/platform-browser';
 import { StatsService } from 'src/app/core/services/stats.service';
+import { MockStatsService } from 'src/app/core/domain/models/test-constants.spec';
 
 describe('GreatestCommonFactorComponent', () => {
   let component: GreatestCommonFactorComponent;

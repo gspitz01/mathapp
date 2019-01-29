@@ -1,14 +1,14 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
-import { BasicTimeLimitedRound } from '../../../shared/models/basic-time-limited-round';
-import { Seconds } from '../../../shared/models/seconds';
-import { BasicRoundLevel } from '../../../shared/models/basic-round-level';
-import { ADVANCE_TO_NEXT_LEVEL_TEXT, FINISHED_HIGHEST_LEVEL_TEXT,
-  NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT, WRONG_ANSWER_TEXT } from '../../../shared/models/constants';
 import { StatsService } from '../../../core/services/stats.service';
-import { Stats } from '../../../shared/models/stats';
-import { BasicOperatorQuestion } from '../../../shared/models/basic-operator-question';
+import { Seconds } from 'src/app/core/domain/models/seconds';
+import { BasicRoundLevel } from 'src/app/core/domain/models/basic-round-level';
+import { BasicTimeLimitedRound } from 'src/app/core/domain/models/basic-time-limited-round';
+import { BasicOperatorQuestion } from 'src/app/core/domain/models/basic-operator-question';
+import { WRONG_ANSWER_TEXT, ADVANCE_TO_NEXT_LEVEL_TEXT,
+  FINISHED_HIGHEST_LEVEL_TEXT, NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT } from 'src/app/core/domain/models/constants';
+import { Stats } from 'src/app/core/domain/models/stats';
 
 const startButtonText = "Start";
 const stopButtonText = "Stop";

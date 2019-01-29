@@ -1,5 +1,5 @@
-import { BasicOperandLimitations } from "../../../shared/models/basic-operand-limitations";
 import { GcfRoundLevel } from "./gcf-round-level";
+import { BasicOperandLimitations } from "../basic-operand-limitations";
 
 let lessThan10NoZero = new BasicOperandLimitations(true, 9, false, false);
 let lessThan13NoZero = new BasicOperandLimitations(true, 12, false, false);

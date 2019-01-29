@@ -1,10 +1,10 @@
-import { RoundLevel } from "../../../shared/models/round-level";
-import { OperatorQuestion } from "../../../shared/models/operator-question";
 import { FractionOperatorQuestion } from "./fraction-operator-question";
 import { FractionResult } from "./fraction-result";
 import { FractionOperator } from "./fraction-operator";
 import { FractionResultLimitations } from "./fraction-result-limitations";
 import { FractionOperandLimitations } from "./fraction-operand-limitations";
+import { RoundLevel } from "../round-level";
+import { OperatorQuestion } from "../operator-question";
 
 export class FractionRoundLevel extends RoundLevel {
 

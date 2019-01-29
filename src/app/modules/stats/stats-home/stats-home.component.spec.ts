@@ -7,7 +7,6 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
 
 import { StatsHomeComponent } from './stats-home.component';
-import { MockAngularFireDataBase, MockAngularFireAuth } from 'src/app/shared/models/test-constants.spec';
 import { StatsClassComponent } from '../stats-class/stats-class.component';
 import { StatsStudentComponent } from '../stats-student/stats-student.component';
 import { StatsTeacherComponent } from '../stats-teacher/stats-teacher.component';
@@ -16,6 +15,7 @@ import { StatsUserComponent } from '../stats-user/stats-user.component';
 import { StatsService } from 'src/app/core/services/stats.service';
 import { of } from 'rxjs';
 import { CoreModule } from 'src/app/core/core.module';
+import { MockAngularFireAuth, MockAngularFireDataBase } from 'src/app/core/domain/models/test-constants.spec';
 
 class DummyComponent {}
 

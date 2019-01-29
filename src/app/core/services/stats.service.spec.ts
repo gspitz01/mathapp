@@ -8,11 +8,11 @@ import { initTestScheduler, resetTestScheduler, cold, getTestScheduler } from 'j
 
 import { StatsService } from './stats.service';
 import { SecurityService } from './security.service';
-import { Stats } from '../../shared/models/stats';
-import { Spied } from '../../shared/models/test-constants.spec';
-import { Teacher } from 'src/app/shared/models/teacher';
-import { User } from 'src/app/shared/models/user';
-import { Class } from 'src/app/shared/models/class';
+import { User } from '../domain/models/user';
+import { Stats } from '../domain/models/stats';
+import { Teacher } from '../domain/models/teacher';
+import { Class } from '../domain/models/class';
+import { Spied } from '../domain/models/test-constants.spec';
 
 function createFakeFirebaseUser(testUserValue: User) {
   return {

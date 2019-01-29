@@ -1,8 +1,8 @@
-import { BasicOperand } from '../../../shared/models/basic-operand';
-import { BasicResult } from '../../../shared/models/basic-result';
-import { FractionResult } from '../models/fraction-result';
+import { FractionResult } from './fraction-result';
 import { SimplifyFractionOperator } from './simplify-fraction-operator';
 import { SimplifyFractionOperatorQuestion } from './simplify-fraction-operator-question';
+import { BasicOperand } from '../basic-operand';
+import { BasicResult } from '../basic-result';
 
 describe('SimplifyFractionOperatorQuestion', () => {
   const num = new BasicOperand(45);

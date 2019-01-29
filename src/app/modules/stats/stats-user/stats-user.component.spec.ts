@@ -1,10 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { StatsUserComponent } from './stats-user.component';
-import { User } from 'src/app/shared/models/user';
 import { CoreModule } from 'src/app/core/core.module';
-import { Stats } from 'src/app/shared/models/stats';
 import { of } from 'rxjs';
+import { User } from 'src/app/core/domain/models/user';
+import { Stats } from 'src/app/core/domain/models/stats';
 
 describe('StatsUserComponent', () => {
   let component: StatsUserComponent;

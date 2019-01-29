@@ -1,9 +1,9 @@
-import { BasicResult } from '../../../shared/models/basic-result';
-import { BasicOperand } from '../../../shared/models/basic-operand';
 import { FractionOperand } from './fraction-operand';
-import { FractionResult } from "./fraction-result";
-import { FractionOperator } from "./fraction-operator";
-import { FractionOperatorQuestion } from "./fraction-operator-question";
+import { BasicOperand } from '../basic-operand';
+import { FractionResult } from './fraction-result';
+import { BasicResult } from '../basic-result';
+import { FractionOperator } from './fraction-operator';
+import { FractionOperatorQuestion } from './fraction-operator-question';
 
 describe('FractionOperatorQuestion', () => {
   let op1 = new FractionOperand(new BasicOperand(4), new BasicOperand(5));

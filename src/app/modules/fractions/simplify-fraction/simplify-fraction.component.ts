@@ -1,15 +1,14 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
-import { Seconds } from '../../../shared/models/seconds';
 import { StatsService } from '../../../core/services/stats.service';
-import { WRONG_ANSWER_TEXT, ADVANCE_TO_NEXT_LEVEL_TEXT,
-  FINISHED_HIGHEST_LEVEL_TEXT, NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT } from '../../../shared/models/constants';
-import { Stats } from '../../../shared/models/stats';
-import { SimplifyFractionRoundLevel } from './simplify-fraction-round-level';
-import { SimplifyFractionTimeLimitedRound } from './simplify-fraction-time-limited-round';
-import { SimplifyFractionOperatorQuestion } from './simplify-fraction-operator-question';
-import { SIMPLIFY_FRACTION_LEVEL_ORDER } from './simplify-fraction-round-levels';
+import { SimplifyFractionRoundLevel } from '../../../core/domain/models/fractions/simplify-fraction-round-level';
+import { SimplifyFractionTimeLimitedRound } from '../../../core/domain/models/fractions/simplify-fraction-time-limited-round';
+import { SimplifyFractionOperatorQuestion } from '../../../core/domain/models/fractions/simplify-fraction-operator-question';
+import { SIMPLIFY_FRACTION_LEVEL_ORDER } from '../../../core/domain/models/fractions/simplify-fraction-round-levels';
+import { Seconds } from 'src/app/core/domain/models/seconds';
+import { WRONG_ANSWER_TEXT, ADVANCE_TO_NEXT_LEVEL_TEXT, FINISHED_HIGHEST_LEVEL_TEXT, NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT } from 'src/app/core/domain/models/constants';
+import { Stats } from 'src/app/core/domain/models/stats';
 
 const startButtonText = "Start";
 const stopButtonText = "Stop";

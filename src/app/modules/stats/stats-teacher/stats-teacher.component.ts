@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { Teacher } from 'src/app/shared/models/teacher';
+import { Teacher } from 'src/app/core/domain/models/teacher';
 
 @Component({
   selector: 'app-stats-teacher',

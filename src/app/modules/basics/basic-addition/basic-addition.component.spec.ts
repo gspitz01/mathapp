@@ -7,9 +7,9 @@ import { MatListModule } from '@angular/material';
 
 import { BasicAdditionComponent } from './basic-addition.component';
 import { BasicQuizViewComponent } from '../../../shared/components/basic-quiz-view/basic-quiz-view.component';
-import { ADDITION } from '../../../shared/models/basic-operators';
-import { MockStatsService } from '../../../shared/models/test-constants.spec';
 import { StatsService } from 'src/app/core/services/stats.service';
+import { MockStatsService } from 'src/app/core/domain/models/test-constants.spec';
+import { ADDITION } from 'src/app/core/domain/models/basic-operators';
 
 describe('BasicAdditionComponent', () => {
   let component: BasicAdditionComponent;
