@@ -3,8 +3,8 @@ import { FRACTION_ADDITION, FRACTION_SUBTRACTION, FRACTION_MULTIPLICATION, FRACT
 import { FractionOperandLimitations } from "./fraction-operand-limitations";
 import { FractionResultLimitations } from "./fraction-result-limitations";
 import { FractionRoundLevel } from './fraction-round-level';
-import { BasicOperandLimitations } from "../basic-operand-limitations";
-import { BasicResultLimitations } from "../basic-result-limitations";
+import { BasicOperandLimitations } from "../basics/basic-operand-limitations";
+import { BasicResultLimitations } from "../basics/basic-result-limitations";
 
 /**
  * Fractions

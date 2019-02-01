@@ -1,5 +1,5 @@
 import { FractionOperand } from "./fraction-operand";
-import { BasicOperandLimitations } from "../basic-operand-limitations";
+import { BasicOperandLimitations } from "../basics/basic-operand-limitations";
 
 export class FractionOperandLimitations {
   constructor(readonly numeratorLimitations: BasicOperandLimitations, readonly denominatorLimitations: BasicOperandLimitations) {}

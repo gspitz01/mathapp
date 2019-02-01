@@ -10,7 +10,7 @@ import { StatsService } from '../../../core/services/stats.service';
 import { SIMPLIFY_FRACTION } from '../../../core/domain/models/fractions/fraction-operators';
 import { FractionResult } from '../../../core/domain/models/fractions/fraction-result';
 import { SIMPLIFY_FRACTION_LEVEL_ORDER } from '../../../core/domain/models/fractions/simplify-fraction-round-levels';
-import { BasicOperand } from 'src/app/core/domain/models/basic-operand';
+import { BasicOperand } from 'src/app/core/domain/models/basics/basic-operand';
 import { MockStatsService } from 'src/app/core/domain/models/test-constants.spec';
 import { WRONG_ANSWER_TEXT, NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT,
   ADVANCE_TO_NEXT_LEVEL_TEXT, FINISHED_HIGHEST_LEVEL_TEXT } from 'src/app/core/domain/models/constants';

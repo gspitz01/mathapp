@@ -1,4 +1,4 @@
-import { OperatorQuestion } from './operator-question';
+import { OperatorQuestion } from '../operator-question';
 import { BasicOperand } from './basic-operand';
 import { BasicOperator } from './basic-operator';
 import { BasicResult } from './basic-result';

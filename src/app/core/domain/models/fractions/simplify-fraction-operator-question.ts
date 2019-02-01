@@ -1,6 +1,6 @@
 import { SimplifyFractionOperator } from "./simplify-fraction-operator";
 import { FractionResult } from "./fraction-result";
-import { BasicOperand } from "../basic-operand";
+import { BasicOperand } from "../basics/basic-operand";
 import { OperatorQuestion } from "../operator-question";
 
 export class SimplifyFractionOperatorQuestion implements OperatorQuestion {

@@ -1,8 +1,8 @@
 import { FractionResult } from './fraction-result';
 import { SimplifyFractionOperator } from './simplify-fraction-operator';
 import { SimplifyFractionOperatorQuestion } from './simplify-fraction-operator-question';
-import { BasicOperand } from '../basic-operand';
-import { BasicResult } from '../basic-result';
+import { BasicOperand } from '../basics/basic-operand';
+import { BasicResult } from '../basics/basic-result';
 
 describe('SimplifyFractionOperatorQuestion', () => {
   const num = new BasicOperand(45);

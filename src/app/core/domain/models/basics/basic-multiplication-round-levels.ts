@@ -1,5 +1,5 @@
 import { BasicMultiplicationRoundLevel } from "./basic-multiplication-round-level";
-import { PLURAL_NUMBER_NAMES } from "./constants";
+import { PLURAL_NUMBER_NAMES } from "../constants";
 
 // let justMultiplication: BasicOperator[] = [MULTIPLICATION];
 // export const EASY_MULTIPLICATION = new BasicRoundLevel("Easy Multiplication", justMultiplication, 25,

@@ -10,7 +10,7 @@ import { StatsService } from '../../../core/services/stats.service';
 import { Seconds } from 'src/app/core/domain/models/seconds';
 import { MockStatsService } from 'src/app/core/domain/models/test-constants.spec';
 import { BASIC_ADDITION_LEVEL_ORDER } from 'src/app/core/domain/models/round-levels';
-import { ADDITION } from 'src/app/core/domain/models/basic-operators';
+import { ADDITION } from 'src/app/core/domain/models/basics/basic-operators';
 import { WRONG_ANSWER_TEXT, NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT, ADVANCE_TO_NEXT_LEVEL_TEXT, FINISHED_HIGHEST_LEVEL_TEXT } from 'src/app/core/domain/models/constants';
 
 const defaultStartingTime = new Seconds(60);

@@ -4,9 +4,9 @@ import { FractionResult } from "./fraction-result";
 import { SIMPLIFY_FRACTION } from "./fraction-operators";
 import { SimplifyFractionOperatorQuestion } from "./simplify-fraction-operator-question";
 import { RoundLevel } from "../round-level";
-import { BasicOperandLimitations } from "../basic-operand-limitations";
+import { BasicOperandLimitations } from "../basics/basic-operand-limitations";
 import { OperatorQuestion } from "../operator-question";
-import { BasicOperand } from "../basic-operand";
+import { BasicOperand } from "../basics/basic-operand";
 
 export class SimplifyFractionRoundLevel extends RoundLevel {
 

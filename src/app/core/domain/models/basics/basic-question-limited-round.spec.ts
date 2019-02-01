@@ -1,8 +1,8 @@
 import { BasicQuestionLimitedRound } from './basic-question-limited-round';
-import { BASIC_ADDITION_LEVEL_ORDER } from './round-levels';
+import { BASIC_ADDITION_LEVEL_ORDER } from '../round-levels';
 import { BasicOperatorQuestion } from './basic-operator-question';
 import { ADDITION } from './basic-operators';
-import { AnswerEvaluation } from './answer-evaluation';
+import { AnswerEvaluation } from '../answer-evaluation';
 
 describe('BasicQuestionLimitedRound', () => {
   let testLevel = BASIC_ADDITION_LEVEL_ORDER[1];

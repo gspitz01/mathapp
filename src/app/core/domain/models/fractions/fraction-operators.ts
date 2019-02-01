@@ -2,8 +2,8 @@ import { FractionOperator } from "./fraction-operator";
 import { FractionOperand } from "./fraction-operand";
 import { FractionResult } from "./fraction-result";
 import { SimplifyFractionOperator } from "./simplify-fraction-operator";
-import { BasicResult } from "../basic-result";
-import { BasicOperand } from "../basic-operand";
+import { BasicResult } from "../basics/basic-result";
+import { BasicOperand } from "../basics/basic-operand";
 
 function reduceFraction(numerator: number, denominator: number): FractionResult {
   let smaller = Math.min(Math.abs(numerator), Math.abs(denominator));

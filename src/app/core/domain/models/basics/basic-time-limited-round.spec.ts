@@ -1,8 +1,8 @@
 import { BasicTimeLimitedRound } from './basic-time-limited-round';
-import { Seconds } from './seconds';
-import { BASIC_ADDITION_LEVEL_ORDER } from './round-levels';
+import { Seconds } from '../seconds';
+import { BASIC_ADDITION_LEVEL_ORDER } from '../round-levels';
 import { ADDITION } from './basic-operators';
-import { AnswerEvaluation } from './answer-evaluation';
+import { AnswerEvaluation } from '../answer-evaluation';
 import { BasicResult } from './basic-result';
 
 describe('BasicTimeLimitedRound', () => {

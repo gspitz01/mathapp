@@ -11,7 +11,7 @@ import { FRACTION_ADDITION } from '../../../core/domain/models/fractions/fractio
 import { FractionOperand } from '../../../core/domain/models/fractions/fraction-operand';
 import { FractionResult } from '../../../core/domain/models/fractions/fraction-result';
 import { StatsService } from '../../../core/services/stats.service';
-import { BasicOperand } from 'src/app/core/domain/models/basic-operand';
+import { BasicOperand } from 'src/app/core/domain/models/basics/basic-operand';
 import { MockStatsService } from 'src/app/core/domain/models/test-constants.spec';
 import { Seconds } from 'src/app/core/domain/models/seconds';
 import { WRONG_ANSWER_TEXT, NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT,

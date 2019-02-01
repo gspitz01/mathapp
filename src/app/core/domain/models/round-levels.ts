@@ -1,7 +1,7 @@
-import { BasicRoundLevel } from './basic-round-level';
-import { ADDITION, SUBTRACTION } from './basic-operators';
-import { BasicOperandLimitations } from './basic-operand-limitations';
-import { BasicOperator } from './basic-operator';
+import { BasicRoundLevel } from './basics/basic-round-level';
+import { ADDITION, SUBTRACTION } from './basics/basic-operators';
+import { BasicOperandLimitations } from './basics/basic-operand-limitations';
+import { BasicOperator } from './basics/basic-operator';
 
 /**
  * Basis

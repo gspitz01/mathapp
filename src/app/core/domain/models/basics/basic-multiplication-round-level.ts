@@ -1,7 +1,7 @@
-import { RoundLevel } from "./round-level";
+import { RoundLevel } from "../round-level";
 import { MULTIPLICATION } from "./basic-operators";
 import { BasicOperatorQuestion } from "./basic-operator-question";
-import { OperatorQuestion } from "./operator-question";
+import { OperatorQuestion } from "../operator-question";
 import { BasicOperand } from "./basic-operand";
 import { BasicOperator } from "./basic-operator";
 

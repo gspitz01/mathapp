@@ -5,9 +5,9 @@ import { FractionOperandLimitations } from "./fraction-operand-limitations";
 import { FractionResultLimitations } from "./fraction-result-limitations";
 import { FractionRoundLevel } from "./fraction-round-level";
 import { FractionOperatorQuestion } from "./fraction-operator-question";
-import { BasicResult } from "../basic-result";
-import { BasicOperandLimitations } from "../basic-operand-limitations";
-import { BasicResultLimitations } from "../basic-result-limitations";
+import { BasicResult } from "../basics/basic-result";
+import { BasicOperandLimitations } from "../basics/basic-operand-limitations";
+import { BasicResultLimitations } from "../basics/basic-result-limitations";
 
 describe("FractionRoundLevel", () => {
   it('should create FractionOperatorQuestion on createQuestion()', () => {

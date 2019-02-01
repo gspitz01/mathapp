@@ -1,5 +1,5 @@
-import { RoundLevel } from "./round-level";
-import { OperatorQuestion } from "./operator-question";
+import { RoundLevel } from "../round-level";
+import { OperatorQuestion } from "../operator-question";
 import { BasicOperatorQuestion } from './basic-operator-question';
 import { BasicOperandLimitations } from "./basic-operand-limitations";
 import { BasicResult } from "./basic-result";

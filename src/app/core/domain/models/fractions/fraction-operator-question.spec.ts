@@ -1,7 +1,7 @@
 import { FractionOperand } from './fraction-operand';
-import { BasicOperand } from '../basic-operand';
+import { BasicOperand } from '../basics/basic-operand';
 import { FractionResult } from './fraction-result';
-import { BasicResult } from '../basic-result';
+import { BasicResult } from '../basics/basic-result';
 import { FractionOperator } from './fraction-operator';
 import { FractionOperatorQuestion } from './fraction-operator-question';
 

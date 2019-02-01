@@ -9,7 +9,7 @@ import { BasicMultiplicationComponent } from './basic-multiplication.component';
 import { BasicQuizViewComponent } from '../../../shared/components/basic-quiz-view/basic-quiz-view.component';
 import { StatsService } from 'src/app/core/services/stats.service';
 import { MockStatsService } from 'src/app/core/domain/models/test-constants.spec';
-import { MULTIPLICATION } from 'src/app/core/domain/models/basic-operators';
+import { MULTIPLICATION } from 'src/app/core/domain/models/basics/basic-operators';
 
 describe('BasicMultiplicationComponent', () => {
   let component: BasicMultiplicationComponent;

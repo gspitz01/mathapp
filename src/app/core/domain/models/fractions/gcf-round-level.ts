@@ -1,10 +1,10 @@
 import { RoundLevel } from "../round-level";
-import { BasicOperandLimitations } from "../basic-operand-limitations";
-import { GCF } from "../basic-operators";
+import { BasicOperandLimitations } from "../basics/basic-operand-limitations";
+import { GCF } from "../basics/basic-operators";
 import { OperatorQuestion } from "../operator-question";
-import { BasicOperand } from "../basic-operand";
-import { BasicOperator } from "../basic-operator";
-import { BasicOperatorQuestion } from "../basic-operator-question";
+import { BasicOperand } from "../basics/basic-operand";
+import { BasicOperator } from "../basics/basic-operator";
+import { BasicOperatorQuestion } from "../basics/basic-operator-question";
 
 
 export class GcfRoundLevel extends RoundLevel {

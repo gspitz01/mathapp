@@ -1,4 +1,4 @@
-import { Operator } from './operator';
+import { Operator } from '../operator';
 import { BasicOperation } from './basic-operation';
 
 export class BasicOperator extends Operator {

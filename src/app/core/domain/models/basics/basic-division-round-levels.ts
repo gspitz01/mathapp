@@ -1,4 +1,4 @@
-import { NUMBER_NAMES } from "./constants";
+import { NUMBER_NAMES } from "../constants";
 import { BasicDivisionRoundLevel } from "./basic-division-round-level";
 
 export const BASIC_DIVISION_LEVEL_ORDER = [];

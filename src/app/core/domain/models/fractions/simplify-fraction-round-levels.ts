@@ -1,5 +1,5 @@
 import { SimplifyFractionRoundLevel } from "./simplify-fraction-round-level";
-import { BasicOperandLimitations } from "../basic-operand-limitations";
+import { BasicOperandLimitations } from "../basics/basic-operand-limitations";
 
 const belowFive = new BasicOperandLimitations(true, 5, false, false);
 const belowTen = new BasicOperandLimitations(true, 10, false, false);

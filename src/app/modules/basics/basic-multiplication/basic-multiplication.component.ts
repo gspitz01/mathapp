@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BASIC_MULTIPLICATION_LEVEL_ORDER } from 'src/app/core/domain/models/basic-multiplication-round-levels';
+import { BASIC_MULTIPLICATION_LEVEL_ORDER } from 'src/app/core/domain/models/basics/basic-multiplication-round-levels';
 import { Seconds } from 'src/app/core/domain/models/seconds';
 
 @Component({

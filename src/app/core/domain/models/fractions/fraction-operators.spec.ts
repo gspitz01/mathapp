@@ -2,8 +2,8 @@ import { FractionOperand } from "./fraction-operand";
 import { FractionResult } from "./fraction-result";
 import { FRACTION_MULTIPLICATION, FRACTION_DIVISION, FRACTION_ADDITION,
   FRACTION_SUBTRACTION } from './fraction-operators';
-import { BasicOperand } from "../basic-operand";
-import { BasicResult } from "../basic-result";
+import { BasicOperand } from "../basics/basic-operand";
+import { BasicResult } from "../basics/basic-result";
 
 let op1 = new FractionOperand(new BasicOperand(3), new BasicOperand(4));
 let op2 = new FractionOperand(new BasicOperand(5), new BasicOperand(6));

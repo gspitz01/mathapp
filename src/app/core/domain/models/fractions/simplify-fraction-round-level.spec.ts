@@ -2,8 +2,8 @@ import { FractionResultLimitations } from "./fraction-result-limitations";
 import { SimplifyFractionRoundLevel } from "./simplify-fraction-round-level";
 import { SimplifyFractionOperatorQuestion } from "./simplify-fraction-operator-question";
 import { SIMPLIFY_FRACTION } from "./fraction-operators";
-import { BasicOperandLimitations } from "../basic-operand-limitations";
-import { BasicResultLimitations } from "../basic-result-limitations";
+import { BasicOperandLimitations } from "../basics/basic-operand-limitations";
+import { BasicResultLimitations } from "../basics/basic-result-limitations";
 
 describe('SimplifyFractionRoundLevel', () => {
   it('should create SimplifyFractionOperatorQuestion on createQuestion()', () => {

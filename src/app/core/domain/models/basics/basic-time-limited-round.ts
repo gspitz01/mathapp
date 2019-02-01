@@ -1,6 +1,6 @@
-import { Seconds } from './seconds';
+import { Seconds } from '../seconds';
 import { BasicRoundLevel } from './basic-round-level';
-import { AnswerEvaluation } from './answer-evaluation';
+import { AnswerEvaluation } from '../answer-evaluation';
 import { BasicQuestionRound } from './basic-question-round';
 
 /**
