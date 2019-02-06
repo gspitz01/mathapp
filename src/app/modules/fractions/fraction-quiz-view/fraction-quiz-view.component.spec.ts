@@ -21,8 +21,8 @@ function getTimeRemainingView(fixture: ComponentFixture<FractionQuizViewComponen
   return fixture.debugElement.query(By.css(".time-remaining"));
 }
 
-function getQuestionsAnsweredView(fixture: ComponentFixture<FractionQuizViewComponent>): DebugElement {
-  return fixture.debugElement.query(By.css(".questions-answered"));
+function getCorrectAnswersView(fixture: ComponentFixture<FractionQuizViewComponent>): DebugElement {
+  return fixture.debugElement.query(By.css(".correct-answers"));
 }
 
 function getOperand1NumeratorView(fixture: ComponentFixture<FractionQuizViewComponent>): DebugElement {
@@ -133,8 +133,8 @@ describe('FractionQuizViewComponent', () => {
       let timeRemainingView = getTimeRemainingView(fixture);
       expect(timeRemainingView.nativeElement.textContent).toBe('60');
 
-      let questionsAnsweredView = getQuestionsAnsweredView(fixture);
-      expect(questionsAnsweredView.nativeElement.textContent).toContain(0);
+      let correctAnswersView = getCorrectAnswersView(fixture);
+      expect(correctAnswersView.nativeElement.textContent).toContain(0);
     });
   });
 
@@ -147,8 +147,8 @@ describe('FractionQuizViewComponent', () => {
       setAnswer(fixture, answer.numerator.value, answer.denominator.value);
 
       fixture.detectChanges();
-      let questionsAnsweredView = getQuestionsAnsweredView(fixture)
-      expect(questionsAnsweredView.nativeElement.textContent).toContain(1);
+      let correctAnswersView = getCorrectAnswersView(fixture)
+      expect(correctAnswersView.nativeElement.textContent).toContain(1);
     });
   });
 
@@ -163,8 +163,8 @@ describe('FractionQuizViewComponent', () => {
       setAnswer(fixture, answer.numerator.value + 1, answer.denominator.value);
 
       fixture.detectChanges();
-      let questionsAnsweredView = getQuestionsAnsweredView(fixture);
-      expect(questionsAnsweredView.nativeElement.textContent).toContain(1);
+      let correctAnswersView = getCorrectAnswersView(fixture);
+      expect(correctAnswersView.nativeElement.textContent).toContain(0);
 
       expect(messagesView.nativeElement.textContent).toBe(WRONG_ANSWER_TEXT);
     });
@@ -181,15 +181,15 @@ describe('FractionQuizViewComponent', () => {
       setAnswer(fixture, answer.numerator.value + 1, answer.denominator.value);
 
       fixture.detectChanges();
-      let questionsAnsweredView = getQuestionsAnsweredView(fixture);
-      expect(questionsAnsweredView.nativeElement.textContent).toContain(1);
+      let correctAnswersView = getCorrectAnswersView(fixture);
+      expect(correctAnswersView.nativeElement.textContent).toContain(0);
 
       expect(messagesView.nativeElement.textContent).toBe(WRONG_ANSWER_TEXT);
 
       setAnswer(fixture, answer.numerator.value, answer.denominator.value);
       fixture.detectChanges();
 
-      expect(questionsAnsweredView.nativeElement.textContent).toContain(1);
+      expect(correctAnswersView.nativeElement.textContent).toContain(1);
       expect(messagesView.nativeElement.textContent).toBe("");
     });
   });
@@ -286,8 +286,8 @@ describe('FractionQuizViewComponent', () => {
         fixture.detectChanges();
       }
 
-      let questionsAnsweredView = getQuestionsAnsweredView(fixture);
-      expect(questionsAnsweredView.nativeElement.textContent).toContain(questionsNeeded);
+      let correctAnswersView = getCorrectAnswersView(fixture);
+      expect(correctAnswersView.nativeElement.textContent).toContain(questionsNeeded);
 
       let timeRemainingView = getTimeRemainingView(fixture);
       expect(timeRemainingView.nativeElement.textContent).toBe("60");
@@ -324,8 +324,8 @@ describe('FractionQuizViewComponent', () => {
           fixture.detectChanges();
         }
 
-        let questionsAnsweredView = getQuestionsAnsweredView(fixture);
-        expect(questionsAnsweredView.nativeElement.textContent).toContain(questionsNeeded);
+        let correctAnswersView = getCorrectAnswersView(fixture);
+        expect(correctAnswersView.nativeElement.textContent).toContain(questionsNeeded);
 
         let timeRemainingView = getTimeRemainingView(fixture);
         expect(timeRemainingView.nativeElement.textContent).toBe("60");

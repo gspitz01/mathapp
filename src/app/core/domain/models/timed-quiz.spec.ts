@@ -42,7 +42,7 @@ describe("TimedQuiz", () => {
 
   beforeEach(() => {
     spyQuestionRound = jasmine.createSpyObj("QuestionRound",
-    ["start", "getTimeRemaining", "tick", "getNumberOfQuestionsAnswered", "answerQuestion"]);
+    ["start", "getTimeRemaining", "tick", "getNumberOfCorrectAnswers", "answerQuestion"]);
     spyBeforeStartTimer = jasmine.createSpy("BeforeStartTimer");
     spyBeforeEvaluateRound = jasmine.createSpy("BeforeEvaluateRound");
     spyAfterEvaluateRound = jasmine.createSpy("AfterEvaluateRound");
@@ -77,7 +77,7 @@ describe("TimedQuiz", () => {
     expect(spyQuestionRound.tick).toHaveBeenCalledTimes(10);
     expect(quiz.currentTime).toBe(0);
     expect(spyBeforeEvaluateRound).toHaveBeenCalled();
-    expect(spyQuestionRound.getNumberOfQuestionsAnswered).toHaveBeenCalled();
+    expect(spyQuestionRound.getNumberOfCorrectAnswers).toHaveBeenCalled();
     expect(spyAfterEvaluateRound).toHaveBeenCalledWith(jasmine.any(Stats));
     // Should not have answered enough questions
     expect(quiz.messages).toBe(NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT);
@@ -99,7 +99,7 @@ describe("TimedQuiz", () => {
     quiz.stopTimer();
 
     expect(spyBeforeEvaluateRound).toHaveBeenCalled();
-    expect(spyQuestionRound.getNumberOfQuestionsAnswered).toHaveBeenCalled();
+    expect(spyQuestionRound.getNumberOfCorrectAnswers).toHaveBeenCalled();
     expect(spyAfterEvaluateRound).toHaveBeenCalledWith(jasmine.any(Stats));
     // Should not have answered enough questions
     expect(quiz.messages).toBe(NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT);
@@ -110,13 +110,13 @@ describe("TimedQuiz", () => {
     quiz.stopTimer();
 
     expect(spyBeforeEvaluateRound).not.toHaveBeenCalled();
-    expect(spyQuestionRound.getNumberOfQuestionsAnswered).not.toHaveBeenCalled();
+    expect(spyQuestionRound.getNumberOfCorrectAnswers).not.toHaveBeenCalled();
     expect(spyAfterEvaluateRound).not.toHaveBeenCalled();
     expect(quiz.messages).toBe("");
   });
 
   it("should increase level and change messages when enough questions answered", () => {
-    spyQuestionRound.getNumberOfQuestionsAnswered.and.returnValue(roundLevels[0].questionThresholdPerSixtySeconds);
+    spyQuestionRound.getNumberOfCorrectAnswers.and.returnValue(roundLevels[0].questionThresholdPerSixtySeconds);
     quiz.startTimer();
     checkTimerStarted();
     quiz.stopTimer();
@@ -127,7 +127,7 @@ describe("TimedQuiz", () => {
 
   it("should set messages to highest level message when finished highest level", () => {
     for (let i = 0; i < roundLevels.length; i++) {
-      spyQuestionRound.getNumberOfQuestionsAnswered.and.returnValue(roundLevels[i].questionThresholdPerSixtySeconds);
+      spyQuestionRound.getNumberOfCorrectAnswers.and.returnValue(roundLevels[i].questionThresholdPerSixtySeconds);
       quiz.startTimer();
       quiz.stopTimer();
     }
@@ -172,7 +172,7 @@ describe("TimedQuiz", () => {
 
   it("should call afterEvaluateRound with correct stats", () => {
     const questionsAnswered = 7;
-    spyQuestionRound.getNumberOfQuestionsAnswered.and.returnValue(questionsAnswered);
+    spyQuestionRound.getNumberOfCorrectAnswers.and.returnValue(questionsAnswered);
     let retrievedStats: Stats;
     spyAfterEvaluateRound.and.callFake((stats: Stats) => {
       retrievedStats = stats;

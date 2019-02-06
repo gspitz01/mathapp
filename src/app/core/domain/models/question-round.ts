@@ -31,6 +31,14 @@ export abstract class QuestionRound {
     return this.questionsAnswered;
   }
 
+  getNumberOfCorrectAnswers(): number {
+    if (this.sameQuestion) {
+      return this.questionsAnswered - 1;
+    } else {
+      return this.questionsAnswered;
+    }
+  }
+
   getNumberOfWrongAnswers(): number {
     return this.wrongAnswers;
   }

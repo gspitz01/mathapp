@@ -68,6 +68,20 @@ describe("QuestionRound", () => {
     expect(round.getNumberOfQuestionsAnswered()).toBe(1);
   });
 
+  it("should return 0 on getNumberOfCorrectAnswers() if answered incorrectly", () => {
+    round.start();
+    round.answerQuestion("" + (correctAnswerNumber + 1));
+    expect(round.getNumberOfCorrectAnswers()).toBe(0);
+    expect(round.getNumberOfQuestionsAnswered()).toBe(1);
+  });
+
+  it("should return 1 on getNumberOfCorrectAnswers() if answered single questions correctly", () => {
+    round.start();
+    round.answerQuestion("" + correctAnswerNumber);
+    expect(round.getNumberOfCorrectAnswers()).toBe(1);
+    expect(round.getNumberOfQuestionsAnswered()).toBe(1);
+  });
+
   it("should return 0 on getNumberOfWrongAnswers() without answering", () => {
     expect(round.getNumberOfWrongAnswers()).toBe(0);
   });

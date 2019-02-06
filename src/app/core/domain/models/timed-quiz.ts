@@ -69,11 +69,11 @@ export abstract class TimedQuiz {
   protected evaluateRound() {
     this.beforeEvaluateRound();
 
-    let questionsAnswered = this.currentRound.getNumberOfQuestionsAnswered();
+    let correctAnswers = this.currentRound.getNumberOfCorrectAnswers();
 
     let roundLevel = this.roundLevels[this.currentLevel];
     let questionThreshold = Math.floor(roundLevel.questionThresholdPerSixtySeconds * this.startingTime.value/60);
-    if (questionsAnswered >= questionThreshold) {
+    if (correctAnswers >= questionThreshold) {
       if (this.currentLevel < this.roundLevels.length - 1) {
         this.currentLevel++;
         this.messages = ADVANCE_TO_NEXT_LEVEL_TEXT;
@@ -85,7 +85,7 @@ export abstract class TimedQuiz {
     }
 
     let roundStats = new Stats(this.roundStart, new Date(), this.currentRound.level.name,
-      this.currentRound.level.questionThresholdPerSixtySeconds, questionsAnswered, this.incorrects);
+      this.currentRound.level.questionThresholdPerSixtySeconds, correctAnswers, this.incorrects);
     this.afterEvaluateRound(roundStats);
   }
 

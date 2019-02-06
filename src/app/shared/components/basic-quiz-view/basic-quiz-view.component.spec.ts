@@ -19,8 +19,8 @@ function getTimeRemainingView(fixture: ComponentFixture<BasicQuizViewComponent>)
   return fixture.debugElement.query(By.css(".time-remaining"));
 }
 
-function getQuestionsAnsweredView(fixture: ComponentFixture<BasicQuizViewComponent>): DebugElement {
-  return fixture.debugElement.query(By.css(".questions-answered"));
+function getCorrectAnswersView(fixture: ComponentFixture<BasicQuizViewComponent>): DebugElement {
+  return fixture.debugElement.query(By.css(".correct-answers"));
 }
 
 function getOperand1View(fixture: ComponentFixture<BasicQuizViewComponent>): DebugElement {
@@ -94,8 +94,8 @@ describe('BasicQuizViewComponent', () => {
       let timeRemainingView = getTimeRemainingView(fixture);
       expect(timeRemainingView.nativeElement.textContent).toBe('60');
 
-      let questionsAnsweredView = getQuestionsAnsweredView(fixture);
-      expect(questionsAnsweredView.nativeElement.textContent).toContain(0);
+      let correctAnswersView = getCorrectAnswersView(fixture);
+      expect(correctAnswersView.nativeElement.textContent).toContain(0);
     });
   });
 
@@ -115,8 +115,8 @@ describe('BasicQuizViewComponent', () => {
       answerInput.triggerEventHandler('keyup.enter', {});
 
       fixture.detectChanges();
-      let questionsAnsweredView = getQuestionsAnsweredView(fixture)
-      expect(questionsAnsweredView.nativeElement.textContent).toContain(1);
+      let correctAnswersView = getCorrectAnswersView(fixture)
+      expect(correctAnswersView.nativeElement.textContent).toContain(1);
     });
   });
 
@@ -138,8 +138,8 @@ describe('BasicQuizViewComponent', () => {
       answerInput.triggerEventHandler("keyup.enter", {});
 
       fixture.detectChanges();
-      let questionsAnsweredView = getQuestionsAnsweredView(fixture);
-      expect(questionsAnsweredView.nativeElement.textContent).toContain(1);
+      let correctAnswersView = getCorrectAnswersView(fixture);
+      expect(correctAnswersView.nativeElement.textContent).toContain(0);
 
       expect(messagesView.nativeElement.textContent).toBe(WRONG_ANSWER_TEXT);
     });
@@ -163,8 +163,8 @@ describe('BasicQuizViewComponent', () => {
       answerInput.triggerEventHandler("keyup.enter", {});
 
       fixture.detectChanges();
-      let questionsAnsweredView = getQuestionsAnsweredView(fixture);
-      expect(questionsAnsweredView.nativeElement.textContent).toContain(1);
+      let correctAnswersView = getCorrectAnswersView(fixture);
+      expect(correctAnswersView.nativeElement.textContent).toContain(0);
 
       expect(messagesView.nativeElement.textContent).toBe(WRONG_ANSWER_TEXT);
 
@@ -173,7 +173,7 @@ describe('BasicQuizViewComponent', () => {
       answerInput.triggerEventHandler("keyup.enter", {});
 
       fixture.detectChanges();
-      expect(questionsAnsweredView.nativeElement.textContent).toContain(1);
+      expect(correctAnswersView.nativeElement.textContent).toContain(1);
 
       expect(messagesView.nativeElement.textContent).toBe("");
     });
@@ -259,8 +259,8 @@ describe('BasicQuizViewComponent', () => {
         fixture.detectChanges();
       }
 
-      let questionsAnsweredView = getQuestionsAnsweredView(fixture);
-      expect(questionsAnsweredView.nativeElement.textContent).toContain(questionsNeeded);
+      let correctAnswersView = getCorrectAnswersView(fixture);
+      expect(correctAnswersView.nativeElement.textContent).toContain(questionsNeeded);
 
       let timeRemainingView = getTimeRemainingView(fixture);
       expect(timeRemainingView.nativeElement.textContent).toBe("60");
@@ -307,8 +307,8 @@ describe('BasicQuizViewComponent', () => {
           fixture.detectChanges();
         }
 
-        let questionsAnsweredView = getQuestionsAnsweredView(fixture);
-        expect(questionsAnsweredView.nativeElement.textContent).toContain(questionsNeeded);
+        let correctAnswersView = getCorrectAnswersView(fixture);
+        expect(correctAnswersView.nativeElement.textContent).toContain(questionsNeeded);
 
         let timeRemainingView = getTimeRemainingView(fixture);
         expect(timeRemainingView.nativeElement.textContent).toBe("60");
