@@ -24,7 +24,7 @@ export abstract class TimedQuiz {
    * @param beforeEvaluateRound A function to be called right before the round is evaluated
    * @param afterEvaluateRound A function to be called after the round is evaluated, this function accepts a Stats
    */
-  constructor(readonly startingTime: Seconds, startingLevel: number, protected readonly roundLevels: RoundLevel[],
+  constructor(readonly startingTime: Seconds, startingLevel: number, readonly roundLevels: RoundLevel[],
     readonly quizName: string, readonly beforeStartTimer: () => void, readonly beforeEvaluateRound: () => void,
     readonly afterEvaluateRound: (stats: Stats) => void) {
     this.currentLevel = startingLevel;

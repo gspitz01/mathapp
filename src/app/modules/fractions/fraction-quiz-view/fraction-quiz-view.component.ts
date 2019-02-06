@@ -28,7 +28,7 @@ export class FractionQuizViewComponent implements OnInit {
   private answerDen = new FormControl("");
   private answerDisabled: boolean;
   @ViewChild('numeratorInput') numInput: ElementRef;
-  private quiz: FractionTimedQuiz;
+  quiz: FractionTimedQuiz;
 
   // Whether or not to show the jump to level links
   showJumpToLevelLinks = false;
