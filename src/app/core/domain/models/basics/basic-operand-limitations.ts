@@ -12,6 +12,10 @@ export class BasicOperandLimitations {
       if (!this.possiblyZero && value === 0) {
         value = 1;
       }
+    } else {
+      if (!this.possiblyZero && value == 0.0) {
+        value = 0.1;
+      }
     }
     if (this.possiblyNegative) {
       var multNeg = Math.random();

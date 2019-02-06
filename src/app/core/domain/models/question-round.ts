@@ -59,7 +59,7 @@ export abstract class QuestionRound {
   /**
    * This is a useful method for subclasses to override if they want to limit the number of questions
    */
-  shouldCreateNewQuestion(): boolean {
+  protected shouldCreateNewQuestion(): boolean {
     return true;
   }
 

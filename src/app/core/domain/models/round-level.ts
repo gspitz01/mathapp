@@ -19,6 +19,9 @@ export abstract class RoundLevel {
    * Chooses an Operator from the options in the level
    */
   protected chooseOperator(): Operator {
+    if (this.operators.length == 0) {
+      return null;
+    }
     let choice = Math.floor(Math.random() * this.operators.length);
     return this.operators[choice];
   }
