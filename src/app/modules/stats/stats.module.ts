@@ -11,6 +11,7 @@ import { StatsUserComponent } from './stats-user/stats-user.component';
 import { StatsStudentComponent } from './stats-student/stats-student.component';
 import { StatsUnassignedUsersComponent } from './stats-unassigned-users/stats-unassigned-users.component';
 import { CoreModule } from 'src/app/core/core.module';
+import { StatsSelfComponent } from './stats-self/stats-self.component';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import { CoreModule } from 'src/app/core/core.module';
     StatsClassComponent,
     StatsUserComponent,
     StatsStudentComponent,
-    StatsUnassignedUsersComponent
+    StatsUnassignedUsersComponent,
+    StatsSelfComponent
   ]
 })
 export class StatsModule { }
