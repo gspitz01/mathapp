@@ -20,45 +20,21 @@ import { PLURAL_NUMBER_NAMES } from "../constants";
 
 export const BASIC_MULTIPLICATION_LEVEL_ORDER = [];
 
-// First set of levels
+const difficultyNames = ["Easy", "Medium", "Hard"];
+const difficultyThresholds = [[20, 15], [15, 10], [15, 10]];
+const factorLimits = [[0, 12], [10, 25], [0, 25]];
+
+
 let levelFocusNumber = 2;
-let threshold = 20;
-let lowerFactorLimit = 0;
-let upperFactorLimit = 12;
+let thresholdIndex = 0;
 for (let roundLevelName of PLURAL_NUMBER_NAMES) {
   if (levelFocusNumber > 12) {
-    threshold = 15;
+    thresholdIndex = 1;
   }
-  BASIC_MULTIPLICATION_LEVEL_ORDER.push(new BasicMultiplicationRoundLevel("Easy Multiplication: " + roundLevelName,
-    threshold, levelFocusNumber, lowerFactorLimit, upperFactorLimit));
+  for (let i = 0; i < difficultyNames.length; i++) {
+    BASIC_MULTIPLICATION_LEVEL_ORDER.push(new BasicMultiplicationRoundLevel(
+      difficultyNames[i] + " Multiplication: " + roundLevelName,
+      difficultyThresholds[i][thresholdIndex], levelFocusNumber, factorLimits[i][0], factorLimits[i][1]));
+  }
   levelFocusNumber++;
 }
-
-// Second set of levels
-levelFocusNumber = 2;
-threshold = 15;
-lowerFactorLimit = 10;
-upperFactorLimit = 25;
-for (let roundLevelName of PLURAL_NUMBER_NAMES) {
-  if (levelFocusNumber > 12) {
-    threshold = 10;
-  }
-  BASIC_MULTIPLICATION_LEVEL_ORDER.push(new BasicMultiplicationRoundLevel("Medium Multiplication: " + roundLevelName,
-    threshold, levelFocusNumber, lowerFactorLimit, upperFactorLimit));
-  levelFocusNumber++;
-}
-
-// Third set of levels
-levelFocusNumber = 2;
-threshold = 15;
-lowerFactorLimit = 0;
-upperFactorLimit = 25;
-for (let roundLevelName of PLURAL_NUMBER_NAMES) {
-  if (levelFocusNumber > 12) {
-    threshold = 10;
-  }
-  BASIC_MULTIPLICATION_LEVEL_ORDER.push(new BasicMultiplicationRoundLevel("Hard Multiplication: " + roundLevelName,
-    threshold, levelFocusNumber, lowerFactorLimit, upperFactorLimit));
-  levelFocusNumber++;
-}
-
