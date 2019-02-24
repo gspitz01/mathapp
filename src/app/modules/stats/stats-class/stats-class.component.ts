@@ -10,7 +10,7 @@ import { Class } from 'src/app/core/domain/models/class';
   styleUrls: ['./stats-class.component.scss']
 })
 export class StatsClassComponent implements OnInit {
-  @Input() classes: Observable<Class>;
+  @Input() classes: Observable<Class[]>;
   @Input() selectedClassId: string;
   @Output() addClassClick = new EventEmitter<void>();
   @Output() classSelected = new EventEmitter<string>();
