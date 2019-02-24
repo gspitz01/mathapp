@@ -1,14 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { DatePipe } from '@angular/common';
+import { By } from '@angular/platform-browser';
+
+import { of } from 'rxjs';
 
 import { StatsUserComponent } from './stats-user.component';
 import { CoreModule } from 'src/app/core/core.module';
-import { of } from 'rxjs';
 import { User } from 'src/app/core/domain/models/user';
 import { Stats } from 'src/app/core/domain/models/stats';
 
 describe('StatsUserComponent', () => {
   let component: StatsUserComponent;
   let fixture: ComponentFixture<StatsUserComponent>;
+  const testUser = new User("someId", "John Name", "Name", null);
+  const testUserStats = [new Stats(new Date(), new Date(), "Whatever", 10, 3, null)];
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -23,12 +28,29 @@ describe('StatsUserComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(StatsUserComponent);
     component = fixture.componentInstance;
-    component.user = new User("someId", "John Name", "Name", null);
-    component.userStats = of([new Stats(new Date(), new Date(), "Whatever", 10, 3, [])]);
+    component.user = testUser;
+    component.userStats = of(testUserStats);
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should show user name', () => {
+    const userNameElement = fixture.debugElement.query(By.css('h2'));
+    expect(userNameElement.nativeElement.textContent).toContain(testUser.name);
+  });
+
+  it('should show user stats', () => {
+    let pipe = new DatePipe('en');
+    const tableDatas = fixture.debugElement.queryAll(By.css('td'));
+    expect(tableDatas.length).toBe(5);
+    expect(tableDatas[0].nativeElement.textContent).toBe(testUserStats[0].roundName);
+    expect(tableDatas[1].nativeElement.textContent).toContain(pipe.transform(testUserStats[0].roundStart, "short"));
+    expect(tableDatas[1].nativeElement.textContent).toContain(pipe.transform(testUserStats[0].roundEnd, "short"));
+    expect(tableDatas[2].nativeElement.textContent).toBe(testUserStats[0].target.toString());
+    expect(tableDatas[3].nativeElement.textContent).toBe(testUserStats[0].correct.toString());
+    expect(tableDatas[4].nativeElement.textContent).toBe("None Incorrect");
   });
 });

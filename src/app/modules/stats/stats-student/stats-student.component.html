@@ -2,7 +2,7 @@
   <button mat-button class="small-button add-student" (click)="addStudentClick.emit()">+</button>
 </h3>
 <mat-list class="user-list">
-  <mat-list-item *ngFor="let student of students | async">
+  <mat-list-item class="user-list-item" *ngFor="let student of students | async">
     <a class="clickable" [ngClass]="{selected: student === selectedStudent}"
       (click)="studentSelected.emit(student);">{{student.name}}</a>
     <button mat-button class="small-button" (click)="removeStudentClick.emit(student);">x</button>

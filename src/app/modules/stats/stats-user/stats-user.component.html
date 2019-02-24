@@ -11,8 +11,8 @@
   </thead>
   <tbody>
     <tr *ngFor="let userStat of (userStats | async) | reverse">
-      <td>{{userStat.name}}</td>
-      <td>{{userStat.startDate | date:'short' }} - {{userStat.endDate | date:'shortTime' }}</td>
+      <td>{{userStat.roundName}}</td>
+      <td>{{userStat.roundStart | date:'short' }} - {{userStat.roundEnd | date:'shortTime' }}</td>
       <td>{{userStat.target}}</td>
       <td>{{userStat.correct}}</td>
       <td>
