@@ -588,7 +588,7 @@ describe('StatsService', () => {
       expectObservable(result).toBe('x 9ms y 9ms |',
         {
           x: [],
-          y: [createStatsObservableData(stats)]
+          y: [stats]
       });
 
       expect(angularFireDbSpy.list).toHaveBeenCalledWith('userdata/' + userId);

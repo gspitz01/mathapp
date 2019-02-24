@@ -154,9 +154,12 @@ export class StatsService {
     );
   }
 
-  getStats(userId: string): Observable<any[]> {
+  getStats(userId: string): Observable<Stats[]> {
     return this.db.list('userdata/' + userId).snapshotChanges().pipe(
-      map(stats => stats.map(stat => ({...stat.payload.val()})))
+      map(stats => stats.map(stat => {
+        const val: any = stat.payload.val();
+        return new Stats(val.startDate, val.endDate, val.name, val.target, val.correct, val.incorrects);
+      }))
     );
   }
 
