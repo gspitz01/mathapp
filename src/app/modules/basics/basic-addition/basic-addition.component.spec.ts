@@ -10,6 +10,7 @@ import { BasicQuizViewComponent } from '../../../shared/components/basic-quiz-vi
 import { StatsService } from 'src/app/core/services/stats.service';
 import { MockStatsService } from 'src/app/core/domain/models/test-constants.spec';
 import { ADDITION } from 'src/app/core/domain/models/basics/basic-operators';
+import { BASIC_ADDITION_LEVEL_ORDER } from 'src/app/core/domain/models/round-levels';
 
 describe('BasicAdditionComponent', () => {
   let component: BasicAdditionComponent;
@@ -42,6 +43,10 @@ describe('BasicAdditionComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('level order should be BASIC ADDITION', () => {
+    expect(component.levelOrder).toBe(BASIC_ADDITION_LEVEL_ORDER);
   });
 
   it('should display start button', () => {

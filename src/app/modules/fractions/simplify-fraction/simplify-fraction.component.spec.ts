@@ -90,6 +90,10 @@ describe('SimplifyFractionComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('level order should be SIMPLIFY FRACTION', () => {
+    expect(component.levelOrder).toBe(SIMPLIFY_FRACTION_LEVEL_ORDER);
+  });
+
   it('should display start button', () => {
     expect(startButton.nativeElement.textContent).toBe("Start");
   });

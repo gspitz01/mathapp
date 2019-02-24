@@ -10,6 +10,7 @@ import { BasicQuizViewComponent } from '../../../shared/components/basic-quiz-vi
 import { StatsService } from 'src/app/core/services/stats.service';
 import { MockStatsService } from 'src/app/core/domain/models/test-constants.spec';
 import { DIVISION } from 'src/app/core/domain/models/basics/basic-operators';
+import { BASIC_DIVISION_LEVEL_ORDER } from 'src/app/core/domain/models/basics/basic-division-round-levels';
 
 describe('BasicDivisionComponent', () => {
   let component: BasicDivisionComponent;
@@ -42,6 +43,10 @@ describe('BasicDivisionComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('level order should be BASIC DIVISION', () => {
+    expect(component.levelOrder).toBe(BASIC_DIVISION_LEVEL_ORDER);
   });
 
   it('should display start button', () => {

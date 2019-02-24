@@ -10,6 +10,7 @@ import { BasicQuizViewComponent } from '../../../shared/components/basic-quiz-vi
 import { StatsService } from 'src/app/core/services/stats.service';
 import { MockStatsService } from 'src/app/core/domain/models/test-constants.spec';
 import { MULTIPLICATION } from 'src/app/core/domain/models/basics/basic-operators';
+import { BASIC_MULTIPLICATION_LEVEL_ORDER } from 'src/app/core/domain/models/basics/basic-multiplication-round-levels';
 
 describe('BasicMultiplicationComponent', () => {
   let component: BasicMultiplicationComponent;
@@ -42,6 +43,10 @@ describe('BasicMultiplicationComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('level order should be BASIC MULTIPLICATION', () => {
+    expect(component.levelOrder).toBe(BASIC_MULTIPLICATION_LEVEL_ORDER);
   });
 
   it('should display start button', () => {

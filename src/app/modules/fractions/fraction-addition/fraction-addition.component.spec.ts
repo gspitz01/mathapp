@@ -11,6 +11,7 @@ import { FractionExplanationViewComponent } from '../fraction-explanation-view/f
 import { FRACTION_ADDITION } from '../../../core/domain/models/fractions/fraction-operators';
 import { StatsService } from 'src/app/core/services/stats.service';
 import { MockStatsService } from 'src/app/core/domain/models/test-constants.spec';
+import { FRACTION_ADDITION_LEVEL_ORDER } from 'src/app/core/domain/models/fractions/fraction-round-levels';
 
 describe('FractionAdditionComponent', () => {
   let component: FractionAdditionComponent;
@@ -44,6 +45,10 @@ describe('FractionAdditionComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('level order should be FRACTION ADDITION', () => {
+    expect(component.levelOrder).toBe(FRACTION_ADDITION_LEVEL_ORDER);
   });
 
   it('should display start button', () => {

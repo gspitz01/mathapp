@@ -11,6 +11,7 @@ import { FractionExplanationViewComponent } from '../fraction-explanation-view/f
 import { FRACTION_DIVISION } from '../../../core/domain/models/fractions/fraction-operators';
 import { StatsService } from 'src/app/core/services/stats.service';
 import { MockStatsService } from 'src/app/core/domain/models/test-constants.spec';
+import { FRACTION_DIVISION_LEVEL_ORDER } from 'src/app/core/domain/models/fractions/fraction-round-levels';
 
 describe('FractionDivisionComponent', () => {
   let component: FractionDivisionComponent;
@@ -44,6 +45,10 @@ describe('FractionDivisionComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('level order should be FRACTION DIVISION', () => {
+    expect(component.levelOrder).toBe(FRACTION_DIVISION_LEVEL_ORDER);
   });
 
   it('should display start button', () => {

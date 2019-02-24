@@ -9,6 +9,7 @@ import { BasicQuizViewComponent } from '../../../shared/components/basic-quiz-vi
 import { By } from '@angular/platform-browser';
 import { StatsService } from 'src/app/core/services/stats.service';
 import { MockStatsService } from 'src/app/core/domain/models/test-constants.spec';
+import { GREATEST_COMMON_FACTOR_LEVEL_ORDER } from 'src/app/core/domain/models/fractions/gcf-round-levels';
 
 describe('GreatestCommonFactorComponent', () => {
   let component: GreatestCommonFactorComponent;
@@ -41,6 +42,10 @@ describe('GreatestCommonFactorComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('level order should be GREATEST COMMON FACTOR', () => {
+    expect(component.levelOrder).toBe(GREATEST_COMMON_FACTOR_LEVEL_ORDER);
   });
 
   it('should display start button', () => {
