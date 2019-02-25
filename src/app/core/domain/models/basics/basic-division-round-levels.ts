@@ -1,45 +1,26 @@
-import { NUMBER_NAMES } from "../constants";
+import { NUMBER_NAMES, PLURAL_NUMBER_NAMES } from "../constants";
 import { BasicDivisionRoundLevel } from "./basic-division-round-level";
 
 export const BASIC_DIVISION_LEVEL_ORDER = [];
 
-// First set of levels
+const difficultyNames = ["Easy", "Medium", "Challenging", "Hard", "Expert"];
+const difficultyThresholds = [[20, 15], [15, 10], [15, 10], [15, 10], [15, 10]];
+const factorLimits = [[0, 12], [10, 20], [10, 30], [10, 50], [10, 100]];
+
 let levelFocusNumber = 2;
-let threshold = 20;
-let lowerResultLimit = 0;
-let upperResultLimit = 12;
-for (let numberName of NUMBER_NAMES) {
+let thresholdIndex = 0;
+for (let roundLevelName of NUMBER_NAMES) {
   if (levelFocusNumber > 12) {
-    threshold = 15;
+    thresholdIndex = 1;
   }
-  BASIC_DIVISION_LEVEL_ORDER.push(new BasicDivisionRoundLevel("Easy Division By " + numberName, threshold, levelFocusNumber,
-    lowerResultLimit, upperResultLimit));
-  levelFocusNumber++;
-}
 
-// Second set of levels
-levelFocusNumber = 2;
-threshold = 15;
-lowerResultLimit = 10;
-upperResultLimit = 25;
-for (let numberName of NUMBER_NAMES) {
-  if (levelFocusNumber > 12) {
-    threshold = 10;
+  let numberLevelOrder = [];
+  for (let i = 0; i < difficultyNames.length; i++) {
+    numberLevelOrder.push(new BasicDivisionRoundLevel(
+      difficultyNames[i] + " Division By " + roundLevelName,
+      difficultyThresholds[i][thresholdIndex], levelFocusNumber, factorLimits[i][0], factorLimits[i][1]));
   }
-  BASIC_DIVISION_LEVEL_ORDER.push(new BasicDivisionRoundLevel("Medium Division By " + numberName, threshold, levelFocusNumber,
-    lowerResultLimit, upperResultLimit));
-  levelFocusNumber++;
-}
 
-levelFocusNumber = 2;
-threshold = 15;
-lowerResultLimit = 0;
-upperResultLimit = 25;
-for (let numberName of NUMBER_NAMES) {
-  if (levelFocusNumber > 12) {
-    threshold = 10;
-  }
-  BASIC_DIVISION_LEVEL_ORDER.push(new BasicDivisionRoundLevel("Hard Division By " + numberName, threshold, levelFocusNumber,
-    lowerResultLimit, upperResultLimit));
+  BASIC_DIVISION_LEVEL_ORDER.push(numberLevelOrder);
   levelFocusNumber++;
 }

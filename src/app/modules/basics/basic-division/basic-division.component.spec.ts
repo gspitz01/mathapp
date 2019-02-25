@@ -5,17 +5,24 @@ import { By } from '@angular/platform-browser';
 
 import { MatListModule } from '@angular/material';
 
+import { of } from 'rxjs';
+
 import { BasicDivisionComponent } from './basic-division.component';
 import { BasicQuizViewComponent } from '../../../shared/components/basic-quiz-view/basic-quiz-view.component';
 import { StatsService } from 'src/app/core/services/stats.service';
 import { MockStatsService } from 'src/app/core/domain/models/test-constants.spec';
 import { DIVISION } from 'src/app/core/domain/models/basics/basic-operators';
 import { BASIC_DIVISION_LEVEL_ORDER } from 'src/app/core/domain/models/basics/basic-division-round-levels';
+import { ActivatedRoute } from '@angular/router';
 
 describe('BasicDivisionComponent', () => {
   let component: BasicDivisionComponent;
   let fixture: ComponentFixture<BasicDivisionComponent>;
   let startButton: DebugElement;
+  const activatedRoute = {roundName: "two"};
+  const mockActivatedRoute = {
+    params: of(activatedRoute)
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -28,7 +35,8 @@ describe('BasicDivisionComponent', () => {
         MatListModule
       ],
       providers: [
-        { provide: StatsService, useClass: MockStatsService }
+        { provide: StatsService, useClass: MockStatsService },
+        { provide: ActivatedRoute, useValue: mockActivatedRoute }
       ]
     })
     .compileComponents();
@@ -46,7 +54,7 @@ describe('BasicDivisionComponent', () => {
   });
 
   it('level order should be BASIC DIVISION', () => {
-    expect(component.levelOrder).toBe(BASIC_DIVISION_LEVEL_ORDER);
+    expect(component.levelOrder).toBe(BASIC_DIVISION_LEVEL_ORDER[0]);
   });
 
   it('should display start button', () => {
