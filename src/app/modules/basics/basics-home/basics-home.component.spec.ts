@@ -16,6 +16,8 @@ class DummyComponent {
 
 }
 
+const basePath = "fundamentals/";
+
 describe('BasicsHomeComponent', () => {
   let component: BasicsHomeComponent;
   let fixture: ComponentFixture<BasicsHomeComponent>;
@@ -32,10 +34,10 @@ describe('BasicsHomeComponent', () => {
       imports: [
         MatCardModule,
         RouterTestingModule.withRoutes([
-          { path: 'basics/addition', component: DummyComponent },
-          { path: 'basics/division', component: DummyComponent },
-          { path: 'basics/multiplication', component: DummyComponent },
-          { path: 'basics/subtraction', component: DummyComponent }
+          { path: basePath + 'addition', component: DummyComponent },
+          { path: basePath + 'division', component: DummyComponent },
+          { path: basePath + 'multiplication', component: DummyComponent },
+          { path: basePath + 'subtraction', component: DummyComponent }
         ])
       ]
     })
@@ -54,35 +56,35 @@ describe('BasicsHomeComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should navigate to basic addition on click "Basic Addition"', fakeAsync(() => {
+  it('should navigate to addition on click "Addition"', fakeAsync(() => {
     fixture.debugElement.query(By.css("#basic-addition")).nativeElement.click();
 
     tick();
 
-    expect(location.path()).toBe('/basics/addition');
+    expect(location.path()).toBe('/' + basePath + 'addition');
   }));
 
-  it('should navigate to basic division on click "Basic Division"', fakeAsync(() => {
+  it('should navigate to division on click "Division"', fakeAsync(() => {
     fixture.debugElement.query(By.css("#basic-division")).nativeElement.click();
 
     tick();
 
-    expect(location.path()).toBe('/basics/division');
+    expect(location.path()).toBe('/' + basePath + 'division');
   }));
 
-  it('should navigate to basic multiplication on click "Basic Multiplication"', fakeAsync(() => {
+  it('should navigate to multiplication on click "Multiplication"', fakeAsync(() => {
     fixture.debugElement.query(By.css("#basic-multiplication")).nativeElement.click();
 
     tick();
 
-    expect(location.path()).toBe('/basics/multiplication');
+    expect(location.path()).toBe('/' + basePath + 'multiplication');
   }));
 
-  it('should navigate to basic subtraction on click "Basic Subtraction"', fakeAsync(() => {
+  it('should navigate to subtraction on click "Subtraction"', fakeAsync(() => {
     fixture.debugElement.query(By.css("#basic-subtraction")).nativeElement.click();
 
     tick();
 
-    expect(location.path()).toBe('/basics/subtraction');
+    expect(location.path()).toBe('/' + basePath + 'subtraction');
   }));
 });

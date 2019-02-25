@@ -32,7 +32,7 @@ describe('HomeComponent', () => {
       imports: [
         MatCardModule,
         RouterTestingModule.withRoutes([
-          { path: 'basics', component: DummyComponent },
+          { path: 'fundamentals', component: DummyComponent },
           { path: 'fractions', component: DummyComponent }
         ])
       ]
@@ -52,12 +52,12 @@ describe('HomeComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should navigate to basics on click "Basics"', fakeAsync(() => {
-    fixture.debugElement.query(By.css("#basics")).nativeElement.click();
+  it('should navigate to fundamentals on click "Fundamentals"', fakeAsync(() => {
+    fixture.debugElement.query(By.css("#fundamentals")).nativeElement.click();
 
     tick();
 
-    expect(location.path()).toBe('/basics');
+    expect(location.path()).toBe('/fundamentals');
   }));
 
   it('should navigate to fractions on click "Fractions"', fakeAsync(() => {

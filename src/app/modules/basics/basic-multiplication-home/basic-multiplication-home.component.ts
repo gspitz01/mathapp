@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterCard } from 'src/app/core/domain/models/router-card';
 import { PLURAL_NUMBER_NAMES } from 'src/app/core/domain/models/constants';
 
-const multiPath = "/basics/multiplication/";
+const multiPath = "/fundamentals/multiplication/";
 
 @Component({
   selector: 'app-basic-multiplication-home',

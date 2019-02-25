@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NUMBER_NAMES } from 'src/app/core/domain/models/constants';
 import { RouterCard } from 'src/app/core/domain/models/router-card';
 
-const divisionPath = "/basics/division/";
+const divisionPath = "/fundamentals/division/";
 
 @Component({
   selector: 'app-basic-division-home',

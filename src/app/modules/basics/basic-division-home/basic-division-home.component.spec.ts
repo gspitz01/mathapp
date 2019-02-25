@@ -16,7 +16,7 @@ class DummyComponent {
 
 }
 
-const basePath = "basics/division/";
+const basePath = "fundamentals/division/";
 let routes = [];
 
 for (let roundLevelName of NUMBER_NAMES) {

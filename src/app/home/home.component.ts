@@ -9,7 +9,7 @@ import { RouterCard } from '../core/domain/models/router-card';
 export class HomeComponent implements OnInit {
 
   routerCards = [
-    new RouterCard("basics", "/basics", "Basics"),
+    new RouterCard("fundamentals", "/fundamentals", "Fundamentals"),
     new RouterCard("fractions", "/fractions", "Fractions")
   ];
 

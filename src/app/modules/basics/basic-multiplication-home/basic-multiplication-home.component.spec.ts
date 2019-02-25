@@ -17,7 +17,7 @@ class DummyComponent {
 
 }
 
-const basePath = "basics/multiplication/";
+const basePath = "fundamentals/multiplication/";
 let routes = [];
 
 for (let roundLevelName of PLURAL_NUMBER_NAMES) {

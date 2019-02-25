@@ -41,7 +41,7 @@ describe('AppComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         RouterTestingModule.withRoutes([
-          { path: 'basics', component: DummyComponent },
+          { path: 'fundamentals', component: DummyComponent },
           { path: 'fractions', component: DummyComponent }
         ]),
         MatListModule
@@ -66,12 +66,12 @@ describe('AppComponent', () => {
     expect(component).toBeTruthy();
   }));
 
-  it('should navigate to basics component on click "Basics"', fakeAsync(() => {
+  it('should navigate to fundamentals route on click "Fundamentals"', fakeAsync(() => {
     fixture.debugElement.query(By.css('#basics-nav')).nativeElement.click();
 
     tick();
 
-    expect(location.path()).toBe('/basics');
+    expect(location.path()).toBe('/fundamentals');
   }));
 
   it('should navigate to fractions component on click "Fractions"', fakeAsync(() => {
