@@ -5,17 +5,24 @@ import { By } from '@angular/platform-browser';
 
 import { MatListModule } from '@angular/material';
 
+import { of } from 'rxjs';
+
 import { BasicMultiplicationComponent } from './basic-multiplication.component';
 import { BasicQuizViewComponent } from '../../../shared/components/basic-quiz-view/basic-quiz-view.component';
 import { StatsService } from 'src/app/core/services/stats.service';
 import { MockStatsService } from 'src/app/core/domain/models/test-constants.spec';
 import { MULTIPLICATION } from 'src/app/core/domain/models/basics/basic-operators';
 import { BASIC_MULTIPLICATION_LEVEL_ORDER } from 'src/app/core/domain/models/basics/basic-multiplication-round-levels';
+import { ActivatedRoute } from '@angular/router';
 
 describe('BasicMultiplicationComponent', () => {
   let component: BasicMultiplicationComponent;
   let fixture: ComponentFixture<BasicMultiplicationComponent>;
   let startButton: DebugElement;
+  const activatedRoute = {roundName: "twos"};
+  const mockActivatedRoute = {
+    params: of(activatedRoute)
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -28,7 +35,8 @@ describe('BasicMultiplicationComponent', () => {
         MatListModule
       ],
       providers: [
-        { provide: StatsService, useClass: MockStatsService }
+        { provide: StatsService, useClass: MockStatsService },
+        { provide: ActivatedRoute, useValue: mockActivatedRoute }
       ]
     })
     .compileComponents();
@@ -46,7 +54,11 @@ describe('BasicMultiplicationComponent', () => {
   });
 
   it('level order should be BASIC MULTIPLICATION', () => {
-    expect(component.levelOrder).toBe(BASIC_MULTIPLICATION_LEVEL_ORDER);
+    expect(component.levelOrder).toBe(BASIC_MULTIPLICATION_LEVEL_ORDER[0]);
+  });
+
+  it('quiz name should be basic-multiplication-twos', () => {
+    expect(component.quizName).toBe("basic-multiplication-twos");
   });
 
   it('should display start button', () => {
@@ -80,12 +92,12 @@ describe('BasicMultiplicationComponent', () => {
     fixture.whenStable().then(() => {
       fixture.debugElement.query(By.css('.jump-to-level-button')).nativeElement.click();
       fixture.detectChanges();
-      let easyFivesLevelButton = fixture.debugElement.query(By.css("#easy-multiplication-fives"));
+      let easyFivesLevelButton = fixture.debugElement.query(By.css("#hard-multiplication-twos"));
       easyFivesLevelButton.nativeElement.click();
       fixture.detectChanges();
 
       let levelDisplay = fixture.debugElement.query(By.css('.level'));
-      expect(levelDisplay.nativeElement.textContent).toContain('Fives');
+      expect(levelDisplay.nativeElement.textContent).toContain('Hard');
     });
   });
 });

@@ -8,6 +8,7 @@ import { BasicDivisionComponent } from './basic-division/basic-division.componen
 import { BasicMultiplicationComponent } from './basic-multiplication/basic-multiplication.component';
 import { BasicSubtractionComponent } from './basic-subtraction/basic-subtraction.component';
 import { BasicsRoutingModule } from './/basics-routing.module';
+import { BasicMultiplicationHomeComponent } from './basic-multiplication-home/basic-multiplication-home.component';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { BasicsRoutingModule } from './/basics-routing.module';
     BasicAdditionComponent,
     BasicDivisionComponent,
     BasicMultiplicationComponent,
-    BasicSubtractionComponent
+    BasicSubtractionComponent,
+    BasicMultiplicationHomeComponent
   ]
 })
 export class BasicsModule { }

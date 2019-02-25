@@ -15,7 +15,7 @@ describe("BasicTimedQuiz", () => {
   const spyAfterEvaluateRound = jasmine.createSpy("AfterEvaluateRound");
 
   beforeEach(() => {
-    quiz = new BasicTimedQuiz(startingTime, startingLevel, BASIC_MULTIPLICATION_LEVEL_ORDER,
+    quiz = new BasicTimedQuiz(startingTime, startingLevel, BASIC_MULTIPLICATION_LEVEL_ORDER[0],
       "Multi", () => {}, () => {}, spyAfterEvaluateRound);
   });
 
@@ -23,7 +23,7 @@ describe("BasicTimedQuiz", () => {
     quiz.startTimer();
     expect(quiz.currentRound).toEqual(jasmine.any(BasicTimeLimitedRound));
     expect(quiz.currentRound.time.value).toBe(startingTime.value);
-    expect(quiz.currentRound.level).toBe(BASIC_MULTIPLICATION_LEVEL_ORDER[startingLevel]);
+    expect(quiz.currentRound.level).toBe(BASIC_MULTIPLICATION_LEVEL_ORDER[0][startingLevel]);
     quiz.stopTimer();
   });
 

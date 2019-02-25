@@ -6,12 +6,14 @@ import { BasicAdditionComponent } from './basic-addition/basic-addition.componen
 import { BasicDivisionComponent } from './basic-division/basic-division.component';
 import { BasicMultiplicationComponent } from './basic-multiplication/basic-multiplication.component';
 import { BasicSubtractionComponent } from './basic-subtraction/basic-subtraction.component';
+import { BasicMultiplicationHomeComponent } from './basic-multiplication-home/basic-multiplication-home.component';
 
 const routes: Routes = [
   { path: '', children: [
     { path: 'addition', component: BasicAdditionComponent },
     { path: 'division', component: BasicDivisionComponent },
-    { path: 'multiplication', component: BasicMultiplicationComponent },
+    { path: 'multiplication/:roundName', component: BasicMultiplicationComponent },
+    { path: 'multiplication', component: BasicMultiplicationHomeComponent },
     { path: 'subtraction', component: BasicSubtractionComponent },
     { path: '', component: BasicsHomeComponent }
   ]}
