@@ -4,12 +4,13 @@ import { FractionRoundLevel } from "./fraction-round-level";
 import { Seconds } from "../seconds";
 import { Stats } from "../stats";
 import { FractionOperatorQuestion } from "./fraction-operator-question";
+import { QuizName } from "../quiz-name";
 
 export class FractionTimedQuiz extends TimedQuiz {
   static readonly ANSWER_DELIMITER = "/";
 
   constructor(startingTime: Seconds, startingLevel: number, roundLevels: FractionRoundLevel[],
-    quizName: string, beforeStartTimer: () => void, beforeEvaluateRound: () => void,
+    quizName: QuizName, beforeStartTimer: () => void, beforeEvaluateRound: () => void,
     afterEvaluateRound: (stats: Stats) => void) {
       super(startingTime, startingLevel, roundLevels, quizName, beforeStartTimer, beforeEvaluateRound, afterEvaluateRound);
   }

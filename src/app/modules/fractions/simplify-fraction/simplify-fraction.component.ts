@@ -6,6 +6,7 @@ import { SIMPLIFY_FRACTION_LEVEL_ORDER } from '../../../core/domain/models/fract
 import { Seconds } from 'src/app/core/domain/models/seconds';
 import { Stats } from 'src/app/core/domain/models/stats';
 import { SimplifyFractionTimedQuiz } from 'src/app/core/domain/models/fractions/simplify-fraction-timed-quiz';
+import { QUIZ_NAMES } from 'src/app/core/domain/models/constants';
 
 const startButtonText = "Start";
 const stopButtonText = "Stop";
@@ -17,7 +18,7 @@ const validAnswerRegex = /^[0-9\-]*$/;
   styleUrls: ['./simplify-fraction.component.scss']
 })
 export class SimplifyFractionComponent implements OnInit {
-  quizName = "simplify-fraction";
+  quizName = QUIZ_NAMES[9];  // 'simplify-fraction'
   levelOrder = SIMPLIFY_FRACTION_LEVEL_ORDER;
   buttonText: string;
   private maxLevel: number;

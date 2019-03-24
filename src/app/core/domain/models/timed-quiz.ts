@@ -4,6 +4,7 @@ import { TimeLimitedQuestionRound } from "./time-limited-question-round";
 import { Stats } from "./stats";
 import { ADVANCE_TO_NEXT_LEVEL_TEXT, FINISHED_HIGHEST_LEVEL_TEXT,
   NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT, WRONG_ANSWER_TEXT } from "./constants";
+import { QuizName } from "./quiz-name";
 
 export abstract class TimedQuiz {
   messages: string;
@@ -25,7 +26,7 @@ export abstract class TimedQuiz {
    * @param afterEvaluateRound A function to be called after the round is evaluated, this function accepts a Stats
    */
   constructor(readonly startingTime: Seconds, startingLevel: number, readonly roundLevels: RoundLevel[],
-    readonly quizName: string, readonly beforeStartTimer: () => void, readonly beforeEvaluateRound: () => void,
+    readonly quizName: QuizName, readonly beforeStartTimer: () => void, readonly beforeEvaluateRound: () => void,
     readonly afterEvaluateRound: (stats: Stats) => void) {
     this.currentLevel = startingLevel;
     this.currentTime = startingTime.value;

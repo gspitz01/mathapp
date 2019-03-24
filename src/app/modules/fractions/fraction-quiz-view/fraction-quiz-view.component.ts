@@ -6,6 +6,7 @@ import { FractionRoundLevel } from '../../../core/domain/models/fractions/fracti
 import { Seconds } from 'src/app/core/domain/models/seconds';
 import { Stats } from 'src/app/core/domain/models/stats';
 import { FractionTimedQuiz } from 'src/app/core/domain/models/fractions/fraction-timed-quiz';
+import { QuizName } from 'src/app/core/domain/models/quiz-name';
 
 const startButtonText = "Start";
 const stopButtonText = "Stop";
@@ -21,7 +22,7 @@ export class FractionQuizViewComponent implements OnInit {
   @Input() startingLevel: number;
   @Input() startingTime: Seconds;
   @Input() levelOrder: FractionRoundLevel[];
-  @Input() quizName: string;
+  @Input() quizName: QuizName;
   buttonText: string;
   private maxLevel: number;
   private answerNum = new FormControl("");

@@ -6,6 +6,7 @@ import { Seconds } from 'src/app/core/domain/models/seconds';
 import { BasicRoundLevel } from 'src/app/core/domain/models/basics/basic-round-level';
 import { Stats } from 'src/app/core/domain/models/stats';
 import { BasicTimedQuiz } from 'src/app/core/domain/models/basics/basic-timed-quiz';
+import { QuizName } from 'src/app/core/domain/models/quiz-name';
 
 const startButtonText = "Start";
 const stopButtonText = "Stop";
@@ -21,7 +22,7 @@ export class BasicQuizViewComponent implements OnInit {
   @Input() startingLevel: number;
   @Input() startingTime: Seconds;
   @Input() levelOrder: BasicRoundLevel[];
-  @Input() quizName: string;
+  @Input() quizName: QuizName;
   buttonText: string;
   private maxLevel: number;
   private answer = new FormControl("");

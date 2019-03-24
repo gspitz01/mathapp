@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BASIC_MULTIPLICATION_LEVEL_ORDER } from 'src/app/core/domain/models/basics/basic-multiplication-round-levels';
 import { Seconds } from 'src/app/core/domain/models/seconds';
 import { ActivatedRoute } from '@angular/router';
-import { PLURAL_NUMBER_NAMES } from 'src/app/core/domain/models/constants';
+import { PLURAL_NUMBER_NAMES, QUIZ_NAMES } from 'src/app/core/domain/models/constants';
 
 @Component({
   selector: 'app-basic-multiplication',
@@ -14,7 +14,7 @@ export class BasicMultiplicationComponent implements OnInit {
   startingLevel = 0;
   startingTime = new Seconds(60);
   levelOrder;
-  quizName = "basic-multiplication";
+  quizName = QUIZ_NAMES[2];  // 'basic-multiplication'
 
   constructor(private route: ActivatedRoute) {}
 

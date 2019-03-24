@@ -4,13 +4,14 @@ import { TimedQuiz } from '../timed-quiz';
 import { BasicOperatorQuestion } from './basic-operator-question';
 import { Seconds } from '../seconds';
 import { Stats } from '../stats';
+import { QuizName } from '../quiz-name';
 
 /**
  * A TimedQuiz where the levels are BasicRoundLevels
  */
 export class BasicTimedQuiz extends TimedQuiz {
   constructor(startingTime: Seconds, startingLevel: number, roundLevels: BasicRoundLevel[],
-    quizName: string, beforeStartTimer: () => void, beforeEvaluateRound: () => void,
+    quizName: QuizName, beforeStartTimer: () => void, beforeEvaluateRound: () => void,
     afterEvaluateRound: (stats: Stats) => void) {
       super(startingTime, startingLevel, roundLevels, quizName, beforeStartTimer, beforeEvaluateRound, afterEvaluateRound);
   }
