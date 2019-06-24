@@ -27,7 +27,7 @@ export class BasicQuizViewComponent implements OnInit {
   private maxLevel: number;
   private answer = new FormControl("");
   private answerDisabled: boolean;
-  @ViewChild('answerInp') answerInput: ElementRef;
+  @ViewChild('answerInp', { static: false }) answerInput: ElementRef;
   quiz: BasicTimedQuiz;
 
   // Whether or not to show the jump to level links

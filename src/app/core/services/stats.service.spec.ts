@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { AngularFireDatabase } from 'angularfire2/database';
 
-import { of, Observable } from 'rxjs';
+import { of, Observable, EMPTY } from 'rxjs';
 
 import { initTestScheduler, resetTestScheduler, cold, getTestScheduler } from 'jasmine-marbles';
 
@@ -562,7 +562,7 @@ describe('StatsService', () => {
   it('should return empty Observable if not authenticated from getAdmin()', () => {
     securityServiceSpy.authenticated.and.returnValue(false);
 
-    expect(service.getAdmin()).toBe(of());
+    expect(service.getAdmin()).toBe(EMPTY);
   });
 
   it('should get admin Observable on getAdminSnapshot()', () => {

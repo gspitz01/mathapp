@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { AngularFireDatabase } from 'angularfire2/database';
 
-import { Observable, of } from 'rxjs';
+import { Observable, of, EMPTY } from 'rxjs';
 import { map, first } from 'rxjs/operators';
 
 import { SecurityService } from './security.service';
@@ -135,7 +135,7 @@ export class StatsService {
     if (this.security.authenticated()) {
       return this.getAdminSnapshot();
     } else {
-      return of();
+      return EMPTY;
     }
   }
 
