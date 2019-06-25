@@ -251,6 +251,10 @@ describe('StatsService', () => {
     // expect(angularFireDbSpy.object).toHaveBeenCalledWith('admins/' + testUserValues[0].id);
   });
 
+  it('should return false on isAdmin()', () => {
+    expect(service.isAdmin()).toBeFalsy();
+  });
+
   it('should return correct values for getAllUsers()', () => {
     getTestScheduler().run(helpers => {
       const { expectObservable } = helpers;
