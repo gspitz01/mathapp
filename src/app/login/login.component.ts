@@ -8,7 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  return: string = "";
+  return = '';
 
   constructor(private security: SecurityService,
     private router: Router,

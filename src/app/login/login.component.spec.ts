@@ -14,20 +14,20 @@ class MockAngularFireAuth {
     subscribe: function() {
 
     }
-  }
+  };
 }
-
-class MockRouter {}
 
 class MockActivatedRoute {
   queryParams = {
     subscribe: function() {}
-  }
+  };
 }
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let securityService: SecurityService;
+  let route: ActivatedRoute;
+  const router = jasmine.createSpyObj('Router', ['navigateByUrl']);
   let fixture: ComponentFixture<LoginComponent>;
 
   beforeEach(async(() => {
@@ -38,7 +38,7 @@ describe('LoginComponent', () => {
       ],
       providers: [
         { provide: AngularFireAuth, useClass: MockAngularFireAuth },
-        { provide: Router, useClass: MockRouter },
+        { provide: Router, useValue: router },
         { provide: ActivatedRoute, useClass: MockActivatedRoute }
       ]
     })
@@ -49,11 +49,32 @@ describe('LoginComponent', () => {
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
     securityService = TestBed.get(SecurityService);
+    route = TestBed.get(ActivatedRoute);
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should subscribe to route query params on ngOnInit()', () => {
+    spyOn(route.queryParams, 'subscribe');
+    component.ngOnInit();
+    expect(route.queryParams.subscribe).toHaveBeenCalled();
+  });
+
+  it('should login via security service on login() then navigate to return route', () => {
+    const fakeLogin = { then: function(callback) {
+      callback();
+    }};
+    spyOn(securityService, 'login').and.returnValue(fakeLogin);
+    const returnRoute = 'return';
+    component.return = returnRoute;
+
+    component.login();
+
+    expect(securityService.login).toHaveBeenCalled();
+    expect(router.navigateByUrl).toHaveBeenCalledWith(returnRoute);
   });
 
   // TODO: this test creates some debugcontext error that I don't understand
