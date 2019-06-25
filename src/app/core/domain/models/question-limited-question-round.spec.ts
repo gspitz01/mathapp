@@ -54,4 +54,13 @@ describe('QuestionLimitedQuestionRound', () => {
     round.answerQuestion('' + correctAnswerNumber);
     expect(round.isRoundFinished()).toBeTruthy();
   });
+
+  it('should create a new question after answering correctly', () => {
+    const qRound = new MockQuestionLimitedQuestionRound(2, roundLevel);
+    qRound.start();
+    qRound.answerQuestion('' + correctAnswerNumber);
+    expect(qRound.isRoundFinished()).toBeFalsy();
+    qRound.answerQuestion('' + correctAnswerNumber);
+    expect(qRound.isRoundFinished()).toBeTruthy();
+  });
 });
