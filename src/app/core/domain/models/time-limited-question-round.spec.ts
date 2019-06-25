@@ -1,12 +1,12 @@
-import { TimeLimitedQuestionRound } from "./time-limited-question-round";
-import { Seconds } from "./seconds";
-import { RoundLevel } from "./round-level";
-import { OperatorQuestion } from "./operator-question";
-import { ADDITION } from "./basics/basic-operators";
-import { Result } from "./result";
-import { Operator } from "./operator";
+import { TimeLimitedQuestionRound } from './time-limited-question-round';
+import { Seconds } from './seconds';
+import { RoundLevel } from './round-level';
+import { OperatorQuestion } from './operator-question';
+import { ADDITION } from './basics/basic-operators';
+import { Result } from './result';
+import { Operator } from './operator';
 
-describe("TimeLimitedQuestionRound", () => {
+describe('TimeLimitedQuestionRound', () => {
   class MockTimeLimitedQuestionRound extends TimeLimitedQuestionRound {
 
   }
@@ -30,7 +30,7 @@ describe("TimeLimitedQuestionRound", () => {
   }
 
   const initialTime = new Seconds(60);
-  const level = new MockRoundLevel("roundName", [ADDITION], 20);
+  const level = new MockRoundLevel('roundName', [ADDITION], 20);
   let round: TimeLimitedQuestionRound;
 
   beforeEach(() => {
@@ -38,22 +38,22 @@ describe("TimeLimitedQuestionRound", () => {
   });
 
 
-  it("should return same value as initial time before calling tick()", () => {
+  it('should return same value as initial time before calling tick()', () => {
     expect(round.getTimeRemaining().value).toBe(initialTime.value);
   });
 
-  it("should tick off time if already started", () => {
+  it('should tick off time if already started', () => {
     round.start();
     round.tick();
     expect(round.getTimeRemaining().value).toBe(initialTime.value - 1);
   });
 
-  it("should not tick off time if not started", () => {
+  it('should not tick off time if not started', () => {
     round.tick();
     expect(round.getTimeRemaining().value).toBe(initialTime.value);
   });
 
-  it("should not tick off time if time already 0", () => {
+  it('should not tick off time if time already 0', () => {
     round.start();
     for (; round.getTimeRemaining().value > 0; round.tick()) {}
     expect(round.getTimeRemaining().value).toBe(0);
@@ -61,15 +61,15 @@ describe("TimeLimitedQuestionRound", () => {
     expect(round.getTimeRemaining().value).toBe(0);
   });
 
-  it("should return an answerEvaluation if still time remaining on answerQuestion()", () => {
+  it('should return an answerEvaluation if still time remaining on answerQuestion()', () => {
     round.start();
-    expect(round.answerQuestion("34")).toBeTruthy();
+    expect(round.answerQuestion('34')).toBeTruthy();
   });
 
-  it("should return null if no time remaining on answerQuestion()", () => {
+  it('should return null if no time remaining on answerQuestion()', () => {
     round.start();
     // Countdown the time
     for (; round.getTimeRemaining().value > 0; round.tick()) {}
-    expect(round.answerQuestion("34")).toBeFalsy();
+    expect(round.answerQuestion('34')).toBeFalsy();
   });
 });

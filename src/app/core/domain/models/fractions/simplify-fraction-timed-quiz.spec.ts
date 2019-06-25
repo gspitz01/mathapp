@@ -1,25 +1,25 @@
-import { SimplifyFractionTimedQuiz } from "./simplify-fraction-timed-quiz";
-import { SIMPLIFY_FRACTION_LEVEL_ORDER } from "./simplify-fraction-round-levels";
-import { Seconds } from "../seconds";
-import { SimplifyFractionTimeLimitedRound } from "./simplify-fraction-time-limited-round";
-import { SimplifyFractionOperatorQuestion } from "./simplify-fraction-operator-question";
-import { FractionResult } from "./fraction-result";
-import { WRONG_ANSWER_TEXT } from "../constants";
-import { Stats } from "../stats";
+import { SimplifyFractionTimedQuiz } from './simplify-fraction-timed-quiz';
+import { SIMPLIFY_FRACTION_LEVEL_ORDER } from './simplify-fraction-round-levels';
+import { Seconds } from '../seconds';
+import { SimplifyFractionTimeLimitedRound } from './simplify-fraction-time-limited-round';
+import { SimplifyFractionOperatorQuestion } from './simplify-fraction-operator-question';
+import { FractionResult } from './fraction-result';
+import { WRONG_ANSWER_TEXT } from '../constants';
+import { Stats } from '../stats';
 
-describe("SimplifyFractionTimedQuiz", () => {
+describe('SimplifyFractionTimedQuiz', () => {
   let quiz: SimplifyFractionTimedQuiz;
 
   const startingTime = new Seconds(10);
   const startingLevel = 0;
-  const spyAfterEvaluateRound = jasmine.createSpy("AfterEvaluateRound");
+  const spyAfterEvaluateRound = jasmine.createSpy('AfterEvaluateRound');
 
   beforeEach(() => {
     quiz = new SimplifyFractionTimedQuiz(startingTime, startingLevel, SIMPLIFY_FRACTION_LEVEL_ORDER,
-      "Semper Fi", () => {}, () => {}, spyAfterEvaluateRound);
+      'Semper Fi', () => {}, () => {}, spyAfterEvaluateRound);
   });
 
-  it("should create new SimplifyFractionTimeLimitedRound", () => {
+  it('should create new SimplifyFractionTimeLimitedRound', () => {
     quiz.startTimer();
     expect(quiz.currentRound).toEqual(jasmine.any(SimplifyFractionTimeLimitedRound));
     expect(quiz.currentRound.time.value).toBe(startingTime.value);
@@ -27,7 +27,7 @@ describe("SimplifyFractionTimedQuiz", () => {
     quiz.stopTimer();
   });
 
-  it("should add wrong answer to incorrects and set wrong answer message", () => {
+  it('should add wrong answer to incorrects and set wrong answer message', () => {
     quiz.startTimer();
     const question = quiz.currentRound.getCurrentQuestion() as SimplifyFractionOperatorQuestion;
     const answerNum = (question.getResult() as FractionResult).numerator.value + 1;
@@ -49,11 +49,11 @@ describe("SimplifyFractionTimedQuiz", () => {
     expect(retrievedStats.incorrects[0][4]).toBe(0);
   });
 
-  it("should add NaN to incorrects if answer not proper fraction", () => {
+  it('should add NaN to incorrects if answer not proper fraction', () => {
     quiz.startTimer();
-    quiz.answerQuestion("ClearlyNotAFraction");
-    quiz.answerQuestion("3/x");
-    quiz.answerQuestion("4");
+    quiz.answerQuestion('ClearlyNotAFraction');
+    quiz.answerQuestion('3/x');
+    quiz.answerQuestion('4');
     let retrievedStats: Stats;
     spyAfterEvaluateRound.and.callFake((stats: Stats) => {
       retrievedStats = stats;

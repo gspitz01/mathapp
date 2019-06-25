@@ -1,10 +1,10 @@
-import { RoundLevel } from "../round-level";
-import { BasicOperandLimitations } from "../basics/basic-operand-limitations";
-import { GCF } from "../basics/basic-operators";
-import { OperatorQuestion } from "../operator-question";
-import { BasicOperand } from "../basics/basic-operand";
-import { BasicOperator } from "../basics/basic-operator";
-import { BasicOperatorQuestion } from "../basics/basic-operator-question";
+import { RoundLevel } from '../round-level';
+import { BasicOperandLimitations } from '../basics/basic-operand-limitations';
+import { GCF } from '../basics/basic-operators';
+import { OperatorQuestion } from '../operator-question';
+import { BasicOperand } from '../basics/basic-operand';
+import { BasicOperator } from '../basics/basic-operator';
+import { BasicOperatorQuestion } from '../basics/basic-operator-question';
 
 
 export class GcfRoundLevel extends RoundLevel {
@@ -23,12 +23,12 @@ export class GcfRoundLevel extends RoundLevel {
   }
 
   createQuestion(): OperatorQuestion {
-    let baseNumber = this.baseNumberLimit.createOperand().value;
+    const baseNumber = this.baseNumberLimit.createOperand().value;
     let multiplier = this.multiplierLimit.createOperand().value;
-    let op1 = new BasicOperand(baseNumber * multiplier);
+    const op1 = new BasicOperand(baseNumber * multiplier);
     multiplier = this.multiplierLimit.createOperand().value;
-    let op2 = new BasicOperand(baseNumber * multiplier);
-    let operator = this.chooseOperator() as BasicOperator;
+    const op2 = new BasicOperand(baseNumber * multiplier);
+    const operator = this.chooseOperator() as BasicOperator;
     return new BasicOperatorQuestion(op1, op2, operator);
   }
 }

@@ -1,12 +1,12 @@
-import { SimplifyFractionOperator } from "./simplify-fraction-operator";
-import { FractionResultLimitations } from "./fraction-result-limitations";
-import { FractionResult } from "./fraction-result";
-import { SIMPLIFY_FRACTION } from "./fraction-operators";
-import { SimplifyFractionOperatorQuestion } from "./simplify-fraction-operator-question";
-import { RoundLevel } from "../round-level";
-import { BasicOperandLimitations } from "../basics/basic-operand-limitations";
-import { OperatorQuestion } from "../operator-question";
-import { BasicOperand } from "../basics/basic-operand";
+import { SimplifyFractionOperator } from './simplify-fraction-operator';
+import { FractionResultLimitations } from './fraction-result-limitations';
+import { FractionResult } from './fraction-result';
+import { SIMPLIFY_FRACTION } from './fraction-operators';
+import { SimplifyFractionOperatorQuestion } from './simplify-fraction-operator-question';
+import { RoundLevel } from '../round-level';
+import { BasicOperandLimitations } from '../basics/basic-operand-limitations';
+import { OperatorQuestion } from '../operator-question';
+import { BasicOperand } from '../basics/basic-operand';
 
 export class SimplifyFractionRoundLevel extends RoundLevel {
 
@@ -20,10 +20,10 @@ export class SimplifyFractionRoundLevel extends RoundLevel {
     let question: SimplifyFractionOperatorQuestion = null;
     let result: FractionResult;
     do {
-      let gcfMultiplier = Math.floor(Math.random() * this.gcfLimit) + 2;
-      let num = new BasicOperand(this.numeratorLimitations.createOperand().value * gcfMultiplier);
-      let den = new BasicOperand(this.denominatorLimitations.createOperand().value * gcfMultiplier);
-      let operator = this.chooseOperator() as SimplifyFractionOperator;
+      const gcfMultiplier = Math.floor(Math.random() * this.gcfLimit) + 2;
+      const num = new BasicOperand(this.numeratorLimitations.createOperand().value * gcfMultiplier);
+      const den = new BasicOperand(this.denominatorLimitations.createOperand().value * gcfMultiplier);
+      const operator = this.chooseOperator() as SimplifyFractionOperator;
       question = new SimplifyFractionOperatorQuestion(num, den, operator);
       result = question.getResult();
     } while (this.resultLimitations && !this.resultLimitations.resultSatisfiesLimitations(result));

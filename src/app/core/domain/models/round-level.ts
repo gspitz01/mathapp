@@ -1,5 +1,5 @@
-import { Operator } from "./operator";
-import { OperatorQuestion } from "./operator-question";
+import { Operator } from './operator';
+import { OperatorQuestion } from './operator-question';
 
 export abstract class RoundLevel {
   id: string;
@@ -19,10 +19,10 @@ export abstract class RoundLevel {
    * Chooses an Operator from the options in the level
    */
   protected chooseOperator(): Operator {
-    if (this.operators.length == 0) {
+    if (this.operators.length === 0) {
       return null;
     }
-    let choice = Math.floor(Math.random() * this.operators.length);
+    const choice = Math.floor(Math.random() * this.operators.length);
     return this.operators[choice];
   }
 

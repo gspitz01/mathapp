@@ -1,10 +1,10 @@
-import { FractionOperatorQuestion } from "./fraction-operator-question";
-import { FractionResult } from "./fraction-result";
-import { FractionOperator } from "./fraction-operator";
-import { FractionResultLimitations } from "./fraction-result-limitations";
-import { FractionOperandLimitations } from "./fraction-operand-limitations";
-import { RoundLevel } from "../round-level";
-import { OperatorQuestion } from "../operator-question";
+import { FractionOperatorQuestion } from './fraction-operator-question';
+import { FractionResult } from './fraction-result';
+import { FractionOperator } from './fraction-operator';
+import { FractionResultLimitations } from './fraction-result-limitations';
+import { FractionOperandLimitations } from './fraction-operand-limitations';
+import { RoundLevel } from '../round-level';
+import { OperatorQuestion } from '../operator-question';
 
 export class FractionRoundLevel extends RoundLevel {
 
@@ -18,12 +18,12 @@ export class FractionRoundLevel extends RoundLevel {
     let question: FractionOperatorQuestion = null;
     let result: FractionResult;
     do {
-      let op1 = this.operand1Limitations.createOperand();
-      let op2 = this.operand2Limitations.createOperand();
-      let operator = this.chooseOperator() as FractionOperator;
+      const op1 = this.operand1Limitations.createOperand();
+      const op2 = this.operand2Limitations.createOperand();
+      const operator = this.chooseOperator() as FractionOperator;
       question = new FractionOperatorQuestion(op1, op2, operator);
       result = question.getResult();
-    } while(this.resultLimitations && !this.resultLimitations.resultSatisfiesLimitations(result));
+    } while (this.resultLimitations && !this.resultLimitations.resultSatisfiesLimitations(result));
     return question;
   }
 }

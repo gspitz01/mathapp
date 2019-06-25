@@ -1,7 +1,7 @@
-import { FractionOperand } from "./fraction-operand";
-import { FractionOperator } from "./fraction-operator";
-import { FractionResult } from "./fraction-result";
-import { OperatorQuestion } from "../operator-question";
+import { FractionOperand } from './fraction-operand';
+import { FractionOperator } from './fraction-operator';
+import { FractionResult } from './fraction-result';
+import { OperatorQuestion } from '../operator-question';
 
 export class FractionOperatorQuestion implements OperatorQuestion {
   constructor(readonly operand1: FractionOperand, readonly operand2: FractionOperand,
@@ -13,9 +13,9 @@ export class FractionOperatorQuestion implements OperatorQuestion {
   }
 
   checkAnswer(answer: string): boolean {
-    if (answer.includes("/")) {
-      let answers = answer.split("/");
-      if (answers.length != 2) {
+    if (answer.includes('/')) {
+      const answers = answer.split('/');
+      if (answers.length !== 2) {
         return false;
       }
       if (parseInt(answers[0], 10) === this.getResult().numerator.value &&

@@ -4,20 +4,20 @@ import { BasicOperandLimitations } from './basic-operand-limitations';
 import { BasicResultLimitations } from './basic-result-limitations';
 import { BasicOperatorQuestion } from './basic-operator-question';
 
-describe("BasicRoundLevel", () => {
-  it("should create BasicOperatorQuestion on createQuestion()", () => {
-    let operation = function(op1: number, op2: number): number {
+describe('BasicRoundLevel', () => {
+  it('should create BasicOperatorQuestion on createQuestion()', () => {
+    const operation = function(op1: number, op2: number): number {
       return op1 + op2;
     };
-    let operator = new BasicOperator("x", operation);
-    let operators = [operator];
-    let questionThreshold = 5;
-    let op1Limitations = new BasicOperandLimitations(true, 2, false, false);
-    let op2Limitations = new BasicOperandLimitations(true, 2, false, true);
-    let resultLimitations = new BasicResultLimitations(true, false);
-    let roundLevel = new BasicRoundLevel("Easy Whatever", operators, questionThreshold,
+    const operator = new BasicOperator('x', operation);
+    const operators = [operator];
+    const questionThreshold = 5;
+    const op1Limitations = new BasicOperandLimitations(true, 2, false, false);
+    const op2Limitations = new BasicOperandLimitations(true, 2, false, true);
+    const resultLimitations = new BasicResultLimitations(true, false);
+    const roundLevel = new BasicRoundLevel('Easy Whatever', operators, questionThreshold,
       op1Limitations, op2Limitations, resultLimitations);
-    let question = roundLevel.createQuestion() as BasicOperatorQuestion;
+    const question = roundLevel.createQuestion() as BasicOperatorQuestion;
     expect(question).toEqual(jasmine.any(BasicOperatorQuestion));
     expect(question.operand1.value).toBeLessThan(100);
     expect(question.operand2.value).toBeLessThan(100);

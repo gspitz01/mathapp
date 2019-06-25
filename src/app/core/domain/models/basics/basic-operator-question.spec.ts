@@ -3,14 +3,14 @@ import { BasicOperator } from './basic-operator';
 import { BasicOperand } from './basic-operand';
 
 describe('BasicOperatorQuestion', () => {
-  let op1 = new BasicOperand(4);
-  let op2 = new BasicOperand(5);
-  let expectedResult = 20;
-  let fakeOp = function(operand1: number, operand2: number): number {
+  const op1 = new BasicOperand(4);
+  const op2 = new BasicOperand(5);
+  const expectedResult = 20;
+  const fakeOp = function(operand1: number, operand2: number): number {
     return expectedResult;
-  }
-  let operator = new BasicOperator("fake", fakeOp);
-  let question = new BasicOperatorQuestion(op1, op2, operator);
+  };
+  const operator = new BasicOperator('fake', fakeOp);
+  const question = new BasicOperatorQuestion(op1, op2, operator);
 
   it('should return correct result', () => {
     expect(question.getResult().value).toBe(expectedResult);
@@ -21,6 +21,6 @@ describe('BasicOperatorQuestion', () => {
   });
 
   it('checkAnswer returns false if answer is incorrect', () => {
-    expect(question.checkAnswer("34")).toBeFalsy();
+    expect(question.checkAnswer('34')).toBeFalsy();
   });
 });

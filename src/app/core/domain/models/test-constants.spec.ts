@@ -1,4 +1,4 @@
-import { Stats } from "./stats";
+import { Stats } from './stats';
 
 export type Spied<T> = {
   [Method in keyof T]: jasmine.Spy;
@@ -10,9 +10,9 @@ export class MockAngularFireDataBase {
       snapshotChanges: function() {
         return {
           pipe: function(func) {}
-        }
+        };
       }
-    }
+    };
   }
 
   object(name: string) {
@@ -20,9 +20,9 @@ export class MockAngularFireDataBase {
       snapshotChanges: function() {
         return {
           pipe: function(func) {}
-        }
+        };
       }
-    }
+    };
   }
 }
 
@@ -36,7 +36,7 @@ export class MockStatsService {
       subscribe: function() {
 
       }
-    }
+    };
   }
 }
 
@@ -45,5 +45,5 @@ export class MockAngularFireAuth {
     subscribe: function() {
 
     }
-  }
+  };
 }

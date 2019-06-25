@@ -21,8 +21,8 @@ export class BasicTimedQuiz extends TimedQuiz {
   }
 
   protected wrongAnswer(answer: string) {
-    let question = this.currentRound.getCurrentQuestion() as BasicOperatorQuestion;
-    this.incorrects.push([question.operand1.value, question.operand2.value, parseInt(answer)]);
+    const question = this.currentRound.getCurrentQuestion() as BasicOperatorQuestion;
+    this.incorrects.push([question.operand1.value, question.operand2.value, parseInt(answer, 10)]);
     super.wrongAnswer(answer);
   }
 }

@@ -1,4 +1,4 @@
-import { FractionResult } from "./fraction-result";
-import { BasicOperand } from "../basics/basic-operand";
+import { FractionResult } from './fraction-result';
+import { BasicOperand } from '../basics/basic-operand';
 
-export type SimplifyFractionOperation = (numerator: BasicOperand, denominator: BasicOperand) => FractionResult
+export type SimplifyFractionOperation = (numerator: BasicOperand, denominator: BasicOperand) => FractionResult;

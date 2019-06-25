@@ -1,8 +1,8 @@
-import { BasicOperandLimitations } from "./basic-operand-limitations";
+import { BasicOperandLimitations } from './basic-operand-limitations';
 
-describe("BasicOperandLimitations", () => {
+describe('BasicOperandLimitations', () => {
 
-  it("should create operand correctly using limitations", () => {
+  it('should create operand correctly using limitations', () => {
     let limitations = new BasicOperandLimitations(true, 10, false, false);
     for (let i = 0; i < 100; i++) {
       const opValue = limitations.createOperand().value;

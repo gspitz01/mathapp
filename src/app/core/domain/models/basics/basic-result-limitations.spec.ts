@@ -1,5 +1,5 @@
-import { BasicResultLimitations } from "./basic-result-limitations";
-import { BasicResult } from "./basic-result";
+import { BasicResultLimitations } from './basic-result-limitations';
+import { BasicResult } from './basic-result';
 
 describe('BasicResultLimitations', () => {
 
@@ -33,8 +33,8 @@ describe('BasicResultLimitations', () => {
     const satisfactoryResults = [4.5, 4, -4.5, -4];
 
     for (let i = 0; i < limitationsPossibilites.length; i++) {
-      let limitations = new BasicResultLimitations(limitationsPossibilites[i][0], limitationsPossibilites[i][1]);
-      let result = new BasicResult(satisfactoryResults[i]);
+      const limitations = new BasicResultLimitations(limitationsPossibilites[i][0], limitationsPossibilites[i][1]);
+      const result = new BasicResult(satisfactoryResults[i]);
       expect(limitations.resultSatisfiesLimitations(result)).toBeTruthy();
     }
   });

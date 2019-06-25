@@ -6,39 +6,39 @@ import { BasicOperator } from './basics/basic-operator';
 /**
  * Basis
  */
-let justAddition: BasicOperator[] = [ADDITION];
-let singleDigitPositiveWholeNumbers = new BasicOperandLimitations(true, 9, false, true);
-export const EASY_ADDITION = new BasicRoundLevel("Easy Addition", justAddition, 25,
+const justAddition: BasicOperator[] = [ADDITION];
+const singleDigitPositiveWholeNumbers = new BasicOperandLimitations(true, 9, false, true);
+export const EASY_ADDITION = new BasicRoundLevel('Easy Addition', justAddition, 25,
     singleDigitPositiveWholeNumbers, singleDigitPositiveWholeNumbers, null);
 
-let doubleDigitPositiveWholeNumbers = new BasicOperandLimitations(true, 99, false, true);
-export const MEDIUM_ADDITION = new BasicRoundLevel("Medium Addition", justAddition, 20,
+const doubleDigitPositiveWholeNumbers = new BasicOperandLimitations(true, 99, false, true);
+export const MEDIUM_ADDITION = new BasicRoundLevel('Medium Addition', justAddition, 20,
     doubleDigitPositiveWholeNumbers, singleDigitPositiveWholeNumbers, null);
 
-export const CHALLENGING_ADDITION = new BasicRoundLevel("Challenging Addition", justAddition, 15,
+export const CHALLENGING_ADDITION = new BasicRoundLevel('Challenging Addition', justAddition, 15,
     doubleDigitPositiveWholeNumbers, doubleDigitPositiveWholeNumbers, null);
 
-let tripleDigitPositiveWholeNumbers = new BasicOperandLimitations(true, 999, false, true);
-export const HARD_ADDITION = new BasicRoundLevel("Hard Addition", justAddition, 8,
+const tripleDigitPositiveWholeNumbers = new BasicOperandLimitations(true, 999, false, true);
+export const HARD_ADDITION = new BasicRoundLevel('Hard Addition', justAddition, 8,
     tripleDigitPositiveWholeNumbers, doubleDigitPositiveWholeNumbers, null);
 
-export const EXPERT_ADDITION = new BasicRoundLevel("Expert Addition", justAddition, 5,
+export const EXPERT_ADDITION = new BasicRoundLevel('Expert Addition', justAddition, 5,
     tripleDigitPositiveWholeNumbers, tripleDigitPositiveWholeNumbers, null);
 
-let justSubtraction: BasicOperator[] = [SUBTRACTION];
-export const EASY_SUBTRACTION = new BasicRoundLevel("Easy Subtraction", justSubtraction, 25,
+const justSubtraction: BasicOperator[] = [SUBTRACTION];
+export const EASY_SUBTRACTION = new BasicRoundLevel('Easy Subtraction', justSubtraction, 25,
     singleDigitPositiveWholeNumbers, singleDigitPositiveWholeNumbers, null);
 
-export const MEDIUM_SUBTRACTION = new BasicRoundLevel("Medium Subtraction", justSubtraction, 20,
+export const MEDIUM_SUBTRACTION = new BasicRoundLevel('Medium Subtraction', justSubtraction, 20,
     doubleDigitPositiveWholeNumbers, singleDigitPositiveWholeNumbers, null);
 
-export const CHALLENGING_SUBTRACTION = new BasicRoundLevel("Challenging Subtraction", justSubtraction, 15,
+export const CHALLENGING_SUBTRACTION = new BasicRoundLevel('Challenging Subtraction', justSubtraction, 15,
     doubleDigitPositiveWholeNumbers, doubleDigitPositiveWholeNumbers, null);
 
-export const HARD_SUBTRACTION = new BasicRoundLevel("Hard Subtraction", justSubtraction, 8,
+export const HARD_SUBTRACTION = new BasicRoundLevel('Hard Subtraction', justSubtraction, 8,
     tripleDigitPositiveWholeNumbers, doubleDigitPositiveWholeNumbers, null);
 
-export const EXPERT_SUBTRACTION = new BasicRoundLevel("Expert Subtraction", justSubtraction, 5,
+export const EXPERT_SUBTRACTION = new BasicRoundLevel('Expert Subtraction', justSubtraction, 5,
     tripleDigitPositiveWholeNumbers, tripleDigitPositiveWholeNumbers, null);
 
 

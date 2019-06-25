@@ -1,4 +1,4 @@
-import { BasicResult } from "./basic-result";
+import { BasicResult } from './basic-result';
 
 export class BasicResultLimitations {
   constructor(readonly wholeNumber: boolean, readonly possiblyNegative: boolean) {}

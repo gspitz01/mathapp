@@ -1,10 +1,10 @@
-import { Seconds } from "./seconds";
-import { RoundLevel } from "./round-level";
-import { TimeLimitedQuestionRound } from "./time-limited-question-round";
-import { Stats } from "./stats";
+import { Seconds } from './seconds';
+import { RoundLevel } from './round-level';
+import { TimeLimitedQuestionRound } from './time-limited-question-round';
+import { Stats } from './stats';
 import { ADVANCE_TO_NEXT_LEVEL_TEXT, FINISHED_HIGHEST_LEVEL_TEXT,
-  NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT, WRONG_ANSWER_TEXT } from "./constants";
-import { QuizName } from "./quiz-name";
+  NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT, WRONG_ANSWER_TEXT } from './constants';
+import { QuizName } from './quiz-name';
 
 export abstract class TimedQuiz {
   messages: string;
@@ -32,7 +32,7 @@ export abstract class TimedQuiz {
     this.currentTime = startingTime.value;
     this.currentRound = null;
     this.timer = null;
-    this.messages = "";
+    this.messages = '';
   }
 
   startTimer() {
@@ -40,15 +40,15 @@ export abstract class TimedQuiz {
       this.roundStart = new Date();
       this.incorrects = [];
       this.newRound();
-      this.messages = "";
+      this.messages = '';
       this.currentTime = this.currentRound.getTimeRemaining().value;
       this.currentRound.start();
       this.beforeStartTimer();
 
-      let that = this;
+      const that = this;
       this.timer = window.setInterval(function() {
         that.currentRound.tick();
-        let timeLeft = that.currentRound.getTimeRemaining().value;
+        const timeLeft = that.currentRound.getTimeRemaining().value;
         that.currentTime = timeLeft;
         if (timeLeft <= 0) {
           window.clearInterval(that.timer);
@@ -70,10 +70,10 @@ export abstract class TimedQuiz {
   protected evaluateRound() {
     this.beforeEvaluateRound();
 
-    let correctAnswers = this.currentRound.getNumberOfCorrectAnswers();
+    const correctAnswers = this.currentRound.getNumberOfCorrectAnswers();
 
-    let roundLevel = this.roundLevels[this.currentLevel];
-    let questionThreshold = Math.floor(roundLevel.questionThresholdPerSixtySeconds * this.startingTime.value/60);
+    const roundLevel = this.roundLevels[this.currentLevel];
+    const questionThreshold = Math.floor(roundLevel.questionThresholdPerSixtySeconds * this.startingTime.value / 60);
     if (correctAnswers >= questionThreshold) {
       if (this.currentLevel < this.roundLevels.length - 1) {
         this.currentLevel++;
@@ -85,7 +85,7 @@ export abstract class TimedQuiz {
       this.messages = NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT;
     }
 
-    let roundStats = new Stats(this.roundStart, new Date(), this.currentRound.level.name,
+    const roundStats = new Stats(this.roundStart, new Date(), this.currentRound.level.name,
       this.currentRound.level.questionThresholdPerSixtySeconds, correctAnswers, this.incorrects);
     this.afterEvaluateRound(roundStats);
   }
@@ -106,7 +106,7 @@ export abstract class TimedQuiz {
   }
 
   private rightAnswer() {
-    this.messages = "";
+    this.messages = '';
   }
 
   /**

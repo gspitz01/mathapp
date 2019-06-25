@@ -1,7 +1,7 @@
-import { QuestionRound } from "./question-round";
-import { Seconds } from "./seconds";
-import { RoundLevel } from "./round-level";
-import { AnswerEvaluation } from "./answer-evaluation";
+import { QuestionRound } from './question-round';
+import { Seconds } from './seconds';
+import { RoundLevel } from './round-level';
+import { AnswerEvaluation } from './answer-evaluation';
 
 /**
  * Users of subclasses of this class need to call tick() to decrease the time after calling start()

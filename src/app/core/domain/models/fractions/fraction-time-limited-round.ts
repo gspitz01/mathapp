@@ -1,6 +1,6 @@
-import { TimeLimitedQuestionRound } from "../time-limited-question-round";
-import { Seconds } from "../seconds";
-import { FractionRoundLevel } from "./fraction-round-level";
+import { TimeLimitedQuestionRound } from '../time-limited-question-round';
+import { Seconds } from '../seconds';
+import { FractionRoundLevel } from './fraction-round-level';
 
 /**
  * A TimeLimitedQuestionRound from a FractionRoundLevel

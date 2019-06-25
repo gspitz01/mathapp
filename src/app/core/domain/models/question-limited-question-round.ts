@@ -1,5 +1,5 @@
-import { QuestionRound } from "./question-round";
-import { RoundLevel } from "./round-level";
+import { QuestionRound } from './question-round';
+import { RoundLevel } from './round-level';
 
 /**
  * A QuestionRound where a certain number of questions must be answered

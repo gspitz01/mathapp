@@ -1,4 +1,4 @@
-import { BasicOperand } from "./basic-operand";
+import { BasicOperand } from './basic-operand';
 
 export class BasicOperandLimitations {
   constructor(readonly wholeNumber: boolean, readonly absoluteLimit: number, readonly possiblyNegative: boolean,
@@ -13,12 +13,12 @@ export class BasicOperandLimitations {
         value = 1;
       }
     } else {
-      if (!this.possiblyZero && value == 0.0) {
+      if (!this.possiblyZero && value === 0.0) {
         value = 0.1;
       }
     }
     if (this.possiblyNegative) {
-      var multNeg = Math.random();
+      const multNeg = Math.random();
       if (multNeg > 0.5) {
         value = value * -1;
       }

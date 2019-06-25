@@ -1,10 +1,10 @@
-import { RoundLevel } from "../round-level";
-import { OperatorQuestion } from "../operator-question";
+import { RoundLevel } from '../round-level';
+import { OperatorQuestion } from '../operator-question';
 import { BasicOperatorQuestion } from './basic-operator-question';
-import { BasicOperandLimitations } from "./basic-operand-limitations";
-import { BasicResult } from "./basic-result";
-import { BasicOperator } from "./basic-operator";
-import { BasicResultLimitations } from "./basic-result-limitations";
+import { BasicOperandLimitations } from './basic-operand-limitations';
+import { BasicResult } from './basic-result';
+import { BasicOperator } from './basic-operator';
+import { BasicResultLimitations } from './basic-result-limitations';
 
 export class BasicRoundLevel extends RoundLevel {
 
@@ -16,11 +16,11 @@ export class BasicRoundLevel extends RoundLevel {
 
   createQuestion(): OperatorQuestion {
     let question: BasicOperatorQuestion = null;
-    let result: BasicResult
+    let result: BasicResult;
     do {
-      let op1 = this.operand1Limitations.createOperand();
-      let op2 = this.operand2Limitations.createOperand();
-      let operator = this.chooseOperator() as BasicOperator;
+      const op1 = this.operand1Limitations.createOperand();
+      const op2 = this.operand2Limitations.createOperand();
+      const operator = this.chooseOperator() as BasicOperator;
       question = new BasicOperatorQuestion(op1, op2, operator);
       result = question.getResult();
     } while (this.resultLimitations && !this.resultSatisfiesLimitations(result));

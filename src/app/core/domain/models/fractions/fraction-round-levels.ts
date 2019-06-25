@@ -1,136 +1,136 @@
-import { FractionOperator } from "./fraction-operator";
-import { FRACTION_ADDITION, FRACTION_SUBTRACTION, FRACTION_MULTIPLICATION, FRACTION_DIVISION } from "./fraction-operators";
-import { FractionOperandLimitations } from "./fraction-operand-limitations";
-import { FractionResultLimitations } from "./fraction-result-limitations";
+import { FractionOperator } from './fraction-operator';
+import { FRACTION_ADDITION, FRACTION_SUBTRACTION, FRACTION_MULTIPLICATION, FRACTION_DIVISION } from './fraction-operators';
+import { FractionOperandLimitations } from './fraction-operand-limitations';
+import { FractionResultLimitations } from './fraction-result-limitations';
 import { FractionRoundLevel } from './fraction-round-level';
-import { BasicOperandLimitations } from "../basics/basic-operand-limitations";
-import { BasicResultLimitations } from "../basics/basic-result-limitations";
+import { BasicOperandLimitations } from '../basics/basic-operand-limitations';
+import { BasicResultLimitations } from '../basics/basic-result-limitations';
 
 /**
  * Fractions
  */
 
 // Operators
-let justFractionAddition: FractionOperator[] = [FRACTION_ADDITION];
-let justFractionSubtraction: FractionOperator[] = [FRACTION_SUBTRACTION];
-let justFractionMultiplication: FractionOperator[] = [FRACTION_MULTIPLICATION];
-let justFractionDivision: FractionOperator[] = [FRACTION_DIVISION];
+const justFractionAddition: FractionOperator[] = [FRACTION_ADDITION];
+const justFractionSubtraction: FractionOperator[] = [FRACTION_SUBTRACTION];
+const justFractionMultiplication: FractionOperator[] = [FRACTION_MULTIPLICATION];
+const justFractionDivision: FractionOperator[] = [FRACTION_DIVISION];
 
 // Numerator and Denominator Operand Limitations
-let fractionNumEasyOperandLimitations = new BasicOperandLimitations(true, 9, false, true);
-let fractionDenEasyOperandLimitations = new BasicOperandLimitations(true, 4, false, false);
-let fractionNumMediumOperandLimitations = new BasicOperandLimitations(true, 19, false, true);
-let fractionDenMediumOperandLimitations = new BasicOperandLimitations(true, 9, false, false);
-let fractionEasyDivisionBasicOperandLimitations = new BasicOperandLimitations(true, 4, false, false);
-let fractionMediumDivisionBasicOperandLimitations = new BasicOperandLimitations(true, 9, false, false);
-let fractionChallengingDivisionBasicOperandLimitations = new BasicOperandLimitations(true, 19, false, false);
+const fractionNumEasyOperandLimitations = new BasicOperandLimitations(true, 9, false, true);
+const fractionDenEasyOperandLimitations = new BasicOperandLimitations(true, 4, false, false);
+const fractionNumMediumOperandLimitations = new BasicOperandLimitations(true, 19, false, true);
+const fractionDenMediumOperandLimitations = new BasicOperandLimitations(true, 9, false, false);
+const fractionEasyDivisionBasicOperandLimitations = new BasicOperandLimitations(true, 4, false, false);
+const fractionMediumDivisionBasicOperandLimitations = new BasicOperandLimitations(true, 9, false, false);
+const fractionChallengingDivisionBasicOperandLimitations = new BasicOperandLimitations(true, 19, false, false);
 
 // Fraction Operand Limitations
-let fractionEasyOperandLimitations = new FractionOperandLimitations(fractionNumEasyOperandLimitations,
+const fractionEasyOperandLimitations = new FractionOperandLimitations(fractionNumEasyOperandLimitations,
   fractionDenEasyOperandLimitations);
-let fractionMediumOperandLimitations = new FractionOperandLimitations(fractionNumEasyOperandLimitations,
+const fractionMediumOperandLimitations = new FractionOperandLimitations(fractionNumEasyOperandLimitations,
   fractionDenMediumOperandLimitations);
-let fractionChallengingOperandLimitations = new FractionOperandLimitations(fractionNumMediumOperandLimitations,
+const fractionChallengingOperandLimitations = new FractionOperandLimitations(fractionNumMediumOperandLimitations,
   fractionDenMediumOperandLimitations);
-let fractionEasyDivisionOperandLimitations = new FractionOperandLimitations(fractionEasyDivisionBasicOperandLimitations,
+const fractionEasyDivisionOperandLimitations = new FractionOperandLimitations(fractionEasyDivisionBasicOperandLimitations,
   fractionEasyDivisionBasicOperandLimitations);
-let fractionMediumDivisionOperandLimitations = new FractionOperandLimitations(fractionMediumDivisionBasicOperandLimitations,
+const fractionMediumDivisionOperandLimitations = new FractionOperandLimitations(fractionMediumDivisionBasicOperandLimitations,
   fractionMediumDivisionBasicOperandLimitations);
-let fractionChallengingDivisionOperandLimitations = new FractionOperandLimitations(fractionChallengingDivisionBasicOperandLimitations,
+const fractionChallengingDivisionOperandLimitations = new FractionOperandLimitations(fractionChallengingDivisionBasicOperandLimitations,
   fractionChallengingDivisionBasicOperandLimitations);
 
 // Numerator and Denominator Result Limitations
-let fractionNumEasyResultLimitations = new BasicResultLimitations(true, false);
-let fractionDenEasyResultLimitations = new BasicResultLimitations(true, false);
-let fractionSubtractionNumResultLimitations = new BasicResultLimitations(true, true);
-let fractionSubtractionDenResultLimitations = new BasicResultLimitations(true, false);
+const fractionNumEasyResultLimitations = new BasicResultLimitations(true, false);
+const fractionDenEasyResultLimitations = new BasicResultLimitations(true, false);
+const fractionSubtractionNumResultLimitations = new BasicResultLimitations(true, true);
+const fractionSubtractionDenResultLimitations = new BasicResultLimitations(true, false);
 
       // Fraction Result Limitations
-let fractionEasyResultLimitations = new FractionResultLimitations(fractionNumEasyResultLimitations,
+const fractionEasyResultLimitations = new FractionResultLimitations(fractionNumEasyResultLimitations,
   fractionDenEasyResultLimitations);
-let fractionSubtractionResultLimitations = new FractionResultLimitations(fractionSubtractionNumResultLimitations,
+const fractionSubtractionResultLimitations = new FractionResultLimitations(fractionSubtractionNumResultLimitations,
   fractionSubtractionDenResultLimitations);
 
 // Addition
-export const EASY_FRACTION_ADDITION = new FractionRoundLevel("Easy Fraction Addition", justFractionAddition,
+export const EASY_FRACTION_ADDITION = new FractionRoundLevel('Easy Fraction Addition', justFractionAddition,
   10, fractionEasyOperandLimitations, fractionEasyOperandLimitations,
   fractionEasyResultLimitations);
 
-export const MEDIUM_FRACTION_ADDITION = new FractionRoundLevel("Medium Fraction Addition", justFractionAddition,
+export const MEDIUM_FRACTION_ADDITION = new FractionRoundLevel('Medium Fraction Addition', justFractionAddition,
   8, fractionMediumOperandLimitations, fractionEasyOperandLimitations,
   fractionEasyResultLimitations);
 
-export const CHALLENGING_FRACTION_ADDITION = new FractionRoundLevel("Challenging Fraction Addition", justFractionAddition,
+export const CHALLENGING_FRACTION_ADDITION = new FractionRoundLevel('Challenging Fraction Addition', justFractionAddition,
   6, fractionMediumOperandLimitations, fractionMediumOperandLimitations,
   fractionEasyResultLimitations);
 
-export const HARD_FRACTION_ADDITION = new FractionRoundLevel("Hard Fraction Addition", justFractionAddition,
+export const HARD_FRACTION_ADDITION = new FractionRoundLevel('Hard Fraction Addition', justFractionAddition,
   4, fractionChallengingOperandLimitations, fractionMediumOperandLimitations,
   fractionEasyResultLimitations);
 
-export const EXPERT_FRACTION_ADDITION = new FractionRoundLevel("Expert Fraction Addition", justFractionAddition,
+export const EXPERT_FRACTION_ADDITION = new FractionRoundLevel('Expert Fraction Addition', justFractionAddition,
   3, fractionChallengingOperandLimitations, fractionChallengingOperandLimitations,
   fractionEasyResultLimitations);
 
 // Subtraction
-export const EASY_FRACTION_SUBTRACTION = new FractionRoundLevel("Easy Fraction Subtraction", justFractionSubtraction,
+export const EASY_FRACTION_SUBTRACTION = new FractionRoundLevel('Easy Fraction Subtraction', justFractionSubtraction,
   10, fractionEasyOperandLimitations, fractionEasyOperandLimitations,
   fractionSubtractionResultLimitations);
 
-export const MEDIUM_FRACTION_SUBTRACTION = new FractionRoundLevel("Medium Fraction Subtraction", justFractionSubtraction,
+export const MEDIUM_FRACTION_SUBTRACTION = new FractionRoundLevel('Medium Fraction Subtraction', justFractionSubtraction,
   8, fractionMediumOperandLimitations, fractionEasyOperandLimitations,
   fractionSubtractionResultLimitations);
 
-export const CHALLENGING_FRACTION_SUBTRACTION = new FractionRoundLevel("Challenging Fraction Subtraction", justFractionSubtraction,
+export const CHALLENGING_FRACTION_SUBTRACTION = new FractionRoundLevel('Challenging Fraction Subtraction', justFractionSubtraction,
   6, fractionMediumOperandLimitations, fractionMediumOperandLimitations,
   fractionSubtractionResultLimitations);
 
-export const HARD_FRACTION_SUBTRACTION = new FractionRoundLevel("Hard Fraction Subtraction", justFractionSubtraction,
+export const HARD_FRACTION_SUBTRACTION = new FractionRoundLevel('Hard Fraction Subtraction', justFractionSubtraction,
   4, fractionChallengingOperandLimitations, fractionMediumOperandLimitations,
   fractionSubtractionResultLimitations);
 
-export const EXPERT_FRACTION_SUBTRACTION = new FractionRoundLevel("Expert Fraction Subtraction", justFractionSubtraction,
+export const EXPERT_FRACTION_SUBTRACTION = new FractionRoundLevel('Expert Fraction Subtraction', justFractionSubtraction,
   3, fractionChallengingOperandLimitations, fractionChallengingOperandLimitations,
   fractionSubtractionResultLimitations);
 
 // Multiplication
-export const EASY_FRACTION_MULTIPLICATION = new FractionRoundLevel("Easy Fraction Multiplication", justFractionMultiplication,
+export const EASY_FRACTION_MULTIPLICATION = new FractionRoundLevel('Easy Fraction Multiplication', justFractionMultiplication,
   14, fractionEasyOperandLimitations, fractionEasyOperandLimitations,
   fractionEasyResultLimitations);
 
-export const MEDIUM_FRACTION_MULTIPLICATION = new FractionRoundLevel("Medium Fraction Multiplication", justFractionMultiplication,
+export const MEDIUM_FRACTION_MULTIPLICATION = new FractionRoundLevel('Medium Fraction Multiplication', justFractionMultiplication,
   10, fractionMediumOperandLimitations, fractionEasyOperandLimitations, fractionEasyResultLimitations);
 
-export const CHALLENGING_FRACTION_MULTIPLICATION = new FractionRoundLevel("Challenging Fraciton Multiplication",
+export const CHALLENGING_FRACTION_MULTIPLICATION = new FractionRoundLevel('Challenging Fraciton Multiplication',
   justFractionMultiplication, 8, fractionMediumOperandLimitations,
   fractionMediumOperandLimitations, fractionEasyResultLimitations);
 
-export const HARD_FRACTION_MULTIPLICATION = new FractionRoundLevel("Hard Fraction Multiplication", justFractionMultiplication,
+export const HARD_FRACTION_MULTIPLICATION = new FractionRoundLevel('Hard Fraction Multiplication', justFractionMultiplication,
   5, fractionChallengingOperandLimitations, fractionMediumOperandLimitations,
   fractionEasyResultLimitations);
 
-export const EXPERT_FRACTION_MULTIPLICATION = new FractionRoundLevel("Expert Fraction Multiplication", justFractionMultiplication,
+export const EXPERT_FRACTION_MULTIPLICATION = new FractionRoundLevel('Expert Fraction Multiplication', justFractionMultiplication,
   3, fractionChallengingOperandLimitations, fractionChallengingOperandLimitations,
   fractionEasyResultLimitations);
 
 // Division
-export const EASY_FRACTION_DIVISION = new FractionRoundLevel("Easy Fraction Division", justFractionDivision,
+export const EASY_FRACTION_DIVISION = new FractionRoundLevel('Easy Fraction Division', justFractionDivision,
   10, fractionEasyDivisionOperandLimitations, fractionEasyDivisionOperandLimitations,
   fractionEasyResultLimitations);
 
-export const MEDIUM_FRACTION_DIVISION = new FractionRoundLevel("Medium Fraction Division", justFractionDivision,
+export const MEDIUM_FRACTION_DIVISION = new FractionRoundLevel('Medium Fraction Division', justFractionDivision,
   8, fractionMediumDivisionOperandLimitations, fractionEasyDivisionOperandLimitations,
   fractionEasyResultLimitations);
 
-export const CHALLENGING_FRACTION_DIVISION = new FractionRoundLevel("Challenging Fraction Division", justFractionDivision,
+export const CHALLENGING_FRACTION_DIVISION = new FractionRoundLevel('Challenging Fraction Division', justFractionDivision,
   6, fractionMediumDivisionOperandLimitations, fractionMediumDivisionOperandLimitations,
   fractionEasyResultLimitations);
 
-export const HARD_FRACTION_DIVISION = new FractionRoundLevel("Hard Fraction Division", justFractionDivision,
+export const HARD_FRACTION_DIVISION = new FractionRoundLevel('Hard Fraction Division', justFractionDivision,
   4, fractionChallengingDivisionOperandLimitations,
   fractionMediumDivisionOperandLimitations, fractionEasyResultLimitations);
 
-export const EXPERT_FRACTION_DIVISION = new FractionRoundLevel("Expert Fraction Division", justFractionDivision,
+export const EXPERT_FRACTION_DIVISION = new FractionRoundLevel('Expert Fraction Division', justFractionDivision,
   3, fractionChallengingDivisionOperandLimitations,
   fractionChallengingDivisionOperandLimitations, fractionEasyResultLimitations);
 

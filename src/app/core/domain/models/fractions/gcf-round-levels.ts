@@ -1,23 +1,23 @@
-import { GcfRoundLevel } from "./gcf-round-level";
-import { BasicOperandLimitations } from "../basics/basic-operand-limitations";
+import { GcfRoundLevel } from './gcf-round-level';
+import { BasicOperandLimitations } from '../basics/basic-operand-limitations';
 
-let lessThan10NoZero = new BasicOperandLimitations(true, 9, false, false);
-let lessThan13NoZero = new BasicOperandLimitations(true, 12, false, false);
-let lessThan20NoZero = new BasicOperandLimitations(true, 19, false, false);
-let lessThan50NoZero = new BasicOperandLimitations(true, 49, false, false);
-export const EASY_GCF = new GcfRoundLevel("Easy Greatest Common Factor", 25,
+const lessThan10NoZero = new BasicOperandLimitations(true, 9, false, false);
+const lessThan13NoZero = new BasicOperandLimitations(true, 12, false, false);
+const lessThan20NoZero = new BasicOperandLimitations(true, 19, false, false);
+const lessThan50NoZero = new BasicOperandLimitations(true, 49, false, false);
+export const EASY_GCF = new GcfRoundLevel('Easy Greatest Common Factor', 25,
   lessThan13NoZero, lessThan10NoZero);
 
-export const MEDIUM_GCF = new GcfRoundLevel("Medium Greatest Common Factor", 20,
+export const MEDIUM_GCF = new GcfRoundLevel('Medium Greatest Common Factor', 20,
   lessThan13NoZero, lessThan13NoZero);
 
-export const CHALLENGING_GCF = new GcfRoundLevel("Challenging Greatest Common Factor", 15,
+export const CHALLENGING_GCF = new GcfRoundLevel('Challenging Greatest Common Factor', 15,
   lessThan20NoZero, lessThan10NoZero);
 
-export const HARD_GCF = new GcfRoundLevel("Hard Greatest Common Factor", 10,
+export const HARD_GCF = new GcfRoundLevel('Hard Greatest Common Factor', 10,
   lessThan20NoZero, lessThan13NoZero);
 
-export const EXPERT_GCF = new GcfRoundLevel("Expert Greatest Common Factor", 7,
+export const EXPERT_GCF = new GcfRoundLevel('Expert Greatest Common Factor', 7,
   lessThan50NoZero, lessThan10NoZero);
 
 

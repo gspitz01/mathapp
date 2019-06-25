@@ -1,5 +1,5 @@
-import { FractionResult } from "./fraction-result";
-import { BasicResultLimitations } from "../basics/basic-result-limitations";
+import { FractionResult } from './fraction-result';
+import { BasicResultLimitations } from '../basics/basic-result-limitations';
 
 export class FractionResultLimitations {
 

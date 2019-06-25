@@ -1,7 +1,7 @@
-import { SimplifyFractionOperator } from "./simplify-fraction-operator";
-import { FractionResult } from "./fraction-result";
-import { BasicOperand } from "../basics/basic-operand";
-import { OperatorQuestion } from "../operator-question";
+import { SimplifyFractionOperator } from './simplify-fraction-operator';
+import { FractionResult } from './fraction-result';
+import { BasicOperand } from '../basics/basic-operand';
+import { OperatorQuestion } from '../operator-question';
 
 export class SimplifyFractionOperatorQuestion implements OperatorQuestion {
   constructor(readonly numerator: BasicOperand, readonly denominator: BasicOperand,
@@ -12,9 +12,9 @@ export class SimplifyFractionOperatorQuestion implements OperatorQuestion {
   }
 
   checkAnswer(answer: string): boolean {
-    if (answer.includes("/")) {
-      let answers = answer.split("/");
-      if (answers.length != 2) {
+    if (answer.includes('/')) {
+      const answers = answer.split('/');
+      if (answers.length !== 2) {
         return false;
       }
       if (parseInt(answers[0], 10) === this.getResult().numerator.value &&

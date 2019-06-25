@@ -1,9 +1,9 @@
-import { RoundLevel } from "../round-level";
-import { MULTIPLICATION } from "./basic-operators";
-import { BasicOperatorQuestion } from "./basic-operator-question";
-import { OperatorQuestion } from "../operator-question";
-import { BasicOperand } from "./basic-operand";
-import { BasicOperator } from "./basic-operator";
+import { RoundLevel } from '../round-level';
+import { MULTIPLICATION } from './basic-operators';
+import { BasicOperatorQuestion } from './basic-operator-question';
+import { OperatorQuestion } from '../operator-question';
+import { BasicOperand } from './basic-operand';
+import { BasicOperator } from './basic-operator';
 
 export class BasicMultiplicationRoundLevel extends RoundLevel {
 
@@ -31,16 +31,16 @@ export class BasicMultiplicationRoundLevel extends RoundLevel {
   createQuestion(): OperatorQuestion {
     let question: BasicOperatorQuestion = null;
     let factor: number;
-    if (this.factorsAlreadySeen.length == this.numberOfPossibleFactors) {
+    if (this.factorsAlreadySeen.length === this.numberOfPossibleFactors) {
       this.factorsAlreadySeen = [];
     }
     do {
       factor = this.createRandomFactor();
-    } while(this.factorsAlreadySeen.includes(factor));
+    } while (this.factorsAlreadySeen.includes(factor));
     this.factorsAlreadySeen.push(factor);
-    let operator = this.chooseOperator() as BasicOperator;
-    let op1 = new BasicOperand(this.focusNumber);
-    let op2 = new BasicOperand(factor);
+    const operator = this.chooseOperator() as BasicOperator;
+    const op1 = new BasicOperand(this.focusNumber);
+    const op2 = new BasicOperand(factor);
     if (Math.random() < 0.5) {
       question = new BasicOperatorQuestion(op1, op2, operator);
     } else {

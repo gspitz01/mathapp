@@ -1,9 +1,9 @@
-import { DIVISION } from "./basic-operators";
-import { BasicOperatorQuestion } from "./basic-operator-question";
-import { BasicOperator } from "./basic-operator";
-import { BasicOperand } from "./basic-operand";
-import { RoundLevel } from "../round-level";
-import { OperatorQuestion } from "../operator-question";
+import { DIVISION } from './basic-operators';
+import { BasicOperatorQuestion } from './basic-operator-question';
+import { BasicOperator } from './basic-operator';
+import { BasicOperand } from './basic-operand';
+import { RoundLevel } from '../round-level';
+import { OperatorQuestion } from '../operator-question';
 
 export class BasicDivisionRoundLevel extends RoundLevel {
 
@@ -33,11 +33,11 @@ export class BasicDivisionRoundLevel extends RoundLevel {
     let dividend: number;
     do {
       dividend = this.createDividend();
-    } while(this.dividendsSeen.includes(dividend));
+    } while (this.dividendsSeen.includes(dividend));
     this.dividendsSeen.push(dividend);
-    let operator = this.chooseOperator() as BasicOperator;
-    let op1 = new BasicOperand(dividend);
-    let op2 = new BasicOperand(this.focusNumber);
+    const operator = this.chooseOperator() as BasicOperator;
+    const op1 = new BasicOperand(dividend);
+    const op2 = new BasicOperand(this.focusNumber);
     question = new BasicOperatorQuestion(op1, op2, operator);
     return question;
   }

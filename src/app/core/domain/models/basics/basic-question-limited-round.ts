@@ -1,5 +1,5 @@
-import { BasicRoundLevel } from "./basic-round-level";
-import { QuestionLimitedQuestionRound } from "../question-limited-question-round";
+import { BasicRoundLevel } from './basic-round-level';
+import { QuestionLimitedQuestionRound } from '../question-limited-question-round';
 
 /**
  * A QuestionLimitedQuestionRound where from a BasicRoundLevel

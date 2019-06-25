@@ -1,6 +1,6 @@
-import { RoundLevel } from "./round-level";
-import { OperatorQuestion } from "./operator-question";
-import { AnswerEvaluation } from "./answer-evaluation";
+import { RoundLevel } from './round-level';
+import { OperatorQuestion } from './operator-question';
+import { AnswerEvaluation } from './answer-evaluation';
 
 export abstract class QuestionRound {
 
@@ -48,7 +48,7 @@ export abstract class QuestionRound {
       if (!this.sameQuestion) {
         this.questionsAnswered++;
       }
-      let correct = this.isAnswerCorrect(answer);
+      const correct = this.isAnswerCorrect(answer);
       if (correct) {
         if (this.shouldCreateNewQuestion()) {
           this.currentQuestion = this.level.createQuestion();
