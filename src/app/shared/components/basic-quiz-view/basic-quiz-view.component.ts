@@ -8,8 +8,8 @@ import { Stats } from 'src/app/core/domain/models/stats';
 import { BasicTimedQuiz } from 'src/app/core/domain/models/basics/basic-timed-quiz';
 import { QuizName } from 'src/app/core/domain/models/quiz-name';
 
-const startButtonText = "Start";
-const stopButtonText = "Stop";
+const startButtonText = 'Start';
+const stopButtonText = 'Stop';
 const validAnswerRegex = /^[0-9\-]*$/;
 
 @Component({
@@ -25,7 +25,7 @@ export class BasicQuizViewComponent implements OnInit {
   @Input() quizName: QuizName;
   buttonText: string;
   private maxLevel: number;
-  private answer = new FormControl("");
+  private answer = new FormControl('');
   private answerDisabled: boolean;
   @ViewChild('answerInp', { static: false }) answerInput: ElementRef;
   quiz: BasicTimedQuiz;
@@ -92,6 +92,6 @@ export class BasicQuizViewComponent implements OnInit {
   }
 
   clearAnswerInput() {
-    this.answer.setValue("");
+    this.answer.setValue('');
   }
 }
