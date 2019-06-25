@@ -1,4 +1,4 @@
-import { MULTIPLICATION, DIVISION, ADDITION, SUBTRACTION } from './basic-operators';
+import { MULTIPLICATION, DIVISION, ADDITION, SUBTRACTION, GCF } from './basic-operators';
 
 describe('MULTIPLICATION', () => {
   it('should return the correct result', () => {
@@ -6,7 +6,6 @@ describe('MULTIPLICATION', () => {
     const op2 = 5;
     const expectedResult = 20;
     const actualResult = MULTIPLICATION.operation(op1, op2);
-    expect(actualResult).toBe(expectedResult);
     expect(actualResult).toBe(expectedResult);
   });
 });
@@ -18,7 +17,6 @@ describe('DIVISION', () => {
     const expectedResult = 5;
     const actualResult = DIVISION.operation(op1, op2);
     expect(actualResult).toBe(expectedResult);
-    expect(actualResult).toBe(expectedResult);
   });
 });
 
@@ -28,7 +26,6 @@ describe('ADDITION', () => {
     const op2 = 3;
     const expectedResult = 23;
     const actualResult = ADDITION.operation(op1, op2);
-    expect(actualResult).toBe(expectedResult);
     expect(actualResult).toBe(expectedResult);
   });
 });
@@ -40,6 +37,15 @@ describe('SUBTRACTION', () => {
     const expectedResult = 20;
     const actualResult = SUBTRACTION.operation(op1, op2);
     expect(actualResult).toBe(expectedResult);
-    expect(actualResult).toBe(expectedResult);
+  });
+
+  describe('GCF', () => {
+    it('should return the correct result', () => {
+      const op1 = 24;
+      const op2 = 6;
+      const expectedResult = 6;
+      const actualResult = GCF.operation(op1, op2);
+      expect(actualResult).toBe(expectedResult);
+    });
   });
 });
