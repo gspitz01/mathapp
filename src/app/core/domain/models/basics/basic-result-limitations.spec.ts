@@ -7,6 +7,11 @@ describe('BasicResultLimitations', () => {
     expect(limitations.resultSatisfiesLimitations(result)).toBeFalsy();
   }
 
+  it('should return false on null', () => {
+    const limitations = new BasicResultLimitations(false, false);
+    expectResultToBeFalsy(limitations, null);
+  });
+
   it('should return false on resultSatisfiesLimitations() if limitations not satisfied', () => {
     let limitations = new BasicResultLimitations(false, false);
     // Can't be negative
