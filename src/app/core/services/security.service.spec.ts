@@ -12,10 +12,10 @@ import { SecurityService } from './security.service';
 
 
 describe('SecurityService', () => {
-  const userId1 = "id245435";
-  const userId2 = "id4313498";
-  const userDisplayName1 = "Billy Bob";
-  const userDisplayName2 = "Wendy Burger";
+  const userId1 = 'id245435';
+  const userId2 = 'id4313498';
+  const userDisplayName1 = 'Billy Bob';
+  const userDisplayName2 = 'Wendy Burger';
   const authSpy = jasmine.createSpyObj('auth', ['signInWithPopup', 'signOut']);
   const expectedMarbleString = 'w 19ms x 9ms y 9ms |';
   let authStateMock: Observable<any>;
@@ -87,7 +87,7 @@ describe('SecurityService', () => {
       const result = authStateMock.pipe(map(() => {
         return service.currentUserId();
       }));
-      expectObservable(result).toBe(expectedMarbleString, { w: "", x: userId1, y: userId2 });
+      expectObservable(result).toBe(expectedMarbleString, { w: '', x: userId1, y: userId2 });
     });
   });
 

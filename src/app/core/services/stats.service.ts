@@ -15,7 +15,7 @@ import { User } from '../domain/models/user';
 export class StatsService {
 
   private allUsers: Observable<any[]>;
-  private admin: boolean = false;
+  private admin = false;
 
   constructor(private db: AngularFireDatabase,
     private security: SecurityService) {
@@ -41,9 +41,9 @@ export class StatsService {
 
   addStats(stats: Stats, maxLevels: Object) {
     if (this.security.authenticated()) {
-      let userId = this.security.currentUserId();
-      let userName = this.security.currentUserDisplayName();
-      let splitName = userName.split(' ');
+      const userId = this.security.currentUserId();
+      const userName = this.security.currentUserDisplayName();
+      const splitName = userName.split(' ');
       this.db.object('users/' + userId).update({
         name: userName,
         lastName: splitName[splitName.length - 1]
@@ -140,7 +140,7 @@ export class StatsService {
   }
 
   getAdminSnapshot(): Observable<any> {
-    let userId = this.security.currentUserId();
+    const userId = this.security.currentUserId();
     return this.db.object('admins/' + userId).snapshotChanges();
   }
 
@@ -165,7 +165,7 @@ export class StatsService {
 
   getMaxLevels(): Observable<any> {
     if (this.security.authenticated()) {
-      let userId = this.security.currentUserId();
+      const userId = this.security.currentUserId();
       return this.db.object('users/' + userId + '/maxLevels').valueChanges().pipe(first());
     } else {
       return of();

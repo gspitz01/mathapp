@@ -33,8 +33,8 @@ describe('AuthGuardService', () => {
 
   it('should return false and call navigate on router if security not authenticated', () => {
     ssSpy.authenticated.and.returnValue(false);
-    const stateUrl = "twentyTwo";
-    const state = {url: stateUrl }
+    const stateUrl = 'twentyTwo';
+    const state = {url: stateUrl };
 
     expect(authGuardService.canActivate({} as ActivatedRouteSnapshot, state as RouterStateSnapshot)).toBeFalsy();
 

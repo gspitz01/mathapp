@@ -108,14 +108,14 @@ function deconstructClass(clazz: Class) {
 }
 
 const testUserValues: User[] = [
-  new User("key1", "Kyle", "Farnsworth", "class1Id"),
-  new User("key2", "Kathy", "Gillespie", "class1Id"),
-  new User("key3", "Kenneth", "Anchovie", "class2Id")
+  new User('key1', 'Kyle', 'Farnsworth', 'class1Id'),
+  new User('key2', 'Kathy', 'Gillespie', 'class1Id'),
+  new User('key3', 'Kenneth', 'Anchovie', 'class2Id')
 ];
 
 const testClassValues: Class[] = [
-  new Class("class1Id", "Class 1"),
-  new Class("class2Id", "Class Number 2")
+  new Class('class1Id', 'Class 1'),
+  new Class('class2Id', 'Class Number 2')
 ];
 
 const maxLevelsObject = {
@@ -128,10 +128,10 @@ describe('StatsService', () => {
   const firebaseUser1 = createFakeFirebaseUser(testUserValues[0]);
   const firebaseUser2 = createFakeFirebaseUser(testUserValues[1]);
   const firebaseUser3 = createFakeFirebaseUser(testUserValues[2]);
-  const stats = new Stats(new Date(), new Date(), "RoundName", 10, 4, [[3, 4], [7, 9]]);
+  const stats = new Stats(new Date(), new Date(), 'RoundName', 10, 4, [[3, 4], [7, 9]]);
   const teachers = [
-    new Teacher("5433535ijoi3j42", "John Lions", ["fjdfda", "fdsfdfds"]),
-    new Teacher("fsdfjklekrw#44", "Ardvaark Lardsnark", ["Teemer", "545FFS"])
+    new Teacher('5433535ijoi3j42', 'John Lions', ['fjdfda', 'fdsfdfds']),
+    new Teacher('fsdfjklekrw#44', 'Ardvaark Lardsnark', ['Teemer', '545FFS'])
   ];
 
   let statsListMock: Observable<any>;
@@ -149,7 +149,7 @@ describe('StatsService', () => {
     securityServiceSpy.currentUserId.and.returnValue(testUserValues[0].id);
 
     authStateMock = cold('x|', {
-      x: {uid: "UserId"}
+      x: {uid: 'UserId'}
     });
     securityServiceSpy.getAuthState.and.returnValue(authStateMock);
 
@@ -264,9 +264,9 @@ describe('StatsService', () => {
 
   it('should set username on user and push userdata if authenticated on addStats()', () => {
     securityServiceSpy.authenticated.and.returnValue(true);
-    const userId = "id4324789";
+    const userId = 'id4324789';
     securityServiceSpy.currentUserId.and.returnValue(userId);
-    const userDisplayName = "Willie Funyions";
+    const userDisplayName = 'Willie Funyions';
     securityServiceSpy.currentUserDisplayName.and.returnValue(userDisplayName);
     const userNameSplit = userDisplayName.split(' ');
     const userLastName = userNameSplit[userNameSplit.length - 1];
@@ -316,7 +316,7 @@ describe('StatsService', () => {
   it('should add teacher to db on addTeacher() if authenticated', () => {
     securityServiceSpy.authenticated.and.returnValue(true);
 
-    const teacher = new User("REwqer3343", "A. Teacher", "Teacher", null);
+    const teacher = new User('REwqer3343', 'A. Teacher', 'Teacher', null);
 
     const objectRefSpy = jasmine.createSpyObj('AngularFireObject', ['set']);
     angularFireDbSpy.object.and.returnValue(objectRefSpy);
@@ -332,7 +332,7 @@ describe('StatsService', () => {
   it('should not add teacher to db on addTeacher() if not authenticated', () => {
     securityServiceSpy.authenticated.and.returnValue(false);
 
-    const teacher = new User("fdsaf", "A. Teacher", "Teacher", null);
+    const teacher = new User('fdsaf', 'A. Teacher', 'Teacher', null);
 
     service.addTeacher(teacher);
 
@@ -342,7 +342,7 @@ describe('StatsService', () => {
   it('should remove teacher from db on removeTeacher() if authenticated', () => {
     securityServiceSpy.authenticated.and.returnValue(true);
 
-    const teacherId = "teacherId";
+    const teacherId = 'teacherId';
 
     const listRefSpy = jasmine.createSpyObj('AngularFireList', ['remove']);
     angularFireDbSpy.list.and.returnValue(listRefSpy);
@@ -356,7 +356,7 @@ describe('StatsService', () => {
   it('should not remove teacher from db on removeTeacher() if not authenticated', () => {
     securityServiceSpy.authenticated.and.returnValue(false);
 
-    const teacherId = "teacherId";
+    const teacherId = 'teacherId';
 
     service.removeTeacher(teacherId);
 
@@ -366,8 +366,8 @@ describe('StatsService', () => {
   it('should add class to teacher on addClassToTeacher if authenticated', () => {
     securityServiceSpy.authenticated.and.returnValue(true);
 
-    const teacherId = "teacherId";
-    const className = "className";
+    const teacherId = 'teacherId';
+    const className = 'className';
 
     const listRefSpy = jasmine.createSpyObj('AngularFireList', ['push']);
     angularFireDbSpy.list.and.returnValue(listRefSpy);
@@ -383,8 +383,8 @@ describe('StatsService', () => {
   it('should not add class to teacher on addClassToTeacher() if not authenticated', () => {
     securityServiceSpy.authenticated.and.returnValue(false);
 
-    const teacherId = "teacherId";
-    const className = "className";
+    const teacherId = 'teacherId';
+    const className = 'className';
 
     service.addClassToTeacher(teacherId, className);
 
@@ -395,8 +395,8 @@ describe('StatsService', () => {
   it('should remove class from teacher on removeClassFromTeacher() if authenticated', (done) => {
     securityServiceSpy.authenticated.and.returnValue(true);
 
-    const teacherId = "teacherId";
-    const classId = "classId";
+    const teacherId = 'teacherId';
+    const classId = 'classId';
 
     const listRefSpy = jasmine.createSpyObj('AngularFireList', ['remove']);
     angularFireDbSpy.list.and.returnValue(listRefSpy);
@@ -418,8 +418,8 @@ describe('StatsService', () => {
   it('should not remove class from teacher on removeClassFromTeacher() if not authenticated', () => {
     securityServiceSpy.authenticated.and.returnValue(false);
 
-    const teacherId = "teacherId";
-    const classId = "classId";
+    const teacherId = 'teacherId';
+    const classId = 'classId';
 
     service.removeClassFromTeacher(teacherId, classId);
 
@@ -429,8 +429,8 @@ describe('StatsService', () => {
   it('should add user to class on addUserToClass() if authenticated', () => {
     securityServiceSpy.authenticated.and.returnValue(true);
 
-    const classId = "classId";
-    const userId = "userId";
+    const classId = 'classId';
+    const userId = 'userId';
 
     const objectRefSpy = jasmine.createSpyObj('AngularFireObject', ['update']);
     angularFireDbSpy.object.and.returnValue(objectRefSpy);
@@ -446,8 +446,8 @@ describe('StatsService', () => {
   it('should not add user to class on addUserToClass() if not authenticated', () => {
     securityServiceSpy.authenticated.and.returnValue(false);
 
-    const classId = "classId";
-    const userId = "userId";
+    const classId = 'classId';
+    const userId = 'userId';
 
     service.addUserToClass(classId, userId);
 
@@ -457,7 +457,7 @@ describe('StatsService', () => {
   it('should remove user from class on removeUserFromClass() if authenticated', () => {
     securityServiceSpy.authenticated.and.returnValue(true);
 
-    const userId = "userId";
+    const userId = 'userId';
 
     const objectRefSpy = jasmine.createSpyObj('AngularFireObject', ['remove']);
     angularFireDbSpy.object.and.returnValue(objectRefSpy);
@@ -471,7 +471,7 @@ describe('StatsService', () => {
   it('should not remove user from class on removeUserFromClass() if not authenticated', () => {
     securityServiceSpy.authenticated.and.returnValue(false);
 
-    const userId = "userId";
+    const userId = 'userId';
 
     service.removeUserFromClass(userId);
 
@@ -485,7 +485,7 @@ describe('StatsService', () => {
   //   getTestScheduler().run(helpers => {
   //     securityServiceSpy.authenticated.and.returnValue(true);
 
-  //     const classId = "class1Id";
+  //     const classId = 'class1Id';
 
   //     spyOn(service, 'removeUserFromClass');
   //     spyOn(service, 'getUsersFromClass').and.callThrough();
@@ -517,7 +517,7 @@ describe('StatsService', () => {
     getTestScheduler().run(helpers => {
       const { expectObservable } = helpers;
 
-      const teacherId = "teacherId";
+      const teacherId = 'teacherId';
       const result = service.getClassesFromTeacher(teacherId);
       expectObservable(result).toBe('x 9ms y 9ms |',
         {
@@ -533,7 +533,7 @@ describe('StatsService', () => {
     getTestScheduler().run(helpers => {
       const { expectObservable } = helpers;
 
-      const classId = "class1Id";
+      const classId = 'class1Id';
       const result = service.getUsersFromClass(classId);
       expectObservable(result).toBe('x 9ms y 9ms z 9ms |',
         {
@@ -548,7 +548,7 @@ describe('StatsService', () => {
 
   it('should return same as getAdminSnapshot if authenticated from getAdmin()', () => {
     securityServiceSpy.authenticated.and.returnValue(true);
-    const userId = "id13443";
+    const userId = 'id13443';
     securityServiceSpy.currentUserId.and.returnValue(userId);
     const objectRefSpy = jasmine.createSpyObj('AngularFireObject', ['snapshotChanges']);
     angularFireDbSpy.object.and.returnValue(objectRefSpy);
@@ -566,7 +566,7 @@ describe('StatsService', () => {
   });
 
   it('should get admin Observable on getAdminSnapshot()', () => {
-    const userId = "id1234";
+    const userId = 'id1234';
     securityServiceSpy.currentUserId.and.returnValue(userId);
     const objectRefSpy = jasmine.createSpyObj('AngularFireObject', ['snapshotChanges']);
     angularFireDbSpy.object.and.returnValue(objectRefSpy);
@@ -582,7 +582,7 @@ describe('StatsService', () => {
   it('should get stats from db on getStats()', () => {
     getTestScheduler().run(helpers => {
       const { expectObservable } = helpers;
-      const userId = "id12343";
+      const userId = 'id12343';
 
       const result = service.getStats(userId);
       expectObservable(result).toBe('x 9ms y 9ms |',
@@ -598,7 +598,7 @@ describe('StatsService', () => {
   it('should get maxLevels from db on getMaxLevels() if authenticated', () => {
     getTestScheduler().run(helpers => {
       const { expectObservable } = helpers;
-      const userId = "id1234";
+      const userId = 'id1234';
       securityServiceSpy.currentUserId.and.returnValue(userId);
       securityServiceSpy.authenticated.and.returnValue(true);
 

@@ -9,7 +9,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
   providedIn: 'root'
 })
 export class SecurityService {
-  private authState: Observable<firebase.User>
+  private authState: Observable<firebase.User>;
   private currentUser: firebase.User = null;
 
   constructor(public afAuth: AngularFireAuth) {
@@ -44,16 +44,16 @@ export class SecurityService {
   }
 
   currentUserId(): string {
-    return this.authenticated() ? this.currentUser.uid : "";
+    return this.authenticated() ? this.currentUser.uid : '';
   }
 
   currentUserDisplayName(): string {
     if (!this.authenticated()) {
-      return "Guest";
+      return 'Guest';
     } else if (this.currentUserIsAnonymous()) {
-      return "Anonymous";
+      return 'Anonymous';
     } else {
-      return this.currentUser['displayName'] || "User without a name";
+      return this.currentUser['displayName'] || 'User without a name';
     }
   }
 }
