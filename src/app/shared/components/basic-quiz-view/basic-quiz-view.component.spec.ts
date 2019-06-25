@@ -8,11 +8,11 @@ import { MatListModule } from '@angular/material';
 import { BasicQuizViewComponent } from './basic-quiz-view.component';
 import { StatsService } from '../../../core/services/stats.service';
 import { Seconds } from 'src/app/core/domain/models/seconds';
-import { MockStatsService } from 'src/app/core/domain/models/test-constants.spec';
 import { BASIC_ADDITION_LEVEL_ORDER } from 'src/app/core/domain/models/round-levels';
 import { ADDITION } from 'src/app/core/domain/models/basics/basic-operators';
 import { WRONG_ANSWER_TEXT, NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT,
   ADVANCE_TO_NEXT_LEVEL_TEXT, FINISHED_HIGHEST_LEVEL_TEXT } from 'src/app/core/domain/models/constants';
+import { compileComponentFromMetadata } from '@angular/compiler';
 
 const defaultStartingTime = new Seconds(60);
 
@@ -41,6 +41,16 @@ describe('BasicQuizViewComponent', () => {
   let fixture: ComponentFixture<BasicQuizViewComponent>;
   let startButton: DebugElement;
   let messagesView: DebugElement;
+  const mockStatsService = jasmine.createSpyObj('StatsService', ['getMaxLevels', 'addStats']);
+  const maxLevelsObj = jasmine.createSpyObj('MaxLevels', ['subscribe']);
+  const quizName = 'Basics';
+  const maxLevels = {};
+  const maxLevel = 5;
+  maxLevels[quizName] = maxLevel;
+  mockStatsService.getMaxLevels.and.returnValue(maxLevelsObj);
+  maxLevelsObj.subscribe.and.callFake((func) => {
+    func(maxLevels);
+  });
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -51,7 +61,7 @@ describe('BasicQuizViewComponent', () => {
         MatListModule
       ],
       providers: [
-        { provide: StatsService, useClass: MockStatsService }
+        { provide: StatsService, useValue: mockStatsService }
       ]
     })
     .compileComponents();
@@ -76,11 +86,26 @@ describe('BasicQuizViewComponent', () => {
     expect(startButton.nativeElement.textContent).toBe('Start');
   });
 
+  it('should subscribe to maxLevels on statsService', () => {
+    expect(mockStatsService.getMaxLevels).toHaveBeenCalled();
+    expect(maxLevelsObj.subscribe).toHaveBeenCalled();
+  });
+
   it('click start changes it to stop', () => {
     fixture.whenStable().then(() => {
       startButton.nativeElement.click();
       fixture.detectChanges();
       expect(startButton.nativeElement.textContent).toBe('Stop');
+    });
+  });
+
+  it('should stop timer if start pressed twice', () => {
+    fixture.whenStable().then(() => {
+      startButton.nativeElement.click();
+      expect(component.quiz.isTimerRunning()).toBeTruthy();
+      startButton.nativeElement.click();
+      expect(component.quiz.isTimerRunning()).toBeFalsy();
+      expect(startButton.nativeElement.textContent).toBe('Start');
     });
   });
 
