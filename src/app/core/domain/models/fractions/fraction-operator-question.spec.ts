@@ -28,4 +28,14 @@ describe('FractionOperatorQuestion', () => {
     const answer = (expectedResult.numerator.value + 1) + '/' + expectedResult.denominator.value;
     expect(question.checkAnswer(answer)).toBeFalsy();
   });
+
+  it('should return false on checkAnswer() if only 1 part of fraction', () => {
+    const answer = '3';
+    expect(question.checkAnswer(answer)).toBeFalsy();
+  });
+
+  it('should return false on checkAnswer() if more than 2 parts of a fraction', () => {
+    const answer = '4/5/4';
+    expect(question.checkAnswer(answer)).toBeFalsy();
+  });
 });
