@@ -35,6 +35,13 @@ export class MockStatsService {
     return {
       subscribe: function() {
 
+      },
+      pipe: function(value: any) {
+        return {
+          subscribe: function() {
+
+          }
+        }
       }
     };
   }

@@ -1,16 +1,18 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { StatsService } from 'src/app/core/services/stats.service';
 import { Seconds } from 'src/app/core/domain/models/seconds';
 import { QuizName } from 'src/app/core/domain/models/quiz-name';
 import { TimedQuiz } from 'src/app/core/domain/models/timed-quiz';
 import { Stats } from 'src/app/core/domain/models/stats';
 import { RoundLevel } from 'src/app/core/domain/models/round-level';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-base-quiz-view',
   template: `Something has gone wrong if you're seeing this - BaseQuizViewComponent`
 })
-export class BaseQuizViewComponent implements OnInit {
+export class BaseQuizViewComponent implements OnInit, OnDestroy {
 
   static readonly startButtonText = 'Start';
   static readonly stopButtonText = 'Stop';
@@ -27,6 +29,9 @@ export class BaseQuizViewComponent implements OnInit {
   // Whether or not to show the jump to level links
   showJumpToLevelLinks = false;
 
+  // Subject to cue destroying subscription of maxLevels
+  private readonly onDestroy = new Subject<void>();
+
   /**
    * Base class for all QuizViewComponents
    * Sublesses must override clearAnswerInput()
@@ -40,6 +45,10 @@ export class BaseQuizViewComponent implements OnInit {
   clearAnswerInput() {}
 
   ngOnInit() {}
+
+  ngOnDestroy() {
+    this.onDestroy.next();
+  }
 
   start() {
     if (this.quiz.isTimerRunning()) {
@@ -62,7 +71,10 @@ export class BaseQuizViewComponent implements OnInit {
   }
 
   getMaxLevels() {
-    this.statsService.getMaxLevels().subscribe(maxLevels => {
+    this.statsService.getMaxLevels().pipe(
+      takeUntil(this.onDestroy)
+    )
+    .subscribe(maxLevels => {
       if (maxLevels && maxLevels.hasOwnProperty(this.quizName)) {
         this.maxLevel = maxLevels[this.quizName];
         if (!this.quiz.isTimerRunning()) {

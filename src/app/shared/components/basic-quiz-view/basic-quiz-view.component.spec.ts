@@ -42,12 +42,13 @@ describe('BasicQuizViewComponent', () => {
   let startButton: DebugElement;
   let messagesView: DebugElement;
   const mockStatsService = jasmine.createSpyObj('StatsService', ['getMaxLevels', 'addStats']);
-  const maxLevelsObj = jasmine.createSpyObj('MaxLevels', ['subscribe']);
+  const maxLevelsObj = jasmine.createSpyObj('MaxLevels', ['subscribe', 'pipe']);
   const quizName = 'Basics';
   const maxLevels = {};
   const maxLevel = 5;
   maxLevels[quizName] = maxLevel;
   mockStatsService.getMaxLevels.and.returnValue(maxLevelsObj);
+  maxLevelsObj.pipe.and.returnValue(maxLevelsObj);
   maxLevelsObj.subscribe.and.callFake((func) => {
     func(maxLevels);
   });
