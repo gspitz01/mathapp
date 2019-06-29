@@ -25,15 +25,18 @@ export class FractionQuizViewComponent extends BaseQuizViewComponent implements 
   ngOnInit() {
     this.quiz = new FractionTimedQuiz(this.startingTime, this.startingLevel,
       this.levelOrder as FractionRoundLevel[], this.quizName,
+      // beforeTimerStart():
       () => {
         this.setUI();
         if (this.numInput) {
           this.numInput.nativeElement.focus();
         }
       },
+      // beforeEvaluateRound():
       () => {
         this.resetUI();
       },
+      // afterEvaluateRound():
       (stats: Stats) => {
         this.sendStats(stats);
       }
