@@ -51,6 +51,9 @@ export class MockAngularFireAuth {
   authState = {
     subscribe: function() {
 
+    },
+    pipe: function(func: Function) {
+      return this;
     }
   };
 }

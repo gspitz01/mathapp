@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { SecurityService } from '../core/services/security.service';
 import { Router } from '@angular/router';
 import { StatsService } from '../core/services/stats.service';
+import { Subject, Observable } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-auth',
@@ -10,24 +12,27 @@ import { StatsService } from '../core/services/stats.service';
 })
 export class AuthComponent implements OnInit {
   currentUrl: string[] = [];
-  isAdmin = false;
+  isAdmin: Observable<boolean>;
 
   constructor(private security: SecurityService,
     private router: Router,
     private statsService: StatsService) { }
 
   ngOnInit() {
-    this.security.getAuthState().subscribe(authState => {
-      if (authState) {
-        this.statsService.getAdminSnapshot().subscribe(admin => {
-          if (admin.key === authState.uid) {
-            this.isAdmin = true;
-          } else {
-            this.isAdmin = false;
-          }
-        });
-      }
-    });
+    this.isAdmin = this.security.getAuthState().pipe(
+      switchMap(authState => {
+        if (authState) {
+          return this.statsService.getAdminSnapshot().pipe(
+            map(admin => {
+            if (admin.key === authState.uid) {
+              return true;
+            } else {
+              return false;
+            }
+          }));
+        }
+      })
+    );
   }
 
   logout() {

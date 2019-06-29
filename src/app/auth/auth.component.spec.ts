@@ -14,11 +14,11 @@ describe('AuthComponent', () => {
   const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
   const statsServiceSpy = jasmine.createSpyObj('StatsService', ['getAdminSnapshot']);
   const authState = {
-    uid: "34hjjk234"
+    uid: '34hjjk234'
   };
   const admin = {
     key: authState.uid
-  }
+  };
   statsServiceSpy.getAdminSnapshot.and.returnValue(of(admin));
   const securityServiceSpy = jasmine.createSpyObj('SecurityService',
     ['getAuthState', 'logout', 'authenticated', 'currentUserDisplayName']);
@@ -50,7 +50,7 @@ describe('AuthComponent', () => {
 
   it('should show login link if not logged in', () => {
     fixture.whenStable().then(() => {
-      let login = fixture.debugElement.query(By.css('.login'));
+      const login = fixture.debugElement.query(By.css('.login'));
       expect(login.nativeElement).toBeTruthy();
     });
   });
@@ -60,7 +60,7 @@ describe('AuthComponent', () => {
     fixture.detectChanges();
 
     fixture.whenStable().then(() => {
-      let logout = fixture.debugElement.query(By.css(".logout"));
+      const logout = fixture.debugElement.query(By.css('.logout'));
       logout.nativeElement.click();
 
       expect(securityServiceSpy.logout).toHaveBeenCalled();
@@ -69,12 +69,12 @@ describe('AuthComponent', () => {
   });
 
   it('should show current user name if logged in', () => {
-    const currentUserName = "Billy Bob";
+    const currentUserName = 'Billy Bob';
     securityServiceSpy.currentUserDisplayName.and.returnValue(currentUserName);
     fixture.detectChanges();
 
     fixture.whenStable().then(() => {
-      let currentUser = fixture.debugElement.query(By.css('.current-user'));
+      const currentUser = fixture.debugElement.query(By.css('.current-user'));
       expect(currentUser.nativeElement.textContent).toContain(currentUserName);
     });
   });
@@ -82,7 +82,7 @@ describe('AuthComponent', () => {
   it('should show stats link if admin', () => {
     fixture.detectChanges();
     fixture.whenStable().then(() => {
-      let statsLink = fixture.debugElement.query(By.css('.stats'));
+      const statsLink = fixture.debugElement.query(By.css('.stats'));
       expect(statsLink.nativeElement).toBeTruthy();
     });
   });

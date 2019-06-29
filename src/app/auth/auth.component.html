@@ -2,6 +2,6 @@
 <div *ngIf="loggedIn()">
   <span class="current-user">{{currentUser()}}</span>
   <span class="login-interaction logout" (click)="logout()">Logout</span>
-  <span *ngIf="isAdmin" class="stats" routerLink="/stats">Stats</span>
-  <span *ngIf="!isAdmin" class="stats" routerLink="/stats/student-self">Stats</span>
+  <span *ngIf="isAdmin | async" class="stats" routerLink="/stats">Stats</span>
+  <span *ngIf="!isAdmin | async" class="stats" routerLink="/stats/student-self">Stats</span>
 </div>
