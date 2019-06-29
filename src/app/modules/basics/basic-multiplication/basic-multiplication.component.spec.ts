@@ -19,7 +19,7 @@ describe('BasicMultiplicationComponent', () => {
   let component: BasicMultiplicationComponent;
   let fixture: ComponentFixture<BasicMultiplicationComponent>;
   let startButton: DebugElement;
-  const activatedRoute = {roundName: "twos"};
+  const activatedRoute = {roundName: 'twos'};
   const mockActivatedRoute = {
     params: of(activatedRoute)
   };
@@ -45,7 +45,7 @@ describe('BasicMultiplicationComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(BasicMultiplicationComponent);
     component = fixture.componentInstance;
-    startButton = fixture.debugElement.query(By.css("#start"));
+    startButton = fixture.debugElement.query(By.css('#start'));
     fixture.detectChanges();
   });
 
@@ -58,23 +58,23 @@ describe('BasicMultiplicationComponent', () => {
   });
 
   it('quiz name should be basic-multiplication-twos', () => {
-    expect(component.quizName).toBe("basic-multiplication-twos");
+    expect(component.quizName).toBe('basic-multiplication-twos');
   });
 
   it('should display start button', () => {
-    expect(startButton.nativeElement.textContent).toBe("Start");
+    expect(startButton.nativeElement.textContent).toBe('Start');
   });
 
   it('should display "Level: Twos"', () => {
-    let levelDisplay = fixture.debugElement.query(By.css(".level"));
-    expect(levelDisplay.nativeElement.textContent).toContain("Twos");
+    const levelDisplay = fixture.debugElement.query(By.css('.level'));
+    expect(levelDisplay.nativeElement.textContent).toContain('Twos');
   });
 
   it('after start clicked, should display addition operator', () => {
     fixture.whenStable().then(() => {
       startButton.nativeElement.click();
       fixture.detectChanges();
-      let operatorView = fixture.debugElement.query(By.css(".operator"));
+      const operatorView = fixture.debugElement.query(By.css('.operator'));
       expect(operatorView.nativeElement.textContent).toBe(MULTIPLICATION.display);
     });
   });
@@ -83,7 +83,7 @@ describe('BasicMultiplicationComponent', () => {
     fixture.whenStable().then(() => {
       startButton.nativeElement.click();
       fixture.detectChanges();
-      let timeRemainingView = fixture.debugElement.query(By.css(".time-remaining"));
+      const timeRemainingView = fixture.debugElement.query(By.css('.time-remaining'));
       expect(timeRemainingView.nativeElement.textContent).toBe('60');
     });
   });
@@ -92,11 +92,11 @@ describe('BasicMultiplicationComponent', () => {
     fixture.whenStable().then(() => {
       fixture.debugElement.query(By.css('.jump-to-level-button')).nativeElement.click();
       fixture.detectChanges();
-      let easyFivesLevelButton = fixture.debugElement.query(By.css("#hard-multiplication-twos"));
+      const easyFivesLevelButton = fixture.debugElement.query(By.css('#hard-multiplication-twos'));
       easyFivesLevelButton.nativeElement.click();
       fixture.detectChanges();
 
-      let levelDisplay = fixture.debugElement.query(By.css('.level'));
+      const levelDisplay = fixture.debugElement.query(By.css('.level'));
       expect(levelDisplay.nativeElement.textContent).toContain('Hard');
     });
   });
