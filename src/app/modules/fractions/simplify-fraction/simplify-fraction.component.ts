@@ -8,8 +8,8 @@ import { Stats } from 'src/app/core/domain/models/stats';
 import { SimplifyFractionTimedQuiz } from 'src/app/core/domain/models/fractions/simplify-fraction-timed-quiz';
 import { QUIZ_NAMES } from 'src/app/core/domain/models/constants';
 
-const startButtonText = "Start";
-const stopButtonText = "Stop";
+const startButtonText = 'Start';
+const stopButtonText = 'Stop';
 const validAnswerRegex = /^[0-9\-]*$/;
 
 @Component({
@@ -22,8 +22,8 @@ export class SimplifyFractionComponent implements OnInit {
   levelOrder = SIMPLIFY_FRACTION_LEVEL_ORDER;
   buttonText: string;
   private maxLevel: number;
-  private answerNum = new FormControl("");
-  private answerDen = new FormControl("");
+  private answerNum = new FormControl('');
+  private answerDen = new FormControl('');
   private answerDisabled: boolean;
   @ViewChild('numeratorInput', { static: false }) numInput: ElementRef;
   quiz: SimplifyFractionTimedQuiz;
@@ -80,7 +80,7 @@ export class SimplifyFractionComponent implements OnInit {
 
   onEnter() {
     if (!this.answerDisabled && this.answerIsValid()) {
-      let answer = this.answerNum.value + SimplifyFractionTimedQuiz.ANSWER_DELIMITER + this.answerDen.value;
+      const answer = this.answerNum.value + SimplifyFractionTimedQuiz.ANSWER_DELIMITER + this.answerDen.value;
       this.quiz.answerQuestion(answer);
       this.clearAnswerInput();
       this.numInput.nativeElement.focus();
@@ -93,7 +93,7 @@ export class SimplifyFractionComponent implements OnInit {
   }
 
   clearAnswerInput() {
-    this.answerNum.setValue("");
-    this.answerDen.setValue("");
+    this.answerNum.setValue('');
+    this.answerDen.setValue('');
   }
 }

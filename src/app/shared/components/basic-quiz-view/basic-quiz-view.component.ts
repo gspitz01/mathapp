@@ -2,82 +2,47 @@ import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import { StatsService } from '../../../core/services/stats.service';
-import { Seconds } from 'src/app/core/domain/models/seconds';
-import { BasicRoundLevel } from 'src/app/core/domain/models/basics/basic-round-level';
 import { Stats } from 'src/app/core/domain/models/stats';
 import { BasicTimedQuiz } from 'src/app/core/domain/models/basics/basic-timed-quiz';
-import { QuizName } from 'src/app/core/domain/models/quiz-name';
+import { BaseQuizViewComponent } from '../base-quiz-view/base-quiz-view.component';
+import { BasicRoundLevel } from 'src/app/core/domain/models/basics/basic-round-level';
 
-const startButtonText = 'Start';
-const stopButtonText = 'Stop';
-const validAnswerRegex = /^[0-9\-]*$/;
 
 @Component({
   selector: 'app-basic-quiz-view',
   templateUrl: './basic-quiz-view.component.html',
   styleUrls: ['./basic-quiz-view.component.scss']
 })
-export class BasicQuizViewComponent implements OnInit {
+export class BasicQuizViewComponent extends BaseQuizViewComponent implements OnInit {
 
-  @Input() startingLevel: number;
-  @Input() startingTime: Seconds;
-  @Input() levelOrder: BasicRoundLevel[];
-  @Input() quizName: QuizName;
-  buttonText: string;
-  private maxLevel: number;
   private answer = new FormControl('');
-  private answerDisabled: boolean;
   @ViewChild('answerInp', { static: false }) answerInput: ElementRef;
-  quiz: BasicTimedQuiz;
 
-  // Whether or not to show the jump to level links
-  showJumpToLevelLinks = false;
-
-  constructor(private statsService: StatsService) {}
+  constructor(public statsService: StatsService) {
+    super(statsService);
+  }
 
   ngOnInit() {
-    this.quiz = new BasicTimedQuiz(this.startingTime, this.startingLevel, this.levelOrder, this.quizName,
+    this.quiz = new BasicTimedQuiz(this.startingTime, this.startingLevel,
+      this.levelOrder as BasicRoundLevel[], this.quizName,
+      // beforeTimerStart():
       () => {
-        this.clearAnswerInput();
-        this.buttonText = stopButtonText;
-        this.answerDisabled = false;
+        this.setUI();
         if (this.answerInput) {
           this.answerInput.nativeElement.focus();
         }
       },
+      // beforeEvaluateRound():
       () => {
-        this.buttonText = startButtonText;
-        this.answerDisabled = true;
-        this.clearAnswerInput();
+        this.resetUI();
       },
+      // afterEvaluateRound():
       (stats: Stats) => {
-        // Send the round stats and update for maxLevels
-        // Don't send maxLevel update if we received a maxLevel and it's greater than or equal to currentLevel
-        if (this.maxLevel && this.quiz.currentLevel <= this.maxLevel) {
-          this.statsService.addStats(stats, null);
-        } else {
-          this.statsService.addStats(stats, {[this.quizName]: this.quiz.currentLevel});
-        }
+        this.sendStats(stats);
       }
     );
-    this.buttonText = startButtonText;
-    this.answerDisabled = true;
-    this.statsService.getMaxLevels().subscribe(maxLevels => {
-      if (maxLevels && maxLevels.hasOwnProperty(this.quizName)) {
-        this.maxLevel = maxLevels[this.quizName];
-        if (!this.quiz.isTimerRunning()) {
-          this.quiz.currentLevel = this.maxLevel;
-        }
-      }
-    });
-  }
-
-  start() {
-    if (this.quiz.isTimerRunning()) {
-      this.quiz.stopTimer();
-    } else {
-      this.quiz.startTimer();
-    }
+    this.resetUI();
+    this.getMaxLevels();
   }
 
   onEnter() {
@@ -88,7 +53,7 @@ export class BasicQuizViewComponent implements OnInit {
   }
 
   answerIsValid(): boolean {
-    return this.answer.value && validAnswerRegex.test(this.answer.value);
+    return this.answer.value && BaseQuizViewComponent.validAnswerRegex.test(this.answer.value);
   }
 
   clearAnswerInput() {

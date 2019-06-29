@@ -3,85 +3,48 @@ import { FormControl } from '@angular/forms';
 
 import { StatsService } from '../../../core/services/stats.service';
 import { FractionRoundLevel } from '../../../core/domain/models/fractions/fraction-round-level';
-import { Seconds } from 'src/app/core/domain/models/seconds';
 import { Stats } from 'src/app/core/domain/models/stats';
 import { FractionTimedQuiz } from 'src/app/core/domain/models/fractions/fraction-timed-quiz';
-import { QuizName } from 'src/app/core/domain/models/quiz-name';
-
-const startButtonText = "Start";
-const stopButtonText = "Stop";
-const validAnswerRegex = /^[0-9\-]*$/;
+import { BaseQuizViewComponent } from 'src/app/shared/components/base-quiz-view/base-quiz-view.component';
 
 @Component({
   selector: 'app-fraction-quiz-view',
   templateUrl: './fraction-quiz-view.component.html',
   styleUrls: ['./fraction-quiz-view.component.scss']
 })
-export class FractionQuizViewComponent implements OnInit {
+export class FractionQuizViewComponent extends BaseQuizViewComponent implements OnInit {
 
-  @Input() startingLevel: number;
-  @Input() startingTime: Seconds;
-  @Input() levelOrder: FractionRoundLevel[];
-  @Input() quizName: QuizName;
-  buttonText: string;
-  private maxLevel: number;
-  private answerNum = new FormControl("");
-  private answerDen = new FormControl("");
-  private answerDisabled: boolean;
+  private answerNum = new FormControl('');
+  private answerDen = new FormControl('');
   @ViewChild('numeratorInput', { static: false }) numInput: ElementRef;
-  quiz: FractionTimedQuiz;
 
-  // Whether or not to show the jump to level links
-  showJumpToLevelLinks = false;
-
-  constructor(private statsService: StatsService) { }
+  constructor(public statsService: StatsService) {
+    super(statsService);
+  }
 
   ngOnInit() {
-    this.quiz = new FractionTimedQuiz(this.startingTime, this.startingLevel, this.levelOrder, this.quizName,
+    this.quiz = new FractionTimedQuiz(this.startingTime, this.startingLevel,
+      this.levelOrder as FractionRoundLevel[], this.quizName,
       () => {
-        this.clearAnswerInput();
-        this.buttonText = stopButtonText;
-        this.answerDisabled = false;
+        this.setUI();
         if (this.numInput) {
           this.numInput.nativeElement.focus();
         }
       },
       () => {
-        this.buttonText = startButtonText;
-        this.answerDisabled = true;
-        this.clearAnswerInput();
+        this.resetUI();
       },
       (stats: Stats) => {
-        if (this.maxLevel && this.quiz.currentLevel <= this.maxLevel) {
-          this.statsService.addStats(stats, null);
-        } else {
-          this.statsService.addStats(stats, {[this.quizName]: this.quiz.currentLevel});
-        }
+        this.sendStats(stats);
       }
     );
-    this.buttonText = startButtonText;
-    this.answerDisabled = true;
-    this.statsService.getMaxLevels().subscribe(maxLevels => {
-      if (maxLevels && maxLevels.hasOwnProperty(this.quizName)) {
-        this.maxLevel = maxLevels[this.quizName];
-        if (!this.quiz.isTimerRunning()) {
-          this.quiz.currentLevel = this.maxLevel;
-        }
-      }
-    });
-  }
-
-  start() {
-    if (this.quiz.isTimerRunning()) {
-      this.quiz.stopTimer();
-    } else {
-      this.quiz.startTimer();
-    }
+    this.resetUI();
+    this.getMaxLevels();
   }
 
   onEnter() {
     if (!this.answerDisabled && this.answerIsValid()) {
-      let answer = this.answerNum.value + FractionTimedQuiz.ANSWER_DELIMITER + this.answerDen.value;
+      const answer = this.answerNum.value + FractionTimedQuiz.ANSWER_DELIMITER + this.answerDen.value;
       this.quiz.answerQuestion(answer);
       this.clearAnswerInput();
       this.numInput.nativeElement.focus();
@@ -90,11 +53,12 @@ export class FractionQuizViewComponent implements OnInit {
 
   answerIsValid(): boolean {
     return this.answerNum.value && this.answerDen.value &&
-      validAnswerRegex.test(this.answerNum.value) && validAnswerRegex.test(this.answerDen.value);
+      BaseQuizViewComponent.validAnswerRegex.test(this.answerNum.value) &&
+      BaseQuizViewComponent.validAnswerRegex.test(this.answerDen.value);
   }
 
   clearAnswerInput() {
-    this.answerNum.setValue("");
-    this.answerDen.setValue("");
+    this.answerNum.setValue('');
+    this.answerDen.setValue('');
   }
 }

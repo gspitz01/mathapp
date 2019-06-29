@@ -7,6 +7,7 @@ import { MatCardModule, MatListModule } from '@angular/material';
 
 import { RouterCardsViewComponent } from './components/router-cards-view/router-cards-view.component';
 import { BasicQuizViewComponent } from './components/basic-quiz-view/basic-quiz-view.component';
+import { BaseQuizViewComponent } from './components/base-quiz-view/base-quiz-view.component';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { BasicQuizViewComponent } from './components/basic-quiz-view/basic-quiz-
   ],
   declarations: [
     RouterCardsViewComponent,
-    BasicQuizViewComponent
+    BasicQuizViewComponent,
+    BaseQuizViewComponent
   ],
   exports: [
     RouterCardsViewComponent,
