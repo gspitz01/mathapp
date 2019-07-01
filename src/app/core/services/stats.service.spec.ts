@@ -138,8 +138,12 @@ describe('StatsService', () => {
 
   const threeVarMarble = 'x 9ms y 9ms z 9ms |';
   let statsListMock: Observable<any>;
+  let statsListRefSpy: Spied<any>;
   let userListMock: Observable<any>;
+  let userListRefSpy: Spied<any>;
+  let usersObjectRefSpy: Spied<any>;
   let maxLevelsMock: Observable<any>;
+  let maxLevelsRefSpy: Spied<any>;
   let teacherListMock: Observable<any>;
   let classListMock: Observable<any>;
   let authStateMock: Observable<any>;
@@ -221,13 +225,14 @@ describe('StatsService', () => {
     });
     adminMock = cold('xyz|', expectedAdminMock);
 
+    userListRefSpy = jasmine.createSpyObj('UserListRef', ['snapshotChanges']);
+    userListRefSpy.snapshotChanges.and.returnValue(userListMock);
+    statsListRefSpy = jasmine.createSpyObj('StatsListRef', ['snapshotChanges', 'push']);
+    statsListRefSpy.snapshotChanges.and.returnValue(statsListMock);
+    statsListRefSpy.push.and.returnValue(cold('x|', {x: true}));
     angularFireDbSpy.list.and.callFake((refName) => {
       if (refName.includes('userdata')) {
-        return {
-          snapshotChanges: function() {
-            return statsListMock;
-          }
-        };
+        return statsListRefSpy;
       } else if (refName.includes('teachers')) {
         if (refName.includes('classes')) {
           return {
@@ -244,16 +249,17 @@ describe('StatsService', () => {
         }
       } else {
         // object references starting with 'users/'
-        return {
-          snapshotChanges: function() {
-            return userListMock;
-          }
-        };
+        return userListRefSpy;
       }
     });
 
     // Return value for db.object('admins/' + userId) which gets called in
     // getAdminSnapshot, which is now called in the constructor
+    maxLevelsRefSpy = jasmine.createSpyObj('MaxLevelsRef', ['update', 'valueChanges']);
+    maxLevelsRefSpy.valueChanges.and.returnValue(maxLevelsMock);
+    maxLevelsRefSpy.update.and.returnValue(cold('x|', {x: true}));
+    usersObjectRefSpy = jasmine.createSpyObj('UsersObjectRef', ['update']);
+    usersObjectRefSpy.update.and.returnValue(cold('x|', {x: true}));
     angularFireDbSpy.object.and.callFake((refName) => {
       if (refName.includes('admins')) {
         return {
@@ -261,12 +267,10 @@ describe('StatsService', () => {
             return adminMock;
           }
         };
+      } else if (refName.includes('maxLevels')) {
+        return maxLevelsRefSpy;
       } else {
-        return {
-          valueChanges: function() {
-            return maxLevelsMock;
-          }
-        };
+        return usersObjectRefSpy;
       }
     });
     TestBed.configureTestingModule({
@@ -284,14 +288,8 @@ describe('StatsService', () => {
     resetTestScheduler();
   });
 
-  it('should check auth state on creation', () => {
+  it('should create', () => {
     expect(service).toBeTruthy();
-    expect(securityServiceSpy.getAuthState).toHaveBeenCalled();
-    // Would like to test these but not sure how to because would have to
-    // start the testScheduler from inside the beforeEach to make sure
-    // the observable correctly returns
-    // expect(securityServiceSpy.currentUserId).toHaveBeenCalled();
-    // expect(angularFireDbSpy.object).toHaveBeenCalledWith('admins/' + testUserValues[0].id);
   });
 
   it('should return correct admin state on isAdmin()', () => {
@@ -312,47 +310,69 @@ describe('StatsService', () => {
     });
   });
 
-  it('should set username on user and push userdata if authenticated on addStats()', () => {
-    // It should only call the database with the first value from the observable,
-    // which is the x value in our marbles
-    // const userDisplayName = expectedCurrentUserDisplayNameMock.x;
-    // const userId = expectedCurrentUserIdMock.x;
-    // const userNameSplit = userDisplayName.split(' ');
-    // const userLastName = userNameSplit[userNameSplit.length - 1];
-    const maxLevels = { 'basic-addition': 4 };
-
-    // const objectRefSpy = jasmine.createSpyObj('AngularFireObject', ['update']);
-    // angularFireDbSpy.object.and.returnValue(objectRefSpy);
-    // const listRefSpy = jasmine.createSpyObj('AngularFireList', ['push']);
-    // angularFireDbSpy.list.and.returnValue(listRefSpy);
+  it('should return Observable of true if logged in on addStats()', () => {
     getTestScheduler().run(helpers => {
       const { expectObservable } = helpers;
+      const maxLevels = { 'basic-addition': 4 };
       // It should only allow one value through the pipeline because addStats takes the first
       // value from security.loggedIn()
-      expectObservable(service.addStats(stats, maxLevels)).toBe('(x|)', { x: true });
-
-      // TODO: find another way to check that these have been called
-      // expect(securityServiceSpy.loggedIn).toHaveBeenCalled();
-      // expect(securityServiceSpy.currentUserId).toHaveBeenCalled();
-      // expect(securityServiceSpy.currentUserDisplayName).toHaveBeenCalled();
-      // expect(angularFireDbSpy.object).toHaveBeenCalledWith('users/' + userId);
-      // expect(angularFireDbSpy.object).toHaveBeenCalledWith('users/' + userId + '/maxLevels');
-      // expect(angularFireDbSpy.list).toHaveBeenCalledWith('userdata/' + userId);
-      // expect(objectRefSpy.update).toHaveBeenCalledWith({
-      //   name: userDisplayName,
-      //   lastName: userLastName
-      // });
-      // expect(objectRefSpy.update).toHaveBeenCalledWith(maxLevels);
-      // expect(listRefSpy.push).toHaveBeenCalledWith({
-      //   startDate: stats.roundStart.getTime(),
-      //   endDate: stats.roundEnd.getTime(),
-      //   name: stats.roundName,
-      //   target: stats.target,
-      //   correct: stats.correct,
-      //   incorrects: stats.incorrects
-      // });
+      loggedInMock = cold('x 9ms |', {x: true});
+      securityServiceSpy.loggedIn.and.returnValue(loggedInMock);
+      // Not exactly sure why this comes back in 10 ms, presumably it has something to do with
+      // the time scale difference outside vs. inside getTestScheduler
+      expectObservable(service.addStats(stats, maxLevels)).toBe('10ms (x|)', { x: true });
     });
+  });
 
+  it('should return Observable of false if not logged in on addStats()', () => {
+    getTestScheduler().run(helpers => {
+      const { expectObservable } = helpers;
+      const maxLevels = { 'basic-addition': 4 };
+      // It should only allow one value through the pipeline because addStats takes the first
+      // value from security.loggedIn()
+      loggedInMock = cold('x|', {x: false});
+      securityServiceSpy.loggedIn.and.returnValue(loggedInMock);
+      expectObservable(service.addStats(stats, maxLevels)).toBe('(x|)', { x: false });
+    });
+  });
+
+  it('should set username on user and push userdata if logged-in on addStats()', (done) => {
+    getTestScheduler().run(helpers => {
+      const { expectObservable } = helpers;
+
+      const userId = expectedCurrentUserIdMock.x;
+      const userDisplayName = expectedCurrentUserDisplayNameMock.x;
+      const splitUserName = userDisplayName.split(' ');
+      const userLastName = splitUserName[splitUserName.length - 1];
+
+      loggedInMock = cold('xyz|', {x: true});
+      securityServiceSpy.loggedIn.and.returnValue(loggedInMock);
+      const maxLevels = { 'basic-addition': 4 };
+      const subscription = service.addStats(stats, maxLevels).subscribe(success => {
+        expect(success).toBeTruthy();
+        expect(securityServiceSpy.loggedIn).toHaveBeenCalled();
+        expect(securityServiceSpy.currentUserId).toHaveBeenCalled();
+        expect(securityServiceSpy.currentUserDisplayName).toHaveBeenCalled();
+        expect(angularFireDbSpy.object).toHaveBeenCalledWith('users/' + userId);
+        expect(angularFireDbSpy.object).toHaveBeenCalledWith('users/' + userId + '/maxLevels');
+        expect(angularFireDbSpy.list).toHaveBeenCalledWith('userdata/' + userId);
+        expect(usersObjectRefSpy.update).toHaveBeenCalledWith({
+          name: userDisplayName,
+          lastName: userLastName
+        });
+        expect(maxLevelsRefSpy.update).toHaveBeenCalledWith(maxLevels);
+        expect(statsListRefSpy.push).toHaveBeenCalledWith({
+          startDate: stats.roundStart.getTime(),
+          endDate: stats.roundEnd.getTime(),
+          name: stats.roundName,
+          target: stats.target,
+          correct: stats.correct,
+          incorrects: stats.incorrects
+        });
+        subscription.unsubscribe();
+        done();
+      });
+    });
   });
 
   it('should not set username nor push userdata if not authenticated on addStats()', () => {
