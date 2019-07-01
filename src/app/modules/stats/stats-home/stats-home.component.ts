@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { map, takeUntil, first } from 'rxjs/operators';
 
 import { StatsService } from 'src/app/core/services/stats.service';
 import { User } from 'src/app/core/domain/models/user';
@@ -14,7 +14,7 @@ import { Stats } from 'src/app/core/domain/models/stats';
   templateUrl: './stats-home.component.html',
   styleUrls: ['./stats-home.component.scss']
 })
-export class StatsHomeComponent implements OnInit {
+export class StatsHomeComponent implements OnInit, OnDestroy {
   users: Observable<User[]>;
   unassignedUsers: Observable<User[]>;
   teachers: Observable<Teacher[]>;
@@ -27,6 +27,8 @@ export class StatsHomeComponent implements OnInit {
   selectedUser: User;
   userStats: Observable<Stats[]>;
 
+  private readonly onDestroy = new Subject<void>();
+
   constructor(private statsService: StatsService) {}
 
   ngOnInit() {
@@ -36,6 +38,10 @@ export class StatsHomeComponent implements OnInit {
       map(users => users.filter(user => user.classId == null))
     );
     this.teachers = this.statsService.getTeachers();
+  }
+
+  ngOnDestroy() {
+    this.onDestroy.next();
   }
 
   onTeacherSelected(teacherId: string) {
@@ -54,19 +60,25 @@ export class StatsHomeComponent implements OnInit {
   onAddClassFormSubmit(className: string) {
     if (className) {
       if (this.selectedTeacherId) {
-        this.statsService.addClassToTeacher(this.selectedTeacherId, className);
+        this.statsService.addClassToTeacher(this.selectedTeacherId, className).pipe(
+          first(),
+          takeUntil(this.onDestroy)
+        ).subscribe();
       }
       this.addingClass = false;
     }
   }
 
   onRemoveClass(clazz: Class) {
-    if (this.selectedTeacherId && confirm("Are you sure you want to delete the class: " + clazz.name + "?")) {
-      this.statsService.removeClassFromTeacher(this.selectedTeacherId, clazz.id);
-      if (this.selectedClassId == clazz.id) {
+    if (this.selectedTeacherId && confirm('Are you sure you want to delete the class: ' + clazz.name + '?')) {
+      this.statsService.removeClassFromTeacher(this.selectedTeacherId, clazz.id).pipe(
+        first(),
+        takeUntil(this.onDestroy)
+      ).subscribe();
+      if (this.selectedClassId === clazz.id) {
         this.selectedClassId = null;
       }
-      if (this.selectedUser && this.selectedUser.classId == clazz.id) {
+      if (this.selectedUser && this.selectedUser.classId === clazz.id) {
         this.selectedUser = null;
       }
     }
@@ -85,12 +97,18 @@ export class StatsHomeComponent implements OnInit {
 
   onAddStudentToClass(studentId: string) {
     if (this.selectedClassId) {
-      this.statsService.addUserToClass(this.selectedClassId, studentId);
+      this.statsService.addUserToClass(this.selectedClassId, studentId).pipe(
+        first(),
+        takeUntil(this.onDestroy)
+      ).subscribe();
     }
   }
 
   onRemoveStudent(student: User) {
-    this.statsService.removeUserFromClass(student.id);
+    this.statsService.removeUserFromClass(student.id).pipe(
+      first(),
+      takeUntil(this.onDestroy)
+    ).subscribe();
     if (this.selectedUser && student.id === this.selectedUser.id) {
       this.selectedUser = null;
     }

@@ -13,6 +13,7 @@ import { ADDITION } from 'src/app/core/domain/models/basics/basic-operators';
 import { WRONG_ANSWER_TEXT, NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT,
   ADVANCE_TO_NEXT_LEVEL_TEXT, FINISHED_HIGHEST_LEVEL_TEXT } from 'src/app/core/domain/models/constants';
 import { compileComponentFromMetadata } from '@angular/compiler';
+import { of } from 'rxjs';
 
 const defaultStartingTime = new Seconds(60);
 
@@ -48,6 +49,7 @@ describe('BasicQuizViewComponent', () => {
   const maxLevel = 5;
   maxLevels[quizName] = maxLevel;
   mockStatsService.getMaxLevels.and.returnValue(maxLevelsObj);
+  mockStatsService.addStats.and.returnValue(of(true));
   maxLevelsObj.pipe.and.returnValue(maxLevelsObj);
   maxLevelsObj.subscribe.and.callFake((func) => {
     func(maxLevels);

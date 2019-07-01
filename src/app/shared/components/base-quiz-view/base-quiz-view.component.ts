@@ -6,7 +6,7 @@ import { TimedQuiz } from 'src/app/core/domain/models/timed-quiz';
 import { Stats } from 'src/app/core/domain/models/stats';
 import { RoundLevel } from 'src/app/core/domain/models/round-level';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-base-quiz-view',
@@ -88,9 +88,15 @@ export class BaseQuizViewComponent implements OnInit, OnDestroy {
     // Send the round stats and update for maxLevels
     // Don't send maxLevel update if we received a maxLevel and it's greater than or equal to currentLevel
     if (this.maxLevel && this.quiz.currentLevel <= this.maxLevel) {
-      this.statsService.addStats(stats, null);
+      this.statsService.addStats(stats, null).pipe(
+        first(),
+        takeUntil(this.onDestroy)
+      ).subscribe();
     } else {
-      this.statsService.addStats(stats, {[this.quizName]: this.quiz.currentLevel});
+      this.statsService.addStats(stats, {[this.quizName]: this.quiz.currentLevel}).pipe(
+        first(),
+        takeUntil(this.onDestroy)
+      ).subscribe();
     }
   }
 

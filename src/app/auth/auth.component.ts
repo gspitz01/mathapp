@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { SecurityService } from '../core/services/security.service';
 import { Router } from '@angular/router';
 import { StatsService } from '../core/services/stats.service';
-import { Subject, Observable } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map, switchMap, share } from 'rxjs/operators';
 
 @Component({
   selector: 'app-auth',
@@ -11,8 +11,9 @@ import { map, switchMap } from 'rxjs/operators';
   styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent implements OnInit {
-  currentUrl: string[] = [];
   isAdmin: Observable<boolean>;
+  loggedIn: Observable<boolean>;
+  currentUser: Observable<string>;
 
   constructor(private security: SecurityService,
     private router: Router,
@@ -24,27 +25,22 @@ export class AuthComponent implements OnInit {
         if (authState) {
           return this.statsService.getAdminSnapshot().pipe(
             map(admin => {
-            if (admin.key === authState.uid) {
-              return true;
-            } else {
-              return false;
-            }
+              if (admin.key === authState.uid) {
+                return true;
+              } else {
+                return false;
+              }
           }));
         }
-      })
+      }),
+      share()
     );
+    this.loggedIn =  this.security.loggedIn().pipe(share());
+    this.currentUser = this.security.currentUserDisplayName().pipe(share());
   }
 
   logout() {
     this.security.logout();
     this.router.navigate(['login']);
-  }
-
-  loggedIn(): boolean {
-    return this.security.authenticated();
-  }
-
-  currentUser(): string {
-    return this.security.currentUserDisplayName();
   }
 }

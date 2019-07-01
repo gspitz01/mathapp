@@ -3,11 +3,13 @@ import { Router, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/ro
 
 import { AuthGuardService } from './auth-guard.service';
 import { SecurityService } from './security.service';
+import { of } from 'rxjs';
+import { first } from 'rxjs/operators';
 
 
 describe('AuthGuardService', () => {
   const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
-  const ssSpy = jasmine.createSpyObj('SecurityService', ['authenticated']);
+  const ssSpy = jasmine.createSpyObj('SecurityService', ['loggedIn']);
   let authGuardService: AuthGuardService;
 
   beforeEach(() => {
@@ -27,19 +29,22 @@ describe('AuthGuardService', () => {
   });
 
   it('should return true from canActivate if security is authenticated', () => {
-    ssSpy.authenticated.and.returnValue(true);
-    expect(authGuardService.canActivate({} as ActivatedRouteSnapshot, {} as RouterStateSnapshot)).toBeTruthy();
+    ssSpy.loggedIn.and.returnValue(of(true));
+    authGuardService.canActivate({} as ActivatedRouteSnapshot, {} as RouterStateSnapshot).pipe(first()).subscribe(canActivate => {
+      expect(canActivate).toBeTruthy();
+    });
   });
 
   it('should return false and call navigate on router if security not authenticated', () => {
-    ssSpy.authenticated.and.returnValue(false);
+    ssSpy.loggedIn.and.returnValue(of(false));
     const stateUrl = 'twentyTwo';
     const state = {url: stateUrl };
 
-    expect(authGuardService.canActivate({} as ActivatedRouteSnapshot, state as RouterStateSnapshot)).toBeFalsy();
-
-    const parameter1 = ['login'];
-    const parameter2 = { queryParams: { return: stateUrl }};
-    expect(routerSpy.navigate).toHaveBeenCalledWith(parameter1, parameter2);
+    authGuardService.canActivate({} as ActivatedRouteSnapshot, state as RouterStateSnapshot).pipe(first()).subscribe(canActivate => {
+      expect(canActivate).toBeFalsy();
+      const parameter1 = ['login'];
+      const parameter2 = { queryParams: { return: stateUrl }};
+      expect(routerSpy.navigate).toHaveBeenCalledWith(parameter1, parameter2);
+    });
   });
 });

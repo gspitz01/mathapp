@@ -8,6 +8,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 
 import { LoginComponent } from './login.component';
 import { SecurityService } from '../core/services/security.service';
+import { of } from 'rxjs';
 
 class MockAngularFireAuth {
   authState = {
@@ -18,9 +19,7 @@ class MockAngularFireAuth {
 }
 
 class MockActivatedRoute {
-  queryParams = {
-    subscribe: function() {}
-  };
+  queryParams = of({return: 'jiggly-puff'});
 }
 
 describe('LoginComponent', () => {

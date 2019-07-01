@@ -2,13 +2,11 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { By } from '@angular/platform-browser';
 
-import { of } from 'rxjs';
+import { of, BehaviorSubject } from 'rxjs';
 
 import { AuthComponent } from './auth.component';
 import { SecurityService } from '../core/services/security.service';
 import { StatsService } from '../core/services/stats.service';
-
-// TODO: add tests for not Admin, change to use jasmine-marbles
 
 describe('AuthComponent', () => {
   const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
@@ -21,12 +19,17 @@ describe('AuthComponent', () => {
   };
   statsServiceSpy.getAdminSnapshot.and.returnValue(of(admin));
   const securityServiceSpy = jasmine.createSpyObj('SecurityService',
-    ['getAuthState', 'logout', 'authenticated', 'currentUserDisplayName']);
+    ['getAuthState', 'logout', 'loggedIn', 'currentUserDisplayName']);
   securityServiceSpy.getAuthState.and.returnValue(of(authState));
+  const currentUserName = 'Billy Bob';
+  securityServiceSpy.currentUserDisplayName.and.returnValue(of(currentUserName));
   let component: AuthComponent;
   let fixture: ComponentFixture<AuthComponent>;
+  let loggedInSubject: BehaviorSubject<boolean>;
 
   beforeEach(async(() => {
+    loggedInSubject = new BehaviorSubject(false);
+    securityServiceSpy.loggedIn.and.returnValue(loggedInSubject);
     TestBed.configureTestingModule({
       declarations: [ AuthComponent ],
       providers: [
@@ -56,7 +59,8 @@ describe('AuthComponent', () => {
   });
 
   it('should logout and navigate to login on logout click', () => {
-    securityServiceSpy.authenticated.and.returnValue(true);
+    // Trigger login
+    loggedInSubject.next(true);
     fixture.detectChanges();
 
     fixture.whenStable().then(() => {
@@ -69,8 +73,9 @@ describe('AuthComponent', () => {
   });
 
   it('should show current user name if logged in', () => {
-    const currentUserName = 'Billy Bob';
-    securityServiceSpy.currentUserDisplayName.and.returnValue(currentUserName);
+    securityServiceSpy.currentUserDisplayName.and.returnValue(of(currentUserName));
+    // Trigger login
+    loggedInSubject.next(true);
     fixture.detectChanges();
 
     fixture.whenStable().then(() => {
@@ -80,10 +85,23 @@ describe('AuthComponent', () => {
   });
 
   it('should show stats link if admin', () => {
+    // Trigger Login
+    loggedInSubject.next(true);
     fixture.detectChanges();
+
     fixture.whenStable().then(() => {
       const statsLink = fixture.debugElement.query(By.css('.stats'));
       expect(statsLink.nativeElement).toBeTruthy();
+    });
+  });
+
+  it('should not show stats link if not admin', () => {
+    // Login starts out as false, so even though the admin credentials are right,
+    // admin should be false without further setup
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      const statsLink = fixture.debugElement.query(By.css('.stats'));
+      expect(statsLink).toBeFalsy();
     });
   });
 });

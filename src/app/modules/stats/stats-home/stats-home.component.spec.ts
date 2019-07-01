@@ -31,15 +31,15 @@ describe('StatsHomeComponent', () => {
   let fixture: ComponentFixture<StatsHomeComponent>;
   let statsService: Spied<StatsService>;
 
-  const unassignedUsers = [new User("userId03", "No Class User", "User", null)];
-  const testUsers = [new User("userId01", "John Name", "Name", "class01"),
-    new User("userId02", "Jane Doe", "Doe", "class02"),
+  const unassignedUsers = [new User('userId03', 'No Class User', 'User', null)];
+  const testUsers = [new User('userId01', 'John Name', 'Name', 'class01'),
+    new User('userId02', 'Jane Doe', 'Doe', 'class02'),
     ...unassignedUsers];
 
-  const testTeachers = [new Teacher("teacher01", "Teachy Teach", ["class01"])];
-  const testClasses = [new Class("class01", "Algebra 1"), new Class("class02", "Geometry")];
+  const testTeachers = [new Teacher('teacher01', 'Teachy Teach', ['class01'])];
+  const testClasses = [new Class('class01', 'Algebra 1'), new Class('class02', 'Geometry')];
   const testClassUsers = [testUsers[0]];
-  const testStats = [new Stats(new Date(), new Date(), "Mathy Maths", 10, 4, null)];
+  const testStats = [new Stats(new Date(), new Date(), 'Mathy Maths', 10, 4, null)];
   const usersObservable = of(testUsers);
   const teachersObservable = of(testTeachers);
   const classesObservable = of(testClasses);
@@ -106,6 +106,10 @@ describe('StatsHomeComponent', () => {
     statsService.getClassesFromTeacher.and.returnValue(classesObservable);
     statsService.getUsersFromClass.and.returnValue(classUsersObservable);
     statsService.getStats.and.returnValue(statsObservable);
+    statsService.addClassToTeacher.and.returnValue(of(true));
+    statsService.addUserToClass.and.returnValue(of(true));
+    statsService.removeClassFromTeacher.and.returnValue(of(true));
+    statsService.removeUserFromClass.and.returnValue(of(true));
 
     TestBed.configureTestingModule({
       declarations: [
@@ -195,7 +199,7 @@ describe('StatsHomeComponent', () => {
     clickOnTeacher();
     clickAddClassButton();
 
-    const className = "New Class Name";
+    const className = 'New Class Name';
     const classNameInput = fixture.debugElement.query(By.css('.add-class-name')).nativeElement;
     classNameInput.value = className;
     classNameInput.dispatchEvent(new Event('input'));
@@ -338,9 +342,9 @@ describe('StatsHomeComponent', () => {
       expect(statsElements[i * 5 + 2].nativeElement.textContent).toContain(testStats[i].target.toString());
       expect(statsElements[i * 5 + 3].nativeElement.textContent).toContain(testStats[i].correct.toString());
       if (testStats[i].incorrects == null) {
-        expect(statsElements[i * 5 + 4].nativeElement.textContent).toContain("None Incorrect");
+        expect(statsElements[i * 5 + 4].nativeElement.textContent).toContain('None Incorrect');
       } else {
-        expect(statsElements[i * 5 + 4].nativeElement.textContent).toContain("Op1");
+        expect(statsElements[i * 5 + 4].nativeElement.textContent).toContain('Op1');
       }
     }
   });

@@ -1,6 +1,7 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { SecurityService } from '../core/services/security.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,9 @@ export class LoginComponent implements OnInit {
     private zone: NgZone) { }
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => this.return = params['return'] || 'home');
+    this.route.queryParams.pipe(
+      first()
+    ).subscribe(params => this.return = params['return'] || 'home');
   }
 
   login() {

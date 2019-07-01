@@ -4,7 +4,6 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { auth } from 'firebase';
 
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 import { cold, getTestScheduler, initTestScheduler, resetTestScheduler } from 'jasmine-marbles';
 
@@ -54,9 +53,7 @@ describe('SecurityService', () => {
   it('should return true if user exists on authenticated()', () => {
     getTestScheduler().run(helpers => {
       const { expectObservable } = helpers;
-      const result = authStateMock.pipe(map(() => {
-        return service.authenticated();
-      }));
+      const result = service.loggedIn();
       expectObservable(result).toBe(expectedMarbleString, { w: false, x: true, y: true });
     });
   });
@@ -74,9 +71,7 @@ describe('SecurityService', () => {
   it('should return correct from currentUserIsAnonymous()', () => {
     getTestScheduler().run(helpers => {
       const { expectObservable } = helpers;
-      const result = authStateMock.pipe(map(() => {
-        return service.currentUserIsAnonymous();
-      }));
+      const result = service.currentUserIsAnonymous();
       expectObservable(result).toBe(expectedMarbleString, { w: false, x: false, y: true });
     });
   });
@@ -84,9 +79,7 @@ describe('SecurityService', () => {
   it('should return correct user id from currentUserId()', () => {
     getTestScheduler().run(helpers => {
       const { expectObservable } = helpers;
-      const result = authStateMock.pipe(map(() => {
-        return service.currentUserId();
-      }));
+      const result = service.currentUserId();
       expectObservable(result).toBe(expectedMarbleString, { w: '', x: userId1, y: userId2 });
     });
   });
@@ -94,9 +87,7 @@ describe('SecurityService', () => {
   it('should return user display name from currentUserDisplayName()', () => {
     getTestScheduler().run(helpers => {
       const { expectObservable } = helpers;
-      const result = authStateMock.pipe(map(() => {
-        return service.currentUserDisplayName();
-      }));
+      const result = service.currentUserDisplayName();
       expectObservable(result).toBe(expectedMarbleString, { w: 'Guest', x: userDisplayName1, y: 'Anonymous' });
     });
   });

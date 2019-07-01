@@ -11,49 +11,49 @@ import { SIMPLIFY_FRACTION } from '../../../core/domain/models/fractions/fractio
 import { FractionResult } from '../../../core/domain/models/fractions/fraction-result';
 import { SIMPLIFY_FRACTION_LEVEL_ORDER } from '../../../core/domain/models/fractions/simplify-fraction-round-levels';
 import { BasicOperand } from 'src/app/core/domain/models/basics/basic-operand';
-import { MockStatsService } from 'src/app/core/domain/models/test-constants.spec';
 import { WRONG_ANSWER_TEXT, NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT,
   ADVANCE_TO_NEXT_LEVEL_TEXT, FINISHED_HIGHEST_LEVEL_TEXT } from 'src/app/core/domain/models/constants';
+import { of } from 'rxjs';
 
 function getTimeRemainingView(fixture: ComponentFixture<SimplifyFractionComponent>): DebugElement {
-  return fixture.debugElement.query(By.css(".time-remaining"));
+  return fixture.debugElement.query(By.css('.time-remaining'));
 }
 
 function getCorrectAnswersView(fixture: ComponentFixture<SimplifyFractionComponent>): DebugElement {
-  return fixture.debugElement.query(By.css(".correct-answers"));
+  return fixture.debugElement.query(By.css('.correct-answers'));
 }
 
 function getOperandNumeratorView(fixture: ComponentFixture<SimplifyFractionComponent>): DebugElement {
-  return fixture.debugElement.query(By.css(".operand-numerator"));
+  return fixture.debugElement.query(By.css('.operand-numerator'));
 }
 
 function getOperandDenominatorView(fixture: ComponentFixture<SimplifyFractionComponent>): DebugElement {
-  return fixture.debugElement.query(By.css(".operand-denominator"));
+  return fixture.debugElement.query(By.css('.operand-denominator'));
 }
 
 function getAnswerNumeratorInputView(fixture: ComponentFixture<SimplifyFractionComponent>): DebugElement {
-  return fixture.debugElement.query(By.css("#answer-num"));
+  return fixture.debugElement.query(By.css('#answer-num'));
 }
 
 function getAnswerDenominatorInputView(fixture: ComponentFixture<SimplifyFractionComponent>): DebugElement {
-  return fixture.debugElement.query(By.css("#answer-den"));
+  return fixture.debugElement.query(By.css('#answer-den'));
 }
 
 function getAnswer(fixture: ComponentFixture<SimplifyFractionComponent>): FractionResult {
-  let operand1NumeratorView = getOperandNumeratorView(fixture);
-      let operand1DenominatorView = getOperandDenominatorView(fixture);
-      let opNum = parseInt(operand1NumeratorView.nativeElement.textContent);
-      let opDen = parseInt(operand1DenominatorView.nativeElement.textContent);
+  const operand1NumeratorView = getOperandNumeratorView(fixture);
+      const operand1DenominatorView = getOperandDenominatorView(fixture);
+      const opNum = parseInt(operand1NumeratorView.nativeElement.textContent, 10);
+      const opDen = parseInt(operand1DenominatorView.nativeElement.textContent, 10);
       return SIMPLIFY_FRACTION.operation(new BasicOperand(opNum), new BasicOperand(opDen));
 }
 
 function setAnswer(fixture: ComponentFixture<SimplifyFractionComponent>, num: number, den: number) {
-  let answerNumInput = getAnswerNumeratorInputView(fixture);
-      let answerDenInput = getAnswerDenominatorInputView(fixture);
+  const answerNumInput = getAnswerNumeratorInputView(fixture);
+      const answerDenInput = getAnswerDenominatorInputView(fixture);
       answerNumInput.nativeElement.value = num;
       answerDenInput.nativeElement.value = den;
-      answerNumInput.nativeElement.dispatchEvent(new Event("input"));
-      answerDenInput.nativeElement.dispatchEvent(new Event("input"));
+      answerNumInput.nativeElement.dispatchEvent(new Event('input'));
+      answerDenInput.nativeElement.dispatchEvent(new Event('input'));
       answerDenInput.triggerEventHandler('keyup.enter', {});
 }
 
@@ -63,6 +63,10 @@ describe('SimplifyFractionComponent', () => {
   let fixture: ComponentFixture<SimplifyFractionComponent>;
   let startButton: DebugElement;
   let messagesView: DebugElement;
+  const statsServiceSpy = jasmine.createSpyObj('StatsService', ['addStats', 'getMaxLevels']);
+  // Need to start at lowest level for some tests so this needs to be a 0
+  statsServiceSpy.getMaxLevels.and.returnValue(of({'simplify-fraction': 0}));
+  statsServiceSpy.addStats.and.returnValue(of(true));
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -72,7 +76,7 @@ describe('SimplifyFractionComponent', () => {
         MatListModule
       ],
       providers: [
-        { provide: StatsService, useClass: MockStatsService }
+        { provide: StatsService, useValue: statsServiceSpy }
       ]
     })
     .compileComponents();
@@ -81,8 +85,8 @@ describe('SimplifyFractionComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SimplifyFractionComponent);
     component = fixture.componentInstance;
-    startButton = fixture.debugElement.query(By.css("#start"));
-    messagesView = fixture.debugElement.query(By.css(".messages"));
+    startButton = fixture.debugElement.query(By.css('#start'));
+    messagesView = fixture.debugElement.query(By.css('.messages'));
     fixture.detectChanges();
   });
 
@@ -95,19 +99,19 @@ describe('SimplifyFractionComponent', () => {
   });
 
   it('should display start button', () => {
-    expect(startButton.nativeElement.textContent).toBe("Start");
+    expect(startButton.nativeElement.textContent).toBe('Start');
   });
 
   it('should display "Level: Twos"', () => {
-    let levelDisplay = fixture.debugElement.query(By.css(".level"));
-    expect(levelDisplay.nativeElement.textContent).toContain("Easy Simplify Fractions");
+    const levelDisplay = fixture.debugElement.query(By.css('.level'));
+    expect(levelDisplay.nativeElement.textContent).toContain('Easy Simplify Fractions');
   });
 
   it('after start clicked, time should display', () => {
     fixture.whenStable().then(() => {
       startButton.nativeElement.click();
       fixture.detectChanges();
-      let timeRemainingView = fixture.debugElement.query(By.css(".time-remaining"));
+      const timeRemainingView = fixture.debugElement.query(By.css('.time-remaining'));
       expect(timeRemainingView.nativeElement.textContent).toBe('60');
     });
   });
@@ -116,11 +120,11 @@ describe('SimplifyFractionComponent', () => {
     fixture.whenStable().then(() => {
       fixture.debugElement.query(By.css('.jump-to-level-button')).nativeElement.click();
       fixture.detectChanges();
-      let easyFivesLevelButton = fixture.debugElement.query(By.css("#hard-simplify-fractions"));
+      const easyFivesLevelButton = fixture.debugElement.query(By.css('#hard-simplify-fractions'));
       easyFivesLevelButton.nativeElement.click();
       fixture.detectChanges();
 
-      let levelDisplay = fixture.debugElement.query(By.css('.level'));
+      const levelDisplay = fixture.debugElement.query(By.css('.level'));
       expect(levelDisplay.nativeElement.textContent).toContain('Hard');
     });
   });
@@ -129,7 +133,7 @@ describe('SimplifyFractionComponent', () => {
     fixture.whenStable().then(() => {
       startButton.nativeElement.click();
       fixture.detectChanges();
-      expect(startButton.nativeElement.textContent).toBe("Stop");
+      expect(startButton.nativeElement.textContent).toBe('Stop');
     });
   });
 
@@ -138,10 +142,10 @@ describe('SimplifyFractionComponent', () => {
       startButton.nativeElement.click();
       fixture.detectChanges();
 
-      let timeRemainingView = getTimeRemainingView(fixture);
+      const timeRemainingView = getTimeRemainingView(fixture);
       expect(timeRemainingView.nativeElement.textContent).toBe('60');
 
-      let correctAnswersView = getCorrectAnswersView(fixture);
+      const correctAnswersView = getCorrectAnswersView(fixture);
       expect(correctAnswersView.nativeElement.textContent).toContain(0);
     });
   });
@@ -151,11 +155,11 @@ describe('SimplifyFractionComponent', () => {
       startButton.nativeElement.click();
       fixture.detectChanges();
 
-      let answer = getAnswer(fixture);
+      const answer = getAnswer(fixture);
       setAnswer(fixture, answer.numerator.value, answer.denominator.value);
 
       fixture.detectChanges();
-      let correctAnswersView = getCorrectAnswersView(fixture)
+      const correctAnswersView = getCorrectAnswersView(fixture);
       expect(correctAnswersView.nativeElement.textContent).toContain(1);
     });
   });
@@ -165,13 +169,13 @@ describe('SimplifyFractionComponent', () => {
       startButton.nativeElement.click();
       fixture.detectChanges();
 
-      expect(messagesView.nativeElement.textContent).toBe("");
+      expect(messagesView.nativeElement.textContent).toBe('');
 
-      let answer = getAnswer(fixture);
+      const answer = getAnswer(fixture);
       setAnswer(fixture, answer.numerator.value + 1, answer.denominator.value);
 
       fixture.detectChanges();
-      let correctAnswersView = getCorrectAnswersView(fixture);
+      const correctAnswersView = getCorrectAnswersView(fixture);
       expect(correctAnswersView.nativeElement.textContent).toContain(0);
 
       expect(messagesView.nativeElement.textContent).toBe(WRONG_ANSWER_TEXT);
@@ -183,13 +187,13 @@ describe('SimplifyFractionComponent', () => {
       startButton.nativeElement.click();
       fixture.detectChanges();
 
-      expect(messagesView.nativeElement.textContent).toBe("");
+      expect(messagesView.nativeElement.textContent).toBe('');
 
-      let answer = getAnswer(fixture);
+      const answer = getAnswer(fixture);
       setAnswer(fixture, answer.numerator.value + 1, answer.denominator.value);
 
       fixture.detectChanges();
-      let correctAnswersView = getCorrectAnswersView(fixture);
+      const correctAnswersView = getCorrectAnswersView(fixture);
       expect(correctAnswersView.nativeElement.textContent).toContain(0);
 
       expect(messagesView.nativeElement.textContent).toBe(WRONG_ANSWER_TEXT);
@@ -198,7 +202,7 @@ describe('SimplifyFractionComponent', () => {
       fixture.detectChanges();
 
       expect(correctAnswersView.nativeElement.textContent).toContain(1);
-      expect(messagesView.nativeElement.textContent).toBe("");
+      expect(messagesView.nativeElement.textContent).toBe('');
     });
   });
 
@@ -207,16 +211,16 @@ describe('SimplifyFractionComponent', () => {
       startButton.nativeElement.click();
       fixture.detectChanges();
 
-      let answerErrorMessage = fixture.debugElement.query(By.css(".answer-error"));
+      let answerErrorMessage = fixture.debugElement.query(By.css('.answer-error'));
       expect(answerErrorMessage).toBeFalsy();
 
-      let answerInput = getAnswerNumeratorInputView(fixture);
-      answerInput.nativeElement.value = "Some text";
-      answerInput.nativeElement.dispatchEvent(new Event("input"));
+      const answerInput = getAnswerNumeratorInputView(fixture);
+      answerInput.nativeElement.value = 'Some text';
+      answerInput.nativeElement.dispatchEvent(new Event('input'));
 
       fixture.detectChanges();
-      answerErrorMessage = fixture.debugElement.query(By.css(".answer-error"));
-      expect(answerErrorMessage.nativeElement.textContent).toContain("Answer must");
+      answerErrorMessage = fixture.debugElement.query(By.css('.answer-error'));
+      expect(answerErrorMessage.nativeElement.textContent).toContain('Answer must');
     });
   });
 
@@ -225,33 +229,33 @@ describe('SimplifyFractionComponent', () => {
       startButton.nativeElement.click();
       fixture.detectChanges();
 
-      let answerErrorMessage = fixture.debugElement.query(By.css(".answer-error"));
+      let answerErrorMessage = fixture.debugElement.query(By.css('.answer-error'));
       expect(answerErrorMessage).toBeFalsy();
 
-      let answerInput = getAnswerDenominatorInputView(fixture);
-      answerInput.nativeElement.value = "Some text";
-      answerInput.nativeElement.dispatchEvent(new Event("input"));
+      const answerInput = getAnswerDenominatorInputView(fixture);
+      answerInput.nativeElement.value = 'Some text';
+      answerInput.nativeElement.dispatchEvent(new Event('input'));
 
       fixture.detectChanges();
-      answerErrorMessage = fixture.debugElement.query(By.css(".answer-error"));
-      expect(answerErrorMessage.nativeElement.textContent).toContain("Answer must");
+      answerErrorMessage = fixture.debugElement.query(By.css('.answer-error'));
+      expect(answerErrorMessage.nativeElement.textContent).toContain('Answer must');
     });
   });
 
-  it("clock ticks correctly", () => {
+  it('clock ticks correctly', () => {
     jasmine.clock().install();
 
     fixture.whenStable().then(() => {
       startButton.nativeElement.click();
       fixture.detectChanges();
 
-      let timeRemainingView = getTimeRemainingView(fixture);
-      expect(timeRemainingView.nativeElement.textContent).toBe("60");
+      const timeRemainingView = getTimeRemainingView(fixture);
+      expect(timeRemainingView.nativeElement.textContent).toBe('60');
 
       jasmine.clock().tick(1001);
       fixture.detectChanges();
 
-      expect(timeRemainingView.nativeElement.textContent).toBe("59");
+      expect(timeRemainingView.nativeElement.textContent).toBe('59');
       jasmine.clock().uninstall();
     });
   });
@@ -263,13 +267,13 @@ describe('SimplifyFractionComponent', () => {
       startButton.nativeElement.click();
       fixture.detectChanges();
 
-      expect(messagesView.nativeElement.textContent).toBe("");
+      expect(messagesView.nativeElement.textContent).toBe('');
 
       jasmine.clock().tick(60001);
       fixture.detectChanges();
 
-      let timeRemainingView = getTimeRemainingView(fixture);
-      expect(timeRemainingView.nativeElement.textContent).toBe("0");
+      const timeRemainingView = getTimeRemainingView(fixture);
+      expect(timeRemainingView.nativeElement.textContent).toBe('0');
 
       expect(messagesView.nativeElement.textContent).toBe(NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT);
 
@@ -284,26 +288,26 @@ describe('SimplifyFractionComponent', () => {
       startButton.nativeElement.click();
       fixture.detectChanges();
 
-      expect(messagesView.nativeElement.textContent).toBe("");
+      expect(messagesView.nativeElement.textContent).toBe('');
 
-      let questionsNeeded = SIMPLIFY_FRACTION_LEVEL_ORDER[0].questionThresholdPerSixtySeconds;
+      const questionsNeeded = SIMPLIFY_FRACTION_LEVEL_ORDER[0].questionThresholdPerSixtySeconds;
 
       for (let i = 0; i < questionsNeeded; i++) {
-        let answer = getAnswer(fixture);
+        const answer = getAnswer(fixture);
         setAnswer(fixture, answer.numerator.value, answer.denominator.value);
         fixture.detectChanges();
       }
 
-      let correctAnswersView = getCorrectAnswersView(fixture);
+      const correctAnswersView = getCorrectAnswersView(fixture);
       expect(correctAnswersView.nativeElement.textContent).toContain(questionsNeeded);
 
-      let timeRemainingView = getTimeRemainingView(fixture);
-      expect(timeRemainingView.nativeElement.textContent).toBe("60");
+      const timeRemainingView = getTimeRemainingView(fixture);
+      expect(timeRemainingView.nativeElement.textContent).toBe('60');
 
       jasmine.clock().tick(60001);
       fixture.detectChanges();
 
-      expect(timeRemainingView.nativeElement.textContent).toBe("0");
+      expect(timeRemainingView.nativeElement.textContent).toBe('0');
       expect(messagesView.nativeElement.textContent).toBe(ADVANCE_TO_NEXT_LEVEL_TEXT);
 
       jasmine.clock().uninstall();
@@ -314,34 +318,34 @@ describe('SimplifyFractionComponent', () => {
     jasmine.clock().install();
 
     fixture.whenStable().then(() => {
-      let levelView = fixture.debugElement.query(By.css(".level"));
-      const levelNamePrefixes = ["Easy", "Medium", "Challenging", "Hard", "Expert"];
+      const levelView = fixture.debugElement.query(By.css('.level'));
+      const levelNamePrefixes = ['Easy', 'Medium', 'Challenging', 'Hard', 'Expert'];
 
       for (let level = 0; level < SIMPLIFY_FRACTION_LEVEL_ORDER.length; level++) {
         startButton.nativeElement.click();
         fixture.detectChanges();
 
-        expect(levelView.nativeElement.textContent).toContain(levelNamePrefixes[level] + " Simplify Fractions");
-        expect(messagesView.nativeElement.textContent).toBe("");
+        expect(levelView.nativeElement.textContent).toContain(levelNamePrefixes[level] + ' Simplify Fractions');
+        expect(messagesView.nativeElement.textContent).toBe('');
 
-        let questionsNeeded = SIMPLIFY_FRACTION_LEVEL_ORDER[level].questionThresholdPerSixtySeconds;
+        const questionsNeeded = SIMPLIFY_FRACTION_LEVEL_ORDER[level].questionThresholdPerSixtySeconds;
 
         for (let i = 0; i < questionsNeeded; i++) {
-          let answer = getAnswer(fixture);
+          const answer = getAnswer(fixture);
           setAnswer(fixture, answer.numerator.value, answer.denominator.value);
           fixture.detectChanges();
         }
 
-        let correctAnswersView = getCorrectAnswersView(fixture);
+        const correctAnswersView = getCorrectAnswersView(fixture);
         expect(correctAnswersView.nativeElement.textContent).toContain(questionsNeeded);
 
-        let timeRemainingView = getTimeRemainingView(fixture);
-        expect(timeRemainingView.nativeElement.textContent).toBe("60");
+        const timeRemainingView = getTimeRemainingView(fixture);
+        expect(timeRemainingView.nativeElement.textContent).toBe('60');
 
         jasmine.clock().tick(60001);
         fixture.detectChanges();
 
-        expect(timeRemainingView.nativeElement.textContent).toBe("0");
+        expect(timeRemainingView.nativeElement.textContent).toBe('0');
         if (level < SIMPLIFY_FRACTION_LEVEL_ORDER.length - 1) {
           expect(messagesView.nativeElement.textContent).toBe(ADVANCE_TO_NEXT_LEVEL_TEXT);
         }
