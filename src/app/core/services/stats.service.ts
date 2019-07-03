@@ -137,11 +137,14 @@ export class StatsService {
       first(),
       switchMap(loggedIn => {
         if (loggedIn) {
-          return from(this.db.list('teachers/' + teacherId + '/classes').remove(classId).then(() => {
-            this.removeUsersFromClass(classId);
-          })).pipe(
-            map(() => true),
-            catchError(error => of(false))
+          return from(this.db.list('teachers/' + teacherId + '/classes').remove(classId)).pipe(
+            switchMap((value: void, index: number) => {
+              return this.removeUsersFromClass(classId);
+            }),
+            map((success: boolean, index: number) => success),
+            catchError(error => {
+              return of(false);
+            })
           );
         } else {
           return of(false);
@@ -195,12 +198,14 @@ export class StatsService {
               return of(users).pipe(
                 mergeMap((userz: User[]) => {
                   return forkJoin(...userz.map(user => {
-                    return from(this.removeUserFromClass(user.id)).pipe(
-                      map(() => true)
-                    );
+                    return from(this.removeUserFromClass(user.id));
                   }));
                 })
               );
+            }),
+            map(() => true),
+            catchError(error => {
+              return of(false);
             })
           );
         } else {

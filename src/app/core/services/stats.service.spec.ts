@@ -204,10 +204,11 @@ describe('StatsService', () => {
 
     angularFireDbSpy = jasmine.createSpyObj('AngularFireDatabase',
       ['list', 'object']);
-    userListMock = cold('xyz|',
-      { x: [],
-        y: [firebaseUser1, firebaseUser2],
-        z: [firebaseUser1, firebaseUser2, firebaseUser3] });
+    userListMock = cold('xyz|', {
+      x: [firebaseUser1, firebaseUser2],
+      y: [],
+      z: [firebaseUser1, firebaseUser2, firebaseUser3]
+    });
     maxLevelsMock = cold('xy|', {
       x: maxLevelsObject,
       y: {}
@@ -310,8 +311,8 @@ describe('StatsService', () => {
     getTestScheduler().run(helpers => {
       const { expectObservable } = helpers;
       expectObservable(service.getAllUsers()).toBe('x 9ms y 9ms z 9ms |', {
-        x: [],
-        y: [deconstructUser(testUserValues[0]), deconstructUser(testUserValues[1])],
+        x: [deconstructUser(testUserValues[0]), deconstructUser(testUserValues[1])],
+        y: [],
         z: [deconstructUser(testUserValues[0]), deconstructUser(testUserValues[1]), deconstructUser(testUserValues[2])]
       });
     });
@@ -628,22 +629,38 @@ describe('StatsService', () => {
     });
   });
 
-  it('should remove class from teacher if logged in on removeClassFromTeacher()', () => {
+  it('should return true if logged in on removeClassFromTeacher()', () => {
     const teacherId = 'teacherId';
     const classId = 'classId';
     const listRefSpy = jasmine.createSpyObj('AngularFireList', ['remove']);
-    const listRefThen = jasmine.createSpyObj('ListRefThen', ['then']);
     angularFireDbSpy.list.and.returnValue(listRefSpy);
-    listRefSpy.remove.and.returnValue(listRefThen);
-    listRefThen.then.and.returnValue(cold('x|', {x: true}));
+    listRefSpy.remove.and.returnValue(cold('x|', {x: true}));
     const serviceSpy = spyOn(service, 'removeUsersFromClass');
+    serviceSpy.and.returnValue(cold('x|', {x: true}));
 
     getTestScheduler().run(helpers => {
       const { expectObservable } = helpers;
       expectObservable(service.removeClassFromTeacher(teacherId, classId)).toBe('x 9ms |', {x: true});
-      // expect(angularFireDbSpy.list).toHaveBeenCalledWith('teachers/' + teacherId + '/classes');
-      // expect(listRefSpy.remove).toHaveBeenCalledWith(classId);
-      // expect(service.removeUsersFromClass).toHaveBeenCalledWith(classId);
+    });
+  });
+
+  it('should remove class from teacher if logged in on removeClassFromTeacher()', (done) => {
+    const teacherId = 'teacherId';
+    const classId = 'classId';
+    const listRefSpy = jasmine.createSpyObj('AngularFireList', ['remove']);
+    angularFireDbSpy.list.and.returnValue(listRefSpy);
+    listRefSpy.remove.and.returnValue(cold('x|', {x: true}));
+    const serviceSpy = spyOn(service, 'removeUsersFromClass');
+    serviceSpy.and.returnValue(cold('x|', {x: true}));
+
+    getTestScheduler().run(helpers => {
+      service.removeClassFromTeacher(teacherId, classId).subscribe(success => {
+        expect(success).toBeTruthy();
+        expect(angularFireDbSpy.list).toHaveBeenCalledWith('teachers/' + teacherId + '/classes');
+        expect(listRefSpy.remove).toHaveBeenCalledWith(classId);
+        expect(service.removeUsersFromClass).toHaveBeenCalledWith(classId);
+        done();
+      });
     });
   });
 
@@ -791,34 +808,44 @@ describe('StatsService', () => {
     });
   });
 
+  it('should return true if logged in on removeUsersFromClass()', () => {
+    const classId = testUserValues[0].classId;
+    const objectRefSpy = jasmine.createSpyObj('AngularFireObject', ['remove']);
+    angularFireDbSpy.object.and.returnValue(objectRefSpy);
+    objectRefSpy.remove.and.returnValue(cold('x|', {x: true}));
+    securityServiceSpy.loggedIn.and.returnValue(cold('x|', {x: true}));
+    getTestScheduler().run(helpers => {
+      const { expectObservable } = helpers;
+      expectObservable(service.removeUsersFromClass(classId)).toBe('10ms (x|)', {x: true});
+    });
+  });
+
+  it('should remove all users from db if logged in on removeUsersFromClass()', (done) => {
+    const classId = testUserValues[0].classId;
+    const objectRefSpy = jasmine.createSpyObj('AngularFireObject', ['remove']);
+    angularFireDbSpy.object.and.returnValue(objectRefSpy);
+    objectRefSpy.remove.and.returnValue(cold('x|', {x: true}));
+    securityServiceSpy.loggedIn.and.returnValue(cold('x|', {x: true}));
+    spyOn(service, 'removeUserFromClass').and.callThrough();
+    spyOn(service, 'getUsersFromClass').and.callThrough();
+    getTestScheduler().run(helpers => {
+      service.removeUsersFromClass(classId).subscribe(success => {
+        expect(success).toBeTruthy();
+        expect(service.removeUserFromClass).toHaveBeenCalledWith(testUserValues[0].id);
+        expect(service.removeUserFromClass).toHaveBeenCalledWith(testUserValues[1].id);
+        done();
+      });
+    });
+  });
+
   it('should return false if not logged in on removeUsersFromClass()', () => {
-    const classId = 'classId';
+    const classId = testUserValues[0].classId;
     securityServiceSpy.loggedIn.and.returnValue(cold('x|', {x: false}));
     getTestScheduler().run(helpers => {
       const { expectObservable } = helpers;
       expectObservable(service.removeUsersFromClass(classId)).toBe('(x|)', {x: false});
     });
   });
-
-  // TODO: figure out how to test this correctly
-  // Running into the last two expectations not working and it fudging up the test
-  // for getUsersFromClass() below
-  // it('should remove all users from class on removeUsersFromClass if authenticated', () => {
-  //   getTestScheduler().run(helpers => {
-  //     securityServiceSpy.loggedIn.and.returnValue(true);
-
-  //     const classId = 'class1Id';
-
-  //     spyOn(service, 'removeUserFromClass');
-  //     spyOn(service, 'getUsersFromClass').and.callThrough();
-
-  //     service.removeUsersFromClass(classId);
-
-  //     expect(service.getUsersFromClass).toHaveBeenCalledWith(classId);
-  //     expect(service.removeUserFromClass).toHaveBeenCalledWith(testUserValues[0].id);
-  //     expect(service.removeUserFromClass).toHaveBeenCalledWith(testUserValues[1].id);
-  //   });
-  // });
 
   it('should return Observable of teachers on getTeachers()', () => {
     getTestScheduler().run(helpers => {
@@ -859,8 +886,8 @@ describe('StatsService', () => {
       const result = service.getUsersFromClass(classId);
       expectObservable(result).toBe('x 9ms y 9ms z 9ms |',
         {
-          x: [],
-          y: [deconstructUser(testUserValues[0]), deconstructUser(testUserValues[1])],
+          x: [deconstructUser(testUserValues[0]), deconstructUser(testUserValues[1])],
+          y: [],
           z: [deconstructUser(testUserValues[0]), deconstructUser(testUserValues[1])]
       });
 
