@@ -15,17 +15,18 @@ import { MULTIPLICATION } from 'src/app/core/domain/models/basics/basic-operator
 import { BASIC_MULTIPLICATION_LEVEL_ORDER } from 'src/app/core/domain/models/basics/basic-multiplication-round-levels';
 import { ActivatedRoute } from '@angular/router';
 
-fdescribe('BasicMultiplicationComponent', () => {
+describe('BasicMultiplicationComponent', () => {
   let component: BasicMultiplicationComponent;
   let fixture: ComponentFixture<BasicMultiplicationComponent>;
   let startButton: DebugElement;
   const activatedRoute = {roundName: 'threes'};
-  const activatedRouteSubject = new BehaviorSubject<any>(activatedRoute);
-  const mockActivatedRoute = {
-    params: activatedRouteSubject
-  };
+  let activatedRouteSubject: BehaviorSubject<any>;
 
   beforeEach(async(() => {
+    activatedRouteSubject = new BehaviorSubject<any>(activatedRoute);
+    const mockActivatedRoute = {
+      params: activatedRouteSubject
+    };
     TestBed.configureTestingModule({
       declarations: [
         BasicMultiplicationComponent,
@@ -71,7 +72,7 @@ fdescribe('BasicMultiplicationComponent', () => {
     expect(levelDisplay.nativeElement.textContent).toContain('Threes');
   });
 
-  fit('should display "Level: Twos" if roundName route param not there', () => {
+  it('should display "Level: Twos" if roundName route param not there', () => {
     activatedRouteSubject.next({});
     fixture = TestBed.createComponent(BasicMultiplicationComponent);
     fixture.detectChanges();

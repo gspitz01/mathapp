@@ -5,7 +5,7 @@ import { By } from '@angular/platform-browser';
 
 import { MatListModule } from '@angular/material';
 
-import { of } from 'rxjs';
+import { of, BehaviorSubject } from 'rxjs';
 
 import { BasicDivisionComponent } from './basic-division.component';
 import { BasicQuizViewComponent } from '../../../shared/components/basic-quiz-view/basic-quiz-view.component';
@@ -19,12 +19,14 @@ describe('BasicDivisionComponent', () => {
   let component: BasicDivisionComponent;
   let fixture: ComponentFixture<BasicDivisionComponent>;
   let startButton: DebugElement;
-  const activatedRoute = {roundName: "two"};
-  const mockActivatedRoute = {
-    params: of(activatedRoute)
-  };
+  const activatedRoute = {roundName: 'three'};
+  let activatedRouteSubject: BehaviorSubject<any>;
 
   beforeEach(async(() => {
+    activatedRouteSubject = new BehaviorSubject<any>(activatedRoute);
+    const mockActivatedRoute = {
+      params: activatedRouteSubject
+    };
     TestBed.configureTestingModule({
       declarations: [
         BasicDivisionComponent,
@@ -45,7 +47,7 @@ describe('BasicDivisionComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(BasicDivisionComponent);
     component = fixture.componentInstance;
-    startButton = fixture.debugElement.query(By.css("#start"));
+    startButton = fixture.debugElement.query(By.css('#start'));
     fixture.detectChanges();
   });
 
@@ -54,23 +56,33 @@ describe('BasicDivisionComponent', () => {
   });
 
   it('level order should be BASIC DIVISION', () => {
-    expect(component.levelOrder).toBe(BASIC_DIVISION_LEVEL_ORDER[0]);
+    expect(component.levelOrder).toBe(BASIC_DIVISION_LEVEL_ORDER[1]);
   });
 
   it('should display start button', () => {
-    expect(startButton.nativeElement.textContent).toBe("Start");
+    expect(startButton.nativeElement.textContent).toBe('Start');
   });
 
-  it('should display "By Two"', () => {
-    let levelDisplay = fixture.debugElement.query(By.css(".level"));
-    expect(levelDisplay.nativeElement.textContent).toContain("By Two");
+  it('should display "By Three"', () => {
+    const levelDisplay = fixture.debugElement.query(By.css('.level'));
+    expect(levelDisplay.nativeElement.textContent).toContain('By Three');
+  });
+
+  it('should display "By Two" if roundName route param not there', () => {
+    activatedRouteSubject.next({});
+    fixture = TestBed.createComponent(BasicDivisionComponent);
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      const levelDisplay = fixture.debugElement.query(By.css('.level'));
+      expect(levelDisplay.nativeElement.textContent).toContain('By Two');
+    });
   });
 
   it('after start clicked, should display addition operator', () => {
     fixture.whenStable().then(() => {
       startButton.nativeElement.click();
       fixture.detectChanges();
-      let operatorView = fixture.debugElement.query(By.css(".operator"));
+      const operatorView = fixture.debugElement.query(By.css('.operator'));
       expect(operatorView.nativeElement.textContent).toBe(DIVISION.display);
     });
   });
@@ -79,7 +91,7 @@ describe('BasicDivisionComponent', () => {
     fixture.whenStable().then(() => {
       startButton.nativeElement.click();
       fixture.detectChanges();
-      let timeRemainingView = fixture.debugElement.query(By.css(".time-remaining"));
+      const timeRemainingView = fixture.debugElement.query(By.css('.time-remaining'));
       expect(timeRemainingView.nativeElement.textContent).toBe('60');
     });
   });
