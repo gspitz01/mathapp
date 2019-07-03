@@ -145,6 +145,7 @@ describe('StatsService', () => {
   let maxLevelsMock: Observable<any>;
   let maxLevelsRefSpy: Spied<any>;
   let teacherListMock: Observable<any>;
+  let teachersObjectRefSpy: Spied<any>;
   let classListMock: Observable<any>;
   let authStateMock: Observable<any>;
   const expectedAuthStateMock = {
@@ -260,6 +261,8 @@ describe('StatsService', () => {
     maxLevelsRefSpy.update.and.returnValue(cold('x|', {x: true}));
     usersObjectRefSpy = jasmine.createSpyObj('UsersObjectRef', ['update']);
     usersObjectRefSpy.update.and.returnValue(cold('x|', {x: true}));
+    teachersObjectRefSpy = jasmine.createSpyObj('TeachersRef', ['set']);
+    teachersObjectRefSpy.set.and.returnValue(cold('x|', {x: true}));
     angularFireDbSpy.object.and.callFake((refName) => {
       if (refName.includes('admins')) {
         return {
@@ -269,6 +272,8 @@ describe('StatsService', () => {
         };
       } else if (refName.includes('maxLevels')) {
         return maxLevelsRefSpy;
+      } else if (refName.includes('teachers')) {
+        return teachersObjectRefSpy;
       } else {
         return usersObjectRefSpy;
       }
@@ -324,18 +329,6 @@ describe('StatsService', () => {
     });
   });
 
-  it('should return Observable of false if not logged in on addStats()', () => {
-    getTestScheduler().run(helpers => {
-      const { expectObservable } = helpers;
-      const maxLevels = { 'basic-addition': 4 };
-      // It should only allow one value through the pipeline because addStats takes the first
-      // value from security.loggedIn()
-      loggedInMock = cold('x|', {x: false});
-      securityServiceSpy.loggedIn.and.returnValue(loggedInMock);
-      expectObservable(service.addStats(stats, maxLevels)).toBe('(x|)', { x: false });
-    });
-  });
-
   it('should set username on user and push userdata if logged-in on addStats()', (done) => {
     getTestScheduler().run(helpers => {
       const { expectObservable } = helpers;
@@ -345,7 +338,7 @@ describe('StatsService', () => {
       const splitUserName = userDisplayName.split(' ');
       const userLastName = splitUserName[splitUserName.length - 1];
 
-      loggedInMock = cold('xyz|', {x: true});
+      loggedInMock = cold('x|', {x: true});
       securityServiceSpy.loggedIn.and.returnValue(loggedInMock);
       const maxLevels = { 'basic-addition': 4 };
       const subscription = service.addStats(stats, maxLevels).subscribe(success => {
@@ -375,31 +368,122 @@ describe('StatsService', () => {
     });
   });
 
-  it('should not set username nor push userdata if not authenticated on addStats()', () => {
-    const maxLevels = { 'basic-addition': 4 };
+  it('should not subscribe to update of maxLevels if maxLevels is null and logged-in on addStats()', (done) => {
+    spyOn(maxLevelsMock, 'subscribe');
     getTestScheduler().run(helpers => {
       const { expectObservable } = helpers;
-      service.addStats(stats, maxLevels);
-      // list() gets called during construction
-      expect(angularFireDbSpy.list).toHaveBeenCalled();
-      expect(angularFireDbSpy.object).not.toHaveBeenCalledWith('users');
-      expect(securityServiceSpy.currentUserDisplayName).not.toHaveBeenCalled();
+      const subscription = service.addStats(stats, null).subscribe(success => {
+        expect(success).toBeTruthy();
+        expect(maxLevelsRefSpy.update).toHaveBeenCalled();
+        expect(maxLevelsMock.subscribe).not.toHaveBeenCalled();
+        subscription.unsubscribe();
+        done();
+      });
     });
   });
 
-  it('should add teacher to db on addTeacher() if authenticated', () => {
+  it('should return Observable of false if not logged-in on addStats()', () => {
+    getTestScheduler().run(helpers => {
+      const { expectObservable } = helpers;
+      const maxLevels = { 'basic-addition': 4 };
+      // It should only allow one value through the pipeline because addStats takes the first
+      // value from security.loggedIn()
+      loggedInMock = cold('x|', {x: false});
+      securityServiceSpy.loggedIn.and.returnValue(loggedInMock);
+      expectObservable(service.addStats(stats, maxLevels)).toBe('(x|)', { x: false });
+    });
+  });
+
+  it('should not set username nor push userdata if not logged-in on addStats()', () => {
+    getTestScheduler().run(helpers => {
+      const { expectObservable } = helpers;
+      const maxLevels = { 'basic-addition': 4 };
+      loggedInMock = cold('x|', {x: false});
+      securityServiceSpy.loggedIn.and.returnValue(loggedInMock);
+      service.addStats(stats, maxLevels).subscribe(success => {
+        // list() gets called during construction
+        expect(angularFireDbSpy.list).toHaveBeenCalled();
+        expect(angularFireDbSpy.object).not.toHaveBeenCalledWith('users');
+        expect(securityServiceSpy.currentUserDisplayName).not.toHaveBeenCalled();
+      });
+    });
+  });
+
+  it('should return false if error getting userId update on addStats()', () => {
+    currentUserIdMock = cold('#|', expectedCurrentUserIdMock, {message: 'Failed user Id look-up'});
+    securityServiceSpy.currentUserId.and.returnValue(currentUserIdMock);
+    getTestScheduler().run(helpers => {
+      const { expectObservable } = helpers;
+      const maxLevels = { 'basic-addition': 4 };
+
+      expectObservable(service.addStats(stats, maxLevels)).toBe('(x|)', {x: false});
+    });
+  });
+
+  it('should return false if error getting userDisplayName on addStats()', () => {
+    currentUserDisplayNameMock = cold('#|', expectedCurrentUserDisplayNameMock, {message: 'Failed user name look-up'});
+    securityServiceSpy.currentUserDisplayName.and.returnValue(currentUserDisplayNameMock);
+    getTestScheduler().run(helpers => {
+      const { expectObservable } = helpers;
+      const maxLevels = { 'basic-addition': 4 };
+
+      expectObservable(service.addStats(stats, maxLevels)).toBe('(x|)', {x: false});
+    });
+  });
+
+  it('should return false if error updating user name on addStats()', () => {
+    usersObjectRefSpy.update.and.returnValue(cold('#|', {}, {message: 'Failed to update username on db'}));
+    getTestScheduler().run(helpers => {
+      const { expectObservable } = helpers;
+      const maxLevels = { 'basic-addition': 4 };
+
+      expectObservable(service.addStats(stats, maxLevels)).toBe('(x|)', {x: false});
+    });
+  });
+
+  it('should return false if error pushing stats to db on addStats()', () => {
+    statsListRefSpy.push.and.returnValue(cold('#|', {}, {message: 'Failed to push stats to db'}));
+    getTestScheduler().run(helpers => {
+      const { expectObservable } = helpers;
+      const maxLevels = { 'basic-addition': 4 };
+
+      expectObservable(service.addStats(stats, maxLevels)).toBe('(x|)', {x: false});
+    });
+  });
+
+  it('should return false if error updating maxLevels on addStats()', () => {
+    maxLevelsRefSpy.update.and.returnValue(cold('#|', {}, {message: 'Failed to update maxLevels'}));
+    getTestScheduler().run(helpers => {
+      const { expectObservable } = helpers;
+      const maxLevels = { 'basic-addition': 4 };
+
+      expectObservable(service.addStats(stats, maxLevels)).toBe('(x|)', {x: false});
+    });
+  });
+
+  it('should return true if logged-in on addTeacher()', () => {
     const teacher = new User('REwqer3343', 'A. Teacher', 'Teacher', null);
-    const objectRefSpy = jasmine.createSpyObj('AngularFireObject', ['set']);
-    angularFireDbSpy.object.and.returnValue(objectRefSpy);
-    objectRefSpy.set.and.returnValue(cold('x|', {x: true}));
 
     getTestScheduler().run(helpers => {
       const { expectObservable } = helpers;
       expectObservable(service.addTeacher(teacher)).toBe('x 9ms |', {x: true});
-      // expect(angularFireDbSpy.object).toHaveBeenCalledWith('teachers/' + teacher.id);
-      // expect(objectRefSpy.set).toHaveBeenCalledWith({
-      //   name: teacher.name
-      // });
+    });
+  });
+
+  it('should add teacher to db on addTeacher() if authenticated', (done) => {
+    const teacher = new User('REwqer3343', 'A. Teacher', 'Teacher', null);
+    teachersObjectRefSpy.set.and.returnValue(cold('x|', {x: true}));
+
+    getTestScheduler().run(helpers => {
+      const { expectObservable } = helpers;
+      service.addTeacher(teacher).subscribe(success => {
+        expect(success).toBeTruthy();
+        expect(angularFireDbSpy.object).toHaveBeenCalledWith('teachers/' + teacher.id);
+        expect(teachersObjectRefSpy.set).toHaveBeenCalledWith({
+          name: teacher.name
+        });
+        done();
+      });
     });
   });
 
@@ -410,6 +494,15 @@ describe('StatsService', () => {
       const { expectObservable } = helpers;
       service.addTeacher(teacher);
       expect(angularFireDbSpy.object).not.toHaveBeenCalledWith('teachers');
+    });
+  });
+
+  it('should return false if error setting teacherId on db on addTeacher()', () => {
+    const teacher = new User('fdasdfa', 'A. Teacher', 'Teacher', null);
+    teachersObjectRefSpy.set.and.returnValue(cold('#|', {}, {message: 'Failed to set teacher id on db.'}));
+    getTestScheduler().run(helpers => {
+      const { expectObservable } = helpers;
+      expectObservable(service.addTeacher(teacher)).toBe('(x|)', {x: false});
     });
   });
 
@@ -434,6 +527,18 @@ describe('StatsService', () => {
       service.removeTeacher(teacherId);
 
       expect(angularFireDbSpy.list).not.toHaveBeenCalledWith('teachers');
+    });
+  });
+
+  it('should return false if error removing from db on removeTeacher()', () => {
+    const teacherId = 'teacherId';
+    const listRefSpy = jasmine.createSpyObj('AngularFireList', ['remove']);
+    angularFireDbSpy.list.and.returnValue(listRefSpy);
+    listRefSpy.remove.and.returnValue(cold('#|', {}, {message: 'Failed to remove teacher from db'}));
+    getTestScheduler().run(helpers => {
+      const { expectObservable } = helpers;
+
+      expectObservable(service.removeTeacher(teacherId)).toBe('(x|)', {x: false});
     });
   });
 
@@ -467,6 +572,19 @@ describe('StatsService', () => {
     });
   });
 
+  it('should return false if error adding to db on addClassToTeacher()', () => {
+    const teacherId = 'teacherId';
+    const className = 'className';
+    const listRefSpy = jasmine.createSpyObj('AngularFireList', ['push']);
+    angularFireDbSpy.list.and.returnValue(listRefSpy);
+    listRefSpy.push.and.returnValue(cold('#|', {}, {message: 'Failed to add class to teacher on db'}));
+    getTestScheduler().run(helpers => {
+      const { expectObservable } = helpers;
+
+      expectObservable(service.addClassToTeacher(teacherId, className)).toBe('(x|)', {x: false});
+    });
+  });
+
   it('should remove class from teacher on removeClassFromTeacher() if authenticated', () => {
     const teacherId = 'teacherId';
     const classId = 'classId';
@@ -495,7 +613,20 @@ describe('StatsService', () => {
 
       expect(angularFireDbSpy.list).not.toHaveBeenCalledWith('teachers/' + teacherId + '/classes');
     });
+  });
 
+  it('should return false if error removing class from teacher on db on removeClassFromTeacher()', () => {
+    const teacherId = 'teacherId';
+    const classId = 'classId';
+    const listRefSpy = jasmine.createSpyObj('AngularFireList', ['remove']);
+    const listRefThen = jasmine.createSpyObj('ListRefThen', ['then']);
+    angularFireDbSpy.list.and.returnValue(listRefSpy);
+    listRefSpy.remove.and.returnValue(listRefThen);
+    listRefThen.then.and.returnValue(cold('#|', {}, {message: 'Failed to remove class from teacher on db'}));
+    getTestScheduler().run(helpers => {
+      const { expectObservable } = helpers;
+      expectObservable(service.removeClassFromTeacher(teacherId, classId)).toBe('(x|)', {x: false});
+    });
   });
 
   it('should add user to class on addUserToClass() if authenticated', () => {
@@ -525,6 +656,19 @@ describe('StatsService', () => {
     });
   });
 
+  it('should return false if error adding user to class on db on addUserToClass()', () => {
+    const classId = 'classId';
+    const userId = 'userId';
+    const objectRefSpy = jasmine.createSpyObj('AngularFireObject', ['update']);
+    angularFireDbSpy.object.and.returnValue(objectRefSpy);
+    objectRefSpy.update.and.returnValue(cold('#|', {}, {message: 'Failed to add user to class on db.'}));
+
+    getTestScheduler().run(helpers => {
+      const { expectObservable } = helpers;
+      expectObservable(service.addUserToClass(classId, userId)).toBe('(x|)', {x: false});
+    });
+  });
+
   it('should remove user from class on removeUserFromClass() if authenticated', () => {
     const userId = 'userId';
     const objectRefSpy = jasmine.createSpyObj('AngularFireObject', ['remove']);
@@ -546,6 +690,27 @@ describe('StatsService', () => {
       service.removeUserFromClass(userId);
 
       expect(angularFireDbSpy.object).not.toHaveBeenCalled();
+    });
+  });
+
+  it('should return false if error removing user from class on db on removeUserFromClass()', () => {
+    const userId = 'userId';
+    const objectRefSpy = jasmine.createSpyObj('AngularFireObject', ['remove']);
+    angularFireDbSpy.object.and.returnValue(objectRefSpy);
+    objectRefSpy.remove.and.returnValue(cold('#|', {}, {message: 'Failed to remove user from class on db'}));
+
+    getTestScheduler().run(helpers => {
+      const { expectObservable } = helpers;
+      expectObservable(service.removeUserFromClass(userId)).toBe('(x|)', {x: false});
+    });
+  });
+
+  it('should return false if not logged in on removeUsersFromClass()', () => {
+    const classId = 'classId';
+    securityServiceSpy.loggedIn.and.returnValue(cold('x|', {x: false}));
+    getTestScheduler().run(helpers => {
+      const { expectObservable } = helpers;
+      expectObservable(service.removeUsersFromClass(classId)).toBe('(x|)', {x: false});
     });
   });
 

@@ -50,7 +50,8 @@ export class StatsService {
             first(),
             switchMap(([userId, displayName]) => {
               const splitName = displayName.split(' ');
-              return forkJoin([this.db.object('users/' + userId).update({
+              return forkJoin([
+                this.db.object('users/' + userId).update({
                 name: displayName,
                 lastName: splitName[splitName.length - 1]
               }), this.db.list('userdata/' + userId).push({
@@ -60,14 +61,16 @@ export class StatsService {
                 target: stats.target,
                 correct: stats.correct,
                 incorrects: stats.incorrects
-              }), iif(() => maxLevels != null, this.db.object('users/' + userId + '/maxLevels').update(maxLevels))]);
+              }),
+              iif(() => maxLevels != null,
+                this.db.object('users/' + userId + '/maxLevels').update(maxLevels), of(false))]);
+            }),
+            map(() => {
+              return true;
             }),
             catchError(error => {
               // TODO: add logging here
               return of(false);
-            }),
-            map(() => {
-              return true;
             })
           );
         } else {
@@ -85,8 +88,8 @@ export class StatsService {
           return from(this.db.object('teachers/' + teacher.id).set({
             name: teacher.name
           })).pipe(
-            catchError(error => of(false)),
-            map(() => true)
+            map(() => true),
+            catchError(error => of(false))
           );
         } else {
           return of(false);
@@ -101,8 +104,8 @@ export class StatsService {
       switchMap(loggedIn => {
         if (loggedIn) {
           return from(this.db.list('teachers').remove(teacherId)).pipe(
-            catchError(error => of(false)),
-            map(() => true)
+            map(() => true),
+            catchError(error => of(false))
           );
         } else {
           return of(false);
@@ -119,8 +122,8 @@ export class StatsService {
           return from(this.db.list('teachers/' + teacherId + '/classes').push({
             name: className
           })).pipe(
-            catchError(error => of(false)),
-            map(() => true)
+            map(() => true),
+            catchError(error => of(false))
           );
         } else {
           return of(false);
@@ -137,8 +140,8 @@ export class StatsService {
           return from(this.db.list('teachers/' + teacherId + '/classes').remove(classId).then(() => {
             this.removeUsersFromClass(classId);
           })).pipe(
-            catchError(error => of(false)),
-            map(() => true)
+            map(() => true),
+            catchError(error => of(false))
           );
         } else {
           return of(false);
@@ -155,8 +158,8 @@ export class StatsService {
           return from( this.db.object('users/' + userId).update({
             classId: classId
           })).pipe(
-            catchError(error => of(false)),
-            map(() => true)
+            map(() => true),
+            catchError(error => of(false))
           );
         } else {
           return of(false);
@@ -171,8 +174,8 @@ export class StatsService {
       switchMap(loggedIn => {
         if (loggedIn) {
           return from(this.db.object('users/' + userId + '/classId').remove()).pipe(
-            catchError(error => of(false)),
-            map(() => true)
+            map(() => true),
+            catchError(error => of(false))
           );
         } else {
           return of(false);
