@@ -1,7 +1,7 @@
 <div *ngIf="loggedIn | async; else notLoggedIn">
   <span class="current-user">{{currentUser | async}}</span>
   <span class="login-interaction logout" (click)="logout()">Logout</span>
-  <span *ngIf="isAdmin | async" class="stats" routerLink="/stats">Stats</span>
-  <span *ngIf="!isAdmin | async" class="stats" routerLink="/stats/student-self">Stats</span>
+  <span *ngIf="isAdmin | async; else notAdmin" class="stats" routerLink="/stats">Stats</span>
+  <ng-template #notAdmin><span class="stats" routerLink="/stats/student-self">Stats</span></ng-template>
 </div>
-<ng-template #notLoggedIn><div ><span class="login-interaction login" routerLink="/login">Login</span></div></ng-template>
+<ng-template #notLoggedIn><div><span class="login-interaction login" routerLink="/login">Login</span></div></ng-template>
