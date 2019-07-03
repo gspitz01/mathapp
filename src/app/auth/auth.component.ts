@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SecurityService } from '../core/services/security.service';
 import { Router } from '@angular/router';
 import { StatsService } from '../core/services/stats.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map, switchMap, share } from 'rxjs/operators';
 
 @Component({
@@ -31,6 +31,8 @@ export class AuthComponent implements OnInit {
                 return false;
               }
           }));
+        } else {
+          return of(false);
         }
       }),
       share()
