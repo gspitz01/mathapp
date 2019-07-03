@@ -15,6 +15,8 @@ import { Class } from '../domain/models/class';
 import { Spied } from '../domain/models/test-constants.spec';
 
 // TODO: rewrite many of these tests and add more
+// TODO: Clarify permissions differences between writing userdata like stats
+// vs. being able to delete a class etc.
 
 function createFakeFirebaseUser(testUserValue: User) {
   return {
@@ -487,13 +489,27 @@ describe('StatsService', () => {
     });
   });
 
-  it('should not add teacher to db on addTeacher() if not authenticated', () => {
+  it('should return false if not logged in on addTeacher()', () => {
     const teacher = new User('fdsaf', 'A. Teacher', 'Teacher', null);
+    securityServiceSpy.loggedIn.and.returnValue(cold('x|', {x: false}));
 
     getTestScheduler().run(helpers => {
       const { expectObservable } = helpers;
-      service.addTeacher(teacher);
-      expect(angularFireDbSpy.object).not.toHaveBeenCalledWith('teachers');
+      expectObservable(service.addTeacher(teacher)).toBe('(x|)', {x: false});
+    });
+  });
+
+  it('should not add teacher to db if not logged in on addTeacher()', (done) => {
+    const teacher = new User('fdsaf', 'A. Teacher', 'Teacher', null);
+    securityServiceSpy.loggedIn.and.returnValue(cold('x|', {x: false}));
+
+    getTestScheduler().run(helpers => {
+      const { expectObservable } = helpers;
+      service.addTeacher(teacher).subscribe(success => {
+        expect(success).toBeFalsy();
+        expect(angularFireDbSpy.object).not.toHaveBeenCalledWith('teachers');
+        done();
+      });
     });
   });
 
@@ -506,7 +522,7 @@ describe('StatsService', () => {
     });
   });
 
-  it('should remove teacher from db on removeTeacher() if authenticated', () => {
+  it('should remove teacher from db if logged in on removeTeacher()', () => {
     const teacherId = 'teacherId';
     const listRefSpy = jasmine.createSpyObj('AngularFireList', ['remove']);
     angularFireDbSpy.list.and.returnValue(listRefSpy);
@@ -521,12 +537,26 @@ describe('StatsService', () => {
     });
   });
 
-  it('should not remove teacher from db on removeTeacher() if not authenticated', () => {
+  it('should return false if not logged in on removeTeacher()', () => {
     const teacherId = 'teacherId';
-    getTestScheduler().run(helpers => {
-      service.removeTeacher(teacherId);
+    securityServiceSpy.loggedIn.and.returnValue(cold('x|', {x: false}));
 
-      expect(angularFireDbSpy.list).not.toHaveBeenCalledWith('teachers');
+    getTestScheduler().run(helpers => {
+      const { expectObservable } = helpers;
+      expectObservable(service.removeTeacher(teacherId)).toBe('(x|)', {x: false});
+    });
+  });
+
+  it('should not remove teacher from db if not logged in on removeTeacher()', (done) => {
+    const teacherId = 'teacherId';
+    securityServiceSpy.loggedIn.and.returnValue(cold('x|', {x: false}));
+
+    getTestScheduler().run(helpers => {
+      service.removeTeacher(teacherId).subscribe(success => {
+        expect(success).toBeFalsy();
+        expect(angularFireDbSpy.list).not.toHaveBeenCalledWith('teachers');
+        done();
+      });
     });
   });
 
@@ -542,7 +572,7 @@ describe('StatsService', () => {
     });
   });
 
-  it('should add class to teacher on addClassToTeacher if authenticated', () => {
+  it('should add class to teacher if logged in on addClassToTeacher()', () => {
     const teacherId = 'teacherId';
     const className = 'className';
     const listRefSpy = jasmine.createSpyObj('AngularFireList', ['push']);
@@ -560,15 +590,28 @@ describe('StatsService', () => {
     });
   });
 
-  it('should not add class to teacher on addClassToTeacher() if not authenticated', () => {
+  it('should return false if not logged in on addClassToTeacher()', () => {
     const teacherId = 'teacherId';
     const className = 'className';
+    securityServiceSpy.loggedIn.and.returnValue(cold('x|', {x: false}));
 
     getTestScheduler().run(helpers => {
-      service.addClassToTeacher(teacherId, className);
+      const { expectObservable } = helpers;
+      expectObservable(service.addClassToTeacher(teacherId, className)).toBe('(x|)', {x: false});
+    });
+  });
 
-      // list() gets called during construction
-      expect(angularFireDbSpy.list).not.toHaveBeenCalledWith('teachers/' + teacherId + '/classes');
+  it('should not add class to teacher if not logged in on addClassToTeacher()', (done) => {
+    const teacherId = 'teacherId';
+    const className = 'className';
+    securityServiceSpy.loggedIn.and.returnValue(cold('x|', {x: false}));
+
+    getTestScheduler().run(helpers => {
+      service.addClassToTeacher(teacherId, className).subscribe(success => {
+        expect(success).toBeFalsy();
+        expect(angularFireDbSpy.list).not.toHaveBeenCalledWith('teachers/' + teacherId + '/classes');
+        done();
+      });
     });
   });
 
@@ -585,7 +628,7 @@ describe('StatsService', () => {
     });
   });
 
-  it('should remove class from teacher on removeClassFromTeacher() if authenticated', () => {
+  it('should remove class from teacher if logged in on removeClassFromTeacher()', () => {
     const teacherId = 'teacherId';
     const classId = 'classId';
     const listRefSpy = jasmine.createSpyObj('AngularFireList', ['remove']);
@@ -604,14 +647,28 @@ describe('StatsService', () => {
     });
   });
 
-  it('should not remove class from teacher on removeClassFromTeacher() if not authenticated', () => {
+  it('should return false if not logged in on removeClassFromTeacher()', () => {
     const teacherId = 'teacherId';
     const classId = 'classId';
+    securityServiceSpy.loggedIn.and.returnValue(cold('x|', {x: false}));
 
     getTestScheduler().run(helpers => {
-      service.removeClassFromTeacher(teacherId, classId);
+      const { expectObservable } = helpers;
+      expectObservable(service.removeClassFromTeacher(teacherId, classId)).toBe('(x|)', {x: false});
+    });
+  });
 
-      expect(angularFireDbSpy.list).not.toHaveBeenCalledWith('teachers/' + teacherId + '/classes');
+  it('should not remove class from teacher if not logged in on removeClassFromTeacher()', (done) => {
+    const teacherId = 'teacherId';
+    const classId = 'classId';
+    securityServiceSpy.loggedIn.and.returnValue(cold('x|', {x: false}));
+
+    getTestScheduler().run(helpers => {
+      service.removeClassFromTeacher(teacherId, classId).subscribe(success => {
+        expect(success).toBeFalsy();
+        expect(angularFireDbSpy.list).not.toHaveBeenCalledWith('teachers/' + teacherId + '/classes');
+        done();
+      });
     });
   });
 
@@ -629,7 +686,7 @@ describe('StatsService', () => {
     });
   });
 
-  it('should add user to class on addUserToClass() if authenticated', () => {
+  it('should add user to class if logged in on addUserToClass()', () => {
     const classId = 'classId';
     const userId = 'userId';
     const objectRefSpy = jasmine.createSpyObj('AngularFireObject', ['update']);
@@ -646,13 +703,28 @@ describe('StatsService', () => {
     });
   });
 
-  it('should not add user to class on addUserToClass() if not authenticated', () => {
+  it('should return false if not logged in on addUserToClass()', () => {
     const classId = 'classId';
     const userId = 'userId';
+    securityServiceSpy.loggedIn.and.returnValue(cold('x|', {x: false}));
 
     getTestScheduler().run(helpers => {
-      service.addUserToClass(classId, userId);
-      expect(angularFireDbSpy.object).not.toHaveBeenCalled();
+      const { expectObservable } = helpers;
+      expectObservable(service.addUserToClass(classId, userId)).toBe('(x|)', {x: false});
+    });
+  });
+
+  it('should not add user to class if not logged in on addUserToClass()', (done) => {
+    const classId = 'classId';
+    const userId = 'userId';
+    securityServiceSpy.loggedIn.and.returnValue(cold('x|', {x: false}));
+
+    getTestScheduler().run(helpers => {
+      service.addUserToClass(classId, userId).subscribe(success => {
+        expect(success).toBeFalsy();
+        expect(angularFireDbSpy.object).not.toHaveBeenCalled();
+        done();
+      });
     });
   });
 
@@ -669,7 +741,7 @@ describe('StatsService', () => {
     });
   });
 
-  it('should remove user from class on removeUserFromClass() if authenticated', () => {
+  it('should remove user from class if logged in on removeUserFromClass()', () => {
     const userId = 'userId';
     const objectRefSpy = jasmine.createSpyObj('AngularFireObject', ['remove']);
     angularFireDbSpy.object.and.returnValue(objectRefSpy);
@@ -684,12 +756,26 @@ describe('StatsService', () => {
     });
   });
 
-  it('should not remove user from class on removeUserFromClass() if not authenticated', () => {
+  it('should return false if not loggeed in on removeUserFromClass()', () => {
     const userId = 'userId';
-    getTestScheduler().run(helpers => {
-      service.removeUserFromClass(userId);
+    securityServiceSpy.loggedIn.and.returnValue(cold('x|', {x: false}));
 
-      expect(angularFireDbSpy.object).not.toHaveBeenCalled();
+    getTestScheduler().run(helpers => {
+      const { expectObservable } = helpers;
+      expectObservable(service.removeUserFromClass(userId)).toBe('(x|)', {x: false});
+    });
+  });
+
+  it('should not remove user from class if not loggeed in on removeUserFromClass()', (done) => {
+    const userId = 'userId';
+    securityServiceSpy.loggedIn.and.returnValue(cold('x|', {x: false}));
+
+    getTestScheduler().run(helpers => {
+      service.removeUserFromClass(userId).subscribe(success => {
+        expect(success).toBeFalsy();
+        expect(angularFireDbSpy.object).not.toHaveBeenCalled();
+        done();
+      });
     });
   });
 
