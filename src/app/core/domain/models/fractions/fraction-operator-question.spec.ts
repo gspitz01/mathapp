@@ -38,4 +38,18 @@ describe('FractionOperatorQuestion', () => {
     const answer = '4/5/4';
     expect(question.checkAnswer(answer)).toBeFalsy();
   });
+
+  it('should return true on checkAnswer() for any denominator if correct numerator is 0', () => {
+    const op3 = new FractionOperand(new BasicOperand(0), new BasicOperand(5));
+    const op4 = new FractionOperand(new BasicOperand(5), new BasicOperand(5));
+    const expectedResult2 = new FractionResult(new BasicResult(0), new BasicResult(1));
+    const fakeOp2 = function(operand1: FractionOperand, operand2: FractionOperand): FractionResult {
+      return expectedResult2;
+    };
+    const operator2 = new FractionOperator('fake2', fakeOp2);
+    const question2 = new FractionOperatorQuestion(op3, op4, operator2);
+    for (let i = -5; i < 5; i++) {
+      expect(question2.checkAnswer('0/' + i)).toBeTruthy();
+    }
+  });
 });
