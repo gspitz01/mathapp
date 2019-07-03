@@ -20,7 +20,7 @@ describe('AuthComponent', () => {
   statsServiceSpy.getAdminSnapshot.and.returnValue(of(admin));
   const securityServiceSpy = jasmine.createSpyObj('SecurityService',
     ['getAuthState', 'logout', 'loggedIn', 'currentUserDisplayName']);
-  securityServiceSpy.getAuthState.and.returnValue(of(authState));
+  let authStateSubject: BehaviorSubject<any>;
   const currentUserName = 'Billy Bob';
   securityServiceSpy.currentUserDisplayName.and.returnValue(of(currentUserName));
   let component: AuthComponent;
@@ -28,6 +28,8 @@ describe('AuthComponent', () => {
   let loggedInSubject: BehaviorSubject<boolean>;
 
   beforeEach(async(() => {
+    authStateSubject = new BehaviorSubject(authState);
+    securityServiceSpy.getAuthState.and.returnValue(authStateSubject);
     loggedInSubject = new BehaviorSubject(false);
     securityServiceSpy.loggedIn.and.returnValue(loggedInSubject);
     TestBed.configureTestingModule({
@@ -102,6 +104,26 @@ describe('AuthComponent', () => {
     fixture.whenStable().then(() => {
       const statsLink = fixture.debugElement.query(By.css('.stats'));
       expect(statsLink).toBeFalsy();
+    });
+  });
+
+  it('should have isAdmin false if logged in but admin null', (done) => {
+    securityServiceSpy.currentUserDisplayName.and.returnValue(of(currentUserName));
+    loggedInSubject.next(true);
+    authStateSubject.next(null);
+    component.isAdmin.subscribe(isAdmin => {
+      expect(isAdmin).toBeFalsy();
+      done();
+    });
+  });
+
+  it('should have isAdmin false if logged in but admin not correct', (done) => {
+    securityServiceSpy.currentUserDisplayName.and.returnValue(of(currentUserName));
+    loggedInSubject.next(true);
+    authStateSubject.next({uid: 'something wrong'});
+    component.isAdmin.subscribe(isAdmin => {
+      expect(isAdmin).toBeFalsy();
+      done();
     });
   });
 });
