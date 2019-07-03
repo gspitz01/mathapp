@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, of } from 'rxjs';
 import { map, takeUntil, first } from 'rxjs/operators';
 
 import { StatsService } from 'src/app/core/services/stats.service';
@@ -24,7 +24,7 @@ export class StatsHomeComponent implements OnInit, OnDestroy {
   selectedClassId: string;
   classStudents: Observable<User[]>;
   addingStudent = false;
-  selectedUser: User;
+  selectedUser: Observable<User>;
   userStats: Observable<Stats[]>;
 
   private readonly onDestroy = new Subject<void>();
@@ -78,8 +78,15 @@ export class StatsHomeComponent implements OnInit, OnDestroy {
       if (this.selectedClassId === clazz.id) {
         this.selectedClassId = null;
       }
-      if (this.selectedUser && this.selectedUser.classId === clazz.id) {
-        this.selectedUser = null;
+
+      if (this.selectedUser) {
+        this.selectedUser.pipe(
+          first()
+        ).subscribe(user => {
+          if (user.classId === clazz.id) {
+            this.selectedUser = null;
+          }
+        });
       }
     }
   }
@@ -109,13 +116,19 @@ export class StatsHomeComponent implements OnInit, OnDestroy {
       first(),
       takeUntil(this.onDestroy)
     ).subscribe();
-    if (this.selectedUser && student.id === this.selectedUser.id) {
-      this.selectedUser = null;
+    if (this.selectedUser) {
+      this.selectedUser.pipe(
+        first()
+      ).subscribe(user => {
+        if (student.id === user.id) {
+          this.selectedUser = null;
+        }
+      });
     }
   }
 
   onUserSelected(user: User) {
-    this.selectedUser = user;
+    this.selectedUser = of(user);
     this.userStats = this.statsService.getStats(user.id);
   }
 }

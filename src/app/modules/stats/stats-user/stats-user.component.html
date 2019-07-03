@@ -1,4 +1,4 @@
-<h2>Name: {{user.name}}</h2>
+<h2>Name: {{(user | async)?.name}}</h2>
 <table class="stats-table">
   <thead>
     <tr>

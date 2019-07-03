@@ -11,7 +11,7 @@ import { Stats } from 'src/app/core/domain/models/stats';
   styleUrls: ['./stats-user.component.scss']
 })
 export class StatsUserComponent implements OnInit {
-  @Input() user: User;
+  @Input() user: Observable<User>;
   @Input() userStats: Observable<Stats[]>;
 
   constructor() {}
