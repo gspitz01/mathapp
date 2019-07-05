@@ -10,8 +10,8 @@ import { BasicSubtractionComponent } from './basic-subtraction/basic-subtraction
 import { BasicsRoutingModule } from './/basics-routing.module';
 import { BasicMultiplicationHomeComponent } from './basic-multiplication-home/basic-multiplication-home.component';
 import { BasicDivisionHomeComponent } from './basic-division-home/basic-division-home.component';
-import { BasicExponentiationComponent } from './basic-exponentiation/basic-exponentiation.component';
-import { BasicExponentiationHomeComponent } from './basic-exponentiation-home/basic-exponentiation-home.component';
+import { ExponentiationComponent } from './exponentiation/exponentiation.component';
+import { ExponentiationHomeComponent } from './exponentiation-home/exponentiation-home.component';
 import { LeastCommonMultipleComponent } from './least-common-multiple/least-common-multiple.component';
 
 @NgModule({
@@ -28,8 +28,8 @@ import { LeastCommonMultipleComponent } from './least-common-multiple/least-comm
     BasicSubtractionComponent,
     BasicMultiplicationHomeComponent,
     BasicDivisionHomeComponent,
-    BasicExponentiationComponent,
-    BasicExponentiationHomeComponent,
+    ExponentiationComponent,
+    ExponentiationHomeComponent,
     LeastCommonMultipleComponent
   ]
 })

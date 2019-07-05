@@ -4,14 +4,14 @@ import { QUIZ_NAMES, ORDINAL_NUMBER_NAMES } from 'src/app/core/domain/models/con
 import { Subject } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
-import { BASIC_EXPONENTIATION_LEVEL_ORDER } from 'src/app/core/domain/models/basics/basic-exponentiation-round-levels';
+import { EXPONENTIATION_LEVEL_ORDER } from 'src/app/core/domain/models/basics/exponentiation-round-levels';
 
 @Component({
-  selector: 'app-basic-exponentiation',
-  templateUrl: './basic-exponentiation.component.html',
-  styleUrls: ['./basic-exponentiation.component.scss']
+  selector: 'app-exponentiation',
+  templateUrl: './exponentiation.component.html',
+  styleUrls: ['./exponentiation.component.scss']
 })
-export class BasicExponentiationComponent implements OnInit, OnDestroy {
+export class ExponentiationComponent implements OnInit, OnDestroy {
 
   startingLevel = 0;
   startingTime = new Seconds(60);
@@ -34,7 +34,7 @@ export class BasicExponentiationComponent implements OnInit, OnDestroy {
         roundIndex = 0;
         roundName = 'second';
       }
-      this.levelOrder = BASIC_EXPONENTIATION_LEVEL_ORDER[roundIndex];
+      this.levelOrder = EXPONENTIATION_LEVEL_ORDER[roundIndex];
       this.quizName += '-' + roundName;
     });
   }

@@ -5,11 +5,11 @@ import { RouterCard } from 'src/app/core/domain/models/router-card';
 const multiPath = '/fundamentals/exponentiation/';
 
 @Component({
-  selector: 'app-basic-exponentiation-home',
-  templateUrl: './basic-exponentiation-home.component.html',
-  styleUrls: ['./basic-exponentiation-home.component.scss']
+  selector: 'app-exponentiation-home',
+  templateUrl: './exponentiation-home.component.html',
+  styleUrls: ['./exponentiation-home.component.scss']
 })
-export class BasicExponentiationHomeComponent implements OnInit {
+export class ExponentiationHomeComponent implements OnInit {
 
   routerCards = [];
 

@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BasicExponentiationComponent } from './basic-exponentiation.component';
+import { ExponentiationComponent } from './exponentiation.component';
 import { DebugElement } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { BasicQuizViewComponent } from 'src/app/shared/components/basic-quiz-view/basic-quiz-view.component';
@@ -9,13 +9,13 @@ import { MatListModule } from '@angular/material';
 import { StatsService } from 'src/app/core/services/stats.service';
 import { MockStatsService } from 'src/app/core/domain/models/test-constants.spec';
 import { ActivatedRoute } from '@angular/router';
-import { BASIC_EXPONENTIATION_LEVEL_ORDER } from 'src/app/core/domain/models/basics/basic-exponentiation-round-levels';
+import { EXPONENTIATION_LEVEL_ORDER } from 'src/app/core/domain/models/basics/exponentiation-round-levels';
 import { By } from '@angular/platform-browser';
 import { EXPONENTIATION } from 'src/app/core/domain/models/basics/basic-operators';
 
-describe('BasicExponentiationComponent', () => {
-  let component: BasicExponentiationComponent;
-  let fixture: ComponentFixture<BasicExponentiationComponent>;
+describe('ExponentiationComponent', () => {
+  let component: ExponentiationComponent;
+  let fixture: ComponentFixture<ExponentiationComponent>;
   let startButton: DebugElement;
   const activatedRoute = {roundName: 'third'};
   let activatedRouteSubject: BehaviorSubject<any>;
@@ -27,7 +27,7 @@ describe('BasicExponentiationComponent', () => {
     };
     TestBed.configureTestingModule({
       declarations: [
-        BasicExponentiationComponent,
+        ExponentiationComponent,
         BasicQuizViewComponent
       ],
       imports: [
@@ -43,7 +43,7 @@ describe('BasicExponentiationComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BasicExponentiationComponent);
+    fixture = TestBed.createComponent(ExponentiationComponent);
     component = fixture.componentInstance;
     startButton = fixture.debugElement.query(By.css('#start'));
     fixture.detectChanges();
@@ -53,8 +53,8 @@ describe('BasicExponentiationComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('level order should be BASIC EXPONENTIATION', () => {
-    expect(component.levelOrder).toBe(BASIC_EXPONENTIATION_LEVEL_ORDER[1]);
+  it('level order should be EXPONENTIATION', () => {
+    expect(component.levelOrder).toBe(EXPONENTIATION_LEVEL_ORDER[1]);
   });
 
   it('quiz name should be basic-multiplication-threes', () => {
@@ -72,7 +72,7 @@ describe('BasicExponentiationComponent', () => {
 
   it('should display "Level: Second" if roundName route param not there', () => {
     activatedRouteSubject.next({});
-    fixture = TestBed.createComponent(BasicExponentiationComponent);
+    fixture = TestBed.createComponent(ExponentiationComponent);
     fixture.detectChanges();
     fixture.whenStable().then(() => {
       const levelDisplay = fixture.debugElement.query(By.css('.level'));

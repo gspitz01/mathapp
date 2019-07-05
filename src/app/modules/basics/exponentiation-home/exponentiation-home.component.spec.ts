@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 
-import { BasicExponentiationHomeComponent } from './basic-exponentiation-home.component';
+import { ExponentiationHomeComponent } from './exponentiation-home.component';
 import { Component } from '@angular/core';
 import { ORDINAL_NUMBER_NAMES } from 'src/app/core/domain/models/constants';
 import { RouterCardsViewComponent } from 'src/app/shared/components/router-cards-view/router-cards-view.component';
@@ -25,15 +25,15 @@ for (let i = 0; i < numRoutes; i++) {
   routes.push({ path: basePath + lowerCase, component: DummyComponent });
 }
 
-describe('BasicExponentiationHomeComponent', () => {
-  let component: BasicExponentiationHomeComponent;
-  let fixture: ComponentFixture<BasicExponentiationHomeComponent>;
+describe('ExponentiationHomeComponent', () => {
+  let component: ExponentiationHomeComponent;
+  let fixture: ComponentFixture<ExponentiationHomeComponent>;
   let location: Location;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        BasicExponentiationHomeComponent,
+        ExponentiationHomeComponent,
         RouterCardsViewComponent,
         DummyComponent
       ],
@@ -47,7 +47,7 @@ describe('BasicExponentiationHomeComponent', () => {
 
   beforeEach(() => {
     location = TestBed.get(Location);
-    fixture = TestBed.createComponent(BasicExponentiationHomeComponent);
+    fixture = TestBed.createComponent(ExponentiationHomeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
