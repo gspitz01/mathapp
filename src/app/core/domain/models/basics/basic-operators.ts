@@ -34,6 +34,11 @@ const gcf = function(op1: number, op2: number): number {
 };
 export const GCF = new BasicOperator('', gcf);
 
+const lcm = function(op1: number, op2: number): number {
+  return (op1 * op2) / gcf(op1, op2);
+};
+export const LCM = new BasicOperator('', lcm);
+
 const exponentiation = function(op1: number, op2: number): number {
   return Math.pow(op1, op2);
 };

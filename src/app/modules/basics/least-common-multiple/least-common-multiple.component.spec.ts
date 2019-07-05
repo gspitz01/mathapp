@@ -1,25 +1,24 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
+
+import { LeastCommonMultipleComponent } from './least-common-multiple.component';
 import { DebugElement } from '@angular/core';
-
+import { BasicQuizViewComponent } from 'src/app/shared/components/basic-quiz-view/basic-quiz-view.component';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatListModule } from '@angular/material';
-
-import { GreatestCommonFactorComponent } from './greatest-common-factor.component';
-import { BasicQuizViewComponent } from '../../../shared/components/basic-quiz-view/basic-quiz-view.component';
-import { By } from '@angular/platform-browser';
 import { StatsService } from 'src/app/core/services/stats.service';
 import { MockStatsService } from 'src/app/core/domain/models/test-constants.spec';
-import { GREATEST_COMMON_FACTOR_LEVEL_ORDER } from 'src/app/core/domain/models/fractions/gcf-round-levels';
+import { By } from '@angular/platform-browser';
+import { LCM_LEVEL_ORDER } from 'src/app/core/domain/models/basics/lcm-round-levels';
 
-describe('GreatestCommonFactorComponent', () => {
-  let component: GreatestCommonFactorComponent;
-  let fixture: ComponentFixture<GreatestCommonFactorComponent>;
+describe('LeastCommonMultipleComponent', () => {
+  let component: LeastCommonMultipleComponent;
+  let fixture: ComponentFixture<LeastCommonMultipleComponent>;
   let startButton: DebugElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        GreatestCommonFactorComponent,
+        LeastCommonMultipleComponent,
         BasicQuizViewComponent
       ],
       imports: [
@@ -34,7 +33,7 @@ describe('GreatestCommonFactorComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GreatestCommonFactorComponent);
+    fixture = TestBed.createComponent(LeastCommonMultipleComponent);
     component = fixture.componentInstance;
     startButton = fixture.debugElement.query(By.css('#start'));
     fixture.detectChanges();
@@ -45,16 +44,16 @@ describe('GreatestCommonFactorComponent', () => {
   });
 
   it('level order should be GREATEST COMMON FACTOR', () => {
-    expect(component.levelOrder).toBe(GREATEST_COMMON_FACTOR_LEVEL_ORDER);
+    expect(component.levelOrder).toBe(LCM_LEVEL_ORDER);
   });
 
   it('should display start button', () => {
     expect(startButton.nativeElement.textContent).toBe('Start');
   });
 
-  it('should display "Level: Easy Greatest Common Factor"', () => {
+  it('should display "Level: Easy Least Common Multiple"', () => {
     const levelDisplay = fixture.debugElement.query(By.css('.level'));
-    expect(levelDisplay.nativeElement.textContent).toContain('Easy Greatest Common Factor');
+    expect(levelDisplay.nativeElement.textContent).toContain('Easy Least Common Multiple');
   });
 
   it('after start clicked, time should display', () => {
@@ -70,12 +69,12 @@ describe('GreatestCommonFactorComponent', () => {
     fixture.whenStable().then(() => {
       fixture.debugElement.query(By.css('.jump-to-level-button')).nativeElement.click();
       fixture.detectChanges();
-      const easyFivesLevelButton = fixture.debugElement.query(By.css('#hard-greatest-common-factor'));
+      const easyFivesLevelButton = fixture.debugElement.query(By.css('#hard-least-common-multiple'));
       easyFivesLevelButton.nativeElement.click();
       fixture.detectChanges();
 
       const levelDisplay = fixture.debugElement.query(By.css('.level'));
-      expect(levelDisplay.nativeElement.textContent).toContain('Hard Greatest Common Factor');
+      expect(levelDisplay.nativeElement.textContent).toContain('Hard Least Common Multiple');
     });
   });
 });

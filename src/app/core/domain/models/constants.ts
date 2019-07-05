@@ -30,5 +30,6 @@ export const QUIZ_NAMES: QuizName[] = [
   'fraction-subtraction',
   'gcf',
   'simplify-fraction',
-  'exponentiation'
+  'exponentiation',
+  'lcm'
 ];

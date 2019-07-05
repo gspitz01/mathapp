@@ -12,6 +12,7 @@ import { BasicMultiplicationHomeComponent } from './basic-multiplication-home/ba
 import { BasicDivisionHomeComponent } from './basic-division-home/basic-division-home.component';
 import { BasicExponentiationComponent } from './basic-exponentiation/basic-exponentiation.component';
 import { BasicExponentiationHomeComponent } from './basic-exponentiation-home/basic-exponentiation-home.component';
+import { LeastCommonMultipleComponent } from './least-common-multiple/least-common-multiple.component';
 
 @NgModule({
   imports: [
@@ -28,7 +29,8 @@ import { BasicExponentiationHomeComponent } from './basic-exponentiation-home/ba
     BasicMultiplicationHomeComponent,
     BasicDivisionHomeComponent,
     BasicExponentiationComponent,
-    BasicExponentiationHomeComponent
+    BasicExponentiationHomeComponent,
+    LeastCommonMultipleComponent
   ]
 })
 export class BasicsModule { }
