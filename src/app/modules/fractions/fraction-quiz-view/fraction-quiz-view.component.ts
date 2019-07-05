@@ -6,6 +6,8 @@ import { FractionRoundLevel } from '../../../core/domain/models/fractions/fracti
 import { Stats } from 'src/app/core/domain/models/stats';
 import { FractionTimedQuiz } from 'src/app/core/domain/models/fractions/fraction-timed-quiz';
 import { BaseQuizViewComponent } from 'src/app/shared/components/base-quiz-view/base-quiz-view.component';
+import { ActivatedRoute } from '@angular/router';
+import { Seconds } from 'src/app/core/domain/models/seconds';
 
 @Component({
   selector: 'app-fraction-quiz-view',
@@ -14,15 +16,31 @@ import { BaseQuizViewComponent } from 'src/app/shared/components/base-quiz-view/
 })
 export class FractionQuizViewComponent extends BaseQuizViewComponent implements OnInit {
 
+  @Input() title: string;
   private answerNum = new FormControl('');
   private answerDen = new FormControl('');
   @ViewChild('numeratorInput', { static: false }) numInput: ElementRef;
 
-  constructor(public statsService: StatsService) {
+  constructor(public statsService: StatsService, private route: ActivatedRoute) {
     super(statsService);
   }
 
   ngOnInit() {
+    if (this.route.snapshot.data['levelOrder']) {
+      // If the router has data for us, use it
+      this.startingLevel = this.route.snapshot.data['startingLevel'];
+      this.startingTime = new Seconds(this.route.snapshot.data['startingTime']);
+      this.quizName = this.route.snapshot.data['quizName'];
+      this.title = this.route.snapshot.data['title'];
+      this.levelOrder = this.route.snapshot.data['levelOrder'];
+      this.setNewQuiz();
+    } else {
+      // If the router doesn't have data, assume it was set as component inputs
+      this.setNewQuiz();
+    }
+  }
+
+  setNewQuiz() {
     this.quiz = new FractionTimedQuiz(this.startingTime, this.startingLevel,
       this.levelOrder as FractionRoundLevel[], this.quizName,
       // beforeTimerStart():
@@ -43,6 +61,7 @@ export class FractionQuizViewComponent extends BaseQuizViewComponent implements 
     );
     this.resetUI();
     this.getMaxLevels();
+
   }
 
   onEnter() {

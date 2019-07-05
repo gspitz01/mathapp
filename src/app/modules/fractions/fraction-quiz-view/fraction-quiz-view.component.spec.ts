@@ -12,10 +12,10 @@ import { FractionOperand } from '../../../core/domain/models/fractions/fraction-
 import { FractionResult } from '../../../core/domain/models/fractions/fraction-result';
 import { StatsService } from '../../../core/services/stats.service';
 import { BasicOperand } from 'src/app/core/domain/models/basics/basic-operand';
-import { Seconds } from 'src/app/core/domain/models/seconds';
 import { WRONG_ANSWER_TEXT, NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT,
   ADVANCE_TO_NEXT_LEVEL_TEXT, FINISHED_HIGHEST_LEVEL_TEXT } from 'src/app/core/domain/models/constants';
 import { of } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 function getTimeRemainingView(fixture: ComponentFixture<FractionQuizViewComponent>): DebugElement {
   return fixture.debugElement.query(By.css('.time-remaining'));
@@ -47,6 +47,14 @@ function getAnswerNumeratorInputView(fixture: ComponentFixture<FractionQuizViewC
 
 function getAnswerDenominatorInputView(fixture: ComponentFixture<FractionQuizViewComponent>): DebugElement {
   return fixture.debugElement.query(By.css('#answer-den'));
+}
+
+function getStartButton(fixture: ComponentFixture<FractionQuizViewComponent>): DebugElement {
+  return fixture.debugElement.query(By.css('#start'));
+}
+
+function getMessagesView(fixture: ComponentFixture<FractionQuizViewComponent>): DebugElement {
+  return fixture.debugElement.query(By.css('.messages'));
 }
 
 function getAnswer(fixture: ComponentFixture<FractionQuizViewComponent>): FractionResult {
@@ -84,6 +92,17 @@ describe('FractionQuizViewComponent', () => {
   statsServiceSpy.getMaxLevels.and.returnValue(of({'fraction-addition': 4}));
   statsServiceSpy.addStats.and.returnValue(of(true));
 
+  const activatedRouteSpy = jasmine.createSpyObj('ActivatedRoute', ['get']);
+  activatedRouteSpy.snapshot = {
+    data: {
+      startingLevel: 1,
+      startingTime: 60,
+      levelOrder: FRACTION_ADDITION_LEVEL_ORDER,
+      quizName: 'easy-fraction-addition',
+      title: 'Fraction Addition'
+    }
+  };
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ FractionQuizViewComponent ],
@@ -92,7 +111,8 @@ describe('FractionQuizViewComponent', () => {
         MatListModule
       ],
       providers: [
-        { provide: StatsService, useValue: statsServiceSpy }
+        { provide: StatsService, useValue: statsServiceSpy },
+        { provide: ActivatedRoute, useValue: activatedRouteSpy }
       ]
     })
     .compileComponents();
@@ -101,9 +121,6 @@ describe('FractionQuizViewComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(FractionQuizViewComponent);
     component = fixture.componentInstance;
-    component.startingTime = new Seconds(60);
-    component.startingLevel = 1;
-    component.levelOrder = FRACTION_ADDITION_LEVEL_ORDER;
     startButton = fixture.debugElement.query(By.css('#start'));
     messagesView = fixture.debugElement.query(By.css('.messages'));
     fixture.detectChanges();
@@ -114,11 +131,15 @@ describe('FractionQuizViewComponent', () => {
   });
 
   it('start button should display "Start"', () => {
-    expect(startButton.nativeElement.textContent).toBe('Start');
+    fixture.whenStable().then(() => {
+      startButton = getStartButton(fixture);
+      expect(startButton.nativeElement.textContent).toBe('Start');
+    });
   });
 
   it('click start changes it to stop', () => {
     fixture.whenStable().then(() => {
+      startButton = getStartButton(fixture);
       startButton.nativeElement.click();
       fixture.detectChanges();
       expect(startButton.nativeElement.textContent).toBe('Stop');
@@ -127,6 +148,7 @@ describe('FractionQuizViewComponent', () => {
 
   it('after start pressed, should show question view for addition', () => {
     fixture.whenStable().then(() => {
+      startButton = getStartButton(fixture);
       startButton.nativeElement.click();
       fixture.detectChanges();
 
@@ -143,6 +165,7 @@ describe('FractionQuizViewComponent', () => {
 
   it('after answer question correctly, should update views', () => {
     fixture.whenStable().then(() => {
+      startButton = getStartButton(fixture);
       startButton.nativeElement.click();
       fixture.detectChanges();
 
@@ -157,9 +180,11 @@ describe('FractionQuizViewComponent', () => {
 
   it('after answer question incorrectly, should update views', () => {
     fixture.whenStable().then(() => {
+      startButton = getStartButton(fixture);
       startButton.nativeElement.click();
       fixture.detectChanges();
 
+      messagesView = getMessagesView(fixture);
       expect(messagesView.nativeElement.textContent).toBe('');
 
       const answer = getAnswer(fixture);
@@ -175,9 +200,11 @@ describe('FractionQuizViewComponent', () => {
 
   it('after answer question incorrectly, then correctly, wrong answer text goes away', () => {
     fixture.whenStable().then(() => {
+      startButton = getStartButton(fixture);
       startButton.nativeElement.click();
       fixture.detectChanges();
 
+      messagesView = getMessagesView(fixture);
       expect(messagesView.nativeElement.textContent).toBe('');
 
       const answer = getAnswer(fixture);
@@ -199,6 +226,7 @@ describe('FractionQuizViewComponent', () => {
 
   it('type in letters into numerator input, shows error message', () => {
     fixture.whenStable().then(() => {
+      startButton = getStartButton(fixture);
       startButton.nativeElement.click();
       fixture.detectChanges();
 
@@ -217,6 +245,7 @@ describe('FractionQuizViewComponent', () => {
 
   it('type in letters into denominator input, shows error message', () => {
     fixture.whenStable().then(() => {
+      startButton = getStartButton(fixture);
       startButton.nativeElement.click();
       fixture.detectChanges();
 
@@ -237,6 +266,7 @@ describe('FractionQuizViewComponent', () => {
     jasmine.clock().install();
 
     fixture.whenStable().then(() => {
+      startButton = getStartButton(fixture);
       startButton.nativeElement.click();
       fixture.detectChanges();
 
@@ -255,9 +285,11 @@ describe('FractionQuizViewComponent', () => {
     jasmine.clock().install();
 
     fixture.whenStable().then(() => {
+      startButton = getStartButton(fixture);
       startButton.nativeElement.click();
       fixture.detectChanges();
 
+      messagesView = getMessagesView(fixture);
       expect(messagesView.nativeElement.textContent).toBe('');
 
       jasmine.clock().tick(60001);
@@ -265,7 +297,6 @@ describe('FractionQuizViewComponent', () => {
 
       const timeRemainingView = getTimeRemainingView(fixture);
       expect(timeRemainingView.nativeElement.textContent).toBe('0');
-
       expect(messagesView.nativeElement.textContent).toBe(NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT);
 
       jasmine.clock().uninstall();
@@ -276,9 +307,11 @@ describe('FractionQuizViewComponent', () => {
     jasmine.clock().install();
 
     fixture.whenStable().then(() => {
+      startButton = getStartButton(fixture);
       startButton.nativeElement.click();
       fixture.detectChanges();
 
+      messagesView = getMessagesView(fixture);
       expect(messagesView.nativeElement.textContent).toBe('');
 
       const questionsNeeded = FRACTION_ADDITION_LEVEL_ORDER[1].questionThresholdPerSixtySeconds;
@@ -311,7 +344,8 @@ describe('FractionQuizViewComponent', () => {
     fixture.whenStable().then(() => {
       const levelView = fixture.debugElement.query(By.css('.level'));
       const levelNamePrefixes = ['Easy', 'Medium', 'Challenging', 'Hard', 'Expert'];
-
+      startButton = getStartButton(fixture);
+      messagesView = getMessagesView(fixture);
       for (let level = 1; level < FRACTION_ADDITION_LEVEL_ORDER.length; level++) {
         startButton.nativeElement.click();
         fixture.detectChanges();
