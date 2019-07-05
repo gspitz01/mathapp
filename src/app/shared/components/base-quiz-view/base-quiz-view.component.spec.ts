@@ -7,6 +7,7 @@ import { TimedQuiz } from 'src/app/core/domain/models/timed-quiz';
 import { BASIC_ADDITION_LEVEL_ORDER } from 'src/app/core/domain/models/round-levels';
 import { Seconds } from 'src/app/core/domain/models/seconds';
 import { Stats } from 'src/app/core/domain/models/stats';
+import { ActivatedRoute } from '@angular/router';
 
 describe('BaseQuizViewComponent', () => {
   let component: BaseQuizViewComponent;
@@ -25,6 +26,20 @@ describe('BaseQuizViewComponent', () => {
     }
   }
 
+  const activatedRouteSpy = jasmine.createSpyObj('ActivatedRoute', ['get']);
+  activatedRouteSpy.snapshot = {
+    params: {
+
+    },
+    data: {
+      startingLevel: 0,
+      startingTime: 60,
+      levelOrder: BASIC_ADDITION_LEVEL_ORDER,
+      quizName: 'easy-basic-addition',
+      title: 'Addition'
+    }
+  };
+
   beforeEach(async(() => {
     maxLevelsSubject = new BehaviorSubject<any>(maxLevels);
     mockStatsService.getMaxLevels.and.returnValue(maxLevelsSubject);
@@ -32,7 +47,8 @@ describe('BaseQuizViewComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ BaseQuizViewComponent ],
       providers: [
-        { provide: StatsService, useValue: mockStatsService }
+        { provide: StatsService, useValue: mockStatsService },
+        { provide: ActivatedRoute, useValue: activatedRouteSpy }
       ]
     })
     .compileComponents();

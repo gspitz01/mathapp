@@ -7,6 +7,7 @@ import { Stats } from 'src/app/core/domain/models/stats';
 import { RoundLevel } from 'src/app/core/domain/models/round-level';
 import { Subject } from 'rxjs';
 import { takeUntil, first } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-base-quiz-view',
@@ -22,6 +23,7 @@ export class BaseQuizViewComponent implements OnInit, OnDestroy {
   @Input() startingTime: Seconds;
   @Input() levelOrder: RoundLevel[];
   @Input() quizName: QuizName;
+  @Input() title: string;
   quiz: TimedQuiz;
   buttonText: string;
   protected answerDisabled: boolean;
@@ -37,7 +39,7 @@ export class BaseQuizViewComponent implements OnInit, OnDestroy {
    * Sublesses must override clearAnswerInput()
    * @param statsService StatsService injected into the child class
    */
-  constructor(public statsService: StatsService) { }
+  constructor(public statsService: StatsService, public route: ActivatedRoute) { }
 
   /**
    * Subclasses need to override this. Can't use abstract class with Angular Component.
@@ -98,6 +100,30 @@ export class BaseQuizViewComponent implements OnInit, OnDestroy {
         takeUntil(this.onDestroy)
       ).subscribe();
     }
+  }
+
+  retrieveRouteData() {
+    this.startingLevel = this.route.snapshot.data['startingLevel'];
+      this.startingTime = new Seconds(this.route.snapshot.data['startingTime']);
+      this.quizName = this.route.snapshot.data['quizName'];
+      this.title = this.route.snapshot.data['title'];
+      const levelOrder = this.route.snapshot.data['levelOrder'];
+      // If the level order is two dimensional, we should be able
+      // to resolve it to one dimension using the route param 'roundName'
+      if (levelOrder && levelOrder.length > 0 &&
+        Array.isArray(levelOrder[0]) && this.route.snapshot.params['roundName']) {
+        let roundIndex = this.route.snapshot.data['roundNamesArray'].map(numberName => numberName.toLocaleLowerCase())
+          .indexOf(this.route.snapshot.params['roundName']);
+        let roundName = this.route.snapshot.params['roundName'];
+        if (roundIndex === -1) {
+          roundIndex = this.route.snapshot.data['defaultRoundIndex'];
+          roundName = this.route.snapshot.data['defaultRoundName'];
+        }
+        this.levelOrder =  levelOrder[roundIndex];
+        this.quizName += '-' + roundName;
+      } else {
+        this.levelOrder = levelOrder;
+      }
   }
 
 }

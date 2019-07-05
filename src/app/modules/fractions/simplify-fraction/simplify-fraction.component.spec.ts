@@ -14,6 +14,7 @@ import { BasicOperand } from 'src/app/core/domain/models/basics/basic-operand';
 import { WRONG_ANSWER_TEXT, NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT,
   ADVANCE_TO_NEXT_LEVEL_TEXT, FINISHED_HIGHEST_LEVEL_TEXT } from 'src/app/core/domain/models/constants';
 import { of } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 function getTimeRemainingView(fixture: ComponentFixture<SimplifyFractionComponent>): DebugElement {
   return fixture.debugElement.query(By.css('.time-remaining'));
@@ -67,6 +68,8 @@ describe('SimplifyFractionComponent', () => {
   // Need to start at lowest level for some tests so this needs to be a 0
   statsServiceSpy.getMaxLevels.and.returnValue(of({'simplify-fraction': 0}));
   statsServiceSpy.addStats.and.returnValue(of(true));
+  const activatedRouteSpy = jasmine.createSpyObj('ActivatedRoute', ['get']);
+  activatedRouteSpy.snapshot = {data: {}};
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -76,7 +79,8 @@ describe('SimplifyFractionComponent', () => {
         MatListModule
       ],
       providers: [
-        { provide: StatsService, useValue: statsServiceSpy }
+        { provide: StatsService, useValue: statsServiceSpy },
+        { provide: ActivatedRoute, useValue: activatedRouteSpy }
       ]
     })
     .compileComponents();

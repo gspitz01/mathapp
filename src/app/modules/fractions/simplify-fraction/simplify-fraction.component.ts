@@ -9,6 +9,7 @@ import { SimplifyFractionTimedQuiz } from 'src/app/core/domain/models/fractions/
 import { QUIZ_NAMES } from 'src/app/core/domain/models/constants';
 import { BaseQuizViewComponent } from 'src/app/shared/components/base-quiz-view/base-quiz-view.component';
 import { SimplifyFractionRoundLevel } from 'src/app/core/domain/models/fractions/simplify-fraction-round-level';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-simplify-fraction',
@@ -21,8 +22,8 @@ export class SimplifyFractionComponent extends BaseQuizViewComponent implements 
   private answerDen = new FormControl('');
   @ViewChild('numeratorInput', { static: false }) numInput: ElementRef;
 
-  constructor(public statsService: StatsService) {
-    super(statsService);
+  constructor(public statsService: StatsService, public route: ActivatedRoute) {
+    super(statsService, route);
   }
 
   ngOnInit() {
