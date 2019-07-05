@@ -8,6 +8,8 @@ import { BasicMultiplicationComponent } from './basic-multiplication/basic-multi
 import { BasicSubtractionComponent } from './basic-subtraction/basic-subtraction.component';
 import { BasicMultiplicationHomeComponent } from './basic-multiplication-home/basic-multiplication-home.component';
 import { BasicDivisionHomeComponent } from './basic-division-home/basic-division-home.component';
+import { BasicExponentiationHomeComponent } from './basic-exponentiation-home/basic-exponentiation-home.component';
+import { BasicExponentiationComponent } from './basic-exponentiation/basic-exponentiation.component';
 
 const routes: Routes = [
   { path: '', children: [
@@ -17,6 +19,8 @@ const routes: Routes = [
     { path: 'multiplication/:roundName', component: BasicMultiplicationComponent },
     { path: 'multiplication', component: BasicMultiplicationHomeComponent },
     { path: 'subtraction', component: BasicSubtractionComponent },
+    { path: 'exponentiation/:roundName', component: BasicExponentiationComponent },
+    { path: 'exponentiation', component: BasicExponentiationHomeComponent },
     { path: '', component: BasicsHomeComponent }
   ]}
 

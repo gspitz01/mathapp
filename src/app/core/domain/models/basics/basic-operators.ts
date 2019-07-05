@@ -33,3 +33,8 @@ const gcf = function(op1: number, op2: number): number {
   return gcfNum;
 };
 export const GCF = new BasicOperator('', gcf);
+
+const exponentiation = function(op1: number, op2: number): number {
+  return Math.pow(op1, op2);
+};
+export const EXPONENTIATION = new BasicOperator('^', exponentiation);

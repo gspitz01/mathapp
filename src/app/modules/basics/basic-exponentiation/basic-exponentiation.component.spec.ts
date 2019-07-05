@@ -1,25 +1,23 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
+
+import { BasicExponentiationComponent } from './basic-exponentiation.component';
 import { DebugElement } from '@angular/core';
-import { By } from '@angular/platform-browser';
-
+import { BehaviorSubject } from 'rxjs';
+import { BasicQuizViewComponent } from 'src/app/shared/components/basic-quiz-view/basic-quiz-view.component';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatListModule } from '@angular/material';
-
-import { of, BehaviorSubject } from 'rxjs';
-
-import { BasicMultiplicationComponent } from './basic-multiplication.component';
-import { BasicQuizViewComponent } from '../../../shared/components/basic-quiz-view/basic-quiz-view.component';
 import { StatsService } from 'src/app/core/services/stats.service';
 import { MockStatsService } from 'src/app/core/domain/models/test-constants.spec';
-import { MULTIPLICATION } from 'src/app/core/domain/models/basics/basic-operators';
-import { BASIC_MULTIPLICATION_LEVEL_ORDER } from 'src/app/core/domain/models/basics/basic-multiplication-round-levels';
 import { ActivatedRoute } from '@angular/router';
+import { BASIC_EXPONENTIATION_LEVEL_ORDER } from 'src/app/core/domain/models/basics/basic-exponentiation-round-levels';
+import { By } from '@angular/platform-browser';
+import { EXPONENTIATION } from 'src/app/core/domain/models/basics/basic-operators';
 
-describe('BasicMultiplicationComponent', () => {
-  let component: BasicMultiplicationComponent;
-  let fixture: ComponentFixture<BasicMultiplicationComponent>;
+describe('BasicExponentiationComponent', () => {
+  let component: BasicExponentiationComponent;
+  let fixture: ComponentFixture<BasicExponentiationComponent>;
   let startButton: DebugElement;
-  const activatedRoute = {roundName: 'threes'};
+  const activatedRoute = {roundName: 'third'};
   let activatedRouteSubject: BehaviorSubject<any>;
 
   beforeEach(async(() => {
@@ -29,7 +27,7 @@ describe('BasicMultiplicationComponent', () => {
     };
     TestBed.configureTestingModule({
       declarations: [
-        BasicMultiplicationComponent,
+        BasicExponentiationComponent,
         BasicQuizViewComponent
       ],
       imports: [
@@ -45,7 +43,7 @@ describe('BasicMultiplicationComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BasicMultiplicationComponent);
+    fixture = TestBed.createComponent(BasicExponentiationComponent);
     component = fixture.componentInstance;
     startButton = fixture.debugElement.query(By.css('#start'));
     fixture.detectChanges();
@@ -55,39 +53,39 @@ describe('BasicMultiplicationComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('level order should be BASIC MULTIPLICATION', () => {
-    expect(component.levelOrder).toBe(BASIC_MULTIPLICATION_LEVEL_ORDER[1]);
+  it('level order should be BASIC EXPONENTIATION', () => {
+    expect(component.levelOrder).toBe(BASIC_EXPONENTIATION_LEVEL_ORDER[1]);
   });
 
   it('quiz name should be basic-multiplication-threes', () => {
-    expect(component.quizName).toBe('basic-multiplication-threes');
+    expect(component.quizName).toBe('exponentiation-third');
   });
 
   it('should display start button', () => {
     expect(startButton.nativeElement.textContent).toBe('Start');
   });
 
-  it('should display "Level: Threes"', () => {
+  it('should display "Level: Third Power"', () => {
     const levelDisplay = fixture.debugElement.query(By.css('.level'));
-    expect(levelDisplay.nativeElement.textContent).toContain('Threes');
+    expect(levelDisplay.nativeElement.textContent).toContain('Third Power');
   });
 
-  it('should display "Level: Twos" if roundName route param not there', () => {
+  it('should display "Level: Second" if roundName route param not there', () => {
     activatedRouteSubject.next({});
-    fixture = TestBed.createComponent(BasicMultiplicationComponent);
+    fixture = TestBed.createComponent(BasicExponentiationComponent);
     fixture.detectChanges();
     fixture.whenStable().then(() => {
       const levelDisplay = fixture.debugElement.query(By.css('.level'));
-      expect(levelDisplay.nativeElement.textContent).toContain('Twos');
+      expect(levelDisplay.nativeElement.textContent).toContain('Second Power');
     });
   });
 
-  it('after start clicked, should display multiplication operator', () => {
+  it('after start clicked, should display exponentiation operator', () => {
     fixture.whenStable().then(() => {
       startButton.nativeElement.click();
       fixture.detectChanges();
       const operatorView = fixture.debugElement.query(By.css('.operator'));
-      expect(operatorView.nativeElement.textContent).toBe(MULTIPLICATION.display);
+      expect(operatorView.nativeElement.textContent).toBe(EXPONENTIATION.display);
     });
   });
 
@@ -104,7 +102,7 @@ describe('BasicMultiplicationComponent', () => {
     fixture.whenStable().then(() => {
       fixture.debugElement.query(By.css('.jump-to-level-button')).nativeElement.click();
       fixture.detectChanges();
-      const easyFivesLevelButton = fixture.debugElement.query(By.css('#hard-multiplication-threes'));
+      const easyFivesLevelButton = fixture.debugElement.query(By.css('#hard-exponentiation-to-the-third-power'));
       easyFivesLevelButton.nativeElement.click();
       fixture.detectChanges();
 

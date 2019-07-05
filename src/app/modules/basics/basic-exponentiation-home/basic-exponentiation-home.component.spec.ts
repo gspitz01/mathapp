@@ -1,14 +1,13 @@
-import { Component } from '@angular/core';
-import { Location } from '@angular/common';
 import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 
-import { MatCardModule } from '@angular/material';
-
-import { BasicMultiplicationHomeComponent } from './basic-multiplication-home.component';
+import { BasicExponentiationHomeComponent } from './basic-exponentiation-home.component';
+import { Component } from '@angular/core';
+import { ORDINAL_NUMBER_NAMES } from 'src/app/core/domain/models/constants';
 import { RouterCardsViewComponent } from 'src/app/shared/components/router-cards-view/router-cards-view.component';
-import { By } from '@angular/platform-browser';
-import { PLURAL_NUMBER_NAMES } from 'src/app/core/domain/models/constants';
+import { MatCardModule } from '@angular/material';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Location } from '@angular/common';
+import { By } from '@angular/platform-browser';
 
 @Component({
   template: ''
@@ -17,23 +16,24 @@ class DummyComponent {
 
 }
 
-const basePath = 'fundamentals/multiplication/';
+const basePath = 'fundamentals/exponentiation/';
 const routes = [];
+const numRoutes = 3;
 
-for (const roundLevelName of PLURAL_NUMBER_NAMES) {
-  const lowerCase = roundLevelName.toLocaleLowerCase();
+for (let i = 0; i < numRoutes; i++) {
+  const lowerCase = ORDINAL_NUMBER_NAMES[i].toLocaleLowerCase();
   routes.push({ path: basePath + lowerCase, component: DummyComponent });
 }
 
-describe('BasicMultiplicationHomeComponent', () => {
-  let component: BasicMultiplicationHomeComponent;
-  let fixture: ComponentFixture<BasicMultiplicationHomeComponent>;
+describe('BasicExponentiationHomeComponent', () => {
+  let component: BasicExponentiationHomeComponent;
+  let fixture: ComponentFixture<BasicExponentiationHomeComponent>;
   let location: Location;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        BasicMultiplicationHomeComponent,
+        BasicExponentiationHomeComponent,
         RouterCardsViewComponent,
         DummyComponent
       ],
@@ -47,7 +47,7 @@ describe('BasicMultiplicationHomeComponent', () => {
 
   beforeEach(() => {
     location = TestBed.get(Location);
-    fixture = TestBed.createComponent(BasicMultiplicationHomeComponent);
+    fixture = TestBed.createComponent(BasicExponentiationHomeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -56,17 +56,18 @@ describe('BasicMultiplicationHomeComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should show router cards for every possible multiplication round', () => {
+  it('should show router cards for every possible exponentiation round', () => {
     const routerCards = fixture.debugElement.queryAll(By.css('mat-card'));
-    expect(routerCards.length).toBe(PLURAL_NUMBER_NAMES.length);
+    expect(routerCards.length).toBe(numRoutes);
     for (let i = 0; i < routerCards.length; i++) {
-      expect(routerCards[i].nativeElement.textContent).toBe(PLURAL_NUMBER_NAMES[i]);
+      expect(routerCards[i].nativeElement.textContent).toBe(ORDINAL_NUMBER_NAMES[i] + ' Power');
     }
   });
 
-  for (const numberName of PLURAL_NUMBER_NAMES) {
+  for (let i = 0; i < numRoutes; i++) {
+    const numberName = ORDINAL_NUMBER_NAMES[i];
     it('should navigate to correct route on click of ' + numberName, fakeAsync(() => {
-      fixture.debugElement.query(By.css('#multiplication-' + numberName.toLocaleLowerCase())).nativeElement.click();
+      fixture.debugElement.query(By.css('#exponentiation-' + numberName.toLocaleLowerCase())).nativeElement.click();
 
       tick();
 

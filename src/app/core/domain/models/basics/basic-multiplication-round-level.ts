@@ -1,14 +1,9 @@
-import { RoundLevel } from '../round-level';
 import { MULTIPLICATION } from './basic-operators';
 import { BasicOperatorQuestion } from './basic-operator-question';
 import { OperatorQuestion } from '../operator-question';
-import { BasicOperand } from './basic-operand';
-import { BasicOperator } from './basic-operator';
+import { BasicFocusNumberedRoundLevel } from './basic-focus-numbered-round-level';
 
-export class BasicMultiplicationRoundLevel extends RoundLevel {
-
-  private factorsAlreadySeen: number[];
-  private numberOfPossibleFactors;
+export class BasicMultiplicationRoundLevel extends BasicFocusNumberedRoundLevel {
 
   /**
    *
@@ -18,41 +13,27 @@ export class BasicMultiplicationRoundLevel extends RoundLevel {
    * @param lowerFactorLimit The value of the lowest multiplicand other than the focus number allowed for this level
    * @param upperFactorLimit The value of the highest multiplicand other than the focus number allowed for this level
    */
-  constructor(name: string, questionThresholdPerSixtySeconds: number, readonly focusNumber: number, readonly lowerFactorLimit: number,
-    readonly upperFactorLimit: number) {
-    super(name, [MULTIPLICATION], questionThresholdPerSixtySeconds);
-    this.factorsAlreadySeen = [];
-    this.numberOfPossibleFactors = upperFactorLimit - lowerFactorLimit + 1;
+  constructor(name: string, questionThresholdPerSixtySeconds: number, focusNumber: number, lowerFactorLimit: number,
+    upperFactorLimit: number) {
+    super(name, [MULTIPLICATION], questionThresholdPerSixtySeconds, focusNumber, lowerFactorLimit, upperFactorLimit);
   }
 
   /**
    * @returns an OperatorQuestion where one mutliplicand is the focusNumber and the other is between 0 and factorLimit inclusive
    */
   createQuestion(): OperatorQuestion {
-    let question: BasicOperatorQuestion = null;
-    let factor: number;
-    if (this.factorsAlreadySeen.length === this.numberOfPossibleFactors) {
-      this.factorsAlreadySeen = [];
-    }
-    do {
-      factor = this.createRandomFactor();
-    } while (this.factorsAlreadySeen.includes(factor));
-    this.factorsAlreadySeen.push(factor);
-    const operator = this.chooseOperator() as BasicOperator;
-    const op1 = new BasicOperand(this.focusNumber);
-    const op2 = new BasicOperand(factor);
+    let question = super.createQuestion() as BasicOperatorQuestion;
     if (Math.random() < 0.5) {
-      question = new BasicOperatorQuestion(op1, op2, operator);
+      return question;
     } else {
-      question = new BasicOperatorQuestion(op2, op1, operator);
+      return question = new BasicOperatorQuestion(question.operand2, question.operand1, question.operator);
     }
-    return question;
   }
 
   /**
    * @returns an integer between 0 and the factorLimit inclusive
    */
-  private createRandomFactor(): number {
-    return Math.floor(Math.random() * (this.numberOfPossibleFactors)) + this.lowerFactorLimit;
+  protected createOperand(): number {
+    return Math.floor(Math.random() * (this.numberOfPossibleOperands)) + this.lowerLimit;
   }
 }

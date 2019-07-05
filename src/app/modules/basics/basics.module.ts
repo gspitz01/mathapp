@@ -10,6 +10,8 @@ import { BasicSubtractionComponent } from './basic-subtraction/basic-subtraction
 import { BasicsRoutingModule } from './/basics-routing.module';
 import { BasicMultiplicationHomeComponent } from './basic-multiplication-home/basic-multiplication-home.component';
 import { BasicDivisionHomeComponent } from './basic-division-home/basic-division-home.component';
+import { BasicExponentiationComponent } from './basic-exponentiation/basic-exponentiation.component';
+import { BasicExponentiationHomeComponent } from './basic-exponentiation-home/basic-exponentiation-home.component';
 
 @NgModule({
   imports: [
@@ -24,7 +26,9 @@ import { BasicDivisionHomeComponent } from './basic-division-home/basic-division
     BasicMultiplicationComponent,
     BasicSubtractionComponent,
     BasicMultiplicationHomeComponent,
-    BasicDivisionHomeComponent
+    BasicDivisionHomeComponent,
+    BasicExponentiationComponent,
+    BasicExponentiationHomeComponent
   ]
 })
 export class BasicsModule { }

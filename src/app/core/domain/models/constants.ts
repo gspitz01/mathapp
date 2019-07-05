@@ -14,6 +14,11 @@ export const PLURAL_NUMBER_NAMES: string[] = [
   'Elevens', 'Twelves', 'Thirteens', 'Fourteens', 'Fifteens', 'Sixteens', 'Seventeens',
   'Eighteens', 'Nineteens', 'Twenties'
 ];
+export const ORDINAL_NUMBER_NAMES: string[] = [
+  'Second', 'Third', 'Fourth', 'Fifth', 'Sixth', 'Seventh', 'Eighth', 'Ninth', 'Tenth',
+  'Eleventh', 'Twelfth', 'Thirteenth', 'Fourteenth', 'Fifteenth', 'Sixteenth', 'Seventeenth',
+  'Eighteenth', 'Ninteenth', 'Twentieth'
+];
 export const QUIZ_NAMES: QuizName[] = [
   'basic-addition',
   'basic-division',
@@ -24,5 +29,6 @@ export const QUIZ_NAMES: QuizName[] = [
   'fraction-multiplication',
   'fraction-subtraction',
   'gcf',
-  'simplify-fraction'
+  'simplify-fraction',
+  'exponentiation'
 ];

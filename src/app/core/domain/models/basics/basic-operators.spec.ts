@@ -1,4 +1,4 @@
-import { MULTIPLICATION, DIVISION, ADDITION, SUBTRACTION, GCF } from './basic-operators';
+import { MULTIPLICATION, DIVISION, ADDITION, SUBTRACTION, GCF, EXPONENTIATION } from './basic-operators';
 
 describe('MULTIPLICATION', () => {
   it('should return the correct result', () => {
@@ -46,6 +46,15 @@ describe('SUBTRACTION', () => {
       const expectedResult = 6;
       const actualResult = GCF.operation(op1, op2);
       expect(actualResult).toBe(expectedResult);
+    });
+  });
+
+  describe('EXPONENT', () => {
+    it('should return the correct result', () => {
+      const op1 = 3;
+      const op2 = 4;
+      const expectedResult = 81;
+      expect(EXPONENTIATION.operation(op1, op2)).toBe(expectedResult);
     });
   });
 });
