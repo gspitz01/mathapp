@@ -9,7 +9,6 @@ import { FractionExplanationViewComponent } from './fraction-explanation-view/fr
 import { FractionLcdComponent } from './fraction-lcd/fraction-lcd.component';
 import { FractionQuizViewComponent } from './fraction-quiz-view/fraction-quiz-view.component';
 import { FractionSubtractionComponent } from './fraction-subtraction/fraction-subtraction.component';
-import { GreatestCommonFactorComponent } from './greatest-common-factor/greatest-common-factor.component';
 import { SimplifyFractionComponent } from './simplify-fraction/simplify-fraction.component';
 import { FractionsRoutingModule } from './/fractions-routing.module';
 import { FractionMultiplicationComponent } from './fraction-multiplication/fraction-multiplication.component';
@@ -29,7 +28,6 @@ import { FractionMultiplicationComponent } from './fraction-multiplication/fract
     FractionLcdComponent,
     FractionQuizViewComponent,
     FractionSubtractionComponent,
-    GreatestCommonFactorComponent,
     SimplifyFractionComponent
   ]
 })

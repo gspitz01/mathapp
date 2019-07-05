@@ -1,4 +1,5 @@
-<div class="quiz-and-jump">
+<h1 *ngIf="title">{{title}}</h1>
+<div *ngIf="quiz" class="quiz-and-jump">
   <div class="main">
     <div class="quiz-view">
       <h3 class="level">Level: {{quiz.roundLevels[quiz.currentLevel].name}}</h3>

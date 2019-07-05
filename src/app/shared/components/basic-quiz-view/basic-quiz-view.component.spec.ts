@@ -14,6 +14,7 @@ import { WRONG_ANSWER_TEXT, NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT,
   ADVANCE_TO_NEXT_LEVEL_TEXT, FINISHED_HIGHEST_LEVEL_TEXT } from 'src/app/core/domain/models/constants';
 import { compileComponentFromMetadata } from '@angular/compiler';
 import { of } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 const defaultStartingTime = new Seconds(60);
 
@@ -55,6 +56,20 @@ describe('BasicQuizViewComponent', () => {
     func(maxLevels);
   });
 
+  const mockActivatedRoute = jasmine.createSpyObj('ActivatedRoute', ['get']);
+  mockActivatedRoute.snapshot = {
+    params: {
+
+    },
+    data: {
+      startingLevel: 1,
+      startingTime: 60,
+      levelOrder: BASIC_ADDITION_LEVEL_ORDER,
+      quizName: 'Easy Addition',
+      title: 'Addition'
+    }
+  };
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ BasicQuizViewComponent ],
@@ -64,7 +79,8 @@ describe('BasicQuizViewComponent', () => {
         MatListModule
       ],
       providers: [
-        { provide: StatsService, useValue: mockStatsService }
+        { provide: StatsService, useValue: mockStatsService },
+        { provide: ActivatedRoute, useValue: mockActivatedRoute }
       ]
     })
     .compileComponents();
@@ -73,9 +89,6 @@ describe('BasicQuizViewComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(BasicQuizViewComponent);
     component = fixture.componentInstance;
-    component.startingTime = defaultStartingTime;
-    component.startingLevel = 1;
-    component.levelOrder = BASIC_ADDITION_LEVEL_ORDER;
     startButton = fixture.debugElement.query(By.css('#start'));
     messagesView = fixture.debugElement.query(By.css('.messages'));
     fixture.detectChanges();
@@ -86,7 +99,10 @@ describe('BasicQuizViewComponent', () => {
   });
 
   it('start button should display "Start"', () => {
-    expect(startButton.nativeElement.textContent).toBe('Start');
+    fixture.whenStable().then(() => {
+      startButton = fixture.debugElement.query(By.css('#start'));
+      expect(startButton.nativeElement.textContent).toBe('Start');
+    });
   });
 
   it('should subscribe to maxLevels on statsService', () => {
@@ -96,6 +112,7 @@ describe('BasicQuizViewComponent', () => {
 
   it('click start changes it to stop', () => {
     fixture.whenStable().then(() => {
+      startButton = fixture.debugElement.query(By.css('#start'));
       startButton.nativeElement.click();
       fixture.detectChanges();
       expect(startButton.nativeElement.textContent).toBe('Stop');
@@ -104,6 +121,7 @@ describe('BasicQuizViewComponent', () => {
 
   it('should stop timer if start pressed twice', () => {
     fixture.whenStable().then(() => {
+      startButton = fixture.debugElement.query(By.css('#start'));
       startButton.nativeElement.click();
       expect(component.quiz.isTimerRunning()).toBeTruthy();
       startButton.nativeElement.click();
@@ -114,6 +132,7 @@ describe('BasicQuizViewComponent', () => {
 
   it('after start pressed, should show question view for addition', () => {
     fixture.whenStable().then(() => {
+      startButton = fixture.debugElement.query(By.css('#start'));
       startButton.nativeElement.click();
       fixture.detectChanges();
 
@@ -130,6 +149,7 @@ describe('BasicQuizViewComponent', () => {
 
   it('after answer question correctly, should update views', () => {
     fixture.whenStable().then(() => {
+      startButton = fixture.debugElement.query(By.css('#start'));
       startButton.nativeElement.click();
       fixture.detectChanges();
 
@@ -151,9 +171,11 @@ describe('BasicQuizViewComponent', () => {
 
   it('after answer question incorrectly, should update views', () => {
     fixture.whenStable().then(() => {
+      startButton = fixture.debugElement.query(By.css('#start'));
       startButton.nativeElement.click();
       fixture.detectChanges();
 
+      messagesView = fixture.debugElement.query(By.css('.messages'));
       expect(messagesView.nativeElement.textContent).toBe('');
 
       const operand1View = getOperand1View(fixture);
@@ -176,9 +198,11 @@ describe('BasicQuizViewComponent', () => {
 
   it('after answer question incorrectly, then correctly, wrong answer text goes away', () => {
     fixture.whenStable().then(() => {
+      startButton = fixture.debugElement.query(By.css('#start'));
       startButton.nativeElement.click();
       fixture.detectChanges();
 
+      messagesView = fixture.debugElement.query(By.css('.messages'));
       expect(messagesView.nativeElement.textContent).toBe('');
 
       const operand1View = getOperand1View(fixture);
@@ -210,6 +234,7 @@ describe('BasicQuizViewComponent', () => {
 
   it('type in letters into input, shows error message', () => {
     fixture.whenStable().then(() => {
+      startButton = fixture.debugElement.query(By.css('#start'));
       startButton.nativeElement.click();
       fixture.detectChanges();
 
@@ -230,6 +255,7 @@ describe('BasicQuizViewComponent', () => {
     jasmine.clock().install();
 
     fixture.whenStable().then(() => {
+      startButton = fixture.debugElement.query(By.css('#start'));
       startButton.nativeElement.click();
       fixture.detectChanges();
 
@@ -248,9 +274,11 @@ describe('BasicQuizViewComponent', () => {
     jasmine.clock().install();
 
     fixture.whenStable().then(() => {
+      startButton = fixture.debugElement.query(By.css('#start'));
       startButton.nativeElement.click();
       fixture.detectChanges();
 
+      messagesView = fixture.debugElement.query(By.css('.messages'));
       expect(messagesView.nativeElement.textContent).toBe('');
 
       jasmine.clock().tick(60001);
@@ -269,9 +297,11 @@ describe('BasicQuizViewComponent', () => {
     jasmine.clock().install();
 
     fixture.whenStable().then(() => {
+      startButton = fixture.debugElement.query(By.css('#start'));
       startButton.nativeElement.click();
       fixture.detectChanges();
 
+      messagesView = fixture.debugElement.query(By.css('.messages'));
       expect(messagesView.nativeElement.textContent).toBe('');
 
       const operand1View = getOperand1View(fixture);
@@ -313,6 +343,9 @@ describe('BasicQuizViewComponent', () => {
 
       const targetView = fixture.debugElement.query(By.css('.target'));
       const targets = [25, 20, 15, 8, 5];
+
+      startButton = fixture.debugElement.query(By.css('#start'));
+      messagesView = fixture.debugElement.query(By.css('.messages'));
 
       for (let level = 1; level < BASIC_ADDITION_LEVEL_ORDER.length; level++) {
         startButton.nativeElement.click();
