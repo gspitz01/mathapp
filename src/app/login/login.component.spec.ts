@@ -18,16 +18,20 @@ class MockAngularFireAuth {
   };
 }
 
-class MockActivatedRoute {
-  queryParams = of({return: 'jiggly-puff'});
-}
-
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let securityService: SecurityService;
   let route: ActivatedRoute;
   const router = jasmine.createSpyObj('Router', ['navigateByUrl']);
   let fixture: ComponentFixture<LoginComponent>;
+  const queryParamReturn = 'jiggly-puff';
+  const fakeActivatedRoute = {
+    snapshot: {
+      queryParams: {
+        'return': queryParamReturn
+      }
+    }
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -38,7 +42,7 @@ describe('LoginComponent', () => {
       providers: [
         { provide: AngularFireAuth, useClass: MockAngularFireAuth },
         { provide: Router, useValue: router },
-        { provide: ActivatedRoute, useClass: MockActivatedRoute }
+        { provide: ActivatedRoute, useValue: fakeActivatedRoute }
       ]
     })
     .compileComponents();
@@ -56,10 +60,9 @@ describe('LoginComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should subscribe to route query params on ngOnInit()', () => {
-    spyOn(route.queryParams, 'subscribe');
+  it('should set route return value from route query params on ngOnInit()', () => {
     component.ngOnInit();
-    expect(route.queryParams.subscribe).toHaveBeenCalled();
+    expect(component.return).toBe(queryParamReturn);
   });
 
   it('should login via security service on login() then navigate to return route', () => {

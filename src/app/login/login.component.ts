@@ -17,9 +17,7 @@ export class LoginComponent implements OnInit {
     private zone: NgZone) { }
 
   ngOnInit() {
-    this.route.queryParams.pipe(
-      first()
-    ).subscribe(params => this.return = params['return'] || 'home');
+    this.return = this.route.snapshot.queryParams['return'] || 'home';
   }
 
   login() {
