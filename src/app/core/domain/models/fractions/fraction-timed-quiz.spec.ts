@@ -3,8 +3,9 @@ import { Seconds } from '../seconds';
 import { FRACTION_ADDITION_LEVEL_ORDER } from './fraction-round-levels';
 import { FractionTimeLimitedRound } from './fraction-time-limited-round';
 import { FractionOperatorQuestion } from './fraction-operator-question';
-import { WRONG_ANSWER_TEXT } from '../constants';
+import { WRONG_ANSWER_TEXT, OPERATORS_DB_MAP } from '../constants';
 import { Stats } from '../stats';
+import { FRACTION_ADDITION } from './fraction-operators';
 
 describe('FractionTimedQuiz', () => {
   let quiz: FractionTimedQuiz;
@@ -12,6 +13,11 @@ describe('FractionTimedQuiz', () => {
   const startingTime = new Seconds(10);
   const startingLevel = 0;
   const spyAfterEvaluateRound = jasmine.createSpy('AfterEvaluateRound');
+
+  // Incorrects
+  const incorrectLength = 7;
+  const incorrectAnsNumIndex = 5;
+  const incorrectAnsDenIndex = 6;
 
   beforeEach(() => {
     quiz = new FractionTimedQuiz(startingTime, startingLevel, FRACTION_ADDITION_LEVEL_ORDER, 'QuizName',
@@ -39,14 +45,18 @@ describe('FractionTimedQuiz', () => {
     });
     quiz.stopTimer();
 
+    // Only one incorrect
     expect(retrievedStats.incorrects.length).toBe(1);
-    expect(retrievedStats.incorrects[0].length).toBe(6);
-    expect(retrievedStats.incorrects[0][0]).toBe(question.operand1.numerator.value);
-    expect(retrievedStats.incorrects[0][1]).toBe(question.operand1.denominator.value);
-    expect(retrievedStats.incorrects[0][2]).toBe(question.operand2.numerator.value);
-    expect(retrievedStats.incorrects[0][3]).toBe(question.operand2.denominator.value);
-    expect(retrievedStats.incorrects[0][4]).toBe(answerNum);
-    expect(retrievedStats.incorrects[0][5]).toBe(answerDen);
+    // Each incorrect is [operator index, operand1 num value, operand1 den value,
+    //                    operand2 num value, operand2 den value, answer num, answer den]
+    expect(retrievedStats.incorrects[0].length).toBe(incorrectLength);
+    expect(retrievedStats.incorrects[0][0]).toBe(OPERATORS_DB_MAP.indexOf(FRACTION_ADDITION));
+    expect(retrievedStats.incorrects[0][1]).toBe(question.operand1.numerator.value);
+    expect(retrievedStats.incorrects[0][2]).toBe(question.operand1.denominator.value);
+    expect(retrievedStats.incorrects[0][3]).toBe(question.operand2.numerator.value);
+    expect(retrievedStats.incorrects[0][4]).toBe(question.operand2.denominator.value);
+    expect(retrievedStats.incorrects[0][5]).toBe(answerNum);
+    expect(retrievedStats.incorrects[0][6]).toBe(answerDen);
   });
 
   it('should add NaN to incorrects if answer not proper fraction', () => {
@@ -61,14 +71,14 @@ describe('FractionTimedQuiz', () => {
     quiz.stopTimer();
 
     expect(retrievedStats.incorrects.length).toBe(3);
-    expect(retrievedStats.incorrects[0].length).toBe(6);
-    expect(retrievedStats.incorrects[0][4]).toEqual(NaN);
-    expect(retrievedStats.incorrects[0][5]).toEqual(NaN);
-    expect(retrievedStats.incorrects[1].length).toBe(6);
-    expect(retrievedStats.incorrects[1][4]).toEqual(NaN);
-    expect(retrievedStats.incorrects[1][5]).toEqual(NaN);
-    expect(retrievedStats.incorrects[2].length).toBe(6);
-    expect(retrievedStats.incorrects[2][4]).toEqual(NaN);
-    expect(retrievedStats.incorrects[2][5]).toEqual(NaN);
+    expect(retrievedStats.incorrects[0].length).toBe(incorrectLength);
+    expect(retrievedStats.incorrects[0][incorrectAnsNumIndex]).toEqual(NaN);
+    expect(retrievedStats.incorrects[0][incorrectAnsDenIndex]).toEqual(NaN);
+    expect(retrievedStats.incorrects[1].length).toBe(incorrectLength);
+    expect(retrievedStats.incorrects[1][incorrectAnsNumIndex]).toEqual(NaN);
+    expect(retrievedStats.incorrects[1][incorrectAnsDenIndex]).toEqual(NaN);
+    expect(retrievedStats.incorrects[2].length).toBe(incorrectLength);
+    expect(retrievedStats.incorrects[2][incorrectAnsNumIndex]).toEqual(NaN);
+    expect(retrievedStats.incorrects[2][incorrectAnsDenIndex]).toEqual(NaN);
   });
 });

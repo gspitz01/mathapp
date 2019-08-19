@@ -4,11 +4,17 @@ import { Seconds } from '../seconds';
 import { SimplifyFractionTimeLimitedRound } from './simplify-fraction-time-limited-round';
 import { SimplifyFractionOperatorQuestion } from './simplify-fraction-operator-question';
 import { FractionResult } from './fraction-result';
-import { WRONG_ANSWER_TEXT } from '../constants';
+import { WRONG_ANSWER_TEXT, OPERATORS_DB_MAP } from '../constants';
 import { Stats } from '../stats';
+import { SIMPLIFY_FRACTION } from './fraction-operators';
 
 describe('SimplifyFractionTimedQuiz', () => {
   let quiz: SimplifyFractionTimedQuiz;
+
+  // incorrects
+  const incorrectLength = 6;
+  const incorrectAnsNumIndex = 3;
+  const incorrectAnsDenIndex = 4;
 
   const startingTime = new Seconds(10);
   const startingLevel = 0;
@@ -41,12 +47,13 @@ describe('SimplifyFractionTimedQuiz', () => {
     quiz.stopTimer();
 
     expect(retrievedStats.incorrects.length).toBe(1);
-    expect(retrievedStats.incorrects[0].length).toBe(5);
-    expect(retrievedStats.incorrects[0][0]).toBe(question.numerator.value);
-    expect(retrievedStats.incorrects[0][1]).toBe(question.denominator.value);
-    expect(retrievedStats.incorrects[0][2]).toBe(answerNum);
-    expect(retrievedStats.incorrects[0][3]).toBe(answerDen);
-    expect(retrievedStats.incorrects[0][4]).toBe(0);
+    expect(retrievedStats.incorrects[0].length).toBe(incorrectLength);
+    expect(retrievedStats.incorrects[0][0]).toBe(OPERATORS_DB_MAP.indexOf(SIMPLIFY_FRACTION));
+    expect(retrievedStats.incorrects[0][1]).toBe(question.numerator.value);
+    expect(retrievedStats.incorrects[0][2]).toBe(question.denominator.value);
+    expect(retrievedStats.incorrects[0][3]).toBe(answerNum);
+    expect(retrievedStats.incorrects[0][4]).toBe(answerDen);
+    expect(retrievedStats.incorrects[0][5]).toBe(0);
   });
 
   it('should add NaN to incorrects if answer not proper fraction', () => {
@@ -61,14 +68,14 @@ describe('SimplifyFractionTimedQuiz', () => {
     quiz.stopTimer();
 
     expect(retrievedStats.incorrects.length).toBe(3);
-    expect(retrievedStats.incorrects[0].length).toBe(5);
-    expect(retrievedStats.incorrects[0][2]).toEqual(NaN);
-    expect(retrievedStats.incorrects[0][3]).toEqual(NaN);
-    expect(retrievedStats.incorrects[1].length).toBe(5);
-    expect(retrievedStats.incorrects[1][2]).toEqual(NaN);
-    expect(retrievedStats.incorrects[1][3]).toEqual(NaN);
-    expect(retrievedStats.incorrects[2].length).toBe(5);
-    expect(retrievedStats.incorrects[2][2]).toEqual(NaN);
-    expect(retrievedStats.incorrects[2][3]).toEqual(NaN);
+    expect(retrievedStats.incorrects[0].length).toBe(incorrectLength);
+    expect(retrievedStats.incorrects[0][incorrectAnsNumIndex]).toEqual(NaN);
+    expect(retrievedStats.incorrects[0][incorrectAnsDenIndex]).toEqual(NaN);
+    expect(retrievedStats.incorrects[1].length).toBe(incorrectLength);
+    expect(retrievedStats.incorrects[1][incorrectAnsNumIndex]).toEqual(NaN);
+    expect(retrievedStats.incorrects[1][incorrectAnsDenIndex]).toEqual(NaN);
+    expect(retrievedStats.incorrects[2].length).toBe(incorrectLength);
+    expect(retrievedStats.incorrects[2][incorrectAnsNumIndex]).toEqual(NaN);
+    expect(retrievedStats.incorrects[2][incorrectAnsDenIndex]).toEqual(NaN);
   });
 });

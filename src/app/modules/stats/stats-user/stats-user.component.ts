@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { User } from 'src/app/core/domain/models/user';
 import { Stats } from 'src/app/core/domain/models/stats';
+import { OPERATORS_DB_MAP } from 'src/app/core/domain/models/constants';
 
 @Component({
   selector: 'app-stats-user',
@@ -17,4 +18,11 @@ export class StatsUserComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+
+  displayOperator(dbNumber: number): string {
+    if (OPERATORS_DB_MAP[dbNumber]) {
+      return OPERATORS_DB_MAP[dbNumber].display;
+    }
+    return '';
+  }
 }

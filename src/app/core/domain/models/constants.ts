@@ -1,4 +1,7 @@
 import { QuizName } from './quiz-name';
+import { FRACTION_ADDITION, FRACTION_DIVISION, FRACTION_MULTIPLICATION,
+  SIMPLIFY_FRACTION, FRACTION_SUBTRACTION } from './fractions/fraction-operators';
+import { ADDITION, DIVISION, MULTIPLICATION, SUBTRACTION, GCF, LCM, EXPONENTIATION } from './basics/basic-operators';
 
 export const ADVANCE_TO_NEXT_LEVEL_TEXT = 'You can move on to the next level!';
 export const FINISHED_HIGHEST_LEVEL_TEXT = 'You finished the highest level! Congratulations!';
@@ -31,5 +34,12 @@ export const QUIZ_NAMES: QuizName[] = [
   'gcf',
   'simplify-fraction',
   'exponentiation',
-  'lcm'
+  'lcm',
+  'combination'
+];
+
+export const OPERATORS_DB_MAP = [
+  ADDITION, DIVISION, MULTIPLICATION, SUBTRACTION,
+  GCF, LCM, EXPONENTIATION, FRACTION_ADDITION, FRACTION_DIVISION, FRACTION_MULTIPLICATION,
+  FRACTION_SUBTRACTION, SIMPLIFY_FRACTION
 ];

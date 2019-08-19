@@ -11,6 +11,7 @@ const basicsPath = '/fundamentals';
 export class BasicsHomeComponent implements OnInit {
 
   routerCards = [
+    new RouterCard('combination', basicsPath + '/combination', 'Combination'),
     new RouterCard('basic-addition', basicsPath + '/addition', 'Addition'),
     new RouterCard('basic-subtraction', basicsPath + '/subtraction', 'Subtraction'),
     new RouterCard('basic-multiplication', basicsPath + '/multiplication', 'Multiplication'),

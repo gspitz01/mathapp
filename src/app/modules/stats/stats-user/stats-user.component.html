@@ -22,24 +22,26 @@
             <thead>
               <tr>
                 <th>Op1</th>
+                <th>Func</th>
                 <th>Op2</th>
                 <th>Guess</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let incorrect of userStat.incorrects">
-                <!-- 2 is Basic without guess, 3 is Basic with guess, 4 is Fraction without guess,
-                  5 is Simplify Fraction (last number is just an indicator for that and it's value doesn't matter),
-                  6 is Fraction with guess -->
-                <td *ngIf="incorrect.length == 2 || incorrect.length == 3 || incorrect.length == 5">{{incorrect[0]}}</td>
-                <td *ngIf="incorrect.length == 2 || incorrect.length == 3 || incorrect.length == 5">{{incorrect[1]}}</td>
-                <td *ngIf="incorrect.length == 2">Unknown</td>
-                <td *ngIf="incorrect.length == 3">{{incorrect[2]}}</td>
-                <td *ngIf="incorrect.length == 5">{{incorrect[2]}}/{{incorrect[3]}}</td>
-                <td *ngIf="incorrect.length == 4 || incorrect.length == 6">{{incorrect[0]}}/{{incorrect[1]}}</td>
-                <td *ngIf="incorrect.length == 4 || incorrect.length == 6">{{incorrect[2]}}/{{incorrect[3]}}</td>
-                <td *ngIf="incorrect.length == 4">Unknown</td>
-                <td *ngIf="incorrect.length == 6">{{incorrect[4]}}/{{incorrect[5]}}</td>
+                <!-- 3 is Basic without guess, 4 is Basic with guess, 5 is Fraction without guess,
+                  6 is Simplify Fraction (last number is just an indicator for that and it's value doesn't matter),
+                  7 is Fraction with guess -->
+                <td *ngIf="incorrect.length == 3 || incorrect.length == 4 || incorrect.length == 6">{{incorrect[1]}}</td>
+                <td *ngIf="incorrect.length == 5 || incorrect.length == 7">{{incorrect[1]}}/{{incorrect[2]}}</td>
+                <td>{{displayOperator(incorrect[0])}}</td>
+                <td *ngIf="incorrect.length == 3 || incorrect.length == 4 || incorrect.length == 6">{{incorrect[2]}}</td>
+                <td *ngIf="incorrect.length == 5 || incorrect.length == 7">{{incorrect[3]}}/{{incorrect[4]}}</td>
+                <td *ngIf="incorrect.length == 3">Unknown</td>
+                <td *ngIf="incorrect.length == 4">{{incorrect[3]}}</td>
+                <td *ngIf="incorrect.length == 5">Unknown</td>
+                <td *ngIf="incorrect.length == 6">{{incorrect[3]}}/{{incorrect[4]}}</td>
+                <td *ngIf="incorrect.length == 7">{{incorrect[5]}}/{{incorrect[6]}}</td>
               </tr>
             </tbody>
           </table>

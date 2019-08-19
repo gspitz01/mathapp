@@ -95,22 +95,22 @@ export const EXPERT_FRACTION_SUBTRACTION = new FractionRoundLevel('Expert Fracti
 
 // Multiplication
 export const EASY_FRACTION_MULTIPLICATION = new FractionRoundLevel('Easy Fraction Multiplication', justFractionMultiplication,
-  14, fractionEasyOperandLimitations, fractionEasyOperandLimitations,
+  10, fractionEasyOperandLimitations, fractionEasyOperandLimitations,
   fractionEasyResultLimitations);
 
 export const MEDIUM_FRACTION_MULTIPLICATION = new FractionRoundLevel('Medium Fraction Multiplication', justFractionMultiplication,
   10, fractionMediumOperandLimitations, fractionEasyOperandLimitations, fractionEasyResultLimitations);
 
 export const CHALLENGING_FRACTION_MULTIPLICATION = new FractionRoundLevel('Challenging Fraciton Multiplication',
-  justFractionMultiplication, 8, fractionMediumOperandLimitations,
+  justFractionMultiplication, 10, fractionMediumOperandLimitations,
   fractionMediumOperandLimitations, fractionEasyResultLimitations);
 
 export const HARD_FRACTION_MULTIPLICATION = new FractionRoundLevel('Hard Fraction Multiplication', justFractionMultiplication,
-  5, fractionChallengingOperandLimitations, fractionMediumOperandLimitations,
+  10, fractionChallengingOperandLimitations, fractionMediumOperandLimitations,
   fractionEasyResultLimitations);
 
 export const EXPERT_FRACTION_MULTIPLICATION = new FractionRoundLevel('Expert Fraction Multiplication', justFractionMultiplication,
-  3, fractionChallengingOperandLimitations, fractionChallengingOperandLimitations,
+  10, fractionChallengingOperandLimitations, fractionChallengingOperandLimitations,
   fractionEasyResultLimitations);
 
 // Division

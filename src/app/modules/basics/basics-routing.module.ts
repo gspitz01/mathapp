@@ -12,9 +12,19 @@ import { BASIC_MULTIPLICATION_LEVEL_ORDER } from 'src/app/core/domain/models/bas
 import { BASIC_DIVISION_LEVEL_ORDER } from 'src/app/core/domain/models/basics/basic-division-round-levels';
 import { EXPONENTIATION_LEVEL_ORDER } from 'src/app/core/domain/models/basics/exponentiation-round-levels';
 import { LCM_LEVEL_ORDER } from 'src/app/core/domain/models/basics/lcm-round-levels';
+import { COMBINATION_LEVEL_ORDER } from 'src/app/core/domain/models/basics/combination-round-levels';
 
 const routes: Routes = [
   { path: '', children: [
+    { path: 'combination', component: BasicQuizViewComponent,
+      data: {
+        startingLevel: 0,
+        startingTime: 60,
+        levelOrder: COMBINATION_LEVEL_ORDER,
+        quizName: QUIZ_NAMES[12],
+        title: 'Combination'
+      }
+    },
     { path: 'addition', component: BasicQuizViewComponent,
       data: {
         startingLevel: 0,

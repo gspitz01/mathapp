@@ -5,7 +5,8 @@ import { BasicTimeLimitedRound } from './basic-time-limited-round';
 import { BasicResult } from './basic-result';
 import { Stats } from '../stats';
 import { BasicOperatorQuestion } from './basic-operator-question';
-import { WRONG_ANSWER_TEXT } from '../constants';
+import { WRONG_ANSWER_TEXT, OPERATORS_DB_MAP } from '../constants';
+import { MULTIPLICATION } from './basic-operators';
 
 describe('BasicTimedQuiz', () => {
   let quiz: BasicTimedQuiz;
@@ -38,12 +39,14 @@ describe('BasicTimedQuiz', () => {
       retrievedStats = stats;
     });
     quiz.stopTimer();
-
+    // Only one incorrect
     expect(retrievedStats.incorrects.length).toBe(1);
-    expect(retrievedStats.incorrects[0].length).toBe(3);
-    expect(retrievedStats.incorrects[0][0]).toBe(question.operand1.value);
-    expect(retrievedStats.incorrects[0][1]).toBe(question.operand2.value);
-    expect(retrievedStats.incorrects[0][2]).toBe(answer);
+    // Each incorrect is [operator index, operand1 value, operand2 value, guess]
+    expect(retrievedStats.incorrects[0].length).toBe(4);
+    expect(retrievedStats.incorrects[0][0]).toBe(OPERATORS_DB_MAP.indexOf(MULTIPLICATION));
+    expect(retrievedStats.incorrects[0][1]).toBe(question.operand1.value);
+    expect(retrievedStats.incorrects[0][2]).toBe(question.operand2.value);
+    expect(retrievedStats.incorrects[0][3]).toBe(answer);
   });
 
   it('should add NaN to wrongs answers if answer not a number', () => {
@@ -56,7 +59,7 @@ describe('BasicTimedQuiz', () => {
     quiz.stopTimer();
 
     expect(retrievedStats.incorrects.length).toBe(1);
-    expect(retrievedStats.incorrects[0].length).toBe(3);
-    expect(retrievedStats.incorrects[0][2]).toEqual(NaN);
+    expect(retrievedStats.incorrects[0].length).toBe(4);
+    expect(retrievedStats.incorrects[0][3]).toEqual(NaN);
   });
 });

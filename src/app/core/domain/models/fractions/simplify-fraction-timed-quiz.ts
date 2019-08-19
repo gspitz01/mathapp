@@ -5,6 +5,7 @@ import { Stats } from '../stats';
 import { SimplifyFractionTimeLimitedRound } from './simplify-fraction-time-limited-round';
 import { SimplifyFractionOperatorQuestion } from './simplify-fraction-operator-question';
 import { QuizName } from '../quiz-name';
+import { OPERATORS_DB_MAP } from '../constants';
 
 export class SimplifyFractionTimedQuiz extends TimedQuiz {
   static readonly ANSWER_DELIMITER = '/';
@@ -26,12 +27,13 @@ export class SimplifyFractionTimedQuiz extends TimedQuiz {
     if (answers.length !== 2 || isNaN(parseInt(answers[0], 10)) || isNaN(parseInt(answers[1], 10))) {
       // Zero at end of this array is just an indicator that this is a Simplify Fractions answer,
       // to differentiate between a Fractions answer without the guess
-      this.incorrects.push([question.numerator.value, question.denominator.value, NaN,
-        NaN, 0]);
+      this.incorrects.push([OPERATORS_DB_MAP.indexOf(question.operator),
+        question.numerator.value, question.denominator.value, NaN, NaN, 0]);
     } else {
       // Zero at end of this array is just an indicator that this is a Simplify Fractions answer,
       // to differentiate between a Fractions answer without the guess
-      this.incorrects.push([question.numerator.value, question.denominator.value, parseInt(answers[0], 10),
+      this.incorrects.push([OPERATORS_DB_MAP.indexOf(question.operator),
+        question.numerator.value, question.denominator.value, parseInt(answers[0], 10),
         parseInt(answers[1], 10), 0]);
     }
     super.wrongAnswer(answer);
