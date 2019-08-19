@@ -1,15 +1,5 @@
 @import "../../../../variables.scss";
 
-.quiz-and-jump {
-  display: grid;
-  grid-template-columns: 75% 2% 23%;
-  grid-template-areas: "main . sidebar";
-}
-
-.main {
-  grid-area: main;
-}
-
 .quiz-view {
   display: flex;
   flex-direction: column;
@@ -73,48 +63,3 @@
     font-size: 24pt;
   }
 }
-
-.sidebar {
-  grid-area: sidebar;
-}
-
-.jump-to-level {
-  border-radius: 5px;
-  background: white;
-  padding: 1em 0.5em;
-
-  h3 {
-    cursor: pointer;
-    margin: 0;
-    padding: 0;
-
-    i {
-      border: solid $rich-black;
-      border-width: 0 3px 3px 0;
-      display: inline-block;
-      padding: 3px;
-
-      &.down {
-        transform: rotate(45deg);
-        -webkit-transform: rotate(45deg);
-      }
-
-      &.up {
-        transform: rotate(-135deg);
-        -webkit-transform: rotate(-135deg);
-      }
-    }
-  }
-
-  mat-list-item {
-    color: $gray;
-    cursor: pointer;
-    height: auto;
-    font-size: 0.9em;
-
-    &:hover {
-      color: $rich-black;
-    }
-  }
-}
-

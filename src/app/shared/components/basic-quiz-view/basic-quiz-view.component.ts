@@ -7,6 +7,8 @@ import { BasicTimedQuiz } from 'src/app/core/domain/models/basics/basic-timed-qu
 import { BaseQuizViewComponent } from '../base-quiz-view/base-quiz-view.component';
 import { BasicRoundLevel } from 'src/app/core/domain/models/basics/basic-round-level';
 import { ActivatedRoute } from '@angular/router';
+import { GCF, LCM } from 'src/app/core/domain/models/basics/basic-operators';
+import { Operator } from 'src/app/core/domain/models/operator';
 
 
 @Component({
@@ -67,5 +69,21 @@ export class BasicQuizViewComponent extends BaseQuizViewComponent implements OnI
 
   clearAnswerInput() {
     this.answer.setValue('');
+  }
+
+  isGcfQuestion(): boolean {
+    return this.isOperator(GCF);
+  }
+
+  isLcmQuestion(): boolean {
+    return this.isOperator(LCM);
+  }
+
+  isOperator(operator: Operator): boolean {
+    if (this.quiz.currentRound.getCurrentQuestion() &&
+      this.quiz.currentRound.getCurrentQuestion().operator === operator) {
+        return true;
+    }
+    return false;
   }
 }

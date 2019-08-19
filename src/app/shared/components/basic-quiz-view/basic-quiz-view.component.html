@@ -11,6 +11,12 @@
         <div class="time-remaining">{{quiz.currentTime}}</div>
         <div class="correct-answers">Correct: {{quiz.currentRound.getNumberOfCorrectAnswers()}}</div>
         <div class="question-view" *ngIf="quiz.currentRound.getCurrentQuestion()">
+          <p class="op-message gcf-message" *ngIf="isGcfQuestion()">
+            Find the Greatest<br>Common Factor
+          </p>
+          <p class="op-message lcm-message" *ngIf="isLcmQuestion()">
+            Find the Least<br>Common Multiple
+          </p>
           <table>
             <tr>
               <td><span class="operand1">{{quiz.currentRound.getCurrentQuestion().operand1.value}}</span></td>
@@ -30,19 +36,6 @@
         <div *ngIf="answer.errors?.pattern" class="answer-error mat-error">Answer must be a number.</div>
       </div>
       <div class="messages">{{quiz.messages}}</div>
-    </div>
-  </div>
-  <div class="sidebar">
-    <div class="jump-to-level" *ngIf="levelOrder">
-      <h3 (click)="showJumpToLevelLinks=!showJumpToLevelLinks" class="jump-to-level-button">Jump to Level
-        <i class="arrow up" *ngIf="showJumpToLevelLinks"></i>
-        <i class="arrow down" *ngIf="!showJumpToLevelLinks"></i>
-      </h3>
-      <mat-list dense *ngIf="showJumpToLevelLinks">
-        <mat-list-item *ngFor="let level of levelOrder; let i = index" (click)="quiz.currentLevel=i" id="{{level.id}}">
-          {{level.name}}
-        </mat-list-item>
-      </mat-list>
     </div>
   </div>
 </div>

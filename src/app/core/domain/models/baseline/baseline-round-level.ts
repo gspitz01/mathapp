@@ -1,0 +1,52 @@
+import { RoundLevel } from '../round-level';
+import { OperatorQuestion } from '../operator-question';
+import { ADDITION, SUBTRACTION, MULTIPLICATION, DIVISION, GCF, LCM, EXPONENTIATION } from '../basics/basic-operators';
+import { COMBINATION_LEVEL_ORDER } from '../basics/combination-round-levels';
+import { BASIC_MULTIPLICATION_LEVEL_ORDER } from '../basics/basic-multiplication-round-levels';
+import { BASIC_DIVISION_LEVEL_ORDER } from '../basics/basic-division-round-levels';
+import { GREATEST_COMMON_FACTOR_LEVEL_ORDER } from '../fractions/gcf-round-levels';
+import { LCM_LEVEL_ORDER } from '../basics/lcm-round-levels';
+import { EXPONENTIATION_LEVEL_ORDER } from '../basics/exponentiation-round-levels';
+
+export class BaselineRoundLevel extends RoundLevel {
+  constructor(name: string, questionThresholdPerSixtySeconds: number) {
+    // Need to have combination levels 1-4, mult times tables 3-9 with all integers possible,
+    // div same as mult, Gcf two digit relatively non-prime, Lcm same as Gcf, Expo only squares
+    super(name, [ADDITION, SUBTRACTION, MULTIPLICATION, DIVISION, GCF,
+      LCM, EXPONENTIATION], questionThresholdPerSixtySeconds);
+  }
+
+  createQuestion(): OperatorQuestion {
+    const operator = this.chooseOperator();
+    switch (operator) {
+      case MULTIPLICATION:
+        // For multiplication, choose a number 3-9 inclusive
+        const mRound = Math.floor(Math.random() * 7) + 3;
+        // Multiplication rounds start with index 0 as 2s
+        // Use the easy level which is index 0
+        return BASIC_MULTIPLICATION_LEVEL_ORDER[mRound - 2][0].createQuestion();
+      case DIVISION:
+        // For division, choose a number 3-9 inclusive
+        const dRound = Math.floor(Math.random() * 7) + 3;
+        // Division rounds start with index 0 as 2s
+        // Use the easy level which is index 0
+        return BASIC_DIVISION_LEVEL_ORDER[dRound - 2][0].createQuestion();
+      case GCF:
+        // Just get a question from level 3
+        return GREATEST_COMMON_FACTOR_LEVEL_ORDER[2].createQuestion();
+      case LCM:
+        // Just get a question from level 3
+        return LCM_LEVEL_ORDER[2].createQuestion();
+      case EXPONENTIATION:
+        // The 0th level of EXPONENTIATION is 2s
+        // Use the medium level which is index 1
+        return EXPONENTIATION_LEVEL_ORDER[0][1].createQuestion();
+      case ADDITION:
+      case SUBTRACTION:
+      default:
+        // For both addition and subtraction, just choose one of the combination levels
+        const cRound = Math.floor(Math.random() * COMBINATION_LEVEL_ORDER.length);
+        return COMBINATION_LEVEL_ORDER[cRound].createQuestion();
+    }
+  }
+}

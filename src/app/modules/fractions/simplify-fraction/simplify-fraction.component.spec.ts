@@ -120,19 +120,6 @@ describe('SimplifyFractionComponent', () => {
     });
   });
 
-  it('jump to level with click on level name', () => {
-    fixture.whenStable().then(() => {
-      fixture.debugElement.query(By.css('.jump-to-level-button')).nativeElement.click();
-      fixture.detectChanges();
-      const easyFivesLevelButton = fixture.debugElement.query(By.css('#hard-simplify-fractions'));
-      easyFivesLevelButton.nativeElement.click();
-      fixture.detectChanges();
-
-      const levelDisplay = fixture.debugElement.query(By.css('.level'));
-      expect(levelDisplay.nativeElement.textContent).toContain('Hard');
-    });
-  });
-
   it('click start changes it to stop', () => {
     fixture.whenStable().then(() => {
       startButton.nativeElement.click();

@@ -28,8 +28,6 @@ export class BaseQuizViewComponent implements OnInit, OnDestroy {
   buttonText: string;
   protected answerDisabled: boolean;
   protected maxLevel: number;
-  // Whether or not to show the jump to level links
-  showJumpToLevelLinks = false;
 
   // Subject to cue destroying subscription of maxLevels
   private readonly onDestroy = new Subject<void>();
