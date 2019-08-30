@@ -15,10 +15,12 @@ const routes: Routes = [
   { path: 'baseline', component: BasicQuizViewComponent,
     data: {
       startingLevel: 0,
-      startingTime: 60,
+      startingTime: 120,
       levelOrder: [new BaselineRoundLevel('Baseline Test', 20)],
       quizName: 'Baseline Test',
-      title: 'Baseline Test'
+      title: 'Baseline Test',
+      displayTarget: false,
+      displayLevel: false
     }
   },
   { path: '', redirectTo: '/home', pathMatch: 'full' },

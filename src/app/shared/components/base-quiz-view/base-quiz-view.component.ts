@@ -26,6 +26,8 @@ export class BaseQuizViewComponent implements OnInit, OnDestroy {
   @Input() title: string;
   quiz: TimedQuiz;
   buttonText: string;
+  displayTarget = true;
+  displayLevel = true;
   protected answerDisabled: boolean;
   protected maxLevel: number;
 
@@ -102,26 +104,32 @@ export class BaseQuizViewComponent implements OnInit, OnDestroy {
 
   retrieveRouteData() {
     this.startingLevel = this.route.snapshot.data['startingLevel'];
-      this.startingTime = new Seconds(this.route.snapshot.data['startingTime']);
-      this.quizName = this.route.snapshot.data['quizName'];
-      this.title = this.route.snapshot.data['title'];
-      const levelOrder = this.route.snapshot.data['levelOrder'];
-      // If the level order is two dimensional, we should be able
-      // to resolve it to one dimension using the route param 'roundName'
-      if (levelOrder && levelOrder.length > 0 &&
-        Array.isArray(levelOrder[0]) && this.route.snapshot.params['roundName']) {
-        let roundIndex = this.route.snapshot.data['roundNamesArray'].map(numberName => numberName.toLocaleLowerCase())
-          .indexOf(this.route.snapshot.params['roundName']);
-        let roundName = this.route.snapshot.params['roundName'];
-        if (roundIndex === -1) {
-          roundIndex = this.route.snapshot.data['defaultRoundIndex'];
-          roundName = this.route.snapshot.data['defaultRoundName'];
-        }
-        this.levelOrder =  levelOrder[roundIndex];
-        this.quizName += '-' + roundName;
-      } else {
-        this.levelOrder = levelOrder;
+    this.startingTime = new Seconds(this.route.snapshot.data['startingTime']);
+    this.quizName = this.route.snapshot.data['quizName'];
+    this.title = this.route.snapshot.data['title'];
+    if (this.route.snapshot.data.hasOwnProperty('displayTarget')) {
+      this.displayTarget = this.route.snapshot.data['displayTarget'];
+    }
+    if(this.route.snapshot.data.hasOwnProperty('displayLevel')) {
+      this.displayLevel = this.route.snapshot.data['displayLevel'];
+    }
+    const levelOrder = this.route.snapshot.data['levelOrder'];
+    // If the level order is two dimensional, we should be able
+    // to resolve it to one dimension using the route param 'roundName'
+    if (levelOrder && levelOrder.length > 0 &&
+      Array.isArray(levelOrder[0]) && this.route.snapshot.params['roundName']) {
+      let roundIndex = this.route.snapshot.data['roundNamesArray'].map(numberName => numberName.toLocaleLowerCase())
+        .indexOf(this.route.snapshot.params['roundName']);
+      let roundName = this.route.snapshot.params['roundName'];
+      if (roundIndex === -1) {
+        roundIndex = this.route.snapshot.data['defaultRoundIndex'];
+        roundName = this.route.snapshot.data['defaultRoundName'];
       }
+      this.levelOrder =  levelOrder[roundIndex];
+      this.quizName += '-' + roundName;
+    } else {
+      this.levelOrder = levelOrder;
+    }
   }
 
 }
