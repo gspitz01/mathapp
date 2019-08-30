@@ -1,9 +1,9 @@
 import { SimplifyFractionRoundLevel } from './simplify-fraction-round-level';
 import { BasicOperandLimitations } from '../basics/basic-operand-limitations';
 
-const belowFive = new BasicOperandLimitations(true, 5, false, false);
-const belowTen = new BasicOperandLimitations(true, 10, false, false);
-const belowTwenty = new BasicOperandLimitations(true, 20, false, false);
+const belowFive = new BasicOperandLimitations(true, 1, 5, false);
+const belowTen = new BasicOperandLimitations(true, 1, 10, false);
+const belowTwenty = new BasicOperandLimitations(true, 1, 20, false);
 const sfName = ' Simplify Fractions';
 const EASY_SIMPLIFY_FRACTION = new SimplifyFractionRoundLevel('Easy' + sfName, 20, belowFive, belowFive, 5,
   null);

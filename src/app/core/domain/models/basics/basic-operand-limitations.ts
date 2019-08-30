@@ -1,21 +1,15 @@
 import { BasicOperand } from './basic-operand';
 
 export class BasicOperandLimitations {
-  constructor(readonly wholeNumber: boolean, readonly absoluteLimit: number, readonly possiblyNegative: boolean,
-    readonly possiblyZero: boolean) {}
+  constructor(readonly wholeNumber: boolean, readonly lowerLimit: number, readonly upperLimit: number,
+    readonly possiblyNegative: boolean) {}
 
   createOperand(): BasicOperand {
     let value: number;
-    value = Math.random() * this.absoluteLimit;
+    const difference = this.upperLimit - this.lowerLimit;
+    value = Math.random() * difference + this.lowerLimit;
     if (this.wholeNumber) {
       value = Math.floor(value);
-      if (!this.possiblyZero && value === 0) {
-        value = 1;
-      }
-    } else {
-      if (!this.possiblyZero && value === 0.0) {
-        value = 0.1;
-      }
     }
     if (this.possiblyNegative) {
       const multNeg = Math.random();

@@ -7,18 +7,18 @@ import { BasicOperator } from './basics/basic-operator';
  * Basis
  */
 const justAddition: BasicOperator[] = [ADDITION];
-const singleDigitPositiveWholeNumbers = new BasicOperandLimitations(true, 9, false, true);
+const singleDigitPositiveWholeNumbers = new BasicOperandLimitations(true, 0, 9, false);
 export const EASY_ADDITION = new BasicRoundLevel('Easy Addition', justAddition, 25,
     singleDigitPositiveWholeNumbers, singleDigitPositiveWholeNumbers, null);
 
-const doubleDigitPositiveWholeNumbers = new BasicOperandLimitations(true, 99, false, true);
+const doubleDigitPositiveWholeNumbers = new BasicOperandLimitations(true, 0, 99, false);
 export const MEDIUM_ADDITION = new BasicRoundLevel('Medium Addition', justAddition, 20,
     doubleDigitPositiveWholeNumbers, singleDigitPositiveWholeNumbers, null);
 
 export const CHALLENGING_ADDITION = new BasicRoundLevel('Challenging Addition', justAddition, 15,
     doubleDigitPositiveWholeNumbers, doubleDigitPositiveWholeNumbers, null);
 
-const tripleDigitPositiveWholeNumbers = new BasicOperandLimitations(true, 999, false, true);
+const tripleDigitPositiveWholeNumbers = new BasicOperandLimitations(true, 0, 999, false);
 export const HARD_ADDITION = new BasicRoundLevel('Hard Addition', justAddition, 8,
     tripleDigitPositiveWholeNumbers, doubleDigitPositiveWholeNumbers, null);
 

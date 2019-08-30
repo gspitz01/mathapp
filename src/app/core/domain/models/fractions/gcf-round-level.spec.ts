@@ -3,7 +3,7 @@ import { BasicOperandLimitations } from '../basics/basic-operand-limitations';
 import { BasicOperatorQuestion } from '../basics/basic-operator-question';
 
 describe('GcfRoundLevel', () => {
-  const opLimits = new BasicOperandLimitations(true, 10, true, false);
+  const opLimits = new BasicOperandLimitations(true, 1, 10, true);
 
   it('should create OperatorQuestion', () => {
     const roundLevel = new GcfRoundLevel('Whatevers', 15, opLimits, opLimits);

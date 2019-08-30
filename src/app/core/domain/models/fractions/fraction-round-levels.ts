@@ -17,13 +17,13 @@ const justFractionMultiplication: FractionOperator[] = [FRACTION_MULTIPLICATION]
 const justFractionDivision: FractionOperator[] = [FRACTION_DIVISION];
 
 // Numerator and Denominator Operand Limitations
-const fractionNumEasyOperandLimitations = new BasicOperandLimitations(true, 9, false, true);
-const fractionDenEasyOperandLimitations = new BasicOperandLimitations(true, 4, false, false);
-const fractionNumMediumOperandLimitations = new BasicOperandLimitations(true, 19, false, true);
-const fractionDenMediumOperandLimitations = new BasicOperandLimitations(true, 9, false, false);
-const fractionEasyDivisionBasicOperandLimitations = new BasicOperandLimitations(true, 4, false, false);
-const fractionMediumDivisionBasicOperandLimitations = new BasicOperandLimitations(true, 9, false, false);
-const fractionChallengingDivisionBasicOperandLimitations = new BasicOperandLimitations(true, 19, false, false);
+const fractionNumEasyOperandLimitations = new BasicOperandLimitations(true, 0, 9, false);
+const fractionDenEasyOperandLimitations = new BasicOperandLimitations(true, 1, 4, false);
+const fractionNumMediumOperandLimitations = new BasicOperandLimitations(true, 0, 19, false);
+const fractionDenMediumOperandLimitations = new BasicOperandLimitations(true, 1, 9, false);
+const fractionEasyDivisionBasicOperandLimitations = new BasicOperandLimitations(true, 1, 4, false);
+const fractionMediumDivisionBasicOperandLimitations = new BasicOperandLimitations(true, 1, 9, false);
+const fractionChallengingDivisionBasicOperandLimitations = new BasicOperandLimitations(true, 1, 19, false);
 
 // Fraction Operand Limitations
 const fractionEasyOperandLimitations = new FractionOperandLimitations(fractionNumEasyOperandLimitations,

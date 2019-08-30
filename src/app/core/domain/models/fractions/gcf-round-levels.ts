@@ -1,10 +1,10 @@
 import { GcfRoundLevel } from './gcf-round-level';
 import { BasicOperandLimitations } from '../basics/basic-operand-limitations';
 
-const lessThan10NoZero = new BasicOperandLimitations(true, 9, false, false);
-const lessThan13NoZero = new BasicOperandLimitations(true, 12, false, false);
-const lessThan20NoZero = new BasicOperandLimitations(true, 19, false, false);
-const lessThan50NoZero = new BasicOperandLimitations(true, 49, false, false);
+const lessThan10NoZero = new BasicOperandLimitations(true, 3, 9, false);
+const lessThan13NoZero = new BasicOperandLimitations(true, 3, 12, false);
+const lessThan20NoZero = new BasicOperandLimitations(true, 3, 19, false);
+const lessThan50NoZero = new BasicOperandLimitations(true, 3, 49, false);
 const EASY_GCF = new GcfRoundLevel('Easy Greatest Common Factor', 25,
   lessThan13NoZero, lessThan10NoZero);
 

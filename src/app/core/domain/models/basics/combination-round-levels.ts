@@ -2,8 +2,8 @@ import { BasicRoundLevel } from './basic-round-level';
 import { BasicOperandLimitations } from './basic-operand-limitations';
 import { ADDITION, SUBTRACTION } from './basic-operators';
 
-const positiveLessThanTen = new BasicOperandLimitations(true, 10, false, true);
-const maybeNegativeLessThanTen = new BasicOperandLimitations(true, 10, true, true);
+const positiveLessThanTen = new BasicOperandLimitations(true, 0, 10, false);
+const maybeNegativeLessThanTen = new BasicOperandLimitations(true, 0, 10, true);
 export const COMBINATION_LEVEL_ORDER = [
   new BasicRoundLevel('Easy Combination', [ADDITION], 20, positiveLessThanTen, positiveLessThanTen, null),
   new BasicRoundLevel('Medium Combination', [ADDITION], 20, maybeNegativeLessThanTen, maybeNegativeLessThanTen, null),

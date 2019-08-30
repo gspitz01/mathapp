@@ -12,8 +12,8 @@ describe('BasicRoundLevel', () => {
     const operator = new BasicOperator('x', operation);
     const operators = [operator];
     const questionThreshold = 5;
-    const op1Limitations = new BasicOperandLimitations(true, 2, false, false);
-    const op2Limitations = new BasicOperandLimitations(true, 2, false, true);
+    const op1Limitations = new BasicOperandLimitations(true, 1, 2, false);
+    const op2Limitations = new BasicOperandLimitations(true, 0, 2, false);
     const resultLimitations = new BasicResultLimitations(true, false);
     const roundLevel = new BasicRoundLevel('Easy Whatever', operators, questionThreshold,
       op1Limitations, op2Limitations, resultLimitations);

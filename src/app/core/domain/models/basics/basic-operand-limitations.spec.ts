@@ -3,7 +3,7 @@ import { BasicOperandLimitations } from './basic-operand-limitations';
 describe('BasicOperandLimitations', () => {
 
   it('should create operand correctly using limitations', () => {
-    let limitations = new BasicOperandLimitations(true, 10, false, false);
+    let limitations = new BasicOperandLimitations(true, 1, 10, false);
     for (let i = 0; i < 100; i++) {
       const opValue = limitations.createOperand().value;
       expect(Number.isInteger(opValue)).toBeTruthy();
@@ -12,7 +12,7 @@ describe('BasicOperandLimitations', () => {
       expect(opValue).toBeGreaterThan(0);
     }
 
-    limitations = new BasicOperandLimitations(false, 100, true, false);
+    limitations = new BasicOperandLimitations(false, 1, 100, true);
     for (let i = 0; i < 100; i++) {
       const opValue = limitations.createOperand().value;
       expect(opValue).toBeGreaterThan(-100);
