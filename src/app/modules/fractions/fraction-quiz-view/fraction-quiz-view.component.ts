@@ -64,6 +64,19 @@ export class FractionQuizViewComponent extends BaseQuizViewComponent implements 
     }
   }
 
+
+  /**
+   * Skipping means sending "*//*" as the answer
+   * (with only one slash but I can't write that in a comment)
+   */
+  onSkip() {
+    if (!this.answerDisabled) {
+      this.quiz.answerQuestion('*' + FractionTimedQuiz.ANSWER_DELIMITER + '*');
+      this.clearAnswerInput();
+      this.numInput.nativeElement.focus();
+    }
+  }
+
   answerIsValid(): boolean {
     return this.answerNum.value && this.answerDen.value &&
       BaseQuizViewComponent.validAnswerRegex.test(this.answerNum.value) &&

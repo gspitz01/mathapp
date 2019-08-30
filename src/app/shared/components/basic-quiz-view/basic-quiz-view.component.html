@@ -32,6 +32,7 @@
           pattern="[0-9\-]*"
           autocomplete="off"
           type="text" name="answer" id="answer" />
+          <button id="skip" (click)="onSkip()">Skip</button>
         </div>
         <div *ngIf="answer.errors?.pattern" class="answer-error mat-error">Answer must be a number.</div>
       </div>

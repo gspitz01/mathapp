@@ -13,6 +13,10 @@ import { Stats } from '../domain/models/stats';
 import { Teacher } from '../domain/models/teacher';
 import { Class } from '../domain/models/class';
 import { Spied } from '../domain/models/test-constants.spec';
+import { QuestionStats } from '../domain/models/question-stats';
+import { QuestionSuccess } from '../domain/models/question-success';
+import { OPERATORS_DB_MAP } from '../domain/models/constants';
+import { ADDITION } from '../domain/models/basics/basic-operators';
 
 // TODO: rewrite many of these tests and add more
 // TODO: Clarify permissions differences between writing userdata like stats
@@ -56,8 +60,7 @@ function createStatsObservableData(stats: Stats) {
     endDate: stats.roundEnd,
     name: stats.roundName,
     target: stats.target,
-    correct: stats.correct,
-    incorrects: stats.incorrects
+    questions: stats.questions
   };
 }
 
@@ -132,7 +135,8 @@ describe('StatsService', () => {
   const firebaseUser1 = createFakeFirebaseUser(testUserValues[0]);
   const firebaseUser2 = createFakeFirebaseUser(testUserValues[1]);
   const firebaseUser3 = createFakeFirebaseUser(testUserValues[2]);
-  const stats = new Stats(new Date(), new Date(), 'RoundName', 10, 4, [[3, 4], [7, 9]]);
+  const questions = [new QuestionStats(QuestionSuccess.Correct, OPERATORS_DB_MAP.indexOf(ADDITION), [10, 4], [3, 4])];
+  const stats = new Stats(new Date(), new Date(), 'RoundName', 10, questions);
   const teachers = [
     new Teacher('5433535ijoi3j42', 'John Lions', ['fjdfda', 'fdsfdfds']),
     new Teacher('fsdfjklekrw#44', 'Ardvaark Lardsnark', ['Teemer', '545FFS'])
@@ -362,8 +366,7 @@ describe('StatsService', () => {
           endDate: stats.roundEnd.getTime(),
           name: stats.roundName,
           target: stats.target,
-          correct: stats.correct,
-          incorrects: stats.incorrects
+          questions: stats.questions
         });
         subscription.unsubscribe();
         done();

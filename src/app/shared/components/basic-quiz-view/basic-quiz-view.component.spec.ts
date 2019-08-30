@@ -11,7 +11,7 @@ import { Seconds } from 'src/app/core/domain/models/seconds';
 import { BASIC_ADDITION_LEVEL_ORDER } from 'src/app/core/domain/models/round-levels';
 import { ADDITION } from 'src/app/core/domain/models/basics/basic-operators';
 import { WRONG_ANSWER_TEXT, NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT,
-  ADVANCE_TO_NEXT_LEVEL_TEXT, FINISHED_HIGHEST_LEVEL_TEXT } from 'src/app/core/domain/models/constants';
+  ADVANCE_TO_NEXT_LEVEL_TEXT, FINISHED_HIGHEST_LEVEL_TEXT, CORRECT_ANSWER_TEXT, SKIPPED_TEXT } from 'src/app/core/domain/models/constants';
 import { compileComponentFromMetadata } from '@angular/compiler';
 import { of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
@@ -228,7 +228,7 @@ describe('BasicQuizViewComponent', () => {
       fixture.detectChanges();
       expect(correctAnswersView.nativeElement.textContent).toContain(1);
 
-      expect(messagesView.nativeElement.textContent).toBe('');
+      expect(messagesView.nativeElement.textContent).toBe(CORRECT_ANSWER_TEXT);
     });
   });
 
@@ -248,6 +248,22 @@ describe('BasicQuizViewComponent', () => {
       fixture.detectChanges();
       answerErrorMessage = fixture.debugElement.query(By.css('.answer-error'));
       expect(answerErrorMessage.nativeElement.textContent).toContain('Answer must');
+    });
+  });
+
+  it('should skip question when "Skip" clicked', () => {
+    fixture.whenStable().then(() => {
+      startButton = fixture.debugElement.query(By.css('#start'));
+      startButton.nativeElement.click();
+      fixture.detectChanges();
+
+      spyOn(component.quiz, 'skipQuestion');
+
+      const skipButton = fixture.debugElement.query(By.css('#skip'));
+      skipButton.nativeElement.click();
+      fixture.detectChanges();
+
+      expect(component.quiz.skipQuestion).toHaveBeenCalled();
     });
   });
 

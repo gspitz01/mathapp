@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { User } from 'src/app/core/domain/models/user';
 import { Stats } from 'src/app/core/domain/models/stats';
 import { OPERATORS_DB_MAP } from 'src/app/core/domain/models/constants';
+import { QuestionSuccess } from 'src/app/core/domain/models/question-success';
 
 @Component({
   selector: 'app-stats-user',
@@ -24,5 +25,9 @@ export class StatsUserComponent implements OnInit {
       return OPERATORS_DB_MAP[dbNumber].display;
     }
     return '';
+  }
+
+  displaySuccess(successNumber: number): string {
+    return QuestionSuccess[successNumber];
   }
 }

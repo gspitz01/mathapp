@@ -4,9 +4,12 @@ import { Seconds } from '../seconds';
 import { SimplifyFractionTimeLimitedRound } from './simplify-fraction-time-limited-round';
 import { SimplifyFractionOperatorQuestion } from './simplify-fraction-operator-question';
 import { FractionResult } from './fraction-result';
-import { WRONG_ANSWER_TEXT, OPERATORS_DB_MAP } from '../constants';
+import { WRONG_ANSWER_TEXT, OPERATORS_DB_MAP, CORRECT_ANSWER_TEXT } from '../constants';
 import { Stats } from '../stats';
 import { SIMPLIFY_FRACTION } from './fraction-operators';
+import { BasicOperatorQuestion } from '../basics/basic-operator-question';
+import { BasicResult } from '../basics/basic-result';
+import { QuestionSuccess } from '../question-success';
 
 describe('SimplifyFractionTimedQuiz', () => {
   let quiz: SimplifyFractionTimedQuiz;
@@ -19,6 +22,17 @@ describe('SimplifyFractionTimedQuiz', () => {
   const startingTime = new Seconds(10);
   const startingLevel = 0;
   const spyAfterEvaluateRound = jasmine.createSpy('AfterEvaluateRound');
+
+  function answerQuestion(correctly: boolean) {
+    const question = quiz.currentRound.getCurrentQuestion() as SimplifyFractionOperatorQuestion;
+    const result = question.getResult() as FractionResult;
+    let num = result.numerator.value;
+    const den = result.denominator.value;
+    if (!correctly) {
+      num += 1;
+    }
+    quiz.answerQuestion(num + SimplifyFractionTimedQuiz.ANSWER_DELIMITER + den);
+  }
 
   beforeEach(() => {
     quiz = new SimplifyFractionTimedQuiz(startingTime, startingLevel, SIMPLIFY_FRACTION_LEVEL_ORDER,
@@ -33,12 +47,58 @@ describe('SimplifyFractionTimedQuiz', () => {
     quiz.stopTimer();
   });
 
-  it('should add wrong answer to incorrects and set wrong answer message', () => {
+  it('should add question to stats if just stopped', () => {
     quiz.startTimer();
-    const question = quiz.currentRound.getCurrentQuestion() as SimplifyFractionOperatorQuestion;
-    const answerNum = (question.getResult() as FractionResult).numerator.value + 1;
-    const answerDen = (question.getResult() as FractionResult).denominator.value;
-    quiz.answerQuestion(answerNum + SimplifyFractionTimedQuiz.ANSWER_DELIMITER + answerDen);
+    let retrievedStats: Stats;
+    spyAfterEvaluateRound.and.callFake((stats: Stats) => {
+      retrievedStats = stats;
+    });
+    quiz.stopTimer();
+    expect(retrievedStats.questions.length).toBe(1);
+    expect(retrievedStats.questions[0].success).toBe(QuestionSuccess.Unanswered);
+  });
+
+  it('should add question to stats if question was answered correctly', () => {
+    quiz.startTimer();
+    answerQuestion(true);
+    expect(quiz.messages).toBe(CORRECT_ANSWER_TEXT);
+    let retrievedStats: Stats;
+    spyAfterEvaluateRound.and.callFake((stats: Stats) => {
+      retrievedStats = stats;
+    });
+    quiz.stopTimer();
+
+    // Should add two questions, one for the correctly answered question,
+    // and one for the unanswered question after it
+    expect(retrievedStats.questions.length).toBe(2);
+    const question1 = retrievedStats.questions[0];
+    expect(question1.success).toBe(QuestionSuccess.Correct);
+    expect(question1.operatorIndex).toBe(OPERATORS_DB_MAP.indexOf(SIMPLIFY_FRACTION));
+    expect(question1.operands.length).toBe(2);
+    expect(question1.incorrects.length).toBe(0);
+    expect(retrievedStats.questions[1].success).toBe(QuestionSuccess.Unanswered);
+  });
+
+  it('should add question to stats if answered incorrectly then correctly', () => {
+    quiz.startTimer();
+    answerQuestion(false);
+    answerQuestion(true);
+    let retrievedStats: Stats;
+    spyAfterEvaluateRound.and.callFake((stats: Stats) => {
+      retrievedStats = stats;
+    });
+    quiz.stopTimer();
+
+    // Should be two: one eventually correct and one unanswered
+    expect(retrievedStats.questions.length).toBe(2);
+    expect(retrievedStats.questions[0].success).toBe(QuestionSuccess.EventuallyCorrect);
+    expect(retrievedStats.questions[0].incorrects.length).toBe(2);
+    expect(retrievedStats.questions[1].success).toBe(QuestionSuccess.Unanswered);
+  });
+
+  it('should add question to stats if answered incorrectly then stopped', () => {
+    quiz.startTimer();
+    answerQuestion(false);
     expect(quiz.messages).toBe(WRONG_ANSWER_TEXT);
     let retrievedStats: Stats;
     spyAfterEvaluateRound.and.callFake((stats: Stats) => {
@@ -46,36 +106,74 @@ describe('SimplifyFractionTimedQuiz', () => {
     });
     quiz.stopTimer();
 
-    expect(retrievedStats.incorrects.length).toBe(1);
-    expect(retrievedStats.incorrects[0].length).toBe(incorrectLength);
-    expect(retrievedStats.incorrects[0][0]).toBe(OPERATORS_DB_MAP.indexOf(SIMPLIFY_FRACTION));
-    expect(retrievedStats.incorrects[0][1]).toBe(question.numerator.value);
-    expect(retrievedStats.incorrects[0][2]).toBe(question.denominator.value);
-    expect(retrievedStats.incorrects[0][3]).toBe(answerNum);
-    expect(retrievedStats.incorrects[0][4]).toBe(answerDen);
-    expect(retrievedStats.incorrects[0][5]).toBe(0);
+    expect(retrievedStats.questions.length).toBe(1);
+    expect(retrievedStats.questions[0].success).toBe(QuestionSuccess.EventuallyUnsanswered);
+    expect(retrievedStats.questions[0].incorrects.length).toBe(2);
   });
 
-  it('should add NaN to incorrects if answer not proper fraction', () => {
+  it('should add question to stats if skipped', () => {
     quiz.startTimer();
-    quiz.answerQuestion('ClearlyNotAFraction');
-    quiz.answerQuestion('3/x');
-    quiz.answerQuestion('4');
+    quiz.skipQuestion();
     let retrievedStats: Stats;
     spyAfterEvaluateRound.and.callFake((stats: Stats) => {
       retrievedStats = stats;
     });
     quiz.stopTimer();
 
-    expect(retrievedStats.incorrects.length).toBe(3);
-    expect(retrievedStats.incorrects[0].length).toBe(incorrectLength);
-    expect(retrievedStats.incorrects[0][incorrectAnsNumIndex]).toEqual(NaN);
-    expect(retrievedStats.incorrects[0][incorrectAnsDenIndex]).toEqual(NaN);
-    expect(retrievedStats.incorrects[1].length).toBe(incorrectLength);
-    expect(retrievedStats.incorrects[1][incorrectAnsNumIndex]).toEqual(NaN);
-    expect(retrievedStats.incorrects[1][incorrectAnsDenIndex]).toEqual(NaN);
-    expect(retrievedStats.incorrects[2].length).toBe(incorrectLength);
-    expect(retrievedStats.incorrects[2][incorrectAnsNumIndex]).toEqual(NaN);
-    expect(retrievedStats.incorrects[2][incorrectAnsDenIndex]).toEqual(NaN);
+    // Should be two: one skipped and one unanswered
+    expect(retrievedStats.questions.length).toBe(2);
+    expect(retrievedStats.questions[0].success).toBe(QuestionSuccess.Skipped);
+    expect(retrievedStats.questions[0].incorrects.length).toBe(0);
+    expect(retrievedStats.questions[1].success).toBe(QuestionSuccess.Unanswered);
+  });
+
+  it('should add question to stats if answered wrong then skipped', () => {
+    quiz.startTimer();
+    answerQuestion(false);
+    quiz.skipQuestion();
+    let retrievedStats: Stats;
+    spyAfterEvaluateRound.and.callFake((stats: Stats) => {
+      retrievedStats = stats;
+    });
+    quiz.stopTimer();
+
+    // Should be two: one eventually skipped and one unanswered
+    expect(retrievedStats.questions.length).toBe(2);
+    expect(retrievedStats.questions[0].success).toBe(QuestionSuccess.EventuallySkipped);
+    expect(retrievedStats.questions[0].incorrects.length).toBe(2);
+    expect(retrievedStats.questions[1].success).toBe(QuestionSuccess.Unanswered);
+  });
+
+  it('should add question to stats if answered incorrectly three times', () => {
+    quiz.startTimer();
+    for (let i = 0; i < 3; i++) {
+      answerQuestion(false);
+    }
+    let retrievedStats: Stats;
+    spyAfterEvaluateRound.and.callFake((stats: Stats) => {
+      retrievedStats = stats;
+    });
+    quiz.stopTimer();
+
+    // Should be two: one wrong and one unanswered
+    expect(retrievedStats.questions.length).toBe(2);
+    expect(retrievedStats.questions[0].success).toBe(QuestionSuccess.Wrong);
+    expect(retrievedStats.questions[0].incorrects.length).toBe(6);
+    expect(retrievedStats.questions[1].success).toBe(QuestionSuccess.Unanswered);
+  });
+
+  it('should add NaN to wrongs answers if answer not a number', () => {
+    quiz.startTimer();
+    quiz.answerQuestion('Not a number');
+    let retrievedStats: Stats;
+    spyAfterEvaluateRound.and.callFake((stats: Stats) => {
+      retrievedStats = stats;
+    });
+    quiz.stopTimer();
+
+    expect(retrievedStats.questions.length).toBe(1);
+    expect(retrievedStats.questions[0].incorrects.length).toBe(2);
+    expect(retrievedStats.questions[0].incorrects[0]).toEqual(NaN);
+    expect(retrievedStats.questions[0].incorrects[1]).toEqual(NaN);
   });
 });

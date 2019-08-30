@@ -5,18 +5,24 @@ import { OperatorQuestion } from './operator-question';
 import { ADDITION, SUBTRACTION } from './basics/basic-operators';
 import { Stats } from './stats';
 import { NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT, ADVANCE_TO_NEXT_LEVEL_TEXT,
-  FINISHED_HIGHEST_LEVEL_TEXT, WRONG_ANSWER_TEXT } from './constants';
+  FINISHED_HIGHEST_LEVEL_TEXT, WRONG_ANSWER_TEXT, CORRECT_ANSWER_TEXT } from './constants';
+import { QuestionSuccess } from './question-success';
+import { QuestionStats } from './question-stats';
 
-  describe('TimedQuiz', () => {
-    // Need to add level property
-    let spyQuestionRound, spyBeforeStartTimer, spyBeforeEvaluateRound, spyAfterEvaluateRound;
-    let quiz: MockTimedQuiz;
-    const startingTime = new Seconds(10);
-    const startingLevel = 0;
+describe('TimedQuiz', () => {
+  // Need to add level property
+  let spyQuestionRound, spyBeforeStartTimer, spyBeforeEvaluateRound, spyAfterEvaluateRound;
+  let quiz: MockTimedQuiz;
+  const startingTime = new Seconds(10);
+  const startingLevel = 0;
 
-    class MockTimedQuiz extends TimedQuiz {
+  class MockTimedQuiz extends TimedQuiz {
     newRound(): void {
       this.currentRound = spyQuestionRound;
+    }
+
+    protected finalizeQuestion(success: QuestionSuccess) {
+      this.questions.push(new QuestionStats(success, 0, [0], []));
     }
   }
 
@@ -161,7 +167,7 @@ import { NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT, ADVANCE_TO_NEXT_LEVEL_TEXT,
     quiz.stopTimer();
   });
 
-  it('correct answer sets messages blank', () => {
+  it('correct answer sets messages to correct answer text', () => {
     quiz.startTimer();
     spyQuestionRound.answerQuestion.and.returnValue({correct: false});
     quiz.answerQuestion('anything');
@@ -169,7 +175,7 @@ import { NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT, ADVANCE_TO_NEXT_LEVEL_TEXT,
 
     spyQuestionRound.answerQuestion.and.returnValue({correct: true});
     quiz.answerQuestion('anythingAgain');
-    expect(quiz.messages).toBe('');
+    expect(quiz.messages).toBe(CORRECT_ANSWER_TEXT);
     quiz.stopTimer();
   });
 
@@ -184,11 +190,10 @@ import { NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT, ADVANCE_TO_NEXT_LEVEL_TEXT,
     quiz.startTimer();
     quiz.stopTimer();
 
-    expect(retrievedStats.correct).toBe(questionsAnswered);
-    expect(retrievedStats.incorrects.length).toBe(0);
     expect(retrievedStats.roundName).toBe(roundLevels[0].name);
     expect(retrievedStats.target).toBe(roundLevels[0].questionThresholdPerSixtySeconds);
     expect(retrievedStats.roundStart).toEqual(jasmine.any(Date));
     expect(retrievedStats.roundEnd).toEqual(jasmine.any(Date));
+    expect(retrievedStats.questions.length).toBe(1);
   });
 });

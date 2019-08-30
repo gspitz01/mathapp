@@ -67,8 +67,21 @@ export class BasicQuizViewComponent extends BaseQuizViewComponent implements OnI
     return this.answer.value && BaseQuizViewComponent.validAnswerRegex.test(this.answer.value);
   }
 
+  /**
+   * Skipping a question sends * as the answer
+   */
+  onSkip() {
+    if (!this.answerDisabled) {
+      this.quiz.skipQuestion();
+      this.clearAnswerInput();
+    }
+  }
+
   clearAnswerInput() {
     this.answer.setValue('');
+    if (this.answerInput) {
+      this.answerInput.nativeElement.focus();
+    }
   }
 
   isGcfQuestion(): boolean {

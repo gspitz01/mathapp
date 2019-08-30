@@ -16,7 +16,7 @@ describe('StatsSelfComponent', () => {
   const securityService = jasmine.createSpyObj('SecurityService', ['currentUserId', 'currentUserDisplayName']);
   const userId = 'UserId01';
   const userName = 'Name Uvuser';
-  const testStats = [new Stats(new Date(), new Date(), 'Roundy Name', 10, 4, null)];
+  const testStats = [new Stats(new Date(), new Date(), 'Roundy Name', 10, null)];
   const testStats$ = of();
   securityService.currentUserId.and.returnValue(of(userId));
   securityService.currentUserDisplayName.and.returnValue(of(userName));

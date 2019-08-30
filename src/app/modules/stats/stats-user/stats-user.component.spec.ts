@@ -14,7 +14,7 @@ describe('StatsUserComponent', () => {
   let fixture: ComponentFixture<StatsUserComponent>;
   const testUser = new User('someId', 'John Name', 'Name', null);
   const testUser$ = of(testUser);
-  const testUserStats = [new Stats(new Date(), new Date(), 'Whatever', 10, 3, null)];
+  const testUserStats = [new Stats(new Date(), new Date(), 'Whatever', 10, null)];
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -48,12 +48,10 @@ describe('StatsUserComponent', () => {
   it('should show user stats', () => {
     const pipe = new DatePipe('en');
     const tableDatas = fixture.debugElement.queryAll(By.css('td'));
-    expect(tableDatas.length).toBe(5);
+    expect(tableDatas.length).toBe(4);
     expect(tableDatas[0].nativeElement.textContent).toBe(testUserStats[0].roundName);
     expect(tableDatas[1].nativeElement.textContent).toContain(pipe.transform(testUserStats[0].roundStart, 'short'));
     expect(tableDatas[1].nativeElement.textContent).toContain(pipe.transform(testUserStats[0].roundEnd, 'short'));
     expect(tableDatas[2].nativeElement.textContent).toBe(testUserStats[0].target.toString());
-    expect(tableDatas[3].nativeElement.textContent).toBe(testUserStats[0].correct.toString());
-    expect(tableDatas[4].nativeElement.textContent).toBe('None Incorrect');
   });
 });

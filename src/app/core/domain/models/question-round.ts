@@ -64,6 +64,15 @@ export abstract class QuestionRound {
     }
   }
 
+  skipQuestion() {
+    if (this.currentQuestion != null) {
+      if (this.shouldCreateNewQuestion()) {
+        this.currentQuestion = this.level.createQuestion();
+        this.sameQuestion = false;
+      }
+    }
+  }
+
   /**
    * This is a useful method for subclasses to override if they want to limit the number of questions
    */

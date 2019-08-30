@@ -113,4 +113,11 @@ describe('QuestionRound', () => {
     expect(answerEval.correct).toBeFalsy();
     expect(round.getCurrentQuestion()).toBe(question1);
   });
+
+  it('should create a new question after skipping', () => {
+    round.start();
+    const question1 = round.getCurrentQuestion();
+    round.skipQuestion();
+    expect(round.getCurrentQuestion()).not.toBe(question1);
+  });
 });

@@ -6,6 +6,8 @@ import { SimplifyFractionTimeLimitedRound } from './simplify-fraction-time-limit
 import { SimplifyFractionOperatorQuestion } from './simplify-fraction-operator-question';
 import { QuizName } from '../quiz-name';
 import { OPERATORS_DB_MAP } from '../constants';
+import { QuestionStats } from '../question-stats';
+import { QuestionSuccess } from '../question-success';
 
 export class SimplifyFractionTimedQuiz extends TimedQuiz {
   static readonly ANSWER_DELIMITER = '/';
@@ -21,20 +23,20 @@ export class SimplifyFractionTimedQuiz extends TimedQuiz {
       this.roundLevels[this.currentLevel] as SimplifyFractionRoundLevel);
   }
 
-  protected wrongAnswer(answer: string) {
+  protected finalizeQuestion(success: QuestionSuccess) {
     const question = this.currentRound.getCurrentQuestion() as SimplifyFractionOperatorQuestion;
+    this.questions.push(new QuestionStats(success, OPERATORS_DB_MAP.indexOf(question.operator),
+      [question.numerator.value, question.denominator.value], this.incorrects));
+  }
+
+  protected wrongAnswer(answer: string) {
     const answers = answer.split(SimplifyFractionTimedQuiz.ANSWER_DELIMITER);
     if (answers.length !== 2 || isNaN(parseInt(answers[0], 10)) || isNaN(parseInt(answers[1], 10))) {
-      // Zero at end of this array is just an indicator that this is a Simplify Fractions answer,
-      // to differentiate between a Fractions answer without the guess
-      this.incorrects.push([OPERATORS_DB_MAP.indexOf(question.operator),
-        question.numerator.value, question.denominator.value, NaN, NaN, 0]);
+      this.incorrects.push(NaN);
+      this.incorrects.push(NaN);
     } else {
-      // Zero at end of this array is just an indicator that this is a Simplify Fractions answer,
-      // to differentiate between a Fractions answer without the guess
-      this.incorrects.push([OPERATORS_DB_MAP.indexOf(question.operator),
-        question.numerator.value, question.denominator.value, parseInt(answers[0], 10),
-        parseInt(answers[1], 10), 0]);
+      this.incorrects.push(parseInt(answers[0], 10));
+      this.incorrects.push(parseInt(answers[0], 10));
     }
     super.wrongAnswer(answer);
   }

@@ -8,6 +8,7 @@ import { BASIC_ADDITION_LEVEL_ORDER } from 'src/app/core/domain/models/round-lev
 import { Seconds } from 'src/app/core/domain/models/seconds';
 import { Stats } from 'src/app/core/domain/models/stats';
 import { ActivatedRoute } from '@angular/router';
+import { QuestionSuccess } from 'src/app/core/domain/models/question-success';
 
 describe('BaseQuizViewComponent', () => {
   let component: BaseQuizViewComponent;
@@ -24,6 +25,8 @@ describe('BaseQuizViewComponent', () => {
     protected newRound() {
       this.currentRound = timeLimitedQuestionRoundSpy;
     }
+
+    protected finalizeQuestion(success: QuestionSuccess) {}
   }
 
   const activatedRouteSpy = jasmine.createSpyObj('ActivatedRoute', ['get']);
@@ -68,7 +71,7 @@ describe('BaseQuizViewComponent', () => {
     component.quizName = quizName;
     component.quiz = new MockTimedQuiz(new Seconds(60), 1, BASIC_ADDITION_LEVEL_ORDER, quizName, () => {}, () => {}, () => {});
     component.getMaxLevels();
-    const stats = new Stats(new Date(), new Date(), 'whatever', 15, 3, []);
+    const stats = new Stats(new Date(), new Date(), 'whatever', 15, []);
     component.sendStats(stats);
 
     expect(mockStatsService.addStats).toHaveBeenCalledWith(stats, null);

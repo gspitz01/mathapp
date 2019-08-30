@@ -12,9 +12,10 @@ import { FractionResult } from '../../../core/domain/models/fractions/fraction-r
 import { SIMPLIFY_FRACTION_LEVEL_ORDER } from '../../../core/domain/models/fractions/simplify-fraction-round-levels';
 import { BasicOperand } from 'src/app/core/domain/models/basics/basic-operand';
 import { WRONG_ANSWER_TEXT, NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT,
-  ADVANCE_TO_NEXT_LEVEL_TEXT, FINISHED_HIGHEST_LEVEL_TEXT } from 'src/app/core/domain/models/constants';
+  ADVANCE_TO_NEXT_LEVEL_TEXT, FINISHED_HIGHEST_LEVEL_TEXT, CORRECT_ANSWER_TEXT } from 'src/app/core/domain/models/constants';
 import { of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { SimplifyFractionTimedQuiz } from 'src/app/core/domain/models/fractions/simplify-fraction-timed-quiz';
 
 function getTimeRemainingView(fixture: ComponentFixture<SimplifyFractionComponent>): DebugElement {
   return fixture.debugElement.query(By.css('.time-remaining'));
@@ -193,7 +194,7 @@ describe('SimplifyFractionComponent', () => {
       fixture.detectChanges();
 
       expect(correctAnswersView.nativeElement.textContent).toContain(1);
-      expect(messagesView.nativeElement.textContent).toBe('');
+      expect(messagesView.nativeElement.textContent).toBe(CORRECT_ANSWER_TEXT);
     });
   });
 
@@ -230,6 +231,22 @@ describe('SimplifyFractionComponent', () => {
       fixture.detectChanges();
       answerErrorMessage = fixture.debugElement.query(By.css('.answer-error'));
       expect(answerErrorMessage.nativeElement.textContent).toContain('Answer must');
+    });
+  });
+
+  it('should answer "*/*" if "Skip" clicked', () => {
+    fixture.whenStable().then(() => {
+      startButton.nativeElement.click();
+      fixture.detectChanges();
+
+      spyOn(component.quiz, 'answerQuestion');
+
+      const skipButton = fixture.debugElement.query(By.css('#skip'));
+      skipButton.nativeElement.click();
+      fixture.detectChanges();
+
+      expect(component.quiz.answerQuestion)
+        .toHaveBeenCalledWith('*' + SimplifyFractionTimedQuiz.ANSWER_DELIMITER + '*');
     });
   });
 

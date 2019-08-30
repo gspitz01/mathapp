@@ -59,8 +59,7 @@ export class StatsService {
                 endDate: stats.roundEnd.getTime(),
                 name: stats.roundName,
                 target: stats.target,
-                correct: stats.correct,
-                incorrects: stats.incorrects
+                questions: stats.questions
               }),
               iif(() => maxLevels != null,
                 this.db.object('users/' + userId + '/maxLevels').update(maxLevels), of(false))]);
@@ -263,7 +262,7 @@ export class StatsService {
     return this.db.list('userdata/' + userId).snapshotChanges().pipe(
       map(stats => stats.map(stat => {
         const val: any = stat.payload.val();
-        return new Stats(val.startDate, val.endDate, val.name, val.target, val.correct, val.incorrects);
+        return new Stats(val.startDate, val.endDate, val.name, val.target, val.questions);
       }))
     );
   }

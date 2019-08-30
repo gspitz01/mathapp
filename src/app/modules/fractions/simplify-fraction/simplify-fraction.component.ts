@@ -60,6 +60,14 @@ export class SimplifyFractionComponent extends BaseQuizViewComponent implements 
     }
   }
 
+  onSkip() {
+    if (!this.answerDisabled) {
+      this.quiz.answerQuestion('*' + SimplifyFractionTimedQuiz.ANSWER_DELIMITER + '*');
+      this.clearAnswerInput();
+      this.numInput.nativeElement.focus();
+    }
+  }
+
   answerIsValid(): boolean {
     return this.answerNum.value && this.answerDen.value &&
       BaseQuizViewComponent.validAnswerRegex.test(this.answerNum.value) &&

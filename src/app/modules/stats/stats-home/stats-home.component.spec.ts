@@ -39,7 +39,7 @@ describe('StatsHomeComponent', () => {
   const testTeachers = [new Teacher('teacher01', 'Teachy Teach', ['class01'])];
   const testClasses = [new Class('class01', 'Algebra 1'), new Class('class02', 'Geometry')];
   const testClassUsers = [testUsers[0]];
-  const testStats = [new Stats(new Date(), new Date(), 'Mathy Maths', 10, 4, null)];
+  const testStats = [new Stats(new Date(), new Date(), 'Mathy Maths', 10, null)];
   const usersObservable = of(testUsers);
   const teachersObservable = of(testTeachers);
   const classesObservable = of(testClasses);
@@ -333,19 +333,13 @@ describe('StatsHomeComponent', () => {
     expect(statsService.getStats).toHaveBeenCalledWith(testClassUsers[0].id);
 
     const statsElements = fixture.debugElement.queryAll(By.css('td'));
-    expect(statsElements.length).toBe(testStats.length * 5);
+    expect(statsElements.length).toBe(testStats.length * 4);
     const pipe = new DatePipe('en');
     for (let i = 0; i < testStats.length; i++) {
       expect(statsElements[i * 5].nativeElement.textContent).toContain(testStats[i].roundName);
       expect(statsElements[i * 5 + 1].nativeElement.textContent).toContain(pipe.transform(testStats[i].roundStart, 'short'));
       expect(statsElements[i * 5 + 1].nativeElement.textContent).toContain(pipe.transform(testStats[i].roundEnd, 'short'));
       expect(statsElements[i * 5 + 2].nativeElement.textContent).toContain(testStats[i].target.toString());
-      expect(statsElements[i * 5 + 3].nativeElement.textContent).toContain(testStats[i].correct.toString());
-      if (testStats[i].incorrects == null) {
-        expect(statsElements[i * 5 + 4].nativeElement.textContent).toContain('None Incorrect');
-      } else {
-        expect(statsElements[i * 5 + 4].nativeElement.textContent).toContain('Op1');
-      }
     }
   });
 });
