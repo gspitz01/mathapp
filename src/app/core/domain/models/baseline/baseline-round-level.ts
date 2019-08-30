@@ -7,13 +7,20 @@ import { BASIC_DIVISION_LEVEL_ORDER } from '../basics/basic-division-round-level
 import { GREATEST_COMMON_FACTOR_LEVEL_ORDER } from '../fractions/gcf-round-levels';
 import { LCM_LEVEL_ORDER } from '../basics/lcm-round-levels';
 import { EXPONENTIATION_LEVEL_ORDER } from '../basics/exponentiation-round-levels';
+import { Operator } from '../operator';
 
 export class BaselineRoundLevel extends RoundLevel {
+  private operatorWeights: number[];
+  private operatorWeightSum: number;
+
   constructor(name: string, questionThresholdPerSixtySeconds: number) {
     // Need to have combination levels 1-4, mult times tables 3-9 with all integers possible,
     // div same as mult, Gcf two digit relatively non-prime, Lcm same as Gcf, Expo only squares
     super(name, [ADDITION, SUBTRACTION, MULTIPLICATION, DIVISION, GCF,
       LCM, EXPONENTIATION], questionThresholdPerSixtySeconds);
+    // Operator weights for how often they should arise
+    this.operatorWeights = [0.2, 0.2, 0.2, 0.2, 0.1, 0.1, 0.2];
+    this.operatorWeightSum = this.operatorWeights.reduce((sum, current) => sum + current, 0);
   }
 
   createQuestion(): OperatorQuestion {
@@ -48,5 +55,20 @@ export class BaselineRoundLevel extends RoundLevel {
         const cRound = Math.floor(Math.random() * COMBINATION_LEVEL_ORDER.length);
         return COMBINATION_LEVEL_ORDER[cRound].createQuestion();
     }
+  }
+
+  protected chooseOperator(): Operator {
+    if (this.operators.length === 0) {
+      return null;
+    }
+
+    const randNum = Math.random() * this.operatorWeightSum;
+    let sum = 0;
+    let index = 0;
+    while (randNum > sum) {
+      sum += this.operatorWeights[index];
+      index++;
+    }
+    return this.operators[index - 1];
   }
 }
