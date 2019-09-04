@@ -7,7 +7,7 @@ import { BasicTimedQuiz } from 'src/app/core/domain/models/basics/basic-timed-qu
 import { BaseQuizViewComponent } from '../base-quiz-view/base-quiz-view.component';
 import { BasicRoundLevel } from 'src/app/core/domain/models/basics/basic-round-level';
 import { ActivatedRoute } from '@angular/router';
-import { GCF, LCM } from 'src/app/core/domain/models/basics/basic-operators';
+import { GCF, LCM, EXPONENTIATION } from 'src/app/core/domain/models/basics/basic-operators';
 import { Operator } from 'src/app/core/domain/models/operator';
 
 
@@ -90,6 +90,10 @@ export class BasicQuizViewComponent extends BaseQuizViewComponent implements OnI
 
   isLcmQuestion(): boolean {
     return this.isOperator(LCM);
+  }
+
+  isExpQuestion(): boolean {
+    return this.isOperator(EXPONENTIATION);
   }
 
   isOperator(operator: Operator): boolean {

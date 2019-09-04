@@ -17,7 +17,11 @@
           <p class="op-message lcm-message" *ngIf="isLcmQuestion()">
             Find the Least<br>Common Multiple
           </p>
-          <table>
+          <p *ngIf="isExpQuestion()">
+            <span class="operand1">{{quiz.currentRound.getCurrentQuestion().operand1.value}}</span>
+            <sup class="operand2 exponent">{{quiz.currentRound.getCurrentQuestion().operand2.value}}</sup>
+          </p>
+          <table *ngIf="!isExpQuestion()">
             <tr>
               <td><span class="operand1">{{quiz.currentRound.getCurrentQuestion().operand1.value}}</span></td>
               <td><span class="operator">{{quiz.currentRound.getCurrentQuestion().operator.display}}</span></td>
