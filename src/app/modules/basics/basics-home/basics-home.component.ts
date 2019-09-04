@@ -17,6 +17,7 @@ export class BasicsHomeComponent implements OnInit {
     new RouterCard('basic-multiplication', basicsPath + '/multiplication', 'Multiplication'),
     new RouterCard('basic-division', basicsPath + '/division', 'Division'),
     new RouterCard('exponentiation', basicsPath + '/exponentiation', 'Exponentiation'),
+    new RouterCard('greatest-factor', basicsPath + '/gcf', 'Greatest Common Factor'),
     new RouterCard('lcm', basicsPath + '/lcm', 'Least Common Multiple')
   ];
 

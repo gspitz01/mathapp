@@ -14,6 +14,7 @@ import { LCM_LEVEL_ORDER } from 'src/app/core/domain/models/basics/lcm-round-lev
 import { COMBINATION_LEVEL_ORDER } from 'src/app/core/domain/models/basics/combination-round-levels';
 import { BASIC_ADDITION_LEVEL_ORDER } from 'src/app/core/domain/models/basics/basic-addition-round-levels';
 import { BASIC_SUBTRACTION_LEVEL_ORDER } from 'src/app/core/domain/models/basics/basic-subtraction-round-levels';
+import { GREATEST_COMMON_FACTOR_LEVEL_ORDER } from 'src/app/core/domain/models/basics/gcf-round-levels';
 
 const routes: Routes = [
   { path: '', children: [
@@ -90,6 +91,15 @@ const routes: Routes = [
         levelOrder: LCM_LEVEL_ORDER,
         quizName: QUIZ_NAMES[11],
         title: 'Least Common Multiple',
+      }
+    },
+    { path: 'gcf', component: BasicQuizViewComponent,
+      data: {
+        startingLevel: 0,
+        startingTime: 60,
+        levelOrder: GREATEST_COMMON_FACTOR_LEVEL_ORDER,
+        quizName: QUIZ_NAMES[8],
+        title: 'Greatest Common Factor'
       }
     },
     { path: '', component: BasicsHomeComponent }

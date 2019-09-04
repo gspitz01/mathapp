@@ -1,6 +1,6 @@
 import { GcfRoundLevel } from './gcf-round-level';
-import { BasicOperandLimitations } from '../basics/basic-operand-limitations';
-import { BasicOperatorQuestion } from '../basics/basic-operator-question';
+import { BasicOperandLimitations } from './basic-operand-limitations';
+import { BasicOperatorQuestion } from './basic-operator-question';
 
 describe('GcfRoundLevel', () => {
   const opLimits = new BasicOperandLimitations(true, 1, 10, true);

@@ -1,5 +1,5 @@
 import { GcfRoundLevel } from './gcf-round-level';
-import { BasicOperandLimitations } from '../basics/basic-operand-limitations';
+import { BasicOperandLimitations } from './basic-operand-limitations';
 
 const lessThan10NoZero = new BasicOperandLimitations(true, 3, 9, false);
 const lessThan13NoZero = new BasicOperandLimitations(true, 3, 12, false);
