@@ -8,7 +8,7 @@ const factorLimits = [[0, 10], [0, 15], [0, 20]];
 let levelFocusNumber = 2;
 for (const roundLevelName of PLURAL_NUMBER_NAMES) {
   const numberLevelOrder = [];
-  let factorLimit = 0;
+  let factorLimit = -1;
   for (let i = 0; i < difficultyThresholds.length; i++) {
     if (i % 5 === 0) {
       factorLimit++;

@@ -4,7 +4,7 @@ import { ADDITION, SUBTRACTION, MULTIPLICATION, DIVISION, GCF, LCM, EXPONENTIATI
 import { COMBINATION_LEVEL_ORDER } from '../basics/combination-round-levels';
 import { BASIC_MULTIPLICATION_LEVEL_ORDER } from '../basics/basic-multiplication-round-levels';
 import { BASIC_DIVISION_LEVEL_ORDER } from '../basics/basic-division-round-levels';
-import { GREATEST_COMMON_FACTOR_LEVEL_ORDER } from '../fractions/gcf-round-levels';
+import { GREATEST_COMMON_FACTOR_LEVEL_ORDER } from '../basics/gcf-round-levels';
 import { LCM_LEVEL_ORDER } from '../basics/lcm-round-levels';
 import { EXPONENTIATION_LEVEL_ORDER } from '../basics/exponentiation-round-levels';
 import { Operator } from '../operator';
@@ -39,11 +39,11 @@ export class BaselineRoundLevel extends RoundLevel {
         // Use the easy level which is index 0
         return BASIC_DIVISION_LEVEL_ORDER[dRound - 2][0].createQuestion();
       case GCF:
-        // Just get a question from level 3
-        return GREATEST_COMMON_FACTOR_LEVEL_ORDER[2].createQuestion();
+        // Just get a question from level 1
+        return GREATEST_COMMON_FACTOR_LEVEL_ORDER[0].createQuestion();
       case LCM:
-        // Just get a question from level 3
-        return LCM_LEVEL_ORDER[2].createQuestion();
+        // Just get a question from level 1
+        return LCM_LEVEL_ORDER[0].createQuestion();
       case EXPONENTIATION:
         // The 0th level of EXPONENTIATION is 2s
         // Use the medium level which is index 1
