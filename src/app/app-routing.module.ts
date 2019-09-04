@@ -12,7 +12,7 @@ import { BaselineRoundLevel } from './core/domain/models/baseline/baseline-round
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'baseline', component: BasicQuizViewComponent,
+  { path: 'baseline', component: BasicQuizViewComponent, canActivate: [AuthGuardService],
     data: {
       startingLevel: 0,
       startingTime: 120,
