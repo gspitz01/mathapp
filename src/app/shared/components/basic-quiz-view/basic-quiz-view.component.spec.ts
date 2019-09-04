@@ -92,6 +92,11 @@ describe('BasicQuizViewComponent', () => {
     startButton = fixture.debugElement.query(By.css('#start'));
     messagesView = fixture.debugElement.query(By.css('.messages'));
     fixture.detectChanges();
+    jasmine.clock().install();
+  });
+
+  afterEach(() => {
+    jasmine.clock().uninstall();
   });
 
   it('should create', () => {
@@ -268,8 +273,6 @@ describe('BasicQuizViewComponent', () => {
   });
 
   it('clock ticks correctly', () => {
-    jasmine.clock().install();
-
     fixture.whenStable().then(() => {
       startButton = fixture.debugElement.query(By.css('#start'));
       startButton.nativeElement.click();
@@ -282,13 +285,10 @@ describe('BasicQuizViewComponent', () => {
       fixture.detectChanges();
 
       expect(timeRemainingView.nativeElement.textContent).toBe('59');
-      jasmine.clock().uninstall();
     });
   });
 
   it('let clock tick all the way down without answering, shows not enough questions answered message', () => {
-    jasmine.clock().install();
-
     fixture.whenStable().then(() => {
       startButton = fixture.debugElement.query(By.css('#start'));
       startButton.nativeElement.click();
@@ -304,14 +304,10 @@ describe('BasicQuizViewComponent', () => {
       expect(timeRemainingView.nativeElement.textContent).toBe('0');
 
       expect(messagesView.nativeElement.textContent).toBe(NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT);
-
-      jasmine.clock().uninstall();
     });
   });
 
   it('let clock tick all the way down and answer enough questions correctly, shows next level message', () => {
-    jasmine.clock().install();
-
     fixture.whenStable().then(() => {
       startButton = fixture.debugElement.query(By.css('#start'));
       startButton.nativeElement.click();
@@ -345,14 +341,10 @@ describe('BasicQuizViewComponent', () => {
 
       expect(timeRemainingView.nativeElement.textContent).toBe('0');
       expect(messagesView.nativeElement.textContent).toBe(ADVANCE_TO_NEXT_LEVEL_TEXT);
-
-      jasmine.clock().uninstall();
     });
   });
 
   it('finish all levels, shows finished highest level message', () => {
-    jasmine.clock().install();
-
     fixture.whenStable().then(() => {
       const levelView = fixture.debugElement.query(By.css('.level'));
       const levels = BASIC_ADDITION_LEVEL_ORDER.map<string>((value) => value.name);
@@ -401,8 +393,6 @@ describe('BasicQuizViewComponent', () => {
       }
 
       expect(messagesView.nativeElement.textContent).toBe(FINISHED_HIGHEST_LEVEL_TEXT);
-
-      jasmine.clock().uninstall();
     });
   });
 });

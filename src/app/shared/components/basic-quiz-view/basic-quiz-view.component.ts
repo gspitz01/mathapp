@@ -39,9 +39,7 @@ export class BasicQuizViewComponent extends BaseQuizViewComponent implements OnI
       // beforeTimerStart():
       () => {
         this.setUI();
-        if (this.answerInput) {
-          this.answerInput.nativeElement.focus();
-        }
+        this.setFocus();
       },
       // beforeEvaluateRound():
       () => {
@@ -77,11 +75,17 @@ export class BasicQuizViewComponent extends BaseQuizViewComponent implements OnI
     }
   }
 
+  setFocus() {
+    setTimeout(() => {
+      if (this.answerInput) {
+        this.answerInput.nativeElement.focus();
+      }
+    }, 0);
+  }
+
   clearAnswerInput() {
     this.answer.setValue('');
-    if (this.answerInput) {
-      this.answerInput.nativeElement.focus();
-    }
+    this.setFocus();
   }
 
   isGcfQuestion(): boolean {

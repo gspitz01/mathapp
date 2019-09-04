@@ -34,9 +34,7 @@ export class SimplifyFractionComponent extends BaseQuizViewComponent implements 
       // beforeTimerStart():
       () => {
         this.setUI();
-        if (this.numInput) {
-          this.numInput.nativeElement.focus();
-        }
+        this.setFocus();
       },
       // beforeEvaluateRound():
       () => {
@@ -56,7 +54,6 @@ export class SimplifyFractionComponent extends BaseQuizViewComponent implements 
       const answer = this.answerNum.value + SimplifyFractionTimedQuiz.ANSWER_DELIMITER + this.answerDen.value;
       this.quiz.answerQuestion(answer);
       this.clearAnswerInput();
-      this.numInput.nativeElement.focus();
     }
   }
 
@@ -64,7 +61,6 @@ export class SimplifyFractionComponent extends BaseQuizViewComponent implements 
     if (!this.answerDisabled) {
       this.quiz.answerQuestion('*' + SimplifyFractionTimedQuiz.ANSWER_DELIMITER + '*');
       this.clearAnswerInput();
-      this.numInput.nativeElement.focus();
     }
   }
 
@@ -77,5 +73,14 @@ export class SimplifyFractionComponent extends BaseQuizViewComponent implements 
   clearAnswerInput() {
     this.answerNum.setValue('');
     this.answerDen.setValue('');
+    this.setFocus();
+  }
+
+  setFocus() {
+    setTimeout(() => {
+      if (this.numInput) {
+        this.numInput.nativeElement.focus();
+      }
+    }, 0);
   }
 }
