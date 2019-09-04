@@ -1,9 +1,9 @@
 import { BasicTimeLimitedRound } from './basic-time-limited-round';
 import { Seconds } from '../seconds';
-import { BASIC_ADDITION_LEVEL_ORDER } from '../round-levels';
 import { ADDITION } from './basic-operators';
 import { AnswerEvaluation } from '../answer-evaluation';
 import { BasicResult } from './basic-result';
+import { BASIC_ADDITION_LEVEL_ORDER } from './basic-addition-round-levels';
 
 describe('BasicTimeLimitedRound', () => {
   const initialTime = new Seconds(60);

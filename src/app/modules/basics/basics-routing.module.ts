@@ -5,7 +5,6 @@ import { BasicsHomeComponent } from './basics-home/basics-home.component';
 import { BasicMultiplicationHomeComponent } from './basic-multiplication-home/basic-multiplication-home.component';
 import { BasicDivisionHomeComponent } from './basic-division-home/basic-division-home.component';
 import { ExponentiationHomeComponent } from './exponentiation-home/exponentiation-home.component';
-import { BASIC_ADDITION_LEVEL_ORDER, BASIC_SUBTRACTION_LEVEL_ORDER } from 'src/app/core/domain/models/round-levels';
 import { QUIZ_NAMES, PLURAL_NUMBER_NAMES, NUMBER_NAMES, ORDINAL_NUMBER_NAMES } from 'src/app/core/domain/models/constants';
 import { BasicQuizViewComponent } from 'src/app/shared/components/basic-quiz-view/basic-quiz-view.component';
 import { BASIC_MULTIPLICATION_LEVEL_ORDER } from 'src/app/core/domain/models/basics/basic-multiplication-round-levels';
@@ -13,6 +12,8 @@ import { BASIC_DIVISION_LEVEL_ORDER } from 'src/app/core/domain/models/basics/ba
 import { EXPONENTIATION_LEVEL_ORDER } from 'src/app/core/domain/models/basics/exponentiation-round-levels';
 import { LCM_LEVEL_ORDER } from 'src/app/core/domain/models/basics/lcm-round-levels';
 import { COMBINATION_LEVEL_ORDER } from 'src/app/core/domain/models/basics/combination-round-levels';
+import { BASIC_ADDITION_LEVEL_ORDER } from 'src/app/core/domain/models/basics/basic-addition-round-levels';
+import { BASIC_SUBTRACTION_LEVEL_ORDER } from 'src/app/core/domain/models/basics/basic-subtraction-round-levels';
 
 const routes: Routes = [
   { path: '', children: [

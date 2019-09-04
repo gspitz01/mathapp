@@ -2,7 +2,7 @@
 <div *ngIf="quiz" class="quiz-and-jump">
   <div class="main">
     <div class="quiz-view">
-      <h3 *ngIf="displayLevel" class="level">Level: {{quiz.roundLevels[quiz.currentLevel].name}}</h3>
+      <h3 *ngIf="displayLevel" class="level">{{quiz.roundLevels[quiz.currentLevel].name}}</h3>
       <h4 *ngIf="displayTarget" class="target">Target: {{quiz.roundLevels[quiz.currentLevel].questionThresholdPerSixtySeconds}}</h4>
       <div class="controls">
         <button (click)="start()" id="start" mat-button>{{buttonText}}</button>

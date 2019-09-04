@@ -8,13 +8,13 @@ import { MatListModule } from '@angular/material';
 import { BasicQuizViewComponent } from './basic-quiz-view.component';
 import { StatsService } from '../../../core/services/stats.service';
 import { Seconds } from 'src/app/core/domain/models/seconds';
-import { BASIC_ADDITION_LEVEL_ORDER } from 'src/app/core/domain/models/round-levels';
 import { ADDITION } from 'src/app/core/domain/models/basics/basic-operators';
 import { WRONG_ANSWER_TEXT, NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT,
   ADVANCE_TO_NEXT_LEVEL_TEXT, FINISHED_HIGHEST_LEVEL_TEXT, CORRECT_ANSWER_TEXT, SKIPPED_TEXT } from 'src/app/core/domain/models/constants';
 import { compileComponentFromMetadata } from '@angular/compiler';
 import { of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { BASIC_ADDITION_LEVEL_ORDER } from 'src/app/core/domain/models/basics/basic-addition-round-levels';
 
 const defaultStartingTime = new Seconds(60);
 
@@ -355,10 +355,10 @@ describe('BasicQuizViewComponent', () => {
 
     fixture.whenStable().then(() => {
       const levelView = fixture.debugElement.query(By.css('.level'));
-      const levelNamePrefixes = ['Easy', 'Medium', 'Challenging', 'Hard', 'Expert'];
+      const levels = BASIC_ADDITION_LEVEL_ORDER.map<string>((value) => value.name);
 
       const targetView = fixture.debugElement.query(By.css('.target'));
-      const targets = [25, 20, 15, 8, 5];
+      const targets = BASIC_ADDITION_LEVEL_ORDER.map<number>((value) => value.questionThresholdPerSixtySeconds);
 
       startButton = fixture.debugElement.query(By.css('#start'));
       messagesView = fixture.debugElement.query(By.css('.messages'));
@@ -367,7 +367,7 @@ describe('BasicQuizViewComponent', () => {
         startButton.nativeElement.click();
         fixture.detectChanges();
 
-        expect(levelView.nativeElement.textContent).toContain(levelNamePrefixes[level] + ' ' + 'Addition');
+        expect(levelView.nativeElement.textContent).toContain(levels[level]);
         expect(targetView.nativeElement.textContent).toContain(targets[level]);
         expect(messagesView.nativeElement.textContent).toBe('');
 

@@ -4,11 +4,11 @@ import { BaseQuizViewComponent } from './base-quiz-view.component';
 import { StatsService } from 'src/app/core/services/stats.service';
 import { BehaviorSubject, of } from 'rxjs';
 import { TimedQuiz } from 'src/app/core/domain/models/timed-quiz';
-import { BASIC_ADDITION_LEVEL_ORDER } from 'src/app/core/domain/models/round-levels';
 import { Seconds } from 'src/app/core/domain/models/seconds';
 import { Stats } from 'src/app/core/domain/models/stats';
 import { ActivatedRoute } from '@angular/router';
 import { QuestionSuccess } from 'src/app/core/domain/models/question-success';
+import { BASIC_ADDITION_LEVEL_ORDER } from 'src/app/core/domain/models/basics/basic-addition-round-levels';
 
 describe('BaseQuizViewComponent', () => {
   let component: BaseQuizViewComponent;

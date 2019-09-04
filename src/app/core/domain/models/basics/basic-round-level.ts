@@ -10,7 +10,8 @@ export class BasicRoundLevel extends RoundLevel {
 
   constructor(name: string, operators: BasicOperator[],  questionThresholdPerSixtySeconds: number,
       readonly operand1Limitations: BasicOperandLimitations,
-      readonly operand2Limitations: BasicOperandLimitations, readonly resultLimitations: BasicResultLimitations) {
+      readonly operand2Limitations: BasicOperandLimitations, readonly resultLimitations: BasicResultLimitations,
+      readonly reversible: boolean) {
     super(name, operators, questionThresholdPerSixtySeconds);
   }
 
@@ -18,9 +19,16 @@ export class BasicRoundLevel extends RoundLevel {
     let question: BasicOperatorQuestion = null;
     let result: BasicResult;
     do {
-      const op1 = this.operand1Limitations.createOperand();
-      const op2 = this.operand2Limitations.createOperand();
+      let op1 = this.operand1Limitations.createOperand();
+      let op2 = this.operand2Limitations.createOperand();
       const operator = this.chooseOperator() as BasicOperator;
+      if (this.reversible) {
+        if (Math.random() > 0.5) {
+          const temp = op1;
+          op1 = op2;
+          op2 = temp;
+        }
+      }
       question = new BasicOperatorQuestion(op1, op2, operator);
       result = question.getResult();
     } while (this.resultLimitations && !this.resultSatisfiesLimitations(result));
