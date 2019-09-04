@@ -68,7 +68,7 @@ export class FractionQuizViewComponent extends BaseQuizViewComponent implements 
    */
   onSkip() {
     if (!this.answerDisabled) {
-      this.quiz.answerQuestion('*' + FractionTimedQuiz.ANSWER_DELIMITER + '*');
+      this.quiz.skipQuestion();
       this.clearAnswerInput();
     }
   }
