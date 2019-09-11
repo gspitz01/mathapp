@@ -23,6 +23,8 @@ import { By } from '@angular/platform-browser';
 import { Class } from 'src/app/core/domain/models/class';
 import { Stats } from 'src/app/core/domain/models/stats';
 import { DatePipe } from '@angular/common';
+import { QuestionStats } from 'src/app/core/domain/models/question-stats';
+import { QuestionSuccess } from 'src/app/core/domain/models/question-success';
 
 class DummyComponent {}
 
@@ -39,7 +41,8 @@ describe('StatsHomeComponent', () => {
   const testTeachers = [new Teacher('teacher01', 'Teachy Teach', ['class01'])];
   const testClasses = [new Class('class01', 'Algebra 1'), new Class('class02', 'Geometry')];
   const testClassUsers = [testUsers[0]];
-  const testStats = [new Stats(new Date(), new Date(), 'Mathy Maths', 10, null)];
+  const testQuestions = [new QuestionStats(QuestionSuccess.Correct, 0, [0, 4], [])];
+  const testStats = [new Stats(new Date(), new Date(), 'Mathy Maths', 10, testQuestions)];
   const usersObservable = of(testUsers);
   const teachersObservable = of(testTeachers);
   const classesObservable = of(testClasses);
@@ -333,13 +336,13 @@ describe('StatsHomeComponent', () => {
     expect(statsService.getStats).toHaveBeenCalledWith(testClassUsers[0].id);
 
     const statsElements = fixture.debugElement.queryAll(By.css('td'));
-    expect(statsElements.length).toBe(testStats.length * 4);
+    expect(statsElements.length).toBe(testStats.length * 7);
     const pipe = new DatePipe('en');
     for (let i = 0; i < testStats.length; i++) {
-      expect(statsElements[i * 5].nativeElement.textContent).toContain(testStats[i].roundName);
-      expect(statsElements[i * 5 + 1].nativeElement.textContent).toContain(pipe.transform(testStats[i].roundStart, 'short'));
-      expect(statsElements[i * 5 + 1].nativeElement.textContent).toContain(pipe.transform(testStats[i].roundEnd, 'short'));
-      expect(statsElements[i * 5 + 2].nativeElement.textContent).toContain(testStats[i].target.toString());
+      expect(statsElements[i * 8].nativeElement.textContent).toContain(testStats[i].roundName);
+      expect(statsElements[i * 8 + 1].nativeElement.textContent).toContain(pipe.transform(testStats[i].roundStart, 'short'));
+      expect(statsElements[i * 8 + 1].nativeElement.textContent).toContain(pipe.transform(testStats[i].roundEnd, 'short'));
+      expect(statsElements[i * 8 + 2].nativeElement.textContent).toContain(testStats[i].target.toString());
     }
   });
 });

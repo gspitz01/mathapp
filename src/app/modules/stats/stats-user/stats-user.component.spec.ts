@@ -8,13 +8,16 @@ import { StatsUserComponent } from './stats-user.component';
 import { CoreModule } from 'src/app/core/core.module';
 import { User } from 'src/app/core/domain/models/user';
 import { Stats } from 'src/app/core/domain/models/stats';
+import { QuestionStats } from 'src/app/core/domain/models/question-stats';
+import { QuestionSuccess } from 'src/app/core/domain/models/question-success';
 
 describe('StatsUserComponent', () => {
   let component: StatsUserComponent;
   let fixture: ComponentFixture<StatsUserComponent>;
   const testUser = new User('someId', 'John Name', 'Name', null);
   const testUser$ = of(testUser);
-  const testUserStats = [new Stats(new Date(), new Date(), 'Whatever', 10, null)];
+  const testQuestions = [new QuestionStats(QuestionSuccess.Correct, 0, [4, 5], [])];
+  const testUserStats = [new Stats(new Date(), new Date(), 'Whatever', 10, testQuestions)];
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -48,7 +51,7 @@ describe('StatsUserComponent', () => {
   it('should show user stats', () => {
     const pipe = new DatePipe('en');
     const tableDatas = fixture.debugElement.queryAll(By.css('td'));
-    expect(tableDatas.length).toBe(4);
+    expect(tableDatas.length).toBe(7);
     expect(tableDatas[0].nativeElement.textContent).toBe(testUserStats[0].roundName);
     expect(tableDatas[1].nativeElement.textContent).toContain(pipe.transform(testUserStats[0].roundStart, 'short'));
     expect(tableDatas[1].nativeElement.textContent).toContain(pipe.transform(testUserStats[0].roundEnd, 'short'));

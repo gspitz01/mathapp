@@ -48,6 +48,14 @@
     }
   }
 
+  .report-click {
+    cursor: pointer;
+
+    &:hover {
+      color: $pearl;
+    }
+  }
+
   .questions-table-container {
     max-height: 100px;
     overflow: auto;

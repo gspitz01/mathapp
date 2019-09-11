@@ -15,6 +15,7 @@ import { QuestionSuccess } from 'src/app/core/domain/models/question-success';
 export class StatsUserComponent implements OnInit {
   @Input() user: Observable<User>;
   @Input() userStats: Observable<Stats[]>;
+  showFullReport = {};
 
   constructor() {}
 

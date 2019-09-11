@@ -5,7 +5,10 @@
       <th>Level Name</th>
       <th>Time</th>
       <th>Target</th>
-      <th>Questions</th>
+      <th>Correct</th>
+      <th>Incorrect</th>
+      <th>Skipped</th>
+      <th>Full Report</th>
     </tr>
   </thead>
   <tbody>
@@ -13,8 +16,17 @@
       <td>{{userStat.roundName}}</td>
       <td>{{userStat.roundStart | date:'short' }} - {{userStat.roundEnd | date:'shortTime' }}</td>
       <td>{{userStat.target}}</td>
+      <td>{{userStat.calculateCorrects()}}</td>
+      <td>{{userStat.calculateIncorrects()}}</td>
+      <td>{{userStat.calculateSkips()}}</td>
       <td>
-        <div class="questions-table-container">
+        <div *ngIf="!showFullReport[userStat.roundStart]"
+          (click)="showFullReport[userStat.roundStart]=true;"
+          class="report-click">Show full report</div>
+        <div *ngIf="showFullReport[userStat.roundStart]"
+          (click)="showFullReport[userStat.roundStart]=false"
+          class="report-click">Hide full report</div>
+        <div *ngIf="showFullReport[userStat.roundStart]" class="questions-table-container">
           <table class="questions-table">
             <thead>
               <tr>
