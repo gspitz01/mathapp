@@ -18,7 +18,7 @@ export class Stats {
   }
 
   calculateSuccesses(success: QuestionSuccess): number {
-    if (this.questions === null) {
+    if (!this.questions) {
       return 0;
     }
     return this.questions.map(stats => stats.success).filter(qSuccess => qSuccess === success).length;
