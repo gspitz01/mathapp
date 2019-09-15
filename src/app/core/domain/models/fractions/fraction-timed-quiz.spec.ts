@@ -3,11 +3,12 @@ import { Seconds } from '../seconds';
 import { FRACTION_ADDITION_LEVEL_ORDER } from './fraction-round-levels';
 import { FractionTimeLimitedRound } from './fraction-time-limited-round';
 import { FractionOperatorQuestion } from './fraction-operator-question';
-import { WRONG_ANSWER_TEXT, OPERATORS_DB_MAP, CORRECT_ANSWER_TEXT } from '../constants';
+import { OPERATORS_DB_MAP} from '../constants';
 import { Stats } from '../stats';
 import { FRACTION_ADDITION } from './fraction-operators';
 import { QuestionSuccess } from '../question-success';
 import { FractionResult } from './fraction-result';
+import { DisplayText } from '../display-text';
 
 describe('FractionTimedQuiz', () => {
   let quiz: FractionTimedQuiz;
@@ -59,7 +60,7 @@ describe('FractionTimedQuiz', () => {
   it('should add question to stats if question was answered correctly', () => {
     quiz.startTimer();
     answerQuestion(true);
-    expect(quiz.messages).toBe(CORRECT_ANSWER_TEXT);
+    expect(quiz.messages).toBe(DisplayText.CORRECT_ANSWER_TEXT);
     let retrievedStats: Stats;
     spyAfterEvaluateRound.and.callFake((stats: Stats) => {
       retrievedStats = stats;
@@ -97,7 +98,7 @@ describe('FractionTimedQuiz', () => {
   it('should add question to stats if answered incorrectly then stopped', () => {
     quiz.startTimer();
     answerQuestion(false);
-    expect(quiz.messages).toBe(WRONG_ANSWER_TEXT);
+    expect(quiz.messages).toBe(DisplayText.WRONG_ANSWER_TEXT);
     let retrievedStats: Stats;
     spyAfterEvaluateRound.and.callFake((stats: Stats) => {
       retrievedStats = stats;

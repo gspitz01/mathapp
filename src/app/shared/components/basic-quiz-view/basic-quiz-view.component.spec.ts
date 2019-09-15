@@ -9,12 +9,11 @@ import { BasicQuizViewComponent } from './basic-quiz-view.component';
 import { StatsService } from '../../../core/services/stats.service';
 import { Seconds } from 'src/app/core/domain/models/seconds';
 import { ADDITION } from 'src/app/core/domain/models/basics/basic-operators';
-import { WRONG_ANSWER_TEXT, NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT,
-  ADVANCE_TO_NEXT_LEVEL_TEXT, FINISHED_HIGHEST_LEVEL_TEXT, CORRECT_ANSWER_TEXT, SKIPPED_TEXT } from 'src/app/core/domain/models/constants';
 import { compileComponentFromMetadata } from '@angular/compiler';
 import { of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { BASIC_ADDITION_LEVEL_ORDER } from 'src/app/core/domain/models/basics/basic-addition-round-levels';
+import { DisplayText } from 'src/app/core/domain/models/display-text';
 
 const defaultStartingTime = new Seconds(60);
 
@@ -197,7 +196,7 @@ describe('BasicQuizViewComponent', () => {
       const correctAnswersView = getCorrectAnswersView(fixture);
       expect(correctAnswersView.nativeElement.textContent).toContain(0);
 
-      expect(messagesView.nativeElement.textContent).toBe(WRONG_ANSWER_TEXT);
+      expect(messagesView.nativeElement.textContent).toBe(DisplayText.WRONG_ANSWER_TEXT);
     });
   });
 
@@ -224,7 +223,7 @@ describe('BasicQuizViewComponent', () => {
       const correctAnswersView = getCorrectAnswersView(fixture);
       expect(correctAnswersView.nativeElement.textContent).toContain(0);
 
-      expect(messagesView.nativeElement.textContent).toBe(WRONG_ANSWER_TEXT);
+      expect(messagesView.nativeElement.textContent).toBe(DisplayText.WRONG_ANSWER_TEXT);
 
       answerInput.nativeElement.value = op1 + op2;
       answerInput.nativeElement.dispatchEvent(new Event('input'));
@@ -233,7 +232,7 @@ describe('BasicQuizViewComponent', () => {
       fixture.detectChanges();
       expect(correctAnswersView.nativeElement.textContent).toContain(1);
 
-      expect(messagesView.nativeElement.textContent).toBe(CORRECT_ANSWER_TEXT);
+      expect(messagesView.nativeElement.textContent).toBe(DisplayText.CORRECT_ANSWER_TEXT);
     });
   });
 
@@ -303,7 +302,7 @@ describe('BasicQuizViewComponent', () => {
       const timeRemainingView = getTimeRemainingView(fixture);
       expect(timeRemainingView.nativeElement.textContent).toBe('0');
 
-      expect(messagesView.nativeElement.textContent).toBe(NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT);
+      expect(messagesView.nativeElement.textContent).toBe(DisplayText.NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT);
     });
   });
 
@@ -340,7 +339,7 @@ describe('BasicQuizViewComponent', () => {
       fixture.detectChanges();
 
       expect(timeRemainingView.nativeElement.textContent).toBe('0');
-      expect(messagesView.nativeElement.textContent).toBe(ADVANCE_TO_NEXT_LEVEL_TEXT);
+      expect(messagesView.nativeElement.textContent).toBe(DisplayText.ADVANCE_TO_NEXT_LEVEL_TEXT);
     });
   });
 
@@ -388,11 +387,11 @@ describe('BasicQuizViewComponent', () => {
 
         expect(timeRemainingView.nativeElement.textContent).toBe('0');
         if (level < BASIC_ADDITION_LEVEL_ORDER.length - 1) {
-          expect(messagesView.nativeElement.textContent).toBe(ADVANCE_TO_NEXT_LEVEL_TEXT);
+          expect(messagesView.nativeElement.textContent).toBe(DisplayText.ADVANCE_TO_NEXT_LEVEL_TEXT);
         }
       }
 
-      expect(messagesView.nativeElement.textContent).toBe(FINISHED_HIGHEST_LEVEL_TEXT);
+      expect(messagesView.nativeElement.textContent).toBe(DisplayText.FINISHED_HIGHEST_LEVEL_TEXT);
     });
   });
 });

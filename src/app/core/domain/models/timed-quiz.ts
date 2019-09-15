@@ -2,13 +2,11 @@ import { Seconds } from './seconds';
 import { RoundLevel } from './round-level';
 import { TimeLimitedQuestionRound } from './time-limited-question-round';
 import { Stats } from './stats';
-import { ADVANCE_TO_NEXT_LEVEL_TEXT, FINISHED_HIGHEST_LEVEL_TEXT,
-  NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT, WRONG_ANSWER_TEXT,
-  TOO_MANY_WRONG_TEXT, SKIPPED_TEXT, CORRECT_ANSWER_TEXT, QUIZ_COMPLETE_TEXT } from './constants';
 import { QuizName } from './quiz-name';
 import { QuestionStats } from './question-stats';
 import { QuestionSuccess } from './question-success';
 import { QuestionFinalizationReason } from './question-finalization-reason';
+import { DisplayText } from './display-text';
 
 export abstract class TimedQuiz {
 
@@ -90,17 +88,17 @@ export abstract class TimedQuiz {
       if (this.currentLevel < this.roundLevels.length - 1) {
         this.currentLevel++;
         if (this.showEvaluationMessages) {
-          this.messages = ADVANCE_TO_NEXT_LEVEL_TEXT;
+          this.messages = DisplayText.ADVANCE_TO_NEXT_LEVEL_TEXT;
         }
       } else if (this.showEvaluationMessages) {
-        this.messages = FINISHED_HIGHEST_LEVEL_TEXT;
+        this.messages = DisplayText.FINISHED_HIGHEST_LEVEL_TEXT;
       }
     } else if (this.showEvaluationMessages) {
-      this.messages = NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT;
+      this.messages = DisplayText.NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT;
     }
 
     if (!this.showEvaluationMessages) {
-      this.messages = QUIZ_COMPLETE_TEXT;
+      this.messages = DisplayText.QUIZ_COMPLETE_TEXT;
     }
 
     const roundStats = new Stats(this.roundStart, new Date(), this.currentRound.level.name,
@@ -138,13 +136,13 @@ export abstract class TimedQuiz {
     if (this.timer != null) {
       this.currentRound.skipQuestion();
       this.finalizeQuestion(this.getQuestionSuccess(QuestionFinalizationReason.Skipped));
-      this.messages = SKIPPED_TEXT;
+      this.messages = DisplayText.SKIPPED_TEXT;
       this.resetIncorrects();
     }
   }
 
   private rightAnswer() {
-    this.messages = CORRECT_ANSWER_TEXT;
+    this.messages = DisplayText.CORRECT_ANSWER_TEXT;
     this.resetIncorrects();
   }
 
@@ -153,14 +151,14 @@ export abstract class TimedQuiz {
    * @param answer The answer given
    */
   protected wrongAnswer(answer: string) {
-    this.messages = WRONG_ANSWER_TEXT;
+    this.messages = DisplayText.WRONG_ANSWER_TEXT;
     this.successivelyIncorrect++;
     if (this.successivelyIncorrect >= TimedQuiz.SUCCESSIVELY_INCORRECT_LIMIT) {
       if (this.timer != null) {
         this.currentRound.skipQuestion();
         this.finalizeQuestion(this.getQuestionSuccess(QuestionFinalizationReason.Wrong));
       }
-      this.messages = TOO_MANY_WRONG_TEXT;
+      this.messages = DisplayText.TOO_MANY_WRONG_TEXT;
       this.resetIncorrects();
     }
   }

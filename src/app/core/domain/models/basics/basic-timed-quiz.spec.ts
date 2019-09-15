@@ -5,9 +5,10 @@ import { BasicTimeLimitedRound } from './basic-time-limited-round';
 import { BasicResult } from './basic-result';
 import { Stats } from '../stats';
 import { BasicOperatorQuestion } from './basic-operator-question';
-import { WRONG_ANSWER_TEXT, OPERATORS_DB_MAP, CORRECT_ANSWER_TEXT } from '../constants';
+import { OPERATORS_DB_MAP } from '../constants';
 import { MULTIPLICATION } from './basic-operators';
 import { QuestionSuccess } from '../question-success';
+import { DisplayText } from '../display-text';
 
 describe('BasicTimedQuiz', () => {
   let quiz: BasicTimedQuiz;
@@ -44,7 +45,7 @@ describe('BasicTimedQuiz', () => {
     quiz.startTimer();
     const question = quiz.currentRound.getCurrentQuestion() as BasicOperatorQuestion;
     quiz.answerQuestion('' + (question.getResult() as BasicResult).value);
-    expect(quiz.messages).toBe(CORRECT_ANSWER_TEXT);
+    expect(quiz.messages).toBe(DisplayText.CORRECT_ANSWER_TEXT);
     let retrievedStats: Stats;
     spyAfterEvaluateRound.and.callFake((stats: Stats) => {
       retrievedStats = stats;
@@ -85,7 +86,7 @@ describe('BasicTimedQuiz', () => {
     quiz.startTimer();
     const question = quiz.currentRound.getCurrentQuestion() as BasicOperatorQuestion;
     quiz.answerQuestion('' + (question.getResult() as BasicResult).value + 1);
-    expect(quiz.messages).toBe(WRONG_ANSWER_TEXT);
+    expect(quiz.messages).toBe(DisplayText.WRONG_ANSWER_TEXT);
     let retrievedStats: Stats;
     spyAfterEvaluateRound.and.callFake((stats: Stats) => {
       retrievedStats = stats;

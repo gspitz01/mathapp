@@ -11,11 +11,10 @@ import { SIMPLIFY_FRACTION } from '../../../core/domain/models/fractions/fractio
 import { FractionResult } from '../../../core/domain/models/fractions/fraction-result';
 import { SIMPLIFY_FRACTION_LEVEL_ORDER } from '../../../core/domain/models/fractions/simplify-fraction-round-levels';
 import { BasicOperand } from 'src/app/core/domain/models/basics/basic-operand';
-import { WRONG_ANSWER_TEXT, NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT,
-  ADVANCE_TO_NEXT_LEVEL_TEXT, FINISHED_HIGHEST_LEVEL_TEXT, CORRECT_ANSWER_TEXT } from 'src/app/core/domain/models/constants';
 import { of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { SimplifyFractionTimedQuiz } from 'src/app/core/domain/models/fractions/simplify-fraction-timed-quiz';
+import { DisplayText } from 'src/app/core/domain/models/display-text';
 
 function getTimeRemainingView(fixture: ComponentFixture<SimplifyFractionComponent>): DebugElement {
   return fixture.debugElement.query(By.css('.time-remaining'));
@@ -175,7 +174,7 @@ describe('SimplifyFractionComponent', () => {
       const correctAnswersView = getCorrectAnswersView(fixture);
       expect(correctAnswersView.nativeElement.textContent).toContain(0);
 
-      expect(messagesView.nativeElement.textContent).toBe(WRONG_ANSWER_TEXT);
+      expect(messagesView.nativeElement.textContent).toBe(DisplayText.WRONG_ANSWER_TEXT);
     });
   });
 
@@ -193,13 +192,13 @@ describe('SimplifyFractionComponent', () => {
       const correctAnswersView = getCorrectAnswersView(fixture);
       expect(correctAnswersView.nativeElement.textContent).toContain(0);
 
-      expect(messagesView.nativeElement.textContent).toBe(WRONG_ANSWER_TEXT);
+      expect(messagesView.nativeElement.textContent).toBe(DisplayText.WRONG_ANSWER_TEXT);
 
       setAnswer(fixture, answer.numerator.value, answer.denominator.value);
       fixture.detectChanges();
 
       expect(correctAnswersView.nativeElement.textContent).toContain(1);
-      expect(messagesView.nativeElement.textContent).toBe(CORRECT_ANSWER_TEXT);
+      expect(messagesView.nativeElement.textContent).toBe(DisplayText.CORRECT_ANSWER_TEXT);
     });
   });
 
@@ -283,7 +282,7 @@ describe('SimplifyFractionComponent', () => {
       const timeRemainingView = getTimeRemainingView(fixture);
       expect(timeRemainingView.nativeElement.textContent).toBe('0');
 
-      expect(messagesView.nativeElement.textContent).toBe(NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT);
+      expect(messagesView.nativeElement.textContent).toBe(DisplayText.NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT);
 
     });
   });
@@ -313,7 +312,7 @@ describe('SimplifyFractionComponent', () => {
       fixture.detectChanges();
 
       expect(timeRemainingView.nativeElement.textContent).toBe('0');
-      expect(messagesView.nativeElement.textContent).toBe(ADVANCE_TO_NEXT_LEVEL_TEXT);
+      expect(messagesView.nativeElement.textContent).toBe(DisplayText.ADVANCE_TO_NEXT_LEVEL_TEXT);
     });
   });
 
@@ -348,11 +347,11 @@ describe('SimplifyFractionComponent', () => {
 
         expect(timeRemainingView.nativeElement.textContent).toBe('0');
         if (level < SIMPLIFY_FRACTION_LEVEL_ORDER.length - 1) {
-          expect(messagesView.nativeElement.textContent).toBe(ADVANCE_TO_NEXT_LEVEL_TEXT);
+          expect(messagesView.nativeElement.textContent).toBe(DisplayText.ADVANCE_TO_NEXT_LEVEL_TEXT);
         }
       }
 
-      expect(messagesView.nativeElement.textContent).toBe(FINISHED_HIGHEST_LEVEL_TEXT);
+      expect(messagesView.nativeElement.textContent).toBe(DisplayText.FINISHED_HIGHEST_LEVEL_TEXT);
     });
   });
 });

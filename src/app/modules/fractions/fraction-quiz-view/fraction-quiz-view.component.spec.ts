@@ -12,11 +12,10 @@ import { FractionOperand } from '../../../core/domain/models/fractions/fraction-
 import { FractionResult } from '../../../core/domain/models/fractions/fraction-result';
 import { StatsService } from '../../../core/services/stats.service';
 import { BasicOperand } from 'src/app/core/domain/models/basics/basic-operand';
-import { WRONG_ANSWER_TEXT, NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT,
-  ADVANCE_TO_NEXT_LEVEL_TEXT, FINISHED_HIGHEST_LEVEL_TEXT, CORRECT_ANSWER_TEXT } from 'src/app/core/domain/models/constants';
 import { of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { FractionTimedQuiz } from 'src/app/core/domain/models/fractions/fraction-timed-quiz';
+import { DisplayText } from 'src/app/core/domain/models/display-text';
 
 function getTimeRemainingView(fixture: ComponentFixture<FractionQuizViewComponent>): DebugElement {
   return fixture.debugElement.query(By.css('.time-remaining'));
@@ -200,7 +199,7 @@ describe('FractionQuizViewComponent', () => {
       const correctAnswersView = getCorrectAnswersView(fixture);
       expect(correctAnswersView.nativeElement.textContent).toContain(0);
 
-      expect(messagesView.nativeElement.textContent).toBe(WRONG_ANSWER_TEXT);
+      expect(messagesView.nativeElement.textContent).toBe(DisplayText.WRONG_ANSWER_TEXT);
     });
   });
 
@@ -220,13 +219,13 @@ describe('FractionQuizViewComponent', () => {
       const correctAnswersView = getCorrectAnswersView(fixture);
       expect(correctAnswersView.nativeElement.textContent).toContain(0);
 
-      expect(messagesView.nativeElement.textContent).toBe(WRONG_ANSWER_TEXT);
+      expect(messagesView.nativeElement.textContent).toBe(DisplayText.WRONG_ANSWER_TEXT);
 
       setAnswer(fixture, answer.numerator.value, answer.denominator.value);
       fixture.detectChanges();
 
       expect(correctAnswersView.nativeElement.textContent).toContain(1);
-      expect(messagesView.nativeElement.textContent).toBe(CORRECT_ANSWER_TEXT);
+      expect(messagesView.nativeElement.textContent).toBe(DisplayText.CORRECT_ANSWER_TEXT);
     });
   });
 
@@ -314,7 +313,7 @@ describe('FractionQuizViewComponent', () => {
 
       const timeRemainingView = getTimeRemainingView(fixture);
       expect(timeRemainingView.nativeElement.textContent).toBe('0');
-      expect(messagesView.nativeElement.textContent).toBe(NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT);
+      expect(messagesView.nativeElement.textContent).toBe(DisplayText.NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT);
     });
   });
 
@@ -345,7 +344,7 @@ describe('FractionQuizViewComponent', () => {
       fixture.detectChanges();
 
       expect(timeRemainingView.nativeElement.textContent).toBe('0');
-      expect(messagesView.nativeElement.textContent).toBe(ADVANCE_TO_NEXT_LEVEL_TEXT);
+      expect(messagesView.nativeElement.textContent).toBe(DisplayText.ADVANCE_TO_NEXT_LEVEL_TEXT);
     });
   });
 
@@ -381,11 +380,11 @@ describe('FractionQuizViewComponent', () => {
 
         expect(timeRemainingView.nativeElement.textContent).toBe('0');
         if (level < FRACTION_ADDITION_LEVEL_ORDER.length - 1) {
-          expect(messagesView.nativeElement.textContent).toBe(ADVANCE_TO_NEXT_LEVEL_TEXT);
+          expect(messagesView.nativeElement.textContent).toBe(DisplayText.ADVANCE_TO_NEXT_LEVEL_TEXT);
         }
       }
 
-      expect(messagesView.nativeElement.textContent).toBe(FINISHED_HIGHEST_LEVEL_TEXT);
+      expect(messagesView.nativeElement.textContent).toBe(DisplayText.FINISHED_HIGHEST_LEVEL_TEXT);
     });
   });
 });

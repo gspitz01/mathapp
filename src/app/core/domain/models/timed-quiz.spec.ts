@@ -4,10 +4,9 @@ import { RoundLevel } from './round-level';
 import { OperatorQuestion } from './operator-question';
 import { ADDITION, SUBTRACTION } from './basics/basic-operators';
 import { Stats } from './stats';
-import { NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT, ADVANCE_TO_NEXT_LEVEL_TEXT,
-  FINISHED_HIGHEST_LEVEL_TEXT, WRONG_ANSWER_TEXT, CORRECT_ANSWER_TEXT } from './constants';
 import { QuestionSuccess } from './question-success';
 import { QuestionStats } from './question-stats';
+import { DisplayText } from './display-text';
 
 describe('TimedQuiz', () => {
   // Need to add level property
@@ -89,7 +88,7 @@ describe('TimedQuiz', () => {
     expect(spyQuestionRound.getNumberOfCorrectAnswers).toHaveBeenCalled();
     expect(spyAfterEvaluateRound).toHaveBeenCalledWith(jasmine.any(Stats));
     // Should not have answered enough questions
-    expect(quiz.messages).toBe(NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT);
+    expect(quiz.messages).toBe(DisplayText.NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT);
     expect(quiz.isTimerRunning()).toBeFalsy();
   });
 
@@ -111,7 +110,7 @@ describe('TimedQuiz', () => {
     expect(spyQuestionRound.getNumberOfCorrectAnswers).toHaveBeenCalled();
     expect(spyAfterEvaluateRound).toHaveBeenCalledWith(jasmine.any(Stats));
     // Should not have answered enough questions
-    expect(quiz.messages).toBe(NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT);
+    expect(quiz.messages).toBe(DisplayText.NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT);
     expect(quiz.isTimerRunning()).toBeFalsy();
   });
 
@@ -130,7 +129,7 @@ describe('TimedQuiz', () => {
     checkTimerStarted();
     quiz.stopTimer();
 
-    expect(quiz.messages).toBe(ADVANCE_TO_NEXT_LEVEL_TEXT);
+    expect(quiz.messages).toBe(DisplayText.ADVANCE_TO_NEXT_LEVEL_TEXT);
     expect(quiz.currentLevel).toBe(startingLevel + 1);
   });
 
@@ -141,7 +140,7 @@ describe('TimedQuiz', () => {
       quiz.stopTimer();
     }
 
-    expect(quiz.messages).toBe(FINISHED_HIGHEST_LEVEL_TEXT);
+    expect(quiz.messages).toBe(DisplayText.FINISHED_HIGHEST_LEVEL_TEXT);
     expect(quiz.currentLevel).toBe(roundLevels.length - 1);
   });
 
@@ -163,7 +162,7 @@ describe('TimedQuiz', () => {
     quiz.startTimer();
     spyQuestionRound.answerQuestion.and.returnValue({correct: false});
     quiz.answerQuestion('anything');
-    expect(quiz.messages).toBe(WRONG_ANSWER_TEXT);
+    expect(quiz.messages).toBe(DisplayText.WRONG_ANSWER_TEXT);
     quiz.stopTimer();
   });
 
@@ -171,11 +170,11 @@ describe('TimedQuiz', () => {
     quiz.startTimer();
     spyQuestionRound.answerQuestion.and.returnValue({correct: false});
     quiz.answerQuestion('anything');
-    expect(quiz.messages).toBe(WRONG_ANSWER_TEXT);
+    expect(quiz.messages).toBe(DisplayText.WRONG_ANSWER_TEXT);
 
     spyQuestionRound.answerQuestion.and.returnValue({correct: true});
     quiz.answerQuestion('anythingAgain');
-    expect(quiz.messages).toBe(CORRECT_ANSWER_TEXT);
+    expect(quiz.messages).toBe(DisplayText.CORRECT_ANSWER_TEXT);
     quiz.stopTimer();
   });
 

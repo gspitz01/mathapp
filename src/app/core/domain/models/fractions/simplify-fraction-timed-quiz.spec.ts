@@ -4,12 +4,13 @@ import { Seconds } from '../seconds';
 import { SimplifyFractionTimeLimitedRound } from './simplify-fraction-time-limited-round';
 import { SimplifyFractionOperatorQuestion } from './simplify-fraction-operator-question';
 import { FractionResult } from './fraction-result';
-import { WRONG_ANSWER_TEXT, OPERATORS_DB_MAP, CORRECT_ANSWER_TEXT } from '../constants';
+import { OPERATORS_DB_MAP} from '../constants';
 import { Stats } from '../stats';
 import { SIMPLIFY_FRACTION } from './fraction-operators';
 import { BasicOperatorQuestion } from '../basics/basic-operator-question';
 import { BasicResult } from '../basics/basic-result';
 import { QuestionSuccess } from '../question-success';
+import { DisplayText } from '../display-text';
 
 describe('SimplifyFractionTimedQuiz', () => {
   let quiz: SimplifyFractionTimedQuiz;
@@ -61,7 +62,7 @@ describe('SimplifyFractionTimedQuiz', () => {
   it('should add question to stats if question was answered correctly', () => {
     quiz.startTimer();
     answerQuestion(true);
-    expect(quiz.messages).toBe(CORRECT_ANSWER_TEXT);
+    expect(quiz.messages).toBe(DisplayText.CORRECT_ANSWER_TEXT);
     let retrievedStats: Stats;
     spyAfterEvaluateRound.and.callFake((stats: Stats) => {
       retrievedStats = stats;
@@ -99,7 +100,7 @@ describe('SimplifyFractionTimedQuiz', () => {
   it('should add question to stats if answered incorrectly then stopped', () => {
     quiz.startTimer();
     answerQuestion(false);
-    expect(quiz.messages).toBe(WRONG_ANSWER_TEXT);
+    expect(quiz.messages).toBe(DisplayText.WRONG_ANSWER_TEXT);
     let retrievedStats: Stats;
     spyAfterEvaluateRound.and.callFake((stats: Stats) => {
       retrievedStats = stats;
