@@ -3,7 +3,8 @@ import { RoundLevel } from './round-level';
 import { TimeLimitedQuestionRound } from './time-limited-question-round';
 import { Stats } from './stats';
 import { ADVANCE_TO_NEXT_LEVEL_TEXT, FINISHED_HIGHEST_LEVEL_TEXT,
-  NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT, WRONG_ANSWER_TEXT, TOO_MANY_WRONG_TEXT, SKIPPED_TEXT, CORRECT_ANSWER_TEXT } from './constants';
+  NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT, WRONG_ANSWER_TEXT,
+  TOO_MANY_WRONG_TEXT, SKIPPED_TEXT, CORRECT_ANSWER_TEXT, QUIZ_COMPLETE_TEXT } from './constants';
 import { QuizName } from './quiz-name';
 import { QuestionStats } from './question-stats';
 import { QuestionSuccess } from './question-success';
@@ -96,6 +97,10 @@ export abstract class TimedQuiz {
       }
     } else if (this.showEvaluationMessages) {
       this.messages = NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT;
+    }
+
+    if (!this.showEvaluationMessages) {
+      this.messages = QUIZ_COMPLETE_TEXT;
     }
 
     const roundStats = new Stats(this.roundStart, new Date(), this.currentRound.level.name,

@@ -6,6 +6,7 @@ import { ADDITION, DIVISION, MULTIPLICATION, SUBTRACTION, GCF, LCM, EXPONENTIATI
 export const ADVANCE_TO_NEXT_LEVEL_TEXT = 'You can move on to the next level!';
 export const FINISHED_HIGHEST_LEVEL_TEXT = 'You finished the highest level! Congratulations!';
 export const NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT = 'You did not answer enough questions to reach the next level.';
+export const QUIZ_COMPLETE_TEXT = 'Quiz Complete!';
 export const WRONG_ANSWER_TEXT = 'Incorrect. Try again.';
 export const TOO_MANY_WRONG_TEXT = 'Too many wrong.';
 export const SKIPPED_TEXT = 'Skipped.';
