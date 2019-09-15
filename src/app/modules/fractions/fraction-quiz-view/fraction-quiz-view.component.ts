@@ -46,7 +46,8 @@ export class FractionQuizViewComponent extends BaseQuizViewComponent implements 
       // afterEvaluateRound():
       (stats: Stats) => {
         this.sendStats(stats);
-      }
+      },
+      this.displayEvaluationMessages
     );
     this.resetUI();
     this.getMaxLevels();

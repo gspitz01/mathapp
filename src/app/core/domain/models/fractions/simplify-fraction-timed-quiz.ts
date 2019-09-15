@@ -14,8 +14,9 @@ export class SimplifyFractionTimedQuiz extends TimedQuiz {
 
   constructor(startingTime: Seconds, startingLevel: number, roundLevels: SimplifyFractionRoundLevel[],
     quizName: QuizName, beforeStartTimer: () => void, beforeEvaluateRound: () => void,
-    afterEvaluateRound: (stats: Stats) => void) {
-      super(startingTime, startingLevel, roundLevels, quizName, beforeStartTimer, beforeEvaluateRound, afterEvaluateRound);
+    afterEvaluateRound: (stats: Stats) => void, showEvaluationMessages: boolean) {
+      super(startingTime, startingLevel, roundLevels, quizName, beforeStartTimer,
+        beforeEvaluateRound, afterEvaluateRound, showEvaluationMessages);
   }
 
   newRound() {

@@ -16,8 +16,9 @@ export class BasicTimedQuiz extends TimedQuiz {
 
   constructor(startingTime: Seconds, startingLevel: number, roundLevels: BasicRoundLevel[],
     quizName: QuizName, beforeStartTimer: () => void, beforeEvaluateRound: () => void,
-    afterEvaluateRound: (stats: Stats) => void) {
-      super(startingTime, startingLevel, roundLevels, quizName, beforeStartTimer, beforeEvaluateRound, afterEvaluateRound);
+    afterEvaluateRound: (stats: Stats) => void, showEvaluationMessages: boolean) {
+      super(startingTime, startingLevel, roundLevels, quizName, beforeStartTimer,
+        beforeEvaluateRound, afterEvaluateRound, showEvaluationMessages);
       this.incorrects = [];
   }
 

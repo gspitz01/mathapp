@@ -28,6 +28,7 @@ export class BaseQuizViewComponent implements OnInit, OnDestroy {
   buttonText: string;
   displayTarget = true;
   displayLevel = true;
+  displayEvaluationMessages = true;
   protected answerDisabled: boolean;
   protected maxLevel: number;
 
@@ -110,8 +111,11 @@ export class BaseQuizViewComponent implements OnInit, OnDestroy {
     if (this.route.snapshot.data.hasOwnProperty('displayTarget')) {
       this.displayTarget = this.route.snapshot.data['displayTarget'];
     }
-    if(this.route.snapshot.data.hasOwnProperty('displayLevel')) {
+    if (this.route.snapshot.data.hasOwnProperty('displayLevel')) {
       this.displayLevel = this.route.snapshot.data['displayLevel'];
+    }
+    if (this.route.snapshot.data.hasOwnProperty('displayEvaluationMessages')) {
+      this.displayEvaluationMessages = this.route.snapshot.data['displayEvaluationMessages'];
     }
     const levelOrder = this.route.snapshot.data['levelOrder'];
     // If the level order is two dimensional, we should be able

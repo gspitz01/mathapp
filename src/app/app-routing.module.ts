@@ -20,7 +20,8 @@ const routes: Routes = [
       quizName: 'Baseline Test',
       title: 'Baseline Test',
       displayTarget: false,
-      displayLevel: false
+      displayLevel: false,
+      displayEvaluationMessages: false
     }
   },
   { path: '', redirectTo: '/home', pathMatch: 'full' },

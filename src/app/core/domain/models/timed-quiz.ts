@@ -35,7 +35,7 @@ export abstract class TimedQuiz {
    */
   constructor(readonly startingTime: Seconds, startingLevel: number, readonly roundLevels: RoundLevel[],
     readonly quizName: QuizName, readonly beforeStartTimer: () => void, readonly beforeEvaluateRound: () => void,
-    readonly afterEvaluateRound: (stats: Stats) => void) {
+    readonly afterEvaluateRound: (stats: Stats) => void, readonly showEvaluationMessages: boolean) {
     this.currentLevel = startingLevel;
     this.currentTime = startingTime.value;
     this.currentRound = null;
@@ -88,11 +88,13 @@ export abstract class TimedQuiz {
     if (correctAnswers >= questionThreshold) {
       if (this.currentLevel < this.roundLevels.length - 1) {
         this.currentLevel++;
-        this.messages = ADVANCE_TO_NEXT_LEVEL_TEXT;
-      } else {
+        if (this.showEvaluationMessages) {
+          this.messages = ADVANCE_TO_NEXT_LEVEL_TEXT;
+        }
+      } else if (this.showEvaluationMessages) {
         this.messages = FINISHED_HIGHEST_LEVEL_TEXT;
       }
-    } else {
+    } else if (this.showEvaluationMessages) {
       this.messages = NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT;
     }
 

@@ -18,7 +18,7 @@ describe('BasicTimedQuiz', () => {
 
   beforeEach(() => {
     quiz = new BasicTimedQuiz(startingTime, startingLevel, BASIC_MULTIPLICATION_LEVEL_ORDER[0],
-      'Multi', () => {}, () => {}, spyAfterEvaluateRound);
+      'Multi', () => {}, () => {}, spyAfterEvaluateRound, true);
   });
 
   it('should create new round of BasicTimeLimitedRound', () => {

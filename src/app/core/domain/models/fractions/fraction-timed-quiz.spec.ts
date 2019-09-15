@@ -34,7 +34,7 @@ describe('FractionTimedQuiz', () => {
 
   beforeEach(() => {
     quiz = new FractionTimedQuiz(startingTime, startingLevel, FRACTION_ADDITION_LEVEL_ORDER, 'QuizName',
-      () => {}, () => {}, spyAfterEvaluateRound);
+      () => {}, () => {}, spyAfterEvaluateRound, true);
   });
 
   it('should create new FractionTimeLimitedRound', () => {

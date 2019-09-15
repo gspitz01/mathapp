@@ -69,7 +69,7 @@ describe('BaseQuizViewComponent', () => {
 
   it('should not send maxLevels to statsService if currentLevel less than maxLevel', () => {
     component.quizName = quizName;
-    component.quiz = new MockTimedQuiz(new Seconds(60), 1, BASIC_ADDITION_LEVEL_ORDER, quizName, () => {}, () => {}, () => {});
+    component.quiz = new MockTimedQuiz(new Seconds(60), 1, BASIC_ADDITION_LEVEL_ORDER, quizName, () => {}, () => {}, () => {}, true);
     component.getMaxLevels();
     const stats = new Stats(new Date(), new Date(), 'whatever', 15, []);
     component.sendStats(stats);
@@ -80,7 +80,7 @@ describe('BaseQuizViewComponent', () => {
   it('should not set quiz current level if timer is running', () => {
     component.quizName = quizName;
     const level = 1;
-    component.quiz = new MockTimedQuiz(new Seconds(60), level, BASIC_ADDITION_LEVEL_ORDER, quizName, () => {}, () => {}, () => {});
+    component.quiz = new MockTimedQuiz(new Seconds(60), level, BASIC_ADDITION_LEVEL_ORDER, quizName, () => {}, () => {}, () => {}, true);
     component.quiz.startTimer();
     component.getMaxLevels();
     component.quiz.stopTimer();

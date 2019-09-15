@@ -53,7 +53,7 @@ describe('TimedQuiz', () => {
     spyBeforeEvaluateRound = jasmine.createSpy('BeforeEvaluateRound');
     spyAfterEvaluateRound = jasmine.createSpy('AfterEvaluateRound');
     quiz = new MockTimedQuiz(startingTime, startingLevel, roundLevels, 'Mock Quiz',
-      spyBeforeStartTimer, spyBeforeEvaluateRound, spyAfterEvaluateRound);
+      spyBeforeStartTimer, spyBeforeEvaluateRound, spyAfterEvaluateRound, true);
     // Make sure timeRemaining counts down properly when spyQuestionRound.tick() is called
     let timeRemaining = startingTime.value;
     spyQuestionRound.tick.and.callFake(() => {

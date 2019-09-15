@@ -48,7 +48,8 @@ export class BasicQuizViewComponent extends BaseQuizViewComponent implements OnI
       // afterEvaluateRound():
       (stats: Stats) => {
         this.sendStats(stats);
-      }
+      },
+      this.displayEvaluationMessages
     );
     this.resetUI();
     this.getMaxLevels();

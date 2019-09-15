@@ -36,7 +36,7 @@ describe('SimplifyFractionTimedQuiz', () => {
 
   beforeEach(() => {
     quiz = new SimplifyFractionTimedQuiz(startingTime, startingLevel, SIMPLIFY_FRACTION_LEVEL_ORDER,
-      'Semper Fi', () => {}, () => {}, spyAfterEvaluateRound);
+      'Semper Fi', () => {}, () => {}, spyAfterEvaluateRound, true);
   });
 
   it('should create new SimplifyFractionTimeLimitedRound', () => {
