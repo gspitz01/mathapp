@@ -12,8 +12,8 @@ export class SimplifyFractionRoundLevel extends RoundLevel {
 
   constructor(name: string, questionThresholdPerSixtySeconds,
     readonly numeratorLimitations: BasicOperandLimitations, readonly denominatorLimitations: BasicOperandLimitations,
-    readonly gcfLimit: number, readonly resultLimitations: FractionResultLimitations) {
-      super(name, [SIMPLIFY_FRACTION], questionThresholdPerSixtySeconds);
+    readonly gcfLimit: number, readonly resultLimitations: FractionResultLimitations, totalSkips: number) {
+      super(name, [SIMPLIFY_FRACTION], questionThresholdPerSixtySeconds, totalSkips);
   }
 
   createQuestion(): OperatorQuestion {

@@ -10,8 +10,9 @@ export class FractionRoundLevel extends RoundLevel {
 
   constructor(name: string, operators: FractionOperator[],  questionThresholdPerSixtySeconds: number,
       readonly operand1Limitations: FractionOperandLimitations,
-      readonly operand2Limitations: FractionOperandLimitations, readonly resultLimitations: FractionResultLimitations) {
-        super(name, operators, questionThresholdPerSixtySeconds);
+      readonly operand2Limitations: FractionOperandLimitations,
+      readonly resultLimitations: FractionResultLimitations, totalSkips: number) {
+        super(name, operators, questionThresholdPerSixtySeconds, totalSkips);
       }
 
   createQuestion(): OperatorQuestion {

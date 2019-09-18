@@ -13,7 +13,7 @@ export class BasicDivisionRoundLevel extends BasicFocusNumberedRoundLevel {
    */
   constructor(name: string, questionThresholdPerSixtySeconds: number, focusNumber: number, resultLowerLimit: number,
     resultUpperLimit: number) {
-      super(name, [DIVISION], questionThresholdPerSixtySeconds, focusNumber, resultLowerLimit, resultUpperLimit);
+      super(name, [DIVISION], questionThresholdPerSixtySeconds, focusNumber, resultLowerLimit, resultUpperLimit, 10);
   }
 
   protected createOperand(): number {

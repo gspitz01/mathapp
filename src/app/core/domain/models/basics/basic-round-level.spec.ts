@@ -16,7 +16,7 @@ describe('BasicRoundLevel', () => {
     const op2Limitations = new BasicOperandLimitations(true, 0, 2, false);
     const resultLimitations = new BasicResultLimitations(true, false);
     const roundLevel = new BasicRoundLevel('Easy Whatever', operators, questionThreshold,
-      op1Limitations, op2Limitations, resultLimitations, false);
+      op1Limitations, op2Limitations, resultLimitations, false, 10);
     const question = roundLevel.createQuestion() as BasicOperatorQuestion;
     expect(question).toEqual(jasmine.any(BasicOperatorQuestion));
     expect(question.operand1.value).toBeLessThan(100);

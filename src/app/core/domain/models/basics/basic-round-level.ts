@@ -11,8 +11,8 @@ export class BasicRoundLevel extends RoundLevel {
   constructor(name: string, operators: BasicOperator[],  questionThresholdPerSixtySeconds: number,
       readonly operand1Limitations: BasicOperandLimitations,
       readonly operand2Limitations: BasicOperandLimitations, readonly resultLimitations: BasicResultLimitations,
-      readonly reversible: boolean) {
-    super(name, operators, questionThresholdPerSixtySeconds);
+      readonly reversible: boolean, totalSkips: number) {
+    super(name, operators, questionThresholdPerSixtySeconds, totalSkips);
   }
 
   createQuestion(): OperatorQuestion {

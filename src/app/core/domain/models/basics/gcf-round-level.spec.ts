@@ -6,7 +6,7 @@ describe('GcfRoundLevel', () => {
   const opLimits = new BasicOperandLimitations(true, 1, 10, true);
 
   it('should create OperatorQuestion', () => {
-    const roundLevel = new GcfRoundLevel('Whatevers', 15, opLimits, opLimits);
+    const roundLevel = new GcfRoundLevel('Whatevers', 15, opLimits, opLimits, 10);
     expect(roundLevel.createQuestion()).toEqual(jasmine.any(BasicOperatorQuestion));
   });
 });

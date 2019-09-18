@@ -28,7 +28,7 @@ describe('FractionRoundLevel', () => {
     const resultDenLimitations = new BasicResultLimitations(true, false);
     const resultLimitations = new FractionResultLimitations(resultNumLimitations, resultDenLimitations);
     const round = new FractionRoundLevel('Easy whatevs', operators, questionThreshold,
-      op1Limitations, op2Limitations, resultLimitations);
+      op1Limitations, op2Limitations, resultLimitations, 10);
     const question = round.createQuestion() as FractionOperatorQuestion;
     expect(question).toEqual(jasmine.any(FractionOperatorQuestion));
     expect(question.operand1.numerator.value).toBeLessThan(100);

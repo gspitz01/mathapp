@@ -18,7 +18,7 @@ describe('SimplifyFractionRoundLevel', () => {
     const resultLimitations = new FractionResultLimitations(resultNumLimitations, resultDenLimitations);
 
     const round = new SimplifyFractionRoundLevel('Easy Simp', questionThreshold, numLimitations, denLimitations,
-      gcfLimit, resultLimitations);
+      gcfLimit, resultLimitations, 10);
     const question = round.createQuestion() as SimplifyFractionOperatorQuestion;
 
     expect(question).toEqual(jasmine.any(SimplifyFractionOperatorQuestion));

@@ -5,7 +5,7 @@ export abstract class RoundLevel {
   id: string;
 
   constructor(readonly name: string, readonly operators: Operator[],
-    readonly questionThresholdPerSixtySeconds: number) {
+    readonly questionThresholdPerSixtySeconds: number, readonly totalSkips: number) {
       this.id = this.convertNameToId();
   }
 

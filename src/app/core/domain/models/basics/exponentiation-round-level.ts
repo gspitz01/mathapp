@@ -3,8 +3,8 @@ import { EXPONENTIATION } from './basic-operators';
 
 export class ExponentiationRoundLevel extends BasicFocusNumberedRoundLevel {
   constructor(name: string, questionThresholdPerSixtySeconds: number, focusNumber: number, baseLowerLimit: number,
-    baseUpperLImit: number) {
-      super(name, [EXPONENTIATION], questionThresholdPerSixtySeconds, focusNumber, baseLowerLimit, baseUpperLImit);
+    baseUpperLImit: number, totalSkips: number) {
+      super(name, [EXPONENTIATION], questionThresholdPerSixtySeconds, focusNumber, baseLowerLimit, baseUpperLImit, totalSkips);
     }
 
   protected createOperand(): number {

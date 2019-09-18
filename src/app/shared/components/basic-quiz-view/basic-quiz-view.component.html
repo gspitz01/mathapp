@@ -28,7 +28,7 @@
               <td><span class="operand2">{{quiz.currentRound.getCurrentQuestion().operand2.value}}</span></td>
             </tr>
           </table>
-          <input (disabled)="answerDisabled"
+          <input [disabled]="answerDisabled"
           (keyup.enter)="onEnter()"
           autofocus
           #answerInp
@@ -36,7 +36,8 @@
           pattern="[0-9\-]*"
           autocomplete="off"
           type="text" name="answer" id="answer" />
-          <button id="skip" (click)="onSkip()">Skip</button>
+          <span class="skips-message">Skips left: {{quiz.currentRound.skipsRemaining}}</span>
+          <button id="skip" (click)="onSkip()" [disabled]="skipsDisabled">Skip</button>
         </div>
         <div *ngIf="answer.errors?.pattern" class="answer-error mat-error">Answer must be a number.</div>
       </div>

@@ -3,7 +3,7 @@ import { BasicOperatorQuestion } from './basic-operator-question';
 import { EXPONENTIATION } from './basic-operators';
 
 describe('ExponentiationRoundLevel', () => {
-  const level = new ExponentiationRoundLevel('Whatever', 10, 2, 0, 10);
+  const level = new ExponentiationRoundLevel('Whatever', 10, 2, 0, 10, 10);
 
   it('should create a question with the focus number as the second operand', () => {
     const question = level.createQuestion() as BasicOperatorQuestion;

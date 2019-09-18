@@ -5,8 +5,9 @@ export const LCM_LEVEL_ORDER = [];
 
 const thresholds = [15, 12, 10, 8, 5];
 const limits = [10, 15, 20, 25, 30];
+const skips = [7, 6, 5, 4, 3];
 const difficultyNames = ['Easy', 'Medium', 'Challenging', 'Hard', 'Expert'];
 for (let i = 0; i < difficultyNames.length; i++) {
   LCM_LEVEL_ORDER.push(new LcmRoundLevel(difficultyNames[i] + ' Least Common Multiple',
-    thresholds[i], new BasicOperandLimitations(true, 0, limits[i], false)));
+    thresholds[i], new BasicOperandLimitations(true, 0, limits[i], false), skips[i]));
 }

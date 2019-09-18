@@ -32,7 +32,7 @@ describe('QuestionRound', () => {
     }
   }
 
-  const roundLevel = new MockRoundLevel('name', [ADDITION], 15);
+  const roundLevel = new MockRoundLevel('name', [ADDITION], 15, 10);
   let round: MockQuestionRound;
 
   beforeEach(() => {

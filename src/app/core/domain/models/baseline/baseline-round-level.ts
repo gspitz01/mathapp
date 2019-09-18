@@ -13,11 +13,11 @@ export class BaselineRoundLevel extends RoundLevel {
   private operatorWeights: number[];
   private operatorWeightSum: number;
 
-  constructor(name: string, questionThresholdPerSixtySeconds: number) {
+  constructor(name: string, questionThresholdPerSixtySeconds: number, totalSkips: number) {
     // Need to have combination levels 1-4, mult times tables 3-9 with all integers possible,
     // div same as mult, Gcf two digit relatively non-prime, Lcm same as Gcf, Expo only squares
     super(name, [ADDITION, SUBTRACTION, MULTIPLICATION, DIVISION, GCF,
-      LCM, EXPONENTIATION], questionThresholdPerSixtySeconds);
+      LCM, EXPONENTIATION], questionThresholdPerSixtySeconds, totalSkips);
     // Operator weights for how often they should arise
     this.operatorWeights = [0.2, 0.2, 0.2, 0.2, 0.1, 0.1, 0.2];
     this.operatorWeightSum = this.operatorWeights.reduce((sum, current) => sum + current, 0);

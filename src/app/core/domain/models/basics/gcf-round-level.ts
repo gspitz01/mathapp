@@ -17,9 +17,9 @@ export class GcfRoundLevel extends RoundLevel {
    * @param multiplierLimit Limit for the number by which to multiply each operand
    */
   constructor(name: string, questionThresholdPerSixtySeconds: number, readonly baseNumberLimit: BasicOperandLimitations,
-    readonly multiplierLimit: BasicOperandLimitations) {
+    readonly multiplierLimit: BasicOperandLimitations, totalSkips: number) {
 
-    super(name, [GCF], questionThresholdPerSixtySeconds);
+    super(name, [GCF], questionThresholdPerSixtySeconds, totalSkips);
   }
 
   createQuestion(): OperatorQuestion {

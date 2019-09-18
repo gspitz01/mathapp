@@ -29,7 +29,8 @@ export class BaseQuizViewComponent implements OnInit, OnDestroy {
   displayTarget = true;
   displayLevel = true;
   displayEvaluationMessages = true;
-  protected answerDisabled: boolean;
+  answerDisabled: boolean;
+  skipsDisabled: boolean;
   protected maxLevel: number;
 
   // Subject to cue destroying subscription of maxLevels
@@ -64,6 +65,7 @@ export class BaseQuizViewComponent implements OnInit, OnDestroy {
   resetUI() {
     this.buttonText = BaseQuizViewComponent.startButtonText;
     this.answerDisabled = true;
+    this.skipsDisabled = true;
     this.clearAnswerInput();
   }
 
@@ -71,6 +73,7 @@ export class BaseQuizViewComponent implements OnInit, OnDestroy {
     this.clearAnswerInput();
     this.buttonText = BaseQuizViewComponent.stopButtonText;
     this.answerDisabled = false;
+    this.skipsDisabled = false;
   }
 
   getMaxLevels() {

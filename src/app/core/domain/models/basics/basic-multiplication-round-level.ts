@@ -15,7 +15,7 @@ export class BasicMultiplicationRoundLevel extends BasicFocusNumberedRoundLevel 
    */
   constructor(name: string, questionThresholdPerSixtySeconds: number, focusNumber: number, lowerFactorLimit: number,
     upperFactorLimit: number) {
-    super(name, [MULTIPLICATION], questionThresholdPerSixtySeconds, focusNumber, lowerFactorLimit, upperFactorLimit);
+    super(name, [MULTIPLICATION], questionThresholdPerSixtySeconds, focusNumber, lowerFactorLimit, upperFactorLimit, 10);
   }
 
   /**

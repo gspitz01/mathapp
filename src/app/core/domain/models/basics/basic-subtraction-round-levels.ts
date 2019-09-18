@@ -15,6 +15,7 @@ for (let i = 0; i < 5; i++) {
   levelNames.push(levelName);
 }
 const targets = [15, 15, 15, 15, 20];
+const skips = [7, 6, 5, 4, 3];
 const singleDigitBelowSix = new BasicOperandLimitations(true, 0, 6, false);
 const singleDigitPositiveWholeNumbers = new BasicOperandLimitations(true, 0, 9, false);
 const twoDigitBelowSixteen = new BasicOperandLimitations(true, 10, 16, false);
@@ -31,5 +32,5 @@ const limitations = [
 export const BASIC_SUBTRACTION_LEVEL_ORDER: BasicRoundLevel[] = [];
 for (let i = 0; i < levelNames.length; i++) {
   BASIC_SUBTRACTION_LEVEL_ORDER.push(new BasicRoundLevel(levelNames[i], [SUBTRACTION], targets[i],
-    limitations[i][0], limitations[i][1], null, false));
+    limitations[i][0], limitations[i][1], null, false, skips[i]));
 }

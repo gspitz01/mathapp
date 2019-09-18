@@ -43,7 +43,7 @@ describe('TimedQuiz', () => {
     expect(quiz.isTimerRunning()).toBeTruthy();
   }
 
-  const roundLevels = [new MockRoundLevel('level 1', [ADDITION], 10), new MockRoundLevel('level 2', [SUBTRACTION], 6)];
+  const roundLevels = [new MockRoundLevel('level 1', [ADDITION], 10, 10), new MockRoundLevel('level 2', [SUBTRACTION], 6, 10)];
 
   beforeEach(() => {
     spyQuestionRound = jasmine.createSpyObj('QuestionRound',

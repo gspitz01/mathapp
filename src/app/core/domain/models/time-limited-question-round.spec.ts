@@ -30,7 +30,7 @@ describe('TimeLimitedQuestionRound', () => {
   }
 
   const initialTime = new Seconds(60);
-  const level = new MockRoundLevel('roundName', [ADDITION], 20);
+  const level = new MockRoundLevel('roundName', [ADDITION], 20, 10);
   let round: TimeLimitedQuestionRound;
 
   beforeEach(() => {

@@ -134,10 +134,11 @@ export abstract class TimedQuiz {
 
   skipQuestion() {
     if (this.timer != null) {
-      this.currentRound.skipQuestion();
-      this.finalizeQuestion(this.getQuestionSuccess(QuestionFinalizationReason.Skipped));
-      this.messages = DisplayText.SKIPPED_TEXT;
-      this.resetIncorrects();
+      if (this.currentRound.skipQuestion()) {
+        this.finalizeQuestion(this.getQuestionSuccess(QuestionFinalizationReason.Skipped));
+        this.messages = DisplayText.SKIPPED_TEXT;
+        this.resetIncorrects();
+      }
     }
   }
 

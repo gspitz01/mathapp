@@ -32,5 +32,5 @@ const limitations = [
 export const BASIC_ADDITION_LEVEL_ORDER: BasicRoundLevel[] = [];
 for (let i = 0; i < levelNames.length; i++) {
   BASIC_ADDITION_LEVEL_ORDER.push(new BasicRoundLevel(levelNames[i], [ADDITION], targets[i],
-    limitations[i][0], limitations[i][1], null, true));
+    limitations[i][0], limitations[i][1], null, true, 10));
 }

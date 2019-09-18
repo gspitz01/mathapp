@@ -8,12 +8,14 @@ export abstract class QuestionRound {
   private questionsAnswered: number;
   private wrongAnswers: number;
   private sameQuestion: boolean;
+  skipsRemaining: number;
 
   constructor(readonly level: RoundLevel) {
     this.currentQuestion = null;
     this.questionsAnswered = 0;
     this.wrongAnswers = 0;
     this.sameQuestion = false;
+    this.skipsRemaining = level.totalSkips;
   }
 
   start() {
@@ -64,13 +66,18 @@ export abstract class QuestionRound {
     }
   }
 
-  skipQuestion() {
+  skipQuestion(): boolean {
     if (this.currentQuestion != null) {
-      if (this.shouldCreateNewQuestion()) {
-        this.currentQuestion = this.level.createQuestion();
-        this.sameQuestion = false;
+      if (this.skipsRemaining > 0) {
+        if (this.shouldCreateNewQuestion()) {
+          this.currentQuestion = this.level.createQuestion();
+          this.sameQuestion = false;
+        }
+        this.skipsRemaining--;
+        return true;
       }
     }
+    return false;
   }
 
   /**

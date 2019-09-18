@@ -7,8 +7,9 @@ import { BasicOperator } from './basic-operator';
 import { BasicOperandLimitations } from './basic-operand-limitations';
 
 export class LcmRoundLevel extends RoundLevel {
-  constructor(name: string, questionThresholdPerSixtySeconds: number, readonly operandLimits: BasicOperandLimitations) {
-      super(name, [LCM], questionThresholdPerSixtySeconds);
+  constructor(name: string, questionThresholdPerSixtySeconds: number, readonly operandLimits: BasicOperandLimitations,
+    totalSkips: number) {
+      super(name, [LCM], questionThresholdPerSixtySeconds, totalSkips);
     }
 
   createQuestion(): OperatorQuestion {

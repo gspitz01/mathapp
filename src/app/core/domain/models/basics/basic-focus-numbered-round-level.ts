@@ -23,8 +23,8 @@ export abstract class BasicFocusNumberedRoundLevel extends RoundLevel {
    *           or is also used to calculate numberOfPossibleOperands which can also be used by createOperand
    */
   constructor(name: string, operators: Operator[], questionThresholdPerSixtySeconds: number,
-    readonly focusNumber: number, readonly lowerLimit: number, readonly upperLimit: number) {
-      super(name, operators, questionThresholdPerSixtySeconds);
+    readonly focusNumber: number, readonly lowerLimit: number, readonly upperLimit: number, totalSkips: number) {
+      super(name, operators, questionThresholdPerSixtySeconds, totalSkips);
       this.operandsAlreadySeen = [];
       this.numberOfPossibleOperands = upperLimit - lowerLimit + 1;
     }

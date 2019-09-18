@@ -72,6 +72,9 @@ export class BasicQuizViewComponent extends BaseQuizViewComponent implements OnI
   onSkip() {
     if (!this.answerDisabled) {
       this.quiz.skipQuestion();
+      if (this.quiz.currentRound.skipsRemaining === 0) {
+        this.skipsDisabled = true;
+      }
       this.clearAnswerInput();
     }
   }

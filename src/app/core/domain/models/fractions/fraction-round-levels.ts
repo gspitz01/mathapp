@@ -54,85 +54,85 @@ const fractionSubtractionResultLimitations = new FractionResultLimitations(fract
 // Addition
 export const EASY_FRACTION_ADDITION = new FractionRoundLevel('Easy Fraction Addition', justFractionAddition,
   10, fractionEasyOperandLimitations, fractionEasyOperandLimitations,
-  fractionEasyResultLimitations);
+  fractionEasyResultLimitations, 7);
 
 export const MEDIUM_FRACTION_ADDITION = new FractionRoundLevel('Medium Fraction Addition', justFractionAddition,
   8, fractionMediumOperandLimitations, fractionEasyOperandLimitations,
-  fractionEasyResultLimitations);
+  fractionEasyResultLimitations, 6);
 
 export const CHALLENGING_FRACTION_ADDITION = new FractionRoundLevel('Challenging Fraction Addition', justFractionAddition,
   6, fractionMediumOperandLimitations, fractionMediumOperandLimitations,
-  fractionEasyResultLimitations);
+  fractionEasyResultLimitations, 5);
 
 export const HARD_FRACTION_ADDITION = new FractionRoundLevel('Hard Fraction Addition', justFractionAddition,
   4, fractionChallengingOperandLimitations, fractionMediumOperandLimitations,
-  fractionEasyResultLimitations);
+  fractionEasyResultLimitations, 4);
 
 export const EXPERT_FRACTION_ADDITION = new FractionRoundLevel('Expert Fraction Addition', justFractionAddition,
   3, fractionChallengingOperandLimitations, fractionChallengingOperandLimitations,
-  fractionEasyResultLimitations);
+  fractionEasyResultLimitations, 3);
 
 // Subtraction
 export const EASY_FRACTION_SUBTRACTION = new FractionRoundLevel('Easy Fraction Subtraction', justFractionSubtraction,
   10, fractionEasyOperandLimitations, fractionEasyOperandLimitations,
-  fractionSubtractionResultLimitations);
+  fractionSubtractionResultLimitations, 7);
 
 export const MEDIUM_FRACTION_SUBTRACTION = new FractionRoundLevel('Medium Fraction Subtraction', justFractionSubtraction,
   8, fractionMediumOperandLimitations, fractionEasyOperandLimitations,
-  fractionSubtractionResultLimitations);
+  fractionSubtractionResultLimitations, 6);
 
 export const CHALLENGING_FRACTION_SUBTRACTION = new FractionRoundLevel('Challenging Fraction Subtraction', justFractionSubtraction,
   6, fractionMediumOperandLimitations, fractionMediumOperandLimitations,
-  fractionSubtractionResultLimitations);
+  fractionSubtractionResultLimitations, 5);
 
 export const HARD_FRACTION_SUBTRACTION = new FractionRoundLevel('Hard Fraction Subtraction', justFractionSubtraction,
   4, fractionChallengingOperandLimitations, fractionMediumOperandLimitations,
-  fractionSubtractionResultLimitations);
+  fractionSubtractionResultLimitations, 4);
 
 export const EXPERT_FRACTION_SUBTRACTION = new FractionRoundLevel('Expert Fraction Subtraction', justFractionSubtraction,
   3, fractionChallengingOperandLimitations, fractionChallengingOperandLimitations,
-  fractionSubtractionResultLimitations);
+  fractionSubtractionResultLimitations, 3);
 
 // Multiplication
 export const EASY_FRACTION_MULTIPLICATION = new FractionRoundLevel('Easy Fraction Multiplication', justFractionMultiplication,
   10, fractionEasyOperandLimitations, fractionEasyOperandLimitations,
-  fractionEasyResultLimitations);
+  fractionEasyResultLimitations, 7);
 
 export const MEDIUM_FRACTION_MULTIPLICATION = new FractionRoundLevel('Medium Fraction Multiplication', justFractionMultiplication,
-  10, fractionMediumOperandLimitations, fractionEasyOperandLimitations, fractionEasyResultLimitations);
+  10, fractionMediumOperandLimitations, fractionEasyOperandLimitations, fractionEasyResultLimitations, 6);
 
 export const CHALLENGING_FRACTION_MULTIPLICATION = new FractionRoundLevel('Challenging Fraciton Multiplication',
   justFractionMultiplication, 10, fractionMediumOperandLimitations,
-  fractionMediumOperandLimitations, fractionEasyResultLimitations);
+  fractionMediumOperandLimitations, fractionEasyResultLimitations, 5);
 
 export const HARD_FRACTION_MULTIPLICATION = new FractionRoundLevel('Hard Fraction Multiplication', justFractionMultiplication,
   10, fractionChallengingOperandLimitations, fractionMediumOperandLimitations,
-  fractionEasyResultLimitations);
+  fractionEasyResultLimitations, 4);
 
 export const EXPERT_FRACTION_MULTIPLICATION = new FractionRoundLevel('Expert Fraction Multiplication', justFractionMultiplication,
   10, fractionChallengingOperandLimitations, fractionChallengingOperandLimitations,
-  fractionEasyResultLimitations);
+  fractionEasyResultLimitations, 3);
 
 // Division
 export const EASY_FRACTION_DIVISION = new FractionRoundLevel('Easy Fraction Division', justFractionDivision,
   10, fractionEasyDivisionOperandLimitations, fractionEasyDivisionOperandLimitations,
-  fractionEasyResultLimitations);
+  fractionEasyResultLimitations, 7);
 
 export const MEDIUM_FRACTION_DIVISION = new FractionRoundLevel('Medium Fraction Division', justFractionDivision,
   8, fractionMediumDivisionOperandLimitations, fractionEasyDivisionOperandLimitations,
-  fractionEasyResultLimitations);
+  fractionEasyResultLimitations, 6);
 
 export const CHALLENGING_FRACTION_DIVISION = new FractionRoundLevel('Challenging Fraction Division', justFractionDivision,
   6, fractionMediumDivisionOperandLimitations, fractionMediumDivisionOperandLimitations,
-  fractionEasyResultLimitations);
+  fractionEasyResultLimitations, 5);
 
 export const HARD_FRACTION_DIVISION = new FractionRoundLevel('Hard Fraction Division', justFractionDivision,
   4, fractionChallengingDivisionOperandLimitations,
-  fractionMediumDivisionOperandLimitations, fractionEasyResultLimitations);
+  fractionMediumDivisionOperandLimitations, fractionEasyResultLimitations, 4);
 
 export const EXPERT_FRACTION_DIVISION = new FractionRoundLevel('Expert Fraction Division', justFractionDivision,
   3, fractionChallengingDivisionOperandLimitations,
-  fractionChallengingDivisionOperandLimitations, fractionEasyResultLimitations);
+  fractionChallengingDivisionOperandLimitations, fractionEasyResultLimitations, 3);
 
 export const FRACTION_ADDITION_LEVEL_ORDER = [
   EASY_FRACTION_ADDITION,

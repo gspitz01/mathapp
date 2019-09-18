@@ -16,7 +16,7 @@ const routes: Routes = [
     data: {
       startingLevel: 0,
       startingTime: 120,
-      levelOrder: [new BaselineRoundLevel('Baseline Test', 20)],
+      levelOrder: [new BaselineRoundLevel('Baseline Test', 20, 5)],
       quizName: 'Baseline Test',
       title: 'Baseline Test',
       displayTarget: false,
