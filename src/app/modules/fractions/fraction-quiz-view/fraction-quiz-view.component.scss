@@ -49,12 +49,27 @@
 
       &.fraction-num {
         border-bottom: 2px solid $rich-black;
+        text-align: center;
+      }
+
+      &.fraction-den {
+        text-align: center;
       }
     }
   }
 
+  .skips-message {
+    margin-top: 0.6em;
+    font-size: 0.4em;
+  }
+
+  #skip {
+    margin-top: 0.3em;
+  }
+
+
   input {
-    width: 3em;
+    width: 1.5em;
     text-align: right;
     font-size: 24pt;
   }

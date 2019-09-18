@@ -29,7 +29,7 @@
                 type="text" name="answer-num" id="answer-num" /></td>
             </tr>
             <tr>
-              <td colspan="3"><input (disabled)="answerDisabled"
+              <td colspan="3"><input [disabled]="answerDisabled"
                 (keyup.enter)="onEnter()"
                 [formControl]="answerDen"
                 pattern="[0-9\-]*"
@@ -37,7 +37,8 @@
                 type="text" name="answer-den" id="answer-den" /></td>
             </tr>
           </table>
-          <button id="skip" (click)="onSkip()">Skip</button>
+          <span class="skips-message">Skips left: {{quiz.currentRound.skipsRemaining}}</span>
+          <button id="skip" (click)="onSkip()" [disabled]="skipsDisabled">Skip</button>
         </div>
         <div *ngIf="answerNum.errors?.pattern||answerDen.errors?.pattern" class="answer-error mat-error">Answer must be a number.</div>
       </div>
