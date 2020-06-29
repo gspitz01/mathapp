@@ -850,6 +850,23 @@ describe('StatsService', () => {
     });
   });
 
+  it('should return true if list of users empty on removeUsersFromClass()', (done) => {
+    const classId = 'UnusedClassId';
+    const objectRefSpy = jasmine.createSpyObj('AngularFireObject', ['remove']);
+    angularFireDbSpy.object.and.returnValue(objectRefSpy);
+    objectRefSpy.remove.and.returnValue(cold('x|', {x: true}));
+    securityServiceSpy.loggedIn.and.returnValue(cold('x|', {x: true}));
+    spyOn(service, 'removeUserFromClass').and.callThrough();
+    spyOn(service, 'getUsersFromClass').and.callThrough();
+    getTestScheduler().run(helpers => {
+      service.removeUsersFromClass(classId).subscribe(success => {
+        expect(success).toBeTruthy();
+        expect(service.removeUserFromClass).not.toHaveBeenCalled();
+        done();
+      });
+    });
+  });
+
   it('should return Observable of teachers on getTeachers()', () => {
     getTestScheduler().run(helpers => {
       const { expectObservable } = helpers;

@@ -194,13 +194,17 @@ export class StatsService {
           return this.getUsersFromClass(classId).pipe(
             first(),
             switchMap((users: User[]) => {
-              return of(users).pipe(
-                mergeMap((userz: User[]) => {
-                  return forkJoin(...userz.map(user => {
-                    return from(this.removeUserFromClass(user.id));
-                  }));
-                })
-              );
+              if (users.length === 0) {
+                return of(true);
+              } else {
+                return of(users).pipe(
+                  mergeMap((userz: User[]) => {
+                    return forkJoin(...userz.map(user => {
+                      return from(this.removeUserFromClass(user.id));
+                    }));
+                  })
+                );
+              }
             }),
             map(() => true),
             catchError(error => {
