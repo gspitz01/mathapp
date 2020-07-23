@@ -27,10 +27,7 @@ export class LoginComponent implements OnInit {
       });
     })
     .catch((error) => {
-      console.log('Error code: ' + error.code);
-      console.log('Error message: ' + error.message);
-      console.log('Email: ' + error.email);
-      console.log('Credential: ' + error.credential);
+      // TODO: Do some kind of error logging here
     });
   }
 

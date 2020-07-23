@@ -68,6 +68,7 @@ describe('LoginComponent', () => {
   it('should login via security service on login() then navigate to return route', () => {
     const fakeLogin = { then: function(callback) {
       callback();
+      return { catch: function(error) {}};
     }};
     spyOn(securityService, 'login').and.returnValue(fakeLogin);
     const returnRoute = 'return';

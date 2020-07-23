@@ -3,14 +3,14 @@ import { Routes } from '@angular/router';
 export const CONTENT_ROUTES: Routes = [
   {
     path: 'fundamentals',
-    loadChildren: './modules/basics/basics.module#BasicsModule'
+    loadChildren: () => import('../../modules/basics/basics.module').then(m => m.BasicsModule)
   },
   {
     path: 'fractions',
-    loadChildren: './modules/fractions/fractions.module#FractionsModule'
+    loadChildren: () => import('../../modules/fractions/fractions.module').then(m => m.FractionsModule)
   },
   {
     path: 'stats',
-    loadChildren: './modules/stats/stats.module#StatsModule'
+    loadChildren: () => import('../../modules/stats/stats.module').then(m => m.StatsModule)
   }
 ];
