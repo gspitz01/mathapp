@@ -46,7 +46,7 @@ describe('ExponentiationHomeComponent', () => {
   }));
 
   beforeEach(() => {
-    location = TestBed.get(Location);
+    location = TestBed.inject(Location);
     fixture = TestBed.createComponent(ExponentiationHomeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

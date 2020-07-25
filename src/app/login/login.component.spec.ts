@@ -51,8 +51,8 @@ describe('LoginComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
-    securityService = TestBed.get(SecurityService);
-    route = TestBed.get(ActivatedRoute);
+    securityService = TestBed.inject(SecurityService);
+    route = TestBed.inject(ActivatedRoute);
     fixture.detectChanges();
   });
 

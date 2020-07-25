@@ -46,7 +46,7 @@ describe('BasicMultiplicationHomeComponent', () => {
   }));
 
   beforeEach(() => {
-    location = TestBed.get(Location);
+    location = TestBed.inject(Location);
     fixture = TestBed.createComponent(BasicMultiplicationHomeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

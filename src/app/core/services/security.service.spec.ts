@@ -37,7 +37,7 @@ describe('SecurityService', () => {
         { provide: AngularFireAuth, useValue: angularFireAuthMock }
       ]
     });
-    service = TestBed.get(SecurityService);
+    service = TestBed.inject(SecurityService);
   });
 
   afterEach(() => { resetTestScheduler(); });

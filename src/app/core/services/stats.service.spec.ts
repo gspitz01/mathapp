@@ -293,7 +293,7 @@ describe('StatsService', () => {
       ]
     });
 
-    service = TestBed.get(StatsService);
+    service = TestBed.inject(StatsService);
   });
 
   afterEach(() => {

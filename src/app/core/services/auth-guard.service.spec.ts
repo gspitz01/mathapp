@@ -21,7 +21,7 @@ describe('AuthGuardService', () => {
       ]
     });
 
-    authGuardService = TestBed.get(AuthGuardService);
+    authGuardService = TestBed.inject(AuthGuardService);
   });
 
   it('should be created', () => {

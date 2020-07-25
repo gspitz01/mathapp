@@ -45,7 +45,7 @@ describe('BasicDivisionHomeComponent', () => {
   }));
 
   beforeEach(() => {
-    location = TestBed.get(Location);
+    location = TestBed.inject(Location);
     fixture = TestBed.createComponent(BasicDivisionHomeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

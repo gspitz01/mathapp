@@ -19,7 +19,7 @@ describe('StatsGuardService', () => {
       ]
     });
 
-    service = TestBed.get(StatsGuardService);
+    service = TestBed.inject(StatsGuardService);
   });
 
   it('should be created', () => {
