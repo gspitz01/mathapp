@@ -22,7 +22,7 @@ export class StatsService {
   constructor(private db: AngularFireDatabase,
     private security: SecurityService) {
       this.allUsers = this.db.list('users', ref => ref.orderByChild('lastName')).snapshotChanges().pipe(
-        map(users => users.map(user => ({ id: user.key, ...user.payload.val() })))
+        map(users => users.map(user => ({ id: user.key, ...(user.payload.val() as Object) })))
       );
       this.admin = zip(this.security.getAuthState(), this.getAdminSnapshot())
       .pipe(
@@ -220,13 +220,13 @@ export class StatsService {
 
   getTeachers(): Observable<any> {
     return this.db.list('teachers', ref => ref.orderByChild('lastName')).snapshotChanges().pipe(
-      map(teachers => teachers.map(teacher => ({id: teacher.key, ...teacher.payload.val()})))
+      map(teachers => teachers.map(teacher => ({id: teacher.key, ...(teacher.payload.val() as Object)})))
     );
   }
 
   getClassesFromTeacher(teacherId: string): Observable<any> {
     return this.db.list('teachers/' + teacherId + '/classes').snapshotChanges().pipe(
-      map(classes => classes.map(clazz => ({id: clazz.key, ...clazz.payload.val()})))
+      map(classes => classes.map(clazz => ({id: clazz.key, ...(clazz.payload.val() as Object)})))
     );
   }
 

@@ -20,7 +20,7 @@ export class SimplifyFractionComponent extends BaseQuizViewComponent implements 
 
   private answerNum = new FormControl('');
   private answerDen = new FormControl('');
-  @ViewChild('numeratorInput', { static: false }) numInput: ElementRef;
+  @ViewChild('numeratorInput') numInput: ElementRef;
 
   constructor(public statsService: StatsService, public route: ActivatedRoute) {
     super(statsService, route);

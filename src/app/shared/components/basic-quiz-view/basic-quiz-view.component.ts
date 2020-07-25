@@ -19,7 +19,7 @@ import { Operator } from 'src/app/core/domain/models/operator';
 export class BasicQuizViewComponent extends BaseQuizViewComponent implements OnInit {
 
   private answer = new FormControl('');
-  @ViewChild('answerInp', { static: false }) answerInput: ElementRef;
+  @ViewChild('answerInp') answerInput: ElementRef;
 
   constructor(public statsService: StatsService, public route: ActivatedRoute) {
     super(statsService, route);
