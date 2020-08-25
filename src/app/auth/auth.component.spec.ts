@@ -53,14 +53,15 @@ describe('AuthComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should show login link if not logged in', () => {
+  it('should show login link if not logged in', (done) => {
     fixture.whenStable().then(() => {
       const login = fixture.debugElement.query(By.css('.login'));
       expect(login.nativeElement).toBeTruthy();
+      done();
     });
   });
 
-  it('should logout and navigate to login on logout click', () => {
+  it('should logout and navigate to login on logout click', (done) => {
     // Trigger login
     loggedInSubject.next(true);
     fixture.detectChanges();
@@ -71,10 +72,11 @@ describe('AuthComponent', () => {
 
       expect(securityServiceSpy.logout).toHaveBeenCalled();
       expect(routerSpy.navigate).toHaveBeenCalledWith(['login']);
+      done();
     });
   });
 
-  it('should show current user name if logged in', () => {
+  it('should show current user name if logged in', (done) => {
     securityServiceSpy.currentUserDisplayName.and.returnValue(of(currentUserName));
     // Trigger login
     loggedInSubject.next(true);
@@ -83,10 +85,11 @@ describe('AuthComponent', () => {
     fixture.whenStable().then(() => {
       const currentUser = fixture.debugElement.query(By.css('.current-user'));
       expect(currentUser.nativeElement.textContent).toContain(currentUserName);
+      done();
     });
   });
 
-  it('should show stats link if admin', () => {
+  it('should show stats link if admin', (done) => {
     // Trigger Login
     loggedInSubject.next(true);
     fixture.detectChanges();
@@ -94,16 +97,18 @@ describe('AuthComponent', () => {
     fixture.whenStable().then(() => {
       const statsLink = fixture.debugElement.query(By.css('.stats'));
       expect(statsLink.nativeElement).toBeTruthy();
+      done();
     });
   });
 
-  it('should not show stats link if not admin', () => {
+  it('should not show stats link if not admin', (done) => {
     // Login starts out as false, so even though the admin credentials are right,
     // admin should be false without further setup
     fixture.detectChanges();
     fixture.whenStable().then(() => {
       const statsLink = fixture.debugElement.query(By.css('.stats'));
       expect(statsLink).toBeFalsy();
+      done();
     });
   });
 
