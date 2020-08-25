@@ -41,10 +41,11 @@ describe('StatsUserComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should show user name', () => {
+  it('should show user name', (done) => {
     fixture.whenStable().then(() => {
       const userNameElement = fixture.debugElement.query(By.css('h2'));
       expect(userNameElement.nativeElement.textContent).toContain(testUser.name);
+      done();
     });
   });
 

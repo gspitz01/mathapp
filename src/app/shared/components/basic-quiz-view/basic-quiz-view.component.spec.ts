@@ -102,10 +102,11 @@ describe('BasicQuizViewComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('start button should display "Start"', () => {
+  it('start button should display "Start"', (done) => {
     fixture.whenStable().then(() => {
       startButton = fixture.debugElement.query(By.css('#start'));
       expect(startButton.nativeElement.textContent).toBe('Start');
+      done();
     });
   });
 
@@ -114,16 +115,17 @@ describe('BasicQuizViewComponent', () => {
     expect(maxLevelsObj.subscribe).toHaveBeenCalled();
   });
 
-  it('click start changes it to stop', () => {
+  it('click start changes it to stop', (done) => {
     fixture.whenStable().then(() => {
       startButton = fixture.debugElement.query(By.css('#start'));
       startButton.nativeElement.click();
       fixture.detectChanges();
       expect(startButton.nativeElement.textContent).toBe('Stop');
+      done();
     });
   });
 
-  it('should stop timer if start pressed twice', () => {
+  it('should stop timer if start pressed twice', (done) => {
     fixture.whenStable().then(() => {
       startButton = fixture.debugElement.query(By.css('#start'));
       startButton.nativeElement.click();
@@ -131,10 +133,11 @@ describe('BasicQuizViewComponent', () => {
       startButton.nativeElement.click();
       expect(component.quiz.isTimerRunning()).toBeFalsy();
       expect(startButton.nativeElement.textContent).toBe('Start');
+      done();
     });
   });
 
-  it('after start pressed, should show question view for addition', () => {
+  it('after start pressed, should show question view for addition', (done) => {
     fixture.whenStable().then(() => {
       startButton = fixture.debugElement.query(By.css('#start'));
       startButton.nativeElement.click();
@@ -148,10 +151,11 @@ describe('BasicQuizViewComponent', () => {
 
       const correctAnswersView = getCorrectAnswersView(fixture);
       expect(correctAnswersView.nativeElement.textContent).toContain(0);
+      done();
     });
   });
 
-  it('after answer question correctly, should update views', () => {
+  it('after answer question correctly, should update views', (done) => {
     fixture.whenStable().then(() => {
       startButton = fixture.debugElement.query(By.css('#start'));
       startButton.nativeElement.click();
@@ -170,10 +174,11 @@ describe('BasicQuizViewComponent', () => {
       fixture.detectChanges();
       const correctAnswersView = getCorrectAnswersView(fixture);
       expect(correctAnswersView.nativeElement.textContent).toContain(1);
+      done();
     });
   });
 
-  it('after answer question incorrectly, should update views', () => {
+  it('after answer question incorrectly, should update views', (done) => {
     fixture.whenStable().then(() => {
       startButton = fixture.debugElement.query(By.css('#start'));
       startButton.nativeElement.click();
@@ -197,10 +202,11 @@ describe('BasicQuizViewComponent', () => {
       expect(correctAnswersView.nativeElement.textContent).toContain(0);
 
       expect(messagesView.nativeElement.textContent).toBe(DisplayText.WRONG_ANSWER_TEXT);
+      done();
     });
   });
 
-  it('after answer question incorrectly, then correctly, wrong answer text goes away', () => {
+  it('after answer question incorrectly, then correctly, wrong answer text goes away', (done) => {
     fixture.whenStable().then(() => {
       startButton = fixture.debugElement.query(By.css('#start'));
       startButton.nativeElement.click();
@@ -233,10 +239,11 @@ describe('BasicQuizViewComponent', () => {
       expect(correctAnswersView.nativeElement.textContent).toContain(1);
 
       expect(messagesView.nativeElement.textContent).toBe(DisplayText.CORRECT_ANSWER_TEXT);
+      done();
     });
   });
 
-  it('type in letters into input, shows error message', () => {
+  it('type in letters into input, shows error message', (done) => {
     fixture.whenStable().then(() => {
       startButton = fixture.debugElement.query(By.css('#start'));
       startButton.nativeElement.click();
@@ -252,10 +259,11 @@ describe('BasicQuizViewComponent', () => {
       fixture.detectChanges();
       answerErrorMessage = fixture.debugElement.query(By.css('.answer-error'));
       expect(answerErrorMessage.nativeElement.textContent).toContain('Answer must');
+      done();
     });
   });
 
-  it('should skip question when "Skip" clicked', () => {
+  it('should skip question when "Skip" clicked', (done) => {
     fixture.whenStable().then(() => {
       startButton = fixture.debugElement.query(By.css('#start'));
       startButton.nativeElement.click();
@@ -268,10 +276,11 @@ describe('BasicQuizViewComponent', () => {
       fixture.detectChanges();
 
       expect(component.quiz.skipQuestion).toHaveBeenCalled();
+      done();
     });
   });
 
-  it('clock ticks correctly', () => {
+  it('clock ticks correctly', (done) => {
     fixture.whenStable().then(() => {
       startButton = fixture.debugElement.query(By.css('#start'));
       startButton.nativeElement.click();
@@ -284,10 +293,11 @@ describe('BasicQuizViewComponent', () => {
       fixture.detectChanges();
 
       expect(timeRemainingView.nativeElement.textContent).toBe('59');
+      done();
     });
   });
 
-  it('let clock tick all the way down without answering, shows not enough questions answered message', () => {
+  it('let clock tick all the way down without answering, shows not enough questions answered message', (done) => {
     fixture.whenStable().then(() => {
       startButton = fixture.debugElement.query(By.css('#start'));
       startButton.nativeElement.click();
@@ -303,10 +313,11 @@ describe('BasicQuizViewComponent', () => {
       expect(timeRemainingView.nativeElement.textContent).toBe('0');
 
       expect(messagesView.nativeElement.textContent).toBe(DisplayText.NOT_ENOUGH_QUESTIONS_TO_ADVANCE_TEXT);
+      done();
     });
   });
 
-  it('let clock tick all the way down and answer enough questions correctly, shows next level message', () => {
+  it('let clock tick all the way down and answer enough questions correctly, shows next level message', (done) => {
     fixture.whenStable().then(() => {
       startButton = fixture.debugElement.query(By.css('#start'));
       startButton.nativeElement.click();
@@ -340,10 +351,11 @@ describe('BasicQuizViewComponent', () => {
 
       expect(timeRemainingView.nativeElement.textContent).toBe('0');
       expect(messagesView.nativeElement.textContent).toBe(DisplayText.ADVANCE_TO_NEXT_LEVEL_TEXT);
+      done();
     });
   });
 
-  it('finish all levels, shows finished highest level message', () => {
+  it('finish all levels, shows finished highest level message', (done) => {
     fixture.whenStable().then(() => {
       const levelView = fixture.debugElement.query(By.css('.level'));
       const levels = BASIC_ADDITION_LEVEL_ORDER.map<string>((value) => value.name);
@@ -392,6 +404,7 @@ describe('BasicQuizViewComponent', () => {
       }
 
       expect(messagesView.nativeElement.textContent).toBe(DisplayText.FINISHED_HIGHEST_LEVEL_TEXT);
+      done();
     });
   });
 });

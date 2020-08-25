@@ -28,7 +28,7 @@
               <td><span class="operand2">{{quiz.currentRound.getCurrentQuestion().operand2.value}}</span></td>
             </tr>
           </table>
-          <input [disabled]="answerDisabled"
+          <input (disabled)="answerDisabled"
           (keyup.enter)="onEnter()"
           autofocus
           #answerInp

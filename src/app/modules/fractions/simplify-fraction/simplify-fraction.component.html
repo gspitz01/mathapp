@@ -29,7 +29,7 @@
                 type="text" name="answer-num" id="answer-num" /></td>
             </tr>
             <tr>
-              <td colspan="3"><input [disabled]="answerDisabled"
+              <td colspan="3"><input (disabled)="answerDisabled"
                 (keyup.enter)="onEnter()"
                 [formControl]="answerDen"
                 pattern="[0-9\-]*"
