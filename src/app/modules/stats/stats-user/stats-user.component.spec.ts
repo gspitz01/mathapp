@@ -10,6 +10,7 @@ import { User } from 'src/app/core/domain/models/user';
 import { Stats } from 'src/app/core/domain/models/stats';
 import { QuestionStats } from 'src/app/core/domain/models/question-stats';
 import { QuestionSuccess } from 'src/app/core/domain/models/question-success';
+import { OPERATORS_DB_MAP } from 'src/app/core/domain/models/constants';
 
 describe('StatsUserComponent', () => {
   let component: StatsUserComponent;
@@ -57,5 +58,17 @@ describe('StatsUserComponent', () => {
     expect(tableDatas[1].nativeElement.textContent).toContain(pipe.transform(testUserStats[0].roundStart, 'short'));
     expect(tableDatas[1].nativeElement.textContent).toContain(pipe.transform(testUserStats[0].roundEnd, 'short'));
     expect(tableDatas[2].nativeElement.textContent).toBe(testUserStats[0].target.toString());
+  });
+
+  it('should return QuestionSuccess value on displaySuccess()', () => {
+    expect(component.displaySuccess(0)).toBe(QuestionSuccess[0]);
+  });
+
+  it('should return empty string if number not in OPERATORS_DB_MAP on displayOperator()', () => {
+    expect(component.displayOperator(-1)).toBe('');
+  });
+
+  it('should return correct display for operator on displayOperator()', () => {
+    expect(component.displayOperator(0)).toBe(OPERATORS_DB_MAP[0].display);
   });
 });
