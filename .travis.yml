@@ -13,6 +13,8 @@ addons:
     packages:
       - dpkg
       - google-chrome-stable
+    config:
+      allow-unauthenticated: true
 
 cache:
   directories:
