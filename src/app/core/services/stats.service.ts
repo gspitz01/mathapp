@@ -230,19 +230,6 @@ export class StatsService {
     );
   }
 
-  getAdmin(): Observable<any> {
-    return this.security.loggedIn().pipe(
-      first(),
-      map(loggedIn => {
-        if (loggedIn) {
-          return this.getAdminSnapshot();
-        } else {
-          return EMPTY;
-        }
-      })
-    );
-  }
-
   getAdminSnapshot(): Observable<any> {
     return this.security.currentUserId().pipe(
       first(),
